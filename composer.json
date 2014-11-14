@@ -1,0 +1,8 @@
+{
+  "name": "OrdercloudComposerPackage/Ordercloud",
+  "autoload": {
+    "psr-0" : {
+      "OrdercloudComposerPackage\\Ordercloud" : "Ordercloud"
+    }
+  }
+}
