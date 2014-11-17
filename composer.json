@@ -1,0 +1,8 @@
+{
+  "name": "OC/Ordercloud",
+  "autoload": {
+    "psr-0" : {
+        "OC\\Ordercloud" : "src/"
+    }
+  }
+}
