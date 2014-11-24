@@ -185,10 +185,10 @@ class Ordercloud implements OrdercloudInterface
         {
             $request = $this->client->put("/resource/product/criteria?access_token=" . $access_token, $this->requestConfig, json_encode($body));
         }
-
         try
         {
-            return $request->send()->json()["results"];
+            $response = $request->send()->json();
+            return isset($response["results"]) ? $response["results"] : array();
         }
         catch(BadRequestHttpException $e)
         {
