@@ -63,7 +63,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @return array - array of market places which the store is connected to
      *
-     * @throws OrdercloudException
+     * @throws OrdercloudException ClientErrorResponseException
      */
     public function getConnectedMarketPlaces($marketPlaceId)
     {
@@ -95,7 +95,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @return array - returns the store details
      *
-     * @throws OrdercloudException
+     * @throws OrdercloudException ClientErrorResponseException
      */
     public function getStore($storeId)
     {
@@ -133,7 +133,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @return array of market places
      *
-     * @throws OrdercloudException
+     * @throws OrdercloudException ClientErrorResponseException
      */
     public function getAllMarketPlaces()
     {
@@ -213,7 +213,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @return array - the product
      *
-     * @throws OrdercloudException
+     * @throws OrdercloudException ClientErrorResponseException
      *
      */
     public function getProduct($productId, $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
@@ -257,7 +257,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @return string - The url to redirect to
      *
-     * @throws OrdercloudException
+     * @throws OrdercloudException ClientErrorResponseException
      */
     public function getOAuthUrl($redirectUrl, $login, $mobile, $clientSecret, $organisationId)
     {
@@ -301,7 +301,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @return array - the user
      *
-     * @throws OrdercloudException
+     * @throws OrdercloudException ClientErrorResponseException
      */
     public function getUserDetails($access_token)
     {
@@ -335,7 +335,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @return array - user addresses
      *
-     * @throws OrdercloudException
+     * @throws OrdercloudException ClientErrorResponseException
      */
     public function getUserAddresses($userId,  $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
     {
@@ -379,7 +379,7 @@ class Ordercloud implements OrdercloudInterface
      * @param $access_token The access_token to use
      * @return the id of the created address
      *
-     * @throws OrdercloudException
+     * @throws OrdercloudException ClientErrorResponseException
      */
     public function createAddressForUser($userId, $name, $streetName, $city, $addressDetails = array(),  $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
     {
@@ -484,7 +484,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @return array the order for the user
      *
-     * @throws OrdercloudException
+     * @throws OrdercloudException ClientErrorResponseException
      */
     public function getOrderForUser($userId, $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
     {
@@ -522,7 +522,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @return array of tags
      *
-     * @throws OrdercloudException
+     * @throws OrdercloudException ClientErrorResponseException
      */
     public function getMenu($selectedStoreId)
     {
@@ -553,7 +553,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @return array $accessToken new access token
      *
-     * @throws OrdercloudException
+     * @throws OrdercloudException ClientErrorResponseException
      */
     public function getNewAccessToken($refreshToken)
     {
@@ -570,6 +570,44 @@ class Ordercloud implements OrdercloudInterface
         {
             $accessToken = $request->send()->json();
             return $accessToken;
+        }
+        catch(BadRequestHttpException $e)
+        {
+            Log::error($e);
+            Log::error("The Body: " . $request->getResponse());
+            new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
+        }
+        catch(ClientErrorResponseException $e)
+        {
+            Log::error($e);
+            Log::error("The Body: " . $request->getResponse());
+            new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
+        }
+    }
+
+    /**
+     * Gets the settings for an organisation
+     *
+     * @return array - returns the store details
+     *
+     * @throws OrdercloudException ClientErrorResponseException
+     */
+    public function getSettingsForOrganisation()
+    {
+        $request = $this->client->get("/resource/organisations/" . $this->organisationId . "/settings", $this->requestConfig);
+        $request->setAuth($this->username, $this->password);
+        try
+        {
+            $response = $request->send();
+            if($response->getStatusCode() == 200)
+            {
+                return $response->json()["results"];
+            }
+            else
+            {
+                new OrdercloudException("could not retrieve the settings for organisation: $this->organisationId, response: ", $response->json());
+            }
+
         }
         catch(BadRequestHttpException $e)
         {
