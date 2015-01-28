@@ -22,6 +22,7 @@ class Ordercloud implements OrdercloudInterface
     private $password = null;
     private $organisationId = null;
     private $clientSecret = null;
+    private $log = null;
 
     private $requestConfig = array(
         "Content-type" => "application/json",
@@ -29,14 +30,14 @@ class Ordercloud implements OrdercloudInterface
     );
 
     /**
-     * The constructor for the Ordercloud class, creates an http client from configured paramerters
+     * The constructor for the Ordercloud class, creates an http client from configured parameters
      *
-     * @param $config - Pass an array to load your own config or config/Ordercloud.php will be used
+     * @param $config array - Pass an array to load your own config or config/Ordercloud.php will be used
      *
      */
-    public function __construct($config = false)
+    public function __construct($config = array())
     {
-        if($config === false)
+        if(empty($config))
         {
             $this->client = new Client(Config::get('Ordercloud.base_url'));
             $this->client->setDefaultOption('verify', Config::get("Ordercloud.verify_ssl"));
@@ -185,10 +186,10 @@ class Ordercloud implements OrdercloudInterface
         {
             $request = $this->client->put("/resource/product/criteria?access_token=" . $access_token, $this->requestConfig, json_encode($body));
         }
+
         try
         {
-            $response = $request->send()->json();
-            return isset($response["results"]) ? $response["results"] : array();
+            return $request->send()->json()["results"];
         }
         catch(BadRequestHttpException $e)
         {
@@ -207,9 +208,9 @@ class Ordercloud implements OrdercloudInterface
     /**
      * Gets the products
      *
-     * @param $productId - The id of the product
-     * @param $auhType The type of auth to use
-     * @param $access_token The access_token to use
+     * @param $productId - Int The id of the product
+     * @param $auhType - String The type of auth to use
+     * @param $access_token String access_token to use
      *
      * @return array - the product
      *
@@ -328,10 +329,9 @@ class Ordercloud implements OrdercloudInterface
     /**
      * Get the users addressese
      *
-     * @param $userId - The ID of the user
-     * @param $auhType The type of auth to use
-     * @param $auhType The type of auth to use
-     * @param $access_token The access_token to use
+     * @param $userId - Int The ID of the user
+     * @param $auhType - String The type of auth to use
+     * @param $access_token - String The access_token to use
      *
      * @return array - user addresses
      *
@@ -370,14 +370,15 @@ class Ordercloud implements OrdercloudInterface
     /**
      * Creates an address for the user
      *
-     * @param $userId - The ID of the user the adddress is to be created for
-     * @param $name - The name for the address
-     * @param $streetName - The street name
-     * @param $city - The city
-     * @param $addressDetails - Other details which are not required (streetNumber, complex, suburb, postalCode, note, longitude, latitude)
-     * @param $auhType The type of auth to use
-     * @param $access_token The access_token to use
-     * @return the id of the created address
+     * @param $userId - Int The ID of the user the address is to be created for
+     * @param $name - String The name for the address
+     * @param $streetName - String The street name
+     * @param $city - String The city
+     * @param $addressDetails - Array Other details which are not required (streetNumber, complex, suburb, postalCode, note, longitude, latitude)
+     * @param $auhType - String The type of auth to use
+     * @param $access_token - String The access_token to use
+     *
+     * @return Int - the id of the created address
      *
      * @throws OrdercloudException ClientErrorResponseException
      */
@@ -428,14 +429,14 @@ class Ordercloud implements OrdercloudInterface
     /**
      * Creates an order for the user
      *
-     * @param $userId - the id of the user which the order is for
-     * @param $items - The items for the order
-     * @param $paymentStatus - the payment status UNPAID or PAID
-     * @param $deliveryType - SELFPICKUP or DELIVERY
-     * @param $amount - The total for the order
-     * @param $userGeoId - The address for ID for the order
+     * @param $userId - Int the id of the user which the order is for
+     * @param $items - Array The items for the order
+     * @param $paymentStatus - String the payment status UNPAID or PAID
+     * @param $deliveryType - String SELFPICKUP or DELIVERY
+     * @param $amount - Float The total for the order
+     * @param $userGeoId - Int The address for ID for the order
      *
-     * @throws OrdsercloudException
+     * @throws OrdercloudException
      *
      * @return null
      */
@@ -478,9 +479,9 @@ class Ordercloud implements OrdercloudInterface
     /**
      * gets all the orders for a user
      *
-     * @param $userId the users id
-     * @param $auhType The type of auth to use
-     * @param $access_token The access_token to use
+     * @param $userId - Int the users id
+     * @param $auhType - String The type of auth to use
+     * @param $access_token - String The access_token to use
      *
      * @return array the order for the user
      *
@@ -516,13 +517,13 @@ class Ordercloud implements OrdercloudInterface
     }
 
     /**
-     * gets all the menu tags for a certain store
+     * Gets all the menu tags for a certain store
      *
-     * $param $selectedStoreId - The ID of the stores you want the menu items for
+     * @param $selectedStoreId - Int The ID of the stores you want the menu items for
      *
      * @return array of tags
      *
-     * @throws OrdercloudException ClientErrorResponseException
+     * @throws OrdercloudException
      */
     public function getMenu($selectedStoreId)
     {
@@ -549,7 +550,7 @@ class Ordercloud implements OrdercloudInterface
     /**
      * Get a new access token from the refresh token
      *
-     * @param $refreshToken - The refresh token which will be used to fetch a new access token
+     * @param $refreshToken - String The refresh token which will be used to fetch a new access token
      *
      * @return array $accessToken new access token
      *
