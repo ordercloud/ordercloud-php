@@ -122,13 +122,11 @@ interface OrdercloudInterface {
      * @param $paymentStatus - the payment status UNPAID or PAID
      * @param $deliveryType - SELFPICKUP or DELIVERY
      * @param $amount - The total for the order
-     * @param $options - array of options
-     * @param $extras - array of extras
      * @param $userGeoId - The address for ID for the order
      *
-     * @throws OrdsercloudException
+     * @throws OrdercloudException
      */
-    public function createOrder($userId, $items, $paymentStatus, $deliveryType, $amount, $options, $extras, $userGeoId);
+    public function createOrder($userId, $items, $paymentStatus, $deliveryType, $amount, $userGeoId);
 
     /**
      * gets all the orders for a user
@@ -144,7 +142,7 @@ interface OrdercloudInterface {
     public function getOrderForUser($userId, $auhType, $access_token);
 
     /**
-     * gets all the menu tags for a certain organisation
+     * Gets all the menu tags for a certain organisation
      *
      * $param $selectedStoreId - The ID of the stores you want the menu items for
      *

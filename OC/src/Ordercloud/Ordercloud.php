@@ -434,26 +434,20 @@ class Ordercloud implements OrdercloudInterface
      * @param $paymentStatus - String the payment status UNPAID or PAID
      * @param $deliveryType - String SELFPICKUP or DELIVERY
      * @param $amount - Float The total for the order
-     * @param $options - array of options
-     * @param $extras - array of extras
      * @param $userGeoId - Int The address for ID for the order
      *
      * @throws OrdercloudException
      *
      * @return null
      */
-    public function createOrder($userId, $items, $paymentStatus, $deliveryType, $amount, $options, $extras, $userGeoId = NULL)
+    public function createOrder($userId, $items, $paymentStatus, $deliveryType, $amount, $userGeoId = NULL)
     {
         $data = array(
             "userId" => $userId,
             "items" => $items,
             "paymentStatus" => $paymentStatus,
             "deliveryType" => $deliveryType,
-            "amount" => $amount,
-            "details" => array(
-                "options" => $options,
-                "extras" => $extras
-            )
+            "amount" => $amount
         );
 
         if($userGeoId != null)
