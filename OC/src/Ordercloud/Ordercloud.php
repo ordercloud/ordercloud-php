@@ -17,6 +17,9 @@ class Ordercloud implements OrdercloudInterface
     const AUTH_TYPE_TOKEN = "token";
     const AUTH_TYPE_BASIC = "basic";
 
+    const PAYMENT_GATEWAY_MYGATE_ZA = "MYGATE_ZA";
+    const PAYMENT_GATEWAY_PAYU_ZA = "PAYU_ZA";
+
     private $client = null;
     private $username = null;
     private $password = null;
@@ -609,6 +612,57 @@ class Ordercloud implements OrdercloudInterface
                 new OrdercloudException("could not retrieve the settings for organisation: $this->organisationId, response: ", $response->json());
             }
 
+        }
+        catch(BadRequestHttpException $e)
+        {
+            Log::error($e);
+            Log::error("The Body: " . $request->getResponse());
+            new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
+        }
+        catch(ClientErrorResponseException $e)
+        {
+            Log::error($e);
+            Log::error("The Body: " . $request->getResponse());
+            new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
+        }
+    }
+
+    /**
+     * Gets the settings for an organisation
+     *
+     * @param paymentGateway - the payment gateway to use
+     * @param amt - Amount to be charged
+     * @param budgetPeriod - In months, pass 0 months for straight, max of 48 months (4 years)
+     * @param cardExpiryMonth - the expiry month
+     * @param cardExpiryYear - the expiry year
+     * @param nameOnCard - the name on the card
+     * @param cvv - cvv number for the credit card
+     * @param cardNumber - the credit card number
+     * @param orderRef - The order ID
+     * @param description - The description for what they will be charged for
+     * @param testMode - Whether test mode is on
+     * @param $access_token - String The access_token to use
+     *
+     * @return the created payments ID
+     *
+     * @throws OrdercloudException
+     */
+    public function createCreditCardPayment($paymentGateway, $amount, $budgetPeriod, $cardExpiryMonth, $cardExpiryYear, $nameOnCard, $cvv, $cardNumber, $orderRef, $description, $testMode, $access_token)
+    {
+        $data = array($paymentGateway, $amount, $budgetPeriod, $cardExpiryMonth, $cardExpiryYear, $nameOnCard, $cvv, $cardNumber, $orderRef, $description, $testMode);
+
+        $request = $this->client->post("/resource/order/$orderRef/pay/creditcard/$paymentGateway?access_token=" . $access_token, $this->requestConfig, json_encode($data));
+
+
+        try
+        {
+            $response = $request->send();
+            $paymentId = explode("/", $response->getLocation());
+            if(!is_array($paymentId))
+            {
+                new OrdercloudException("Payment ID not found in request, response: " . $response, $request->getResponse()->getStatusCode());
+            }
+            return end($paymentId);
         }
         catch(BadRequestHttpException $e)
         {

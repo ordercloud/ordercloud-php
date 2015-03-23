@@ -161,4 +161,23 @@ interface OrdercloudInterface {
      */
     public function getNewAccessToken($refreshToken);
 
+    /**
+     * Gets the settings for an organisation
+     *
+     * @param paymentGateway - The selected payment gateway
+     * @param amt - Amount to be charged
+     * @param budgetPeriod - In months, pass 0 months for straight, max of 48 months (4 years)
+     * @param cardExpiryMonth - the expiry month
+     * @param cardExpiryYear - the expiry year
+     * @param nameOnCard - the name on the card
+     * @param cvv - cvv number for the credit card
+     * @param cardNumber - the credit card number
+     * @param orderRef - The order ID
+     * @param description - The description for what they will be charged for
+     * @param testMode - Whether test mode is on;
+     *
+     * @throws OrdercloudException
+     */
+    public function createCreditCardPayment($paymentGateway, $amount, $budgetPeriod, $cardExpiryMonth, $cardExpiryYear, $nameOnCard, $cvv, $cardNumber, $orderRef, $description, $testMode, $access_token);
+
 }
