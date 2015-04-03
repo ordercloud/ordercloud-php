@@ -1,5 +1,5 @@
-<?php
-namespace Ordercloud\Ordercloud;
+<?php namespace Ordercloud\Ordercloud;
+
 use Guzzle\Http\Client;
 use Config;
 use Guzzle\Http\Exception\ClientErrorResponseException;
@@ -27,21 +27,19 @@ class Ordercloud implements OrdercloudInterface
     private $clientSecret = null;
     private $log = null;
 
-    private $requestConfig = array(
-        "Content-type" => "application/json",
+    private $requestConfig = [
+        "Content-type"    => "application/json",
         'allow_redirects' => false
-    );
+    ];
 
     /**
      * The constructor for the Ordercloud class, creates an http client from configured parameters
      *
      * @param $config array - Pass an array to load your own config or config/Ordercloud.php will be used
-     *
      */
-    public function __construct($config = array())
+    public function __construct($config = [])
     {
-        if(empty($config))
-        {
+        if (empty($config)) {
             $this->client = new Client(Config::get('Ordercloud.base_url'));
             $this->client->setDefaultOption('verify', Config::get("Ordercloud.verify_ssl"));
             $this->username = Config::get("Ordercloud.username");
@@ -49,8 +47,7 @@ class Ordercloud implements OrdercloudInterface
             $this->clientSecret = Config::get("Ordercloud.client_secret");
             $this->organisationId = Config::get("Ordercloud.organisation_id");
         }
-        else
-        {
+        else {
             $this->client = new Client($config["base_url"]);
             $this->client->setDefaultOption('verify', $config["verify_ssl"]);
             $this->username = $config["username"];
@@ -71,20 +68,20 @@ class Ordercloud implements OrdercloudInterface
      */
     public function getConnectedMarketPlaces($marketPlaceId)
     {
-        $request = $this->client->get("/resource/organisations/$marketPlaceId/connections/type/M", $this->requestConfig);
+        $request = $this->client->get(
+            "/resource/organisations/$marketPlaceId/connections/type/M",
+            $this->requestConfig
+        );
         $request->setAuth($this->username, $this->password);
-        try
-        {
+        try {
             return $request->send()->json()["results"];
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -105,27 +102,21 @@ class Ordercloud implements OrdercloudInterface
     {
         $request = $this->client->get("/resource/organisations/$storeId", $this->requestConfig);
         $request->setAuth($this->username, $this->password);
-        try
-        {
+        try {
             $response = $request->send();
-            if($response->getStatusCode() == 200)
-            {
+            if ($response->getStatusCode() == 200) {
                 return $response->json();
             }
-            else
-            {
+            else {
                 new OrdercloudException("could not retrieve store for ID: $storeId, response: ", $response->json());
             }
-
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -141,22 +132,20 @@ class Ordercloud implements OrdercloudInterface
      */
     public function getAllMarketPlaces()
     {
-        $request = $this->client->get("/resource/organisations/" . $this->organisationId . "/connections/type/CH", $this->requestConfig);
+        $request = $this->client->get(
+            "/resource/organisations/" . $this->organisationId . "/connections/type/CH",
+            $this->requestConfig
+        );
         $request->setAuth($this->username, $this->password);
-        try
-        {
+        try {
             return $request->send()->json()["results"];
-
-
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -167,41 +156,40 @@ class Ordercloud implements OrdercloudInterface
      * Gets all products for a market place
      *
      * @param $marketPlaceId - Id of the market place which products are requested for
-     * @param $category The categories to search in
-     * @param $auhType = SELF::AUTH_TYPE_BASIC The type of auth to use
-     * @param $access_token The access_token to use
+     * @param $category      The categories to search in
+     * @param $auhType       = SELF::AUTH_TYPE_BASIC The type of auth to use
+     * @param $access_token  The access_token to use
      *
      * @return array - Products for market place
      */
     public function getProductsByMarketPlace($marketPlaceId, $category, $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
     {
-        $body = array(
-            "tags" => array($category),
-            "organisations" => array($marketPlaceId),
-        );
+        $body = [
+            "tags"          => [$category],
+            "organisations" => [$marketPlaceId],
+        ];
 
-        if($auhType == SELF::AUTH_TYPE_BASIC)
-        {
+        if ($auhType == SELF::AUTH_TYPE_BASIC) {
             $request = $this->client->put("/resource/product/criteria", $this->requestConfig, json_encode($body));
             $request->setAuth($this->username, $this->password);
         }
-        else
-        {
-            $request = $this->client->put("/resource/product/criteria?access_token=" . $access_token, $this->requestConfig, json_encode($body));
+        else {
+            $request = $this->client->put(
+                "/resource/product/criteria?access_token=" . $access_token,
+                $this->requestConfig,
+                json_encode($body)
+            );
         }
 
-        try
-        {
+        try {
             return $request->send()->json()["results"];
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -211,8 +199,8 @@ class Ordercloud implements OrdercloudInterface
     /**
      * Gets the products
      *
-     * @param $productId - Int The id of the product
-     * @param $auhType - String The type of auth to use
+     * @param $productId    - Int The id of the product
+     * @param $auhType      - String The type of auth to use
      * @param $access_token String access_token to use
      *
      * @return array - the product
@@ -220,30 +208,28 @@ class Ordercloud implements OrdercloudInterface
      * @throws OrdercloudException ClientErrorResponseException
      *
      */
-    public function getProduct($productId, $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
+    public function getProduct($productId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
     {
-        if($auhType == SELF::AUTH_TYPE_BASIC)
-        {
+        if ($auhType == SELF::AUTH_TYPE_BASIC) {
             $request = $this->client->get("/resource/product/$productId", $this->requestConfig);
             $request->setAuth($this->username, $this->password);
         }
-        else
-        {
-            $request = $this->client->get("/resource/product/$productId?access_token=" . $access_token, $this->requestConfig);
+        else {
+            $request = $this->client->get(
+                "/resource/product/$productId?access_token=" . $access_token,
+                $this->requestConfig
+            );
         }
 
-        try
-        {
+        try {
             return $request->send()->json();
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -253,10 +239,10 @@ class Ordercloud implements OrdercloudInterface
     /**
      * Gets the URL for the user to be directed with OAuth
      *
-     * @param $redirectUrl - The url which the OAuth returns the user to
-     * @param $login - true for login page, false for register page
-     * @param $mobile - True for mobile false for desktop
-     * @param $clientSecret - THe client secret
+     * @param $redirectUrl    - The url which the OAuth returns the user to
+     * @param $login          - true for login page, false for register page
+     * @param $mobile         - True for mobile false for desktop
+     * @param $clientSecret   - THe client secret
      * @param $organisationId - The organisation id
      *
      * @return string - The url to redirect to
@@ -267,29 +253,30 @@ class Ordercloud implements OrdercloudInterface
     {
         $login = $login == true ? "login" : "register";
         $mobile = $mobile == true ? "on" : "off";
-        $data = array(
+        $data = [
             "organisation_id" => $organisationId,
-            "client_secret" => $clientSecret,
-            "redirect_url" =>  $redirectUrl,
-            "mobile" => $mobile,
-            $login => $login
-        );
+            "client_secret"   => $clientSecret,
+            "redirect_url"    => $redirectUrl,
+            "mobile"          => $mobile,
+            $login            => $login
+        ];
 
-        $request = $this->client->post("/faces/credential", array("Content-type" => "application/x-www-form-urlencoded", 'allow_redirects' => false), $data);
+        $request = $this->client->post(
+            "/faces/credential",
+            ["Content-type" => "application/x-www-form-urlencoded", 'allow_redirects' => false],
+            $data
+        );
         $request->setAuth($this->username, $this->password);
 
-        try
-        {
+        try {
             $response = $request->send();
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -311,18 +298,15 @@ class Ordercloud implements OrdercloudInterface
     {
         $request = $this->client->get("/resource/users/logged_in?access_token=" . $access_token, $this->requestConfig);
 
-        try
-        {
+        try {
             return $request->send()->json();
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -332,38 +316,36 @@ class Ordercloud implements OrdercloudInterface
     /**
      * Get the users addressese
      *
-     * @param $userId - Int The ID of the user
-     * @param $auhType - String The type of auth to use
+     * @param $userId       - Int The ID of the user
+     * @param $auhType      - String The type of auth to use
      * @param $access_token - String The access_token to use
      *
      * @return array - user addresses
      *
      * @throws OrdercloudException ClientErrorResponseException
      */
-    public function getUserAddresses($userId,  $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
+    public function getUserAddresses($userId, $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
     {
-        if($auhType == SELF::AUTH_TYPE_BASIC)
-        {
+        if ($auhType == SELF::AUTH_TYPE_BASIC) {
             $request = $this->client->get("/resource/users/" . $userId . "/geos", $this->requestConfig);
             $request->setAuth($this->username, $this->password);
         }
-        else
-        {
-            $request = $this->client->get("/resource/users/" . $userId . "/geos?access_token=" . $access_token, $this->requestConfig);
+        else {
+            $request = $this->client->get(
+                "/resource/users/" . $userId . "/geos?access_token=" . $access_token,
+                $this->requestConfig
+            );
         }
 
-        try
-        {
+        try {
             return $request->send()->json()["results"];
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -373,56 +355,61 @@ class Ordercloud implements OrdercloudInterface
     /**
      * Creates an address for the user
      *
-     * @param $userId - Int The ID of the user the address is to be created for
-     * @param $name - String The name for the address
-     * @param $streetName - String The street name
-     * @param $city - String The city
+     * @param $userId         - Int The ID of the user the address is to be created for
+     * @param $name           - String The name for the address
+     * @param $streetName     - String The street name
+     * @param $city           - String The city
      * @param $addressDetails - Array Other details which are not required (streetNumber, complex, suburb, postalCode, note, longitude, latitude)
-     * @param $auhType - String The type of auth to use
-     * @param $access_token - String The access_token to use
+     * @param $auhType        - String The type of auth to use
+     * @param $access_token   - String The access_token to use
      *
      * @return Int - the id of the created address
      *
      * @throws OrdercloudException ClientErrorResponseException
      */
-    public function createAddressForUser($userId, $name, $streetName, $city, $addressDetails = array(),  $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
+    public function createAddressForUser($userId, $name, $streetName, $city, $addressDetails = [], $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
     {
-       $data = array(
-           "name" => $name,
-           "streetName" => $streetName,
-           "city" => $city
-       );
+        $data = [
+            "name"       => $name,
+            "streetName" => $streetName,
+            "city"       => $city
+        ];
 
         $data += $addressDetails;
 
-        if($auhType == SELF::AUTH_TYPE_BASIC)
-        {
-            $request = $this->client->post("/resource/users/" . $userId . "/geos", $this->requestConfig, json_encode($data));
+        if ($auhType == SELF::AUTH_TYPE_BASIC) {
+            $request = $this->client->post(
+                "/resource/users/" . $userId . "/geos",
+                $this->requestConfig,
+                json_encode($data)
+            );
             $request->setAuth($this->username, $this->password);
         }
-        else
-        {
-            $request = $this->client->post("/resource/users/" . $userId . "/geos?access_token=" . $access_token, $this->requestConfig, json_encode($data));
+        else {
+            $request = $this->client->post(
+                "/resource/users/" . $userId . "/geos?access_token=" . $access_token,
+                $this->requestConfig,
+                json_encode($data)
+            );
         }
 
-        try
-        {
+        try {
             $response = $request->send();
             $geoUrl = explode("/", $response->getLocation());
-            if(!is_array($geoUrl))
-            {
-                new OrdercloudException("Geo ID not found in request, response: " . $response, $request->getResponse()->getStatusCode());
+            if ( ! is_array($geoUrl)) {
+                new OrdercloudException(
+                    "Geo ID not found in request, response: " . $response, $request->getResponse()->getStatusCode()
+                );
             }
+
             return end($geoUrl);
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -432,47 +419,46 @@ class Ordercloud implements OrdercloudInterface
     /**
      * Creates an order for the user
      *
-     * @param $userId - Int the id of the user which the order is for
-     * @param $items - Array The items for the order
+     * @param int $userId        - Int the id of the user which the order is for
+     * @param array $items         - Array The items for the order
      * @param $paymentStatus - String the payment status UNPAID or PAID
-     * @param $deliveryType - String SELFPICKUP or DELIVERY
-     * @param $amount - Float The total for the order
-     * @param $userGeoId - Int The address for ID for the order
+     * @param $deliveryType  - String SELFPICKUP or DELIVERY
+     * @param $amount        - Float The total for the order
+     * @param $userGeoId     - Int The address for ID for the order
      *
      * @throws OrdercloudException
      *
      * @return null
      */
-    public function createOrder($userId, $items, $paymentStatus, $deliveryType, $amount, $userGeoId = NULL)
+    public function createOrder($userId, array $items, $paymentStatus, $deliveryType, $amount, $userGeoId = null)
     {
-        $data = array(
-            "userId" => $userId,
-            "items" => $items,
+        $data = [
+            "userId"        => $userId,
+            "items"         => $items,
             "paymentStatus" => $paymentStatus,
-            "deliveryType" => $deliveryType,
-            "amount" => $amount
-        );
+            "deliveryType"  => $deliveryType,
+            "amount"        => $amount
+        ];
 
-        if($userGeoId != null)
-        {
-            $data["userGeo"] = array("id" => $userGeoId);
+        if ($userGeoId != null) {
+            $data["userGeo"] = ["id" => $userGeoId];
         }
 
-
-        $request = $this->client->post("/resource/orders/organisation/" . $this->organisationId, $this->requestConfig, json_encode($data));
+        $request = $this->client->post(
+            "/resource/orders/organisation/" . $this->organisationId,
+            $this->requestConfig,
+            json_encode($data)
+        );
         $request->setAuth($this->username, $this->password);
-        try
-        {
+        try {
             $response = $request->send();
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -482,8 +468,8 @@ class Ordercloud implements OrdercloudInterface
     /**
      * gets all the orders for a user
      *
-     * @param $userId - Int the users id
-     * @param $auhType - String The type of auth to use
+     * @param $userId       - Int the users id
+     * @param $auhType      - String The type of auth to use
      * @param $access_token - String The access_token to use
      *
      * @return array the order for the user
@@ -492,27 +478,26 @@ class Ordercloud implements OrdercloudInterface
      */
     public function getOrderForUser($userId, $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
     {
-        if($auhType == SELF::AUTH_TYPE_BASIC)
-        {
+        if ($auhType == SELF::AUTH_TYPE_BASIC) {
             $request = $this->client->get("/resource/orders/user/" . $userId, $this->requestConfig);
             $request->setAuth($this->username, $this->password);
         }
-        else{
-            $request = $this->client->get("/resource/orders/user/" . $userId . "?access_token=" . $access_token, $this->requestConfig);
+        else {
+            $request = $this->client->get(
+                "/resource/orders/user/" . $userId . "?access_token=" . $access_token,
+                $this->requestConfig
+            );
         }
 
-        try
-        {
+        try {
             return $request->send()->json()["results"];
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -530,20 +515,20 @@ class Ordercloud implements OrdercloudInterface
      */
     public function getMenu($selectedStoreId)
     {
-        $request = $this->client->get("/resource/product/tag/organisation/" . $selectedStoreId . "/type/menu", $this->requestConfig);
+        $request = $this->client->get(
+            "/resource/product/tag/organisation/" . $selectedStoreId . "/type/menu",
+            $this->requestConfig
+        );
         $request->setAuth($this->username, $this->password);
-        try
-        {
+        try {
             return $request->send()->json()["results"];
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -561,28 +546,26 @@ class Ordercloud implements OrdercloudInterface
      */
     public function getNewAccessToken($refreshToken)
     {
-        $data = array(
-            "organisation_code" => "KD",
+        $data = [
+            "organisation_code"   => "KD",
             "organisation_secret" => $this->clientSecret,
-            "grant_type" => "refresh_token",
-            "refresh_token" => $refreshToken
-        );
+            "grant_type"          => "refresh_token",
+            "refresh_token"       => $refreshToken
+        ];
 
         $request = $this->client->post("/resource/token/", $this->requestConfig, json_encode($data));
         $request->setAuth($this->username, $this->password);
-        try
-        {
+        try {
             $accessToken = $request->send()->json();
+
             return $accessToken;
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -598,29 +581,28 @@ class Ordercloud implements OrdercloudInterface
      */
     public function getSettingsForOrganisation()
     {
-        $request = $this->client->get("/resource/organisations/" . $this->organisationId . "/settings", $this->requestConfig);
+        $request = $this->client->get(
+            "/resource/organisations/" . $this->organisationId . "/settings",
+            $this->requestConfig
+        );
         $request->setAuth($this->username, $this->password);
-        try
-        {
+        try {
             $response = $request->send();
-            if($response->getStatusCode() == 200)
-            {
+            if ($response->getStatusCode() == 200) {
                 return $response->json()["results"];
             }
-            else
-            {
-                new OrdercloudException("could not retrieve the settings for organisation: $this->organisationId, response: ", $response->json());
+            else {
+                new OrdercloudException(
+                    "could not retrieve the settings for organisation: $this->organisationId, response: ", $response->json()
+                );
             }
-
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
@@ -630,48 +612,74 @@ class Ordercloud implements OrdercloudInterface
     /**
      * Gets the settings for an organisation
      *
-     * @param paymentGateway - the payment gateway to use
-     * @param amt - Amount to be charged
-     * @param budgetPeriod - In months, pass 0 months for straight, max of 48 months (4 years)
+     * @param paymentGateway  - the payment gateway to use
+     * @param amt             - Amount to be charged
+     * @param budgetPeriod    - In months, pass 0 months for straight, max of 48 months (4 years)
      * @param cardExpiryMonth - the expiry month
-     * @param cardExpiryYear - the expiry year
-     * @param nameOnCard - the name on the card
-     * @param cvv - cvv number for the credit card
-     * @param cardNumber - the credit card number
-     * @param orderRef - The order ID
-     * @param description - The description for what they will be charged for
-     * @param testMode - Whether test mode is on
-     * @param $access_token - String The access_token to use
+     * @param cardExpiryYear  - the expiry year
+     * @param nameOnCard      - the name on the card
+     * @param cvv             - cvv number for the credit card
+     * @param cardNumber      - the credit card number
+     * @param orderRef        - The order ID
+     * @param description     - The description for what they will be charged for
+     * @param testMode        - Whether test mode is on
+     * @param $access_token   - String The access_token to use
      *
      * @return the created payments ID
      *
      * @throws OrdercloudException
      */
-    public function createCreditCardPayment($paymentGateway, $amount, $budgetPeriod, $cardExpiryMonth, $cardExpiryYear, $nameOnCard, $cvv, $cardNumber, $orderRef, $description, $testMode, $access_token)
-    {
-        $data = array($paymentGateway, $amount, $budgetPeriod, $cardExpiryMonth, $cardExpiryYear, $nameOnCard, $cvv, $cardNumber, $orderRef, $description, $testMode);
+    public function createCreditCardPayment(
+        $paymentGateway,
+        $amount,
+        $budgetPeriod,
+        $cardExpiryMonth,
+        $cardExpiryYear,
+        $nameOnCard,
+        $cvv,
+        $cardNumber,
+        $orderRef,
+        $description,
+        $testMode,
+        $access_token
+    ) {
+        $data = [
+            $paymentGateway,
+            $amount,
+            $budgetPeriod,
+            $cardExpiryMonth,
+            $cardExpiryYear,
+            $nameOnCard,
+            $cvv,
+            $cardNumber,
+            $orderRef,
+            $description,
+            $testMode
+        ];
 
-        $request = $this->client->post("/resource/order/$orderRef/pay/creditcard/$paymentGateway?access_token=" . $access_token, $this->requestConfig, json_encode($data));
+        $request = $this->client->post(
+            "/resource/order/$orderRef/pay/creditcard/$paymentGateway?access_token=" . $access_token,
+            $this->requestConfig,
+            json_encode($data)
+        );
 
-
-        try
-        {
+        try {
             $response = $request->send();
             $paymentId = explode("/", $response->getLocation());
-            if(!is_array($paymentId))
-            {
-                new OrdercloudException("Payment ID not found in request, response: " . $response, $request->getResponse()->getStatusCode());
+            if ( ! is_array($paymentId)) {
+                new OrdercloudException(
+                    "Payment ID not found in request, response: " . $response, $request->getResponse()->getStatusCode()
+                );
             }
+
             return end($paymentId);
         }
-        catch(BadRequestHttpException $e)
-        {
+        catch (BadRequestHttpException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
-        catch(ClientErrorResponseException $e)
-        {
+        catch (ClientErrorResponseException $e) {
             Log::error($e);
             Log::error("The Body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
