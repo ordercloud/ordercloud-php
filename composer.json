@@ -3,6 +3,9 @@
   "autoload": {
     "psr-0" : {
         "OC\\Ordercloud" : "src/"
+    },
+    "psr-4" : {
+      "OC\\Ordercloud\\" : "src/"
     }
   },
   "requires": {
