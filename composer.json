@@ -4,5 +4,9 @@
     "psr-0" : {
         "OC\\Ordercloud" : "src/"
     }
+  },
+  "requires": {
+    "php": ">=5.4",
+    "guzzle/guzzle": ">=3.7"
   }
 }

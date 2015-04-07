@@ -1,5 +1,4 @@
-<?php
-namespace Ordercloud\Ordercloud;
+<?php namespace Ordercloud\Ordercloud;
 
 use Exception;
 
@@ -10,5 +9,4 @@ class OrdercloudException extends Exception
         parent::__construct($message, $code, $previous);
         throw $this;
     }
-
 }

@@ -1,13 +1,25 @@
 <?php namespace Ordercloud\Ordercloud;
 
-interface OrdercloudInterface {
+interface OrdercloudInterface
+{
+    const DELIVERY_TYPE_DELIVERY = "DELIVERY";
+    const DELIVERY_TYPE_SELFPICKUP = "SELFPICKUP";
+
+    const PAYMENT_STATUS_PAID = "PAID";
+    const PAYMENT_STATUS_UNPAID = "UNPAID";
+
+    const AUTH_TYPE_TOKEN = "token";
+    const AUTH_TYPE_BASIC = "basic";
+
+    const PAYMENT_GATEWAY_MYGATE_ZA = "MYGATE_ZA";
+    const PAYMENT_GATEWAY_PAYU_ZA = "PAYU_ZA";
 
     /**
      * Gets all the market places connected to the store
      *
-     * @param $marketPlaceId
+     * @param int $marketPlaceId
      *
-     * @return array - array of market places which the store is connected to
+     * @return array  array of market places which the store is connected to
      *
      * @throws OrdercloudException
      */
@@ -15,7 +27,8 @@ interface OrdercloudInterface {
 
     /**
      * Gets all the stores for a market place
-     * @param $storeId
+     *
+     * @param int $storeId
      *
      * @return array
      *
@@ -26,7 +39,7 @@ interface OrdercloudInterface {
     /**
      * Gets all the market places
      *
-     * @return mixed
+     * @return array
      *
      * @throws OrdercloudException
      */
@@ -35,39 +48,40 @@ interface OrdercloudInterface {
     /**
      * Gets all products for a market place
      *
-     * @param $marketPlaceId - Id of the market place which products are requested for
-     * @param $category - Tags to search for
-     * @param $auhType The type of auth to use
-     * @param $access_token The access_token to use
+     * @param int    $marketPlaceId Id of the market place which products are requested for
+     * @param string $category      Tags to search for
+     * @param string $auhType       The type of auth to use
+     * @param string $access_token  The access_token to use
      *
-     * @return array - Products for market place
+     * @return array Products for market place
+     *
+     * @throws OrdercloudException
      */
     public function getProductsByMarketPlace($marketPlaceId, $category, $auhType, $access_token);
 
     /**
-     * Gets the products
+     * Gets the product matching the given id.
      *
-     * @param $productId - The id of the product
+     * @param int    $productId The id of the product
+     * @param string $auhType
+     * @param string $access_token
      *
-     * @return array - the product
+     * @return array the product
      *
      * @throws OrdercloudException
-     *
      */
     public function getProduct($productId, $auhType, $access_token);
 
     /**
      * Gets the URL for the user to be directed with OAuth
      *
-     * @param $redirectUrl - The url which the OAuth returns the user to
-     * @param $login - true for login page, false for register page
-     * @param $mobile - True for mobile false for desktop
-     * @param $clientSecret - The clients secret
-     * @param $organisationId - The client
-     * @param $auhType The type of auth to use
-     * @param $access_token The access_token to use
+     * @param string $redirectUrl    The url which the OAuth returns the user to
+     * @param bool   $login          true for login page, false for register page
+     * @param bool   $mobile         True for mobile false for desktop
+     * @param string $clientSecret   The clients secret
+     * @param int    $organisationId The client
      *
-     * @return string - The url to redirect to
+     * @return string The url to redirect to
      *
      * @throws OrdercloudException
      */
@@ -76,9 +90,9 @@ interface OrdercloudInterface {
     /**
      * Gets the user from the access token after the OAuth took place
      *
-     * @param $access_token The access_token to use
+     * @param string $access_token The access_token to use
      *
-     * @return array - the user
+     * @return array the user
      *
      * @throws OrdercloudException
      */
@@ -87,11 +101,11 @@ interface OrdercloudInterface {
     /**
      * Get the users addresses
      *
-     * @param $userId - The ID of the user
-     * @param $auhType The type of auth to use
-     * @param $access_token The access_token to use
+     * @param int    $userId       The ID of the user
+     * @param string $auhType      The type of auth to use
+     * @param string $access_token The access_token to use
      *
-     * @return array - user addresses
+     * @return array user addresses
      *
      * @throws OrdercloudException
      */
@@ -100,40 +114,40 @@ interface OrdercloudInterface {
     /**
      * Creates an address for the user
      *
-     * @param $userId - The ID of the user the address is being created for
-     * @param $name - The name for the address
-     * @param $streetName - The street name
-     * @param $city - The city
-     * @param $addressDetails - Other details which are not required (streetNumber, complex, suburb, postalCode, note, longitude, latitude)
-     * @param $auhType The type of auth to use
-     * @param $access_token The access_token to use
+     * @param int            $userId         The ID of the user the address is being created for
+     * @param string         $name           The name for the address
+     * @param string         $streetName     The street name
+     * @param string         $city           The city
+     * @param array|string[] $addressDetails Other details which are not required (streetNumber, complex, suburb, postalCode, note, longitude, latitude)
+     * @param string         $auhType        The type of auth to use
+     * @param string         $access_token   The access_token to use
      *
-     * @return the id of the created address
+     * @return int the id of the created address
      *
      * @throws OrdercloudException
      */
-    public function createAddressForUser($userId, $name, $streetName, $city, $addressDetails = array(), $auhType, $access_token);
+    public function createAddressForUser($userId, $name, $streetName, $city, array $addressDetails = [], $auhType, $access_token);
 
     /**
      * Creates an order for the user
      *
-     * @param $userId - the id of the user which the order is for
-     * @param $items - The items for the order
-     * @param $paymentStatus - the payment status UNPAID or PAID
-     * @param $deliveryType - SELFPICKUP or DELIVERY
-     * @param $amount - The total for the order
-     * @param $userGeoId - The address for ID for the order
+     * @param int          $userId        The id of the user which the order is for
+     * @param array        $items         The items of the order
+     * @param string       $paymentStatus UNPAID or PAID
+     * @param string       $deliveryType  SELFPICKUP or DELIVERY
+     * @param string|float $amount        The total for the order
+     * @param int          $userGeoId     The address ID for the order destination
      *
      * @throws OrdercloudException
      */
-    public function createOrder($userId, $items, $paymentStatus, $deliveryType, $amount, $userGeoId);
+    public function createOrder($userId, array $items, $paymentStatus, $deliveryType, $amount, $userGeoId);
 
     /**
      * gets all the orders for a user
      *
-     * @param $userId the users id
-     * @param $auhType The type of auth to use
-     * @param $access_token The access_token to use
+     * @param int    $userId       The users id
+     * @param string $auhType      The type of auth to use
+     * @param string $access_token The access_token to use
      *
      * @return array the order for the user
      *
@@ -144,7 +158,7 @@ interface OrdercloudInterface {
     /**
      * Gets all the menu tags for a certain organisation
      *
-     * $param $selectedStoreId - The ID of the stores you want the menu items for
+     * @param int $selectedStoreId The ID of the stores you want the menu items for
      *
      * @return array of tags
      *
@@ -155,29 +169,44 @@ interface OrdercloudInterface {
     /**
      * Get a new access token from the refresh token
      *
-     * @param $refreshToken - The refresh token which will be used to fetch a new access token
+     * @param string $refreshToken The refresh token which will be used to fetch a new access token
      *
-     * @return A new access token
+     * @return string A new access token
+     *
+     * @throws OrdercloudException
      */
     public function getNewAccessToken($refreshToken);
 
     /**
      * Gets the settings for an organisation
      *
-     * @param paymentGateway - The selected payment gateway
-     * @param amt - Amount to be charged
-     * @param budgetPeriod - In months, pass 0 months for straight, max of 48 months (4 years)
-     * @param cardExpiryMonth - the expiry month
-     * @param cardExpiryYear - the expiry year
-     * @param nameOnCard - the name on the card
-     * @param cvv - cvv number for the credit card
-     * @param cardNumber - the credit card number
-     * @param orderRef - The order ID
-     * @param description - The description for what they will be charged for
-     * @param testMode - Whether test mode is on;
+     * @param strign       $paymentGateway  The selected payment gateway
+     * @param string|float $amount          Amount to be charged
+     * @param string       $budgetPeriod    In months, pass 0 months for straight, max of 48 months (4 years)
+     * @param string       $cardExpiryMonth The expiry month
+     * @param string       $cardExpiryYear  The expiry year
+     * @param string       $nameOnCard      The name on the card
+     * @param string       $cvv             cvv number of the credit card
+     * @param string       $cardNumber      the credit card number
+     * @param string       $orderRef        The order ID
+     * @param string       $description     The description for what they will be charged for
+     * @param string       $testMode        Whether test mode is on
+     * @param string       $access_token
      *
      * @throws OrdercloudException
      */
-    public function createCreditCardPayment($paymentGateway, $amount, $budgetPeriod, $cardExpiryMonth, $cardExpiryYear, $nameOnCard, $cvv, $cardNumber, $orderRef, $description, $testMode, $access_token);
-
+    public function createCreditCardPayment(
+        $paymentGateway,
+        $amount,
+        $budgetPeriod,
+        $cardExpiryMonth,
+        $cardExpiryYear,
+        $nameOnCard,
+        $cvv,
+        $cardNumber,
+        $orderRef,
+        $description,
+        $testMode,
+        $access_token
+    );
 }
