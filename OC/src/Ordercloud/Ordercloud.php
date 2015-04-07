@@ -673,4 +673,64 @@ class Ordercloud implements OrdercloudInterface
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
     }
+
+    /**
+     * Retrieves the profile for the given user id
+     *
+     * @param int $userId
+     *
+     * @return array
+     */
+    public function getProfile($userId)
+    {
+        $request = $this->client->get(
+            "/resource/users/{$userId}/profile",
+            $this->requestConfig
+        );
+        $request->setAuth($this->username, $this->password);
+        try {
+            return $request->send()->json();
+        }
+        catch (BadRequestHttpException $e) {
+            Log::error($e);
+            Log::error("The Body: " . $request->getResponse());
+            new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
+        }
+        catch (ClientErrorResponseException $e) {
+            Log::error($e);
+            Log::error("The Body: " . $request->getResponse());
+            new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
+        }
+    }
+
+    public function updateProfile($userId, $firstName, $lastName, $nickName, $email, $cellPhoneNumber, $gender)
+    {
+        $payload = json_encode([
+            'firstName'       => $firstName,
+            'surname'         => $lastName,
+            'nickName'        => $nickName,
+            'email'           => $email,
+            'cellphoneNumber' => $cellPhoneNumber,
+            'sex'             => $gender,
+        ]);
+        $request = $this->client->put(
+            "/resource/users/{$userId}/profile",
+            $this->requestConfig,
+            $payload
+        );
+        $request->setAuth($this->username, $this->password);
+        try {
+            $request->send();
+        }
+        catch (BadRequestHttpException $e) {
+            Log::error($e);
+            Log::error("The Body: " . $request->getResponse());
+            new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
+        }
+        catch (ClientErrorResponseException $e) {
+            Log::error($e);
+            Log::error("The Body: " . $request->getResponse());
+            new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
+        }
+    }
 }

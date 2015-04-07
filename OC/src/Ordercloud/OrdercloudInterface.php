@@ -209,4 +209,32 @@ interface OrdercloudInterface
         $testMode,
         $access_token
     );
+
+    /**
+     * Retrieves the profile for the given user id
+     *
+     * @param int $userId
+     *
+     * @return array
+     *
+     * @throws OrdercloudException
+     */
+    public function getProfile($userId);
+
+    /**
+     * Update the profile for the given user id
+     *
+     * @param int $userId
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $nickName
+     * @param string $email
+     * @param string $cellPhoneNumber
+     * @param string $gender
+     *
+     * @return array
+     *
+     * @throws OrdercloudException
+     */
+    public function updateProfile($userId, $firstName, $lastName, $nickName, $email, $cellPhoneNumber, $gender);
 }
