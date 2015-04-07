@@ -724,12 +724,14 @@ class Ordercloud implements OrdercloudInterface
         }
         catch (BadRequestHttpException $e) {
             Log::error($e);
-            Log::error("The Body: " . $request->getResponse());
+            Log::error("The request body: " . $payload);
+            Log::error("The response body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
         catch (ClientErrorResponseException $e) {
             Log::error($e);
-            Log::error("The Body: " . $request->getResponse());
+            Log::error("The request body: " . $payload);
+            Log::error("The response body: " . $request->getResponse());
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
     }
