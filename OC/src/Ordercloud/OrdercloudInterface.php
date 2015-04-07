@@ -54,6 +54,8 @@ interface OrdercloudInterface
      * @param string $access_token  The access_token to use
      *
      * @return array Products for market place
+     *
+     * @throws OrdercloudException
      */
     public function getProductsByMarketPlace($marketPlaceId, $category, $auhType, $access_token);
 
@@ -65,6 +67,8 @@ interface OrdercloudInterface
      * @param string $access_token
      *
      * @return array the product
+     *
+     * @throws OrdercloudException
      */
     public function getProduct($productId, $auhType, $access_token);
 
@@ -78,6 +82,8 @@ interface OrdercloudInterface
      * @param int    $organisationId The client
      *
      * @return string The url to redirect to
+     *
+     * @throws OrdercloudException
      */
     public function getOAuthUrl($redirectUrl, $login, $mobile, $clientSecret, $organisationId);
 
@@ -131,6 +137,8 @@ interface OrdercloudInterface
      * @param string       $deliveryType  SELFPICKUP or DELIVERY
      * @param string|float $amount        The total for the order
      * @param int          $userGeoId     The address ID for the order destination
+     *
+     * @throws OrdercloudException
      */
     public function createOrder($userId, array $items, $paymentStatus, $deliveryType, $amount, $userGeoId);
 
@@ -153,6 +161,8 @@ interface OrdercloudInterface
      * @param int $selectedStoreId The ID of the stores you want the menu items for
      *
      * @return array of tags
+     *
+     * @throws OrdercloudException
      */
     public function getMenu($selectedStoreId);
 
@@ -162,6 +172,8 @@ interface OrdercloudInterface
      * @param string $refreshToken The refresh token which will be used to fetch a new access token
      *
      * @return string A new access token
+     *
+     * @throws OrdercloudException
      */
     public function getNewAccessToken($refreshToken);
 
@@ -181,7 +193,7 @@ interface OrdercloudInterface
      * @param string       $testMode        Whether test mode is on
      * @param string       $access_token
      *
-     * @return
+     * @throws OrdercloudException
      */
     public function createCreditCardPayment(
         $paymentGateway,
