@@ -8,18 +8,6 @@ use Log;
 
 class Ordercloud implements OrdercloudInterface
 {
-    const DELIVERY_TYPE_DELIVERY = "DELIVERY";
-    const DELIVERY_TYPE_SELFPICKUP = "SELFPICKUP";
-
-    const PAYMENT_STATUS_PAID = "PAID";
-    const PAYMENT_STATUS_UNPAID = "UNPAID";
-
-    const AUTH_TYPE_TOKEN = "token";
-    const AUTH_TYPE_BASIC = "basic";
-
-    const PAYMENT_GATEWAY_MYGATE_ZA = "MYGATE_ZA";
-    const PAYMENT_GATEWAY_PAYU_ZA = "PAYU_ZA";
-
     private $client = null;
     private $username = null;
     private $password = null;
@@ -37,7 +25,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @param $config array - Pass an array to load your own config or config/Ordercloud.php will be used
      */
-    public function __construct($config = [])
+    public function __construct(array $config = [])
     {
         if (empty($config)) {
             $this->client = new Client(Config::get('Ordercloud.base_url'));
@@ -157,19 +145,19 @@ class Ordercloud implements OrdercloudInterface
      *
      * @param $marketPlaceId - Id of the market place which products are requested for
      * @param $category      The categories to search in
-     * @param $auhType       = SELF::AUTH_TYPE_BASIC The type of auth to use
+     * @param $auhType       = OrdercloudInterface::AUTH_TYPE_BASIC The type of auth to use
      * @param $access_token  The access_token to use
      *
      * @return array - Products for market place
      */
-    public function getProductsByMarketPlace($marketPlaceId, $category, $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
+    public function getProductsByMarketPlace($marketPlaceId, $category, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
     {
         $body = [
             "tags"          => [$category],
             "organisations" => [$marketPlaceId],
         ];
 
-        if ($auhType == SELF::AUTH_TYPE_BASIC) {
+        if ($auhType == OrdercloudInterface::AUTH_TYPE_BASIC) {
             $request = $this->client->put("/resource/product/criteria", $this->requestConfig, json_encode($body));
             $request->setAuth($this->username, $this->password);
         }
@@ -210,7 +198,7 @@ class Ordercloud implements OrdercloudInterface
      */
     public function getProduct($productId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
     {
-        if ($auhType == SELF::AUTH_TYPE_BASIC) {
+        if ($auhType == OrdercloudInterface::AUTH_TYPE_BASIC) {
             $request = $this->client->get("/resource/product/$productId", $this->requestConfig);
             $request->setAuth($this->username, $this->password);
         }
@@ -324,9 +312,9 @@ class Ordercloud implements OrdercloudInterface
      *
      * @throws OrdercloudException ClientErrorResponseException
      */
-    public function getUserAddresses($userId, $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
+    public function getUserAddresses($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
     {
-        if ($auhType == SELF::AUTH_TYPE_BASIC) {
+        if ($auhType == OrdercloudInterface::AUTH_TYPE_BASIC) {
             $request = $this->client->get("/resource/users/" . $userId . "/geos", $this->requestConfig);
             $request->setAuth($this->username, $this->password);
         }
@@ -367,7 +355,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @throws OrdercloudException ClientErrorResponseException
      */
-    public function createAddressForUser($userId, $name, $streetName, $city, $addressDetails = [], $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
+    public function createAddressForUser($userId, $name, $streetName, $city, $addressDetails = [], $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
     {
         $data = [
             "name"       => $name,
@@ -377,7 +365,7 @@ class Ordercloud implements OrdercloudInterface
 
         $data += $addressDetails;
 
-        if ($auhType == SELF::AUTH_TYPE_BASIC) {
+        if ($auhType == OrdercloudInterface::AUTH_TYPE_BASIC) {
             $request = $this->client->post(
                 "/resource/users/" . $userId . "/geos",
                 $this->requestConfig,
@@ -476,9 +464,9 @@ class Ordercloud implements OrdercloudInterface
      *
      * @throws OrdercloudException ClientErrorResponseException
      */
-    public function getOrderForUser($userId, $auhType = SELF::AUTH_TYPE_BASIC, $access_token = null)
+    public function getOrderForUser($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
     {
-        if ($auhType == SELF::AUTH_TYPE_BASIC) {
+        if ($auhType == OrdercloudInterface::AUTH_TYPE_BASIC) {
             $request = $this->client->get("/resource/orders/user/" . $userId, $this->requestConfig);
             $request->setAuth($this->username, $this->password);
         }

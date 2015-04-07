@@ -2,6 +2,18 @@
 
 interface OrdercloudInterface
 {
+    const DELIVERY_TYPE_DELIVERY = "DELIVERY";
+    const DELIVERY_TYPE_SELFPICKUP = "SELFPICKUP";
+
+    const PAYMENT_STATUS_PAID = "PAID";
+    const PAYMENT_STATUS_UNPAID = "UNPAID";
+
+    const AUTH_TYPE_TOKEN = "token";
+    const AUTH_TYPE_BASIC = "basic";
+
+    const PAYMENT_GATEWAY_MYGATE_ZA = "MYGATE_ZA";
+    const PAYMENT_GATEWAY_PAYU_ZA = "PAYU_ZA";
+
     /**
      * Gets all the market places connected to the store
      *
@@ -108,7 +120,7 @@ interface OrdercloudInterface
      *
      * @throws OrdercloudException
      */
-    public function createAddressForUser($userId, $name, $streetName, $city, $addressDetails = [], $auhType, $access_token);
+    public function createAddressForUser($userId, $name, $streetName, $city, array $addressDetails = [], $auhType, $access_token);
 
     /**
      * Creates an order for the user
