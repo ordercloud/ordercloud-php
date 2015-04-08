@@ -237,4 +237,13 @@ interface OrdercloudInterface
      * @throws OrdercloudException
      */
     public function updateProfile($userId, $firstName, $lastName, $nickName, $email, $cellPhoneNumber, $gender);
+
+    /**
+     * Gets the settings for an organisation
+     *
+     * @return array - settings
+     *
+     * @throws OrdercloudException
+     */
+    public function getSettingsForOrganisation();
 }
