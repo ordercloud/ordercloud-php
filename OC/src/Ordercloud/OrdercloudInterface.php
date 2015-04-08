@@ -57,7 +57,7 @@ interface OrdercloudInterface
      *
      * @throws OrdercloudException
      */
-    public function getProductsByMarketPlace($marketPlaceId, $category, $auhType, $access_token);
+    public function getProductsByMarketPlace($marketPlaceId, $category, $auhType, $access_token = null);
 
     /**
      * Gets the product matching the given id.
@@ -70,7 +70,7 @@ interface OrdercloudInterface
      *
      * @throws OrdercloudException
      */
-    public function getProduct($productId, $auhType, $access_token);
+    public function getProduct($productId, $auhType, $access_token = null);
 
     /**
      * Gets the URL for the user to be directed with OAuth
@@ -109,7 +109,7 @@ interface OrdercloudInterface
      *
      * @throws OrdercloudException
      */
-    public function getUserAddresses($userId, $auhType, $access_token);
+    public function getUserAddresses($userId, $auhType, $access_token = null);
 
     /**
      * Creates an address for the user
@@ -126,7 +126,7 @@ interface OrdercloudInterface
      *
      * @throws OrdercloudException
      */
-    public function createAddressForUser($userId, $name, $streetName, $city, array $addressDetails = [], $auhType, $access_token);
+    public function createAddressForUser($userId, $name, $streetName, $city, array $addressDetails = [], $auhType, $access_token = null);
 
     /**
      * Creates an order for the user
@@ -140,7 +140,7 @@ interface OrdercloudInterface
      *
      * @throws OrdercloudException
      */
-    public function createOrder($userId, array $items, $paymentStatus, $deliveryType, $amount, $userGeoId);
+    public function createOrder($userId, array $items, $paymentStatus, $deliveryType, $amount, $userGeoId = null);
 
     /**
      * gets all the orders for a user
@@ -153,7 +153,7 @@ interface OrdercloudInterface
      *
      * @throws OrdercloudException
      */
-    public function getOrderForUser($userId, $auhType, $access_token);
+    public function getOrderForUser($userId, $auhType, $access_token = null);
 
     /**
      * Gets all the menu tags for a certain organisation
