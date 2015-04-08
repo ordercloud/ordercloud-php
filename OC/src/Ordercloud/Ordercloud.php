@@ -355,7 +355,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @throws OrdercloudException ClientErrorResponseException
      */
-    public function createAddressForUser($userId, $name, $streetName, $city, $addressDetails = [], $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
+    public function createAddressForUser($userId, $name, $streetName, $city, array $addressDetails = [], $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
     {
         $data = [
             "name"       => $name,
