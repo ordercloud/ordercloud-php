@@ -735,4 +735,18 @@ class Ordercloud implements OrdercloudInterface
             new OrdercloudException($e->getMessage(), $request->getResponse()->getStatusCode(), $e);
         }
     }
+
+    public function getSettingsForOrganisationByKeyName($key)
+    {
+        $loweredKey = trim(strtolower($key));
+        $settings = $this->getSettingsForOrganisation();
+
+        foreach ($settings as $setting) {
+            if ($setting['key']['name'] == $loweredKey) {
+                return $setting;
+            }
+        }
+
+        return null;
+    }
 }
