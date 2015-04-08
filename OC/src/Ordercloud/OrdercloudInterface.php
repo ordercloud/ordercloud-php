@@ -246,4 +246,15 @@ interface OrdercloudInterface
      * @throws OrdercloudException
      */
     public function getSettingsForOrganisation();
+
+    /**
+     * Gets the setting with the specified key for an organisation
+     *
+     * @param string $keyName
+     *
+     * @return array|null - the specified setting
+     *
+     * @throws OrdercloudException
+     */
+    public function getSettingsForOrganisationByKeyName($keyName);
 }
