@@ -464,9 +464,10 @@ class Ordercloud implements OrdercloudInterface
             'sort' => $sort,
         ];
         $urlQuery = http_build_query($queryParams);
+        $urlQueryNormalised = preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $urlQuery); // Remove array notations eg. "[0]"
 
         $request = $this->client->get(
-            "/resource/orders/user/$userId?$urlQuery",
+            "/resource/orders/user/$userId?$urlQueryNormalised",
             $this->requestConfig
         );
 
