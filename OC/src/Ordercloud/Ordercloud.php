@@ -453,28 +453,25 @@ class Ordercloud implements OrdercloudInterface
         }
     }
 
-    /**
-     * gets all the orders for a user
-     *
-     * @param $userId       - Int the users id
-     * @param $auhType      - String The type of auth to use
-     * @param $access_token - String The access_token to use
-     *
-     * @return array the order for the user
-     *
-     * @throws OrdercloudException ClientErrorResponseException
-     */
-    public function getOrdersForUser($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
+    public function getOrdersForUser($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null, $page = 1, $pageSize = 10, array $orderStatuses = [], array $paymentStatuses = [], $sort = 'date+')
     {
+        $queryParams = [
+            'access_token' => $access_token,
+            'page' => $page,
+            'pagesize' => $pageSize,
+            'orderstatus' => $orderStatuses,
+            'paymentstatus' => $paymentStatuses,
+            'sort' => $sort,
+        ];
+        $urlQuery = http_build_query($queryParams);
+
+        $request = $this->client->get(
+            "/resource/orders/user/$userId?$urlQuery",
+            $this->requestConfig
+        );
+
         if ($auhType == OrdercloudInterface::AUTH_TYPE_BASIC) {
-            $request = $this->client->get("/resource/orders/user/" . $userId, $this->requestConfig);
             $request->setAuth($this->username, $this->password);
-        }
-        else {
-            $request = $this->client->get(
-                "/resource/orders/user/" . $userId . "?access_token=" . $access_token,
-                $this->requestConfig
-            );
         }
 
         try {
