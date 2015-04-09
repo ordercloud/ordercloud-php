@@ -464,7 +464,7 @@ class Ordercloud implements OrdercloudInterface
      *
      * @throws OrdercloudException ClientErrorResponseException
      */
-    public function getOrderForUser($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
+    public function getOrdersForUser($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
     {
         if ($auhType == OrdercloudInterface::AUTH_TYPE_BASIC) {
             $request = $this->client->get("/resource/orders/user/" . $userId, $this->requestConfig);

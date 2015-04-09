@@ -153,7 +153,7 @@ interface OrdercloudInterface
      *
      * @throws OrdercloudException
      */
-    public function getOrderForUser($userId, $auhType, $access_token = null);
+    public function getOrdersForUser($userId, $auhType, $access_token = null);
 
     /**
      * Gets all the menu tags for a certain organisation
