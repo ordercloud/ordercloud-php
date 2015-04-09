@@ -14,11 +14,18 @@ interface OrdercloudInterface
     const PAYMENT_GATEWAY_MYGATE_ZA = "MYGATE_ZA";
     const PAYMENT_GATEWAY_PAYU_ZA = "PAYU_ZA";
 
+    const ORDER_STATUS_NEW = 1;
     const ORDER_STATUS_PENDING = 2;
     const ORDER_STATUS_ACCEPTED = 3;
+    const ORDER_STATUS_CANCELLED = 4;
     const ORDER_STATUS_READY = 5;
     const ORDER_STATUS_COLLECTED = 6;
     const ORDER_STATUS_DELIVERED = 7;
+    const ORDER_STATUS_COMPLETED = 8;
+    const ORDER_STATUS_REJECTED = 9;
+    const ORDER_STATUS_FLAGGED = 10;
+    const ORDER_STATUS_REPLACED = 11;
+    const ORDER_STATUS_PICKED_UP = 12;
 
     /**
      * Gets all the market places connected to the store
