@@ -453,32 +453,36 @@ class Ordercloud implements OrdercloudInterface
         }
     }
 
-    /**
-     * gets all the orders for a user
-     *
-     * @param $userId       - Int the users id
-     * @param $auhType      - String The type of auth to use
-     * @param $access_token - String The access_token to use
-     *
-     * @return array the order for the user
-     *
-     * @throws OrdercloudException ClientErrorResponseException
-     */
-    public function getOrderForUser($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
+    public function getOrdersForUser($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null, $page = 1, $pageSize = 10, array $orderStatuses = [], array $paymentStatuses = [], $sort = 'date+')
     {
+        $queryParams = [
+            'access_token' => $access_token,
+            'page' => $page,
+            'pagesize' => $pageSize,
+            'orderstatus' => $orderStatuses,
+            'paymentstatus' => $paymentStatuses,
+            'sort' => $sort,
+        ];
+        $urlQuery = http_build_query($queryParams);
+        $urlQueryNormalised = preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '=', $urlQuery); // Remove array notations eg. "[0]"
+
+        $request = $this->client->get(
+            "/resource/orders/user/$userId?$urlQueryNormalised",
+            $this->requestConfig
+        );
+
         if ($auhType == OrdercloudInterface::AUTH_TYPE_BASIC) {
-            $request = $this->client->get("/resource/orders/user/" . $userId, $this->requestConfig);
             $request->setAuth($this->username, $this->password);
-        }
-        else {
-            $request = $this->client->get(
-                "/resource/orders/user/" . $userId . "?access_token=" . $access_token,
-                $this->requestConfig
-            );
         }
 
         try {
-            return $request->send()->json()["results"];
+            $results = $request->send()->json();
+
+            $results['totalPages'] = ceil($results['count'] / $pageSize);
+            $results['nextPage'] = $results['totalPages'] > $page ? $page + 1 : false;
+            $results['prevPage'] = $page > 1 ? $page - 1 : false;
+
+            return $results;
         }
         catch (BadRequestHttpException $e) {
             Log::error($e);

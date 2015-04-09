@@ -14,6 +14,19 @@ interface OrdercloudInterface
     const PAYMENT_GATEWAY_MYGATE_ZA = "MYGATE_ZA";
     const PAYMENT_GATEWAY_PAYU_ZA = "PAYU_ZA";
 
+    const ORDER_STATUS_NEW = 1;
+    const ORDER_STATUS_PENDING = 2;
+    const ORDER_STATUS_ACCEPTED = 3;
+    const ORDER_STATUS_CANCELLED = 4;
+    const ORDER_STATUS_READY = 5;
+    const ORDER_STATUS_COLLECTED = 6;
+    const ORDER_STATUS_DELIVERED = 7;
+    const ORDER_STATUS_COMPLETED = 8;
+    const ORDER_STATUS_REJECTED = 9;
+    const ORDER_STATUS_FLAGGED = 10;
+    const ORDER_STATUS_REPLACED = 11;
+    const ORDER_STATUS_PICKED_UP = 12;
+
     /**
      * Gets all the market places connected to the store
      *
@@ -143,17 +156,21 @@ interface OrdercloudInterface
     public function createOrder($userId, array $items, $paymentStatus, $deliveryType, $amount, $userGeoId = null);
 
     /**
-     * gets all the orders for a user
+     * Get all the orders for a user
      *
-     * @param int    $userId       The users id
-     * @param string $auhType      The type of auth to use
-     * @param string $access_token The access_token to use
+     * @param int         $userId          ID of user to fetch orders for
+     * @param string      $auhType         The type of auth to use
+     * @param string      $access_token    The access_token to use
+     * @param int         $page            Current page number
+     * @param int         $pageSize        Amount of records per page
+     * @param array|int[] $orderStatuses   List of Order Status id's of orders to fetch
+     * @param array|int[] $paymentStatuses List of payment Statuses of orders to fetch
+     * @param string      $sort            The sorting order of the records returned. date+ newest first, date- oldest first
      *
      * @return array the order for the user
      *
-     * @throws OrdercloudException
      */
-    public function getOrderForUser($userId, $auhType, $access_token = null);
+    public function getOrdersForUser($userId, $auhType, $access_token = null, $page = 1, $pageSize = 10, array $orderStatuses = [], array $paymentStatuses = [], $sort = 'date+');
 
     /**
      * Gets all the menu tags for a certain organisation
@@ -195,20 +212,7 @@ interface OrdercloudInterface
      *
      * @throws OrdercloudException
      */
-    public function createCreditCardPayment(
-        $paymentGateway,
-        $amount,
-        $budgetPeriod,
-        $cardExpiryMonth,
-        $cardExpiryYear,
-        $nameOnCard,
-        $cvv,
-        $cardNumber,
-        $orderRef,
-        $description,
-        $testMode,
-        $access_token
-    );
+    public function createCreditCardPayment($paymentGateway, $amount, $budgetPeriod, $cardExpiryMonth, $cardExpiryYear, $nameOnCard, $cvv, $cardNumber, $orderRef, $description, $testMode, $access_token);
 
     /**
      * Retrieves the profile for the given user id
@@ -224,7 +228,7 @@ interface OrdercloudInterface
     /**
      * Update the profile for the given user id
      *
-     * @param int $userId
+     * @param int    $userId
      * @param string $firstName
      * @param string $lastName
      * @param string $nickName
