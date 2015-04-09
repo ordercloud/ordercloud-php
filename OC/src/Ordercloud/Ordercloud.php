@@ -476,7 +476,13 @@ class Ordercloud implements OrdercloudInterface
         }
 
         try {
-            return $request->send()->json()["results"];
+            $results = $request->send()->json();
+
+            $results['totalPages'] = ceil($results['count'] / $pageSize);
+            $results['nextPage'] = $results['totalPages'] > $page ? $page + 1 : false;
+            $results['prevPage'] = $page > 1 ? $page - 1 : false;
+
+            return $results;
         }
         catch (BadRequestHttpException $e) {
             Log::error($e);
