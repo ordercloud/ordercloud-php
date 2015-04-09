@@ -14,10 +14,8 @@ interface OrdercloudInterface
     const PAYMENT_GATEWAY_MYGATE_ZA = "MYGATE_ZA";
     const PAYMENT_GATEWAY_PAYU_ZA = "PAYU_ZA";
 
-    const ORDER_STATUS_ = 1;
     const ORDER_STATUS_PENDING = 2;
     const ORDER_STATUS_ACCEPTED = 3;
-    const ORDER_STATUS_ = 4;
     const ORDER_STATUS_READY = 5;
     const ORDER_STATUS_COLLECTED = 6;
     const ORDER_STATUS_DELIVERED = 7;
