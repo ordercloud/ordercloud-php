@@ -2,6 +2,31 @@
 
 interface OrdercloudInterface
 {
+    const DELIVERY_TYPE_DELIVERY = "DELIVERY";
+    const DELIVERY_TYPE_SELFPICKUP = "SELFPICKUP";
+
+    const PAYMENT_STATUS_PAID = "PAID";
+    const PAYMENT_STATUS_UNPAID = "UNPAID";
+
+    const AUTH_TYPE_TOKEN = "token";
+    const AUTH_TYPE_BASIC = "basic";
+
+    const PAYMENT_GATEWAY_MYGATE_ZA = "MYGATE_ZA";
+    const PAYMENT_GATEWAY_PAYU_ZA = "PAYU_ZA";
+
+    const ORDER_STATUS_NEW = 1;
+    const ORDER_STATUS_PENDING = 2;
+    const ORDER_STATUS_ACCEPTED = 3;
+    const ORDER_STATUS_CANCELLED = 4;
+    const ORDER_STATUS_READY = 5;
+    const ORDER_STATUS_COLLECTED = 6;
+    const ORDER_STATUS_DELIVERED = 7;
+    const ORDER_STATUS_COMPLETED = 8;
+    const ORDER_STATUS_REJECTED = 9;
+    const ORDER_STATUS_FLAGGED = 10;
+    const ORDER_STATUS_REPLACED = 11;
+    const ORDER_STATUS_PICKED_UP = 12;
+
     /**
      * Gets all the market places connected to the store
      *
@@ -42,8 +67,10 @@ interface OrdercloudInterface
      * @param string $access_token  The access_token to use
      *
      * @return array Products for market place
+     *
+     * @throws OrdercloudException
      */
-    public function getProductsByMarketPlace($marketPlaceId, $category, $auhType, $access_token);
+    public function getProductsByMarketPlace($marketPlaceId, $category, $auhType, $access_token = null);
 
     /**
      * Gets the product matching the given id.
@@ -53,8 +80,10 @@ interface OrdercloudInterface
      * @param string $access_token
      *
      * @return array the product
+     *
+     * @throws OrdercloudException
      */
-    public function getProduct($productId, $auhType, $access_token);
+    public function getProduct($productId, $auhType, $access_token = null);
 
     /**
      * Gets the URL for the user to be directed with OAuth
@@ -66,6 +95,8 @@ interface OrdercloudInterface
      * @param int    $organisationId The client
      *
      * @return string The url to redirect to
+     *
+     * @throws OrdercloudException
      */
     public function getOAuthUrl($redirectUrl, $login, $mobile, $clientSecret, $organisationId);
 
@@ -91,7 +122,7 @@ interface OrdercloudInterface
      *
      * @throws OrdercloudException
      */
-    public function getUserAddresses($userId, $auhType, $access_token);
+    public function getUserAddresses($userId, $auhType, $access_token = null);
 
     /**
      * Creates an address for the user
@@ -108,7 +139,7 @@ interface OrdercloudInterface
      *
      * @throws OrdercloudException
      */
-    public function createAddressForUser($userId, $name, $streetName, $city, $addressDetails = [], $auhType, $access_token);
+    public function createAddressForUser($userId, $name, $streetName, $city, array $addressDetails = [], $auhType, $access_token = null);
 
     /**
      * Creates an order for the user
@@ -119,21 +150,27 @@ interface OrdercloudInterface
      * @param string       $deliveryType  SELFPICKUP or DELIVERY
      * @param string|float $amount        The total for the order
      * @param int          $userGeoId     The address ID for the order destination
-     */
-    public function createOrder($userId, array $items, $paymentStatus, $deliveryType, $amount, $userGeoId);
-
-    /**
-     * gets all the orders for a user
-     *
-     * @param int    $userId       The users id
-     * @param string $auhType      The type of auth to use
-     * @param string $access_token The access_token to use
-     *
-     * @return array the order for the user
      *
      * @throws OrdercloudException
      */
-    public function getOrderForUser($userId, $auhType, $access_token);
+    public function createOrder($userId, array $items, $paymentStatus, $deliveryType, $amount, $userGeoId = null);
+
+    /**
+     * Get all the orders for a user
+     *
+     * @param int         $userId          ID of user to fetch orders for
+     * @param string      $auhType         The type of auth to use
+     * @param string      $access_token    The access_token to use
+     * @param int         $page            Current page number
+     * @param int         $pageSize        Amount of records per page
+     * @param array|int[] $orderStatuses   List of Order Status id's of orders to fetch
+     * @param array|int[] $paymentStatuses List of payment Statuses of orders to fetch
+     * @param string      $sort            The sorting order of the records returned. date+ newest first, date- oldest first
+     *
+     * @return array the order for the user
+     *
+     */
+    public function getOrdersForUser($userId, $auhType, $access_token = null, $page = 1, $pageSize = 10, array $orderStatuses = [], array $paymentStatuses = [], $sort = 'date+');
 
     /**
      * Gets all the menu tags for a certain organisation
@@ -141,6 +178,8 @@ interface OrdercloudInterface
      * @param int $selectedStoreId The ID of the stores you want the menu items for
      *
      * @return array of tags
+     *
+     * @throws OrdercloudException
      */
     public function getMenu($selectedStoreId);
 
@@ -150,6 +189,8 @@ interface OrdercloudInterface
      * @param string $refreshToken The refresh token which will be used to fetch a new access token
      *
      * @return string A new access token
+     *
+     * @throws OrdercloudException
      */
     public function getNewAccessToken($refreshToken);
 
@@ -169,20 +210,55 @@ interface OrdercloudInterface
      * @param string       $testMode        Whether test mode is on
      * @param string       $access_token
      *
-     * @return
+     * @throws OrdercloudException
      */
-    public function createCreditCardPayment(
-        $paymentGateway,
-        $amount,
-        $budgetPeriod,
-        $cardExpiryMonth,
-        $cardExpiryYear,
-        $nameOnCard,
-        $cvv,
-        $cardNumber,
-        $orderRef,
-        $description,
-        $testMode,
-        $access_token
-    );
+    public function createCreditCardPayment($paymentGateway, $amount, $budgetPeriod, $cardExpiryMonth, $cardExpiryYear, $nameOnCard, $cvv, $cardNumber, $orderRef, $description, $testMode, $access_token);
+
+    /**
+     * Retrieves the profile for the given user id
+     *
+     * @param int $userId
+     *
+     * @return array
+     *
+     * @throws OrdercloudException
+     */
+    public function getProfile($userId);
+
+    /**
+     * Update the profile for the given user id
+     *
+     * @param int    $userId
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $nickName
+     * @param string $email
+     * @param string $cellPhoneNumber
+     * @param string $gender
+     *
+     * @return array
+     *
+     * @throws OrdercloudException
+     */
+    public function updateProfile($userId, $firstName, $lastName, $nickName, $email, $cellPhoneNumber, $gender);
+
+    /**
+     * Gets the settings for an organisation
+     *
+     * @return array - settings
+     *
+     * @throws OrdercloudException
+     */
+    public function getSettingsForOrganisation();
+
+    /**
+     * Gets the setting with the specified key for an organisation
+     *
+     * @param string $keyName
+     *
+     * @return array|null - the specified setting
+     *
+     * @throws OrdercloudException
+     */
+    public function getSettingsForOrganisationByKeyName($keyName);
 }
