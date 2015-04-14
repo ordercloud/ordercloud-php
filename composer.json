@@ -13,14 +13,15 @@
   ],
   "requires": {
     "php": ">=5.4",
-    "guzzlehttp/guzzle": ">=3.7"
+    "guzzlehttp/guzzle": ">=3.7",
+    "nesbot/carbon": ">=1.0"
   },
   "autoload": {
     "psr-0": {
       "OC\\Ordercloud": "src/"
     },
     "psr-4": {
-      "OC\\Ordercloud\\": "src/"
+      "Ordercloud\\": "src/"
     }
   }
 }

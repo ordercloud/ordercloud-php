@@ -1,10 +1,18 @@
-<?php namespace OrderCloud\OrderCloud;
+<?php namespace Ordercloud;
 
-class OrderCloud implements OrdercloudInterface
+use Ordercloud\Connections\Connection;
+
+class Ordercloud extends \Ordercloud\Ordercloud\Ordercloud implements OrdercloudInterface
 {
+    /**
+     * @param int $marketPlaceId
+     *
+     * @return array|Connection[]
+     */
     public function getConnectedMarketPlaces($marketPlaceId)
     {
-        // TODO: Implement getConnectedMarketPlaces() method.
+        //TODO
+        return parent::getConnectedMarketPlaces($marketPlaceId);
     }
 
     public function getStore($storeId)
