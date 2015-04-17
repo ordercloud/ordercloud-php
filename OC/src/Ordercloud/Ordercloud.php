@@ -288,14 +288,7 @@ class Ordercloud implements OrdercloudInterface
 
         try {
             $response = $request->send();
-            $geoUrl = explode("/", $response->getLocation());
-            if ( ! is_array($geoUrl)) {
-                new OrdercloudException(
-                    "Geo ID not found in request, response: " . $response, $request->getResponse()->getStatusCode()
-                );
-            }
-
-            return end($geoUrl);
+            return $this->getResourceID($response->getLocation());
         }
         catch (BadRequestHttpException $e) {
             Log::error($e);
@@ -331,6 +324,7 @@ class Ordercloud implements OrdercloudInterface
         $request->setAuth($this->username, $this->password);
         try {
             $response = $request->send();
+            return $this->getResourceID($response->getLocation());
         }
         catch (BadRequestHttpException $e) {
             Log::error($e);
@@ -491,14 +485,7 @@ class Ordercloud implements OrdercloudInterface
 
         try {
             $response = $request->send();
-            $paymentId = explode("/", $response->getLocation());
-            if ( ! is_array($paymentId)) {
-                new OrdercloudException(
-                    "Payment ID not found in request, response: " . $response, $request->getResponse()->getStatusCode()
-                );
-            }
-
-            return end($paymentId);
+            return $this->getResourceID($response->getLocation());
         }
         catch (BadRequestHttpException $e) {
             Log::error($e);
@@ -581,5 +568,21 @@ class Ordercloud implements OrdercloudInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param string $resourceLocation
+     *
+     * @return int
+     */
+    protected function getResourceID($resourceLocation)
+    {
+        $resourceLocationParts = explode("/", $resourceLocation);
+
+        if ( ! is_array($resourceLocationParts)) {
+            new OrdercloudException("Resource ID not found in request, loaction: $resourceLocation");
+        }
+
+        return end($resourceLocationParts);
     }
 }
