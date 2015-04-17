@@ -9,9 +9,9 @@ class Organisation
     /** @var string */
     private $code;
     /** @var array|OrganisationType[] */
-    private $type;
+    private $types;
     /** @var array|OrganisationProfile[] */
-    private $profile;
+    private $profiles;
     /** @var array|OrganisationOperatingHours[] */
     private $operatingHours;
     /** @var integer */
@@ -25,13 +25,13 @@ class Organisation
     /** @var boolean */
     private $open;
 
-    function __construct($id, $name, $code, array $type, array $profile, array $operatingHours, $ordersHash, $status, $lastOnline, $delivering, $open)
+    function __construct($id, $name, $code, array $types, array $profiles, array $operatingHours, $ordersHash, $status, $lastOnline, $delivering, $open)
     {
         $this->id = $id;
         $this->name = $name;
         $this->code = $code;
-        $this->type = $type;
-        $this->profile = $profile;
+        $this->types = $types;
+        $this->profiles = $profiles;
         $this->operatingHours = $operatingHours;
         $this->ordersHash = $ordersHash;
         $this->status = $status;
@@ -83,33 +83,33 @@ class Organisation
     /**
      * @return array|OrganisationType[]
      */
-    public function getType()
+    public function getTypes()
     {
-        return $this->type;
+        return $this->types;
     }
 
     /**
-     * @param array|OrganisationType[] $type
+     * @param array|OrganisationType[] $types
      */
-    public function setType($type)
+    public function setTypes($types)
     {
-        $this->type = $type;
+        $this->types = $types;
     }
 
     /**
      * @return array|OrganisationProfile[]
      */
-    public function getProfile()
+    public function getProfiles()
     {
-        return $this->profile;
+        return $this->profiles;
     }
 
     /**
-     * @param array|OrganisationProfile[] $profile
+     * @param array|OrganisationProfile[] $profiles
      */
-    public function setProfile($profile)
+    public function setProfiles($profiles)
     {
-        $this->profile = $profile;
+        $this->profiles = $profiles;
     }
 
     /**

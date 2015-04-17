@@ -8,10 +8,6 @@ class ProductOption
     private $id;
     /** @var number */
     private $price;
-    /** @var undefined */ //TODO
-    private $customOption;
-    /** @var undefined */ //TODO
-    private $libraryOption;
     /** @var boolean */
     private $enabled;
     /** @var Organisation */

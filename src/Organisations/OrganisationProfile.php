@@ -4,10 +4,8 @@ class OrganisationProfile
 {
     /** @var integer */
     private $id;
-    /** @var User */ //TODO
+    /** @var User */
     private $contactPerson;
-    /** @var string */
-    private $latitude;
     /** @var string */
     private $contactNumber;
     /** @var boolean */
@@ -15,16 +13,18 @@ class OrganisationProfile
     /** @var integer */
     private $distance;
     /** @var string */
+    private $latitude;
+    /** @var string */
     private $longitude;
 
-    function __construct($id, $contactPerson, $latitude, $contactNumber, $enabled, $distance, $longitude)
+    function __construct($id, $contactPerson, $contactNumber, $enabled, $distance, $latitude, $longitude)
     {
         $this->id = $id;
         $this->contactPerson = $contactPerson;
-        $this->latitude = $latitude;
         $this->contactNumber = $contactNumber;
         $this->enabled = $enabled;
         $this->distance = $distance;
+        $this->latitude = $latitude;
         $this->longitude = $longitude;
     }
 

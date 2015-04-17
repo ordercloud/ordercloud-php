@@ -8,10 +8,6 @@ class ProductAttribute
     private $id;
     /** @var boolean */
     private $enabled;
-    /** @var undefined */ //TODO
-    private $customAttribute;
-    /** @var undefined */ //TODO
-    private $productLibraryAttribute;
     /** @var Organisation */
     private $organisation;
 

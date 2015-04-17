@@ -12,10 +12,6 @@ class ProductExtra
     private $tags;
     /** @var boolean */
     private $enabled;
-    /** @var undefined */ //TODO
-    private $customExtra;
-    /** @var undefined */ //TODO
-    private $libraryExtra;
     /** @var Organisation */
     private $organisation;
 

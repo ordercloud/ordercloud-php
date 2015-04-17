@@ -24,10 +24,6 @@ class Product
     private $extras;
     /** @var array|ProductTag[] */
     private $tags;
-    /** @var undefined */ //TODO
-    private $customProduct;
-    /** @var undefined */ //TODO
-    private $libraryProduct;
     /** @var Organisation */
     private $organisation;
     /** @var boolean */
@@ -40,8 +36,8 @@ class Product
     private $images;
     /** @var array|ProductDto[] */
     private $groupItems;
-    /** @var undefined */ //TODO
+    /** @var undefined */ //TODO {id, name}
     private $productType;
-    /** @var undefined */ //TODO
+    /** @var undefined */ //TODO {amount, discountedProductAmount}
     private $discount;
 }

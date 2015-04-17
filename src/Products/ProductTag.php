@@ -16,7 +16,7 @@ class ProductTag
     private $enabled;
     /** @var array|ProductExtra[] */
     private $extras;
-    /** @var ProductTag */ //TODO check if this should be tag link as well
+    /** @var ProductTag */
     private $parentTag;
     /** @var array|ProductTagLink[] */
     private $childTags;

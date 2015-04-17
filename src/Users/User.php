@@ -2,24 +2,26 @@
 
 use Ordercloud\Organisations\Organisation;
 
-class User
+class User extends ShortUser
 {
-    /** @var int */
-    private $id;
     /** @var boolean */
     private $enabled;
     /** @var string */
-    private $username;
-    /** @var  */ //TODO
     private $facebook_id;
-    /** @var string */
-    private $password; //TODO eh?
-    /** @var UserProfile */
-    private $profile;
     /** @var array| */
     private $groups;
     /** @var array| */
     private $roles;
     /** @var array|Organisation[] */
     private $organisations;
+
+    function __construct($id, $enabled, $username, $facebook_id, $profile, $groups, $roles, $organisations)
+    {
+        parent::__construct($id, $username, $profile);
+        $this->enabled = $enabled;
+        $this->facebook_id = $facebook_id;
+        $this->groups = $groups;
+        $this->roles = $roles;
+        $this->organisations = $organisations;
+    }
 }
