@@ -1,6 +1,6 @@
-<?php namespace Ordercloud\Orders;
+<?php namespace Ordercloud\Organisations;
 
-class OrderStatus
+class OrganisationIndustry
 {
     /** @var integer */
     private $id;

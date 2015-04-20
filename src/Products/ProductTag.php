@@ -1,6 +1,6 @@
 <?php namespace Ordercloud\Products;
 
-use Ordercloud\Organisations\Organisation;
+use Ordercloud\Organisations\OrganisationShort;
 
 class ProductTag
 {
@@ -14,21 +14,25 @@ class ProductTag
     private $shortDescription;
     /** @var boolean */
     private $enabled;
-    /** @var array|ProductExtra[] */
-    private $extras;
-    /** @var ProductTag */
+    /** @var ProductTagType */
+    private $tagType;
+    /** @var OrganisationShort */
+    private $organisation;
+    /** @var ProductTagLink */
     private $parentTag;
     /** @var array|ProductTagLink[] */
     private $childTags;
-    /** @var array|ProductOption[] */
-    private $options;
-    /** @var array|ProductAttribute[] */
-    private $attributes;
-    /** @var array|Product[] */
-    private $products;
-    /** @var ProductTagType */
-    private $type;
-    /** @var Organisation */
-    private $organisation;
 
+    function __construct($id, $name, $description, $shortDescription, $enabled, ProductTagType $tagType, OrganisationShort $organisation, ProductTagLink $parentTag, array $childTags)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->description = $description;
+        $this->shortDescription = $shortDescription;
+        $this->enabled = $enabled;
+        $this->tagType = $tagType;
+        $this->organisation = $organisation;
+        $this->parentTag = $parentTag;
+        $this->childTags = $childTags;
+    }
 }

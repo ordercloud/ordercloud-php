@@ -1,6 +1,6 @@
-<?php namespace Ordercloud\Products;
+<?php namespace Ordercloud\Organisations\Settings;
 
-class ProductTagLink
+class OrganisationSettingKey
 {
     /** @var integer */
     private $id;

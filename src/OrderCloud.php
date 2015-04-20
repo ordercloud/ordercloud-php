@@ -1,100 +1,68 @@
 <?php namespace Ordercloud;
 
 use Ordercloud\Connections\Connection;
+use Ordercloud\Connections\ConnectionFee;
+use Ordercloud\Connections\ConnectionFeeMetric;
+use Ordercloud\Connections\ConnectionFeeStructure;
+use Ordercloud\Connections\ConnectionFeeType;
+use Ordercloud\Connections\ConnectionType;
 use Ordercloud\Ordercloud\OrdercloudInterface;
+use Ordercloud\Orders\Order;
+use Ordercloud\Orders\OrderItem;
+use Ordercloud\Orders\OrderStatus;
 use Ordercloud\Organisations\Organisation;
+use Ordercloud\Organisations\OrganisationIndustry;
 use Ordercloud\Organisations\OrganisationOperatingHours;
 use Ordercloud\Organisations\OrganisationProfile;
 use Ordercloud\Organisations\OrganisationType;
-use Ordercloud\Users\ShortUser;
+use Ordercloud\Organisations\Settings\OrganisationSetting;
+use Ordercloud\Organisations\Settings\OrganisationSettingKey;
+use Ordercloud\Organisations\OrganisationShort;
+use Ordercloud\Products\Product;
+use Ordercloud\Products\ProductOption;
+use Ordercloud\Products\ProductShort;use Ordercloud\Products\ProductTag;
+use Ordercloud\Products\ProductType;
+use Ordercloud\Support\Parser;
+use Ordercloud\Users\UserShort;
 use Ordercloud\Users\User;
+use Ordercloud\Users\UserAddress;
+use Ordercloud\Users\UserGroup;
 use Ordercloud\Users\UserProfile;
+use Ordercloud\Users\UserRole;
 
 class Ordercloud extends \Ordercloud\Ordercloud\Ordercloud implements OrdercloudInterface
 {
+    /** @var Parser */
+    private $parser;
+
+    public function __construct(Parser $parser)
+    {
+        $this->parser = $parser;
+    }
+
     public function getConnectedMarketPlaces($marketPlaceId)
     {
-        //TODO
-        return parent::getConnectedMarketPlaces($marketPlaceId);
+        $connectedMarketPlacesData = parent::getConnectedMarketPlaces($marketPlaceId);
+
+        return $this->parser->parseConnections($connectedMarketPlacesData);
     }
 
     public function getStore($storeId)
     {
         $storeData = parent::getStore($storeId);
 
-        $types = [];
-        foreach ($storeData['type'] as $type) {
-            $types[] = new OrganisationType(
-                $type['id'],
-                $type['name'],
-                $type['plural']
-            );
-        }
-
-        $profiles = [];
-        foreach ($storeData['profile'] as $profile) {
-            $userProfile = new UserProfile(
-                $profile['contactPerson']['profile']['firstName'],
-                $profile['contactPerson']['profile']['surname'],
-                $profile['contactPerson']['profile']['email'],
-                $profile['contactPerson']['profile']['nickName'],
-                $profile['contactPerson']['profile']['cellphoneNumber'],
-                $profile['contactPerson']['profile']['sex']
-            );
-
-            $contactPerson = new ShortUser(
-                $profile['contactPerson']['id'],
-                $profile['contactPerson']['username'],
-                $userProfile
-            );
-
-            $profiles[] = new OrganisationProfile(
-                $profile['id'],
-                $contactPerson,
-                $profile['contactNumber'],
-                $profile['enabled'],
-                $profile['distance'],
-                $profile['latitude'],
-                $profile['longitude']
-            );
-        }
-
-        $operatingHours = [];
-        foreach ($storeData['operatingHours'] as $operatingTimes) {
-            $operatingHours[] = new OrganisationOperatingHours(
-                $operatingTimes['id'],
-                $operatingTimes['day'],
-                $operatingTimes['openTime'],
-                $operatingTimes['closeTime'],
-                $operatingTimes['dayName']
-            );
-        }
-
-        return new Organisation(
-            $storeData['id'],
-            $storeData['name'],
-            $storeData['code'],
-            $types,
-            $profiles,
-            $operatingHours,
-            $storeData['ordersHash'],
-            $storeData['status'],
-            $storeData['lastOnline'],
-            $storeData['delivering'],
-            $storeData['open'],
-            $storeData['registeredDirectly']
-        );
+        return $this->parser->parseOrganisation($storeData);
     }
 
     public function getAllMarketPlaces()
     {
-        // TODO: Implement getAllMarketPlaces() method.
-        return parent::getAllMarketPlaces();
+        $allMarketPlaces = parent::getAllMarketPlaces();
+
+        return $this->parser->parseConnections($allMarketPlaces);
     }
 
     public function getProductsByMarketPlace($marketPlaceId, $category, $auhType, $access_token = null)
     {
-        // TODO: Implement getProductsByMarketPlace() method.
         return parent::getProductsByMarketPlace($marketPlaceId, $category, $auhType, $access_token);
     }
 
@@ -110,12 +78,21 @@ class Ordercloud extends \Ordercloud\Ordercloud\Ordercloud implements Ordercloud
 
     public function getUserDetails($access_token)
     {
-        return parent::getUserDetails($access_token); // TODO: Change the autogenerated stub
+        $user = parent::getUserDetails($access_token);
+
+        return $this->parser->parseUser($user);
     }
 
     public function getUserAddresses($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
     {
-        return parent::getUserAddresses($userId, $auhType, $access_token); // TODO: Change the autogenerated stub
+        $userAddresses = parent::getUserAddresses($userId, $auhType, $access_token);
+
+        $addresses = [];
+        foreach ($userAddresses as $userAddress) {
+            $addresses[] = $this->parser->parseUserAddress($userAddress);
+        }
+
+        return $addresses;
     }
 
     public function createAddressForUser($userId, $name, $streetName, $city, array $addressDetails = [], $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
@@ -138,16 +115,14 @@ class Ordercloud extends \Ordercloud\Ordercloud\Ordercloud implements Ordercloud
 
     public function getOrdersForUser($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null, $page = 1, $pageSize = 10, array $orderStatuses = [], array $paymentStatuses = [], $sort = 'date+')
     {
-        return parent::getOrdersForUser(
-            $userId,
-            $auhType,
-            $access_token,
-            $page,
-            $pageSize,
-            $orderStatuses,
-            $paymentStatuses,
-            $sort
-        ); // TODO: Change the autogenerated stub
+        $ordersArray = parent::getOrdersForUser($userId, $auhType, $access_token, $page, $pageSize, $orderStatuses, $paymentStatuses, $sort);
+
+        $orders = [];
+        foreach ($ordersArray as $order) {
+            $orders[] = $this->parser->parseOrder($order);
+        }
+
+        return $orders;
     }
 
     public function getMenu($selectedStoreId)
@@ -157,12 +132,19 @@ class Ordercloud extends \Ordercloud\Ordercloud\Ordercloud implements Ordercloud
 
     public function getNewAccessToken($refreshToken)
     {
-        return parent::getNewAccessToken($refreshToken); // TODO: Change the autogenerated stub
+        return parent::getNewAccessToken($refreshToken);
     }
 
     public function getSettingsForOrganisation()
     {
-        return parent::getSettingsForOrganisation(); // TODO: Change the autogenerated stub
+        $settingsForOrganisation = parent::getSettingsForOrganisation();
+
+        $settings = [];
+        foreach ($settingsForOrganisation as $setting) {
+            $settings[] = $this->parser->parseOrganisationSetting($setting);
+        }
+
+        return $settings;
     }
 
     public function createCreditCardPayment($paymentGateway, $amount, $budgetPeriod, $cardExpiryMonth, $cardExpiryYear, $nameOnCard, $cvv, $cardNumber, $orderRef, $description, $testMode, $access_token
@@ -185,7 +167,9 @@ class Ordercloud extends \Ordercloud\Ordercloud\Ordercloud implements Ordercloud
 
     public function getProfile($userId)
     {
-        return parent::getProfile($userId); // TODO: Change the autogenerated stub
+        $profile = parent::getProfile($userId);
+
+        return $this->parser->parseUserProfile($profile);
     }
 
     public function updateProfile($userId, $firstName, $lastName, $nickName, $email, $cellPhoneNumber, $gender)
@@ -195,6 +179,8 @@ class Ordercloud extends \Ordercloud\Ordercloud\Ordercloud implements Ordercloud
 
     public function getSettingsForOrganisationByKeyName($key)
     {
-        return parent::getSettingsForOrganisationByKeyName($key); // TODO: Change the autogenerated stub
+        $setting = parent::getSettingsForOrganisationByKeyName($key);
+
+        return $this->parser->parseOrganisationSetting($setting);
     }
 }

@@ -1,6 +1,6 @@
 <?php namespace Ordercloud\Products;
 
-use Ordercloud\Organisations\Organisation;
+use Ordercloud\Organisations\OrganisationShort;
 
 class ProductExtra
 {
@@ -12,7 +12,7 @@ class ProductExtra
     private $tags;
     /** @var boolean */
     private $enabled;
-    /** @var Organisation */
+    /** @var OrganisationShort */
     private $organisation;
 
 }

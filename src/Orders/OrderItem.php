@@ -1,29 +1,46 @@
 <?php namespace Ordercloud\Orders;
 
+use Ordercloud\Organisations\OrganisationShort;
+use Ordercloud\Products\ProductPriceDiscount;
+use Ordercloud\Products\ProductShort;
+
 class OrderItem
 {
     /** @var integer */
     private $id;
-    /** @var number */
+    /** @var float */
     private $price;
     /** @var integer */
     private $quantity;
     /** @var boolean */
     private $enabled;
-    /** @var undefined */
-    private $product;
-    /** @var undefined */
+    /** @var ProductShort */
+    private $detail;
+    /** @var OrderStatus */
     private $status;
-    /** @var undefined */
-    private $order;
     /** @var string */
     private $note;
+    /** @var ProductPriceDiscount */
+    private $itemDiscount;
     /** @var integer */
     private $readyEstimate;
-    /** @var array|OrderItemOption[] */
-    private $itemOptions;
     /** @var array|OrderItemExtra[] */
-    private $itemExtras;
-    /** @var undefined */
-    private $itemDiscount;
+    private $extras;
+    /** @var array|OrderItemOption[] */
+    private $options;
+
+    function __construct($id, $price, $quantity, $enabled, ProductShort $detail, OrderStatus $status, $note, ProductPriceDiscount $itemDiscount, $readyEstimate, array $extras, array $options)
+    {
+        $this->id = $id;
+        $this->price = $price;
+        $this->quantity = $quantity;
+        $this->enabled = $enabled;
+        $this->detail = $detail;
+        $this->status = $status;
+        $this->note = $note;
+        $this->itemDiscount = $itemDiscount;
+        $this->readyEstimate = $readyEstimate;
+        $this->extras = $extras;
+        $this->options = $options;
+    }
 }

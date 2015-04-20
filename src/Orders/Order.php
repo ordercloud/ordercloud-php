@@ -1,8 +1,11 @@
 <?php namespace Ordercloud\Orders;
 
-use Ordercloud\Organisations\Organisation;
-use Ordercloud\Users\User;
-use Ordercloud\Users\UserGeo;
+use Ordercloud\Delivery\DeliveryAgent;
+use Ordercloud\Organisations\OrganisationShort;
+use Ordercloud\Payments\Payment;
+use Ordercloud\Payments\PaymentStatus;
+use Ordercloud\Users\UserAddress;
+use Ordercloud\Users\UserShort;
 
 class Order
 {
@@ -16,30 +19,52 @@ class Order
     private $dateCreated;
     /** @var string */
     private $lastUpdated;
+    /** @var float */
+    private $amount;
     /** @var OrderStatus */
     private $status;
-    /** @var User */
-    private $user;
-    /** @var array|OrderPayment[] */
-    private $paymentStatus;
-    /** @var OrderPayment */
-    private $currentPaymentStatus;
-    /** @var Organisation */ // TODO short org
-    private $organisation;
     /** @var array|OrderItem[] */
     private $items;
-    /** @var string */
-    private $deliveryType;
+    /** @var UserShort */
+    private $user;
+    /** @var UserAddress */
+    private $userAddress;
+    /** @var OrganisationShort */
+    private $organisation;
+    /** @var PaymentStatus */
+    private $paymentStatus;
     /** @var array|Payment[] */
     private $payments;
-    /** @var UserGeo */
-    private $userGeo;
-    /** @var undefined */ // TODO DeliveryAgent
+    /** @var array|string[] */
+    private $paymentMethods;
+    /** @var string */
+    private $deliveryType;
+    /** @var DeliveryAgent */
     private $deliveryAgent;
     /** @var string */
     private $note;
-    /** @var OrderPayment */ // TODO confirm if depricated due to $currentPaymentStatus
-    private $lastPaymentStatus;
-    /** @var float */
-    private $amount;
+    /** @var boolean */
+    private $instorePaymentRequired;
+
+    function __construct($id, $reference, $shortReference, $dateCreated, $lastUpdated, $amount, OrderStatus $status, array $items, UserShort $user, UserAddress $userAddress, OrganisationShort $organisation, PaymentStatus $paymentStatus, array $payments, array $paymentMethods, $deliveryType, DeliveryAgent $deliveryAgent, $note, $instorePaymentRequired)
+    {
+        $this->id = $id;
+        $this->reference = $reference;
+        $this->shortReference = $shortReference;
+        $this->dateCreated = $dateCreated;
+        $this->lastUpdated = $lastUpdated;
+        $this->amount = $amount;
+        $this->status = $status;
+        $this->items = $items;
+        $this->user = $user;
+        $this->userAddress = $userAddress;
+        $this->organisation = $organisation;
+        $this->paymentStatus = $paymentStatus;
+        $this->payments = $payments;
+        $this->paymentMethods = $paymentMethods;
+        $this->deliveryType = $deliveryType;
+        $this->deliveryAgent = $deliveryAgent;
+        $this->note = $note;
+        $this->instorePaymentRequired = $instorePaymentRequired;
+    }
 }

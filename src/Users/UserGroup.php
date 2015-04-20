@@ -1,6 +1,6 @@
-<?php namespace Ordercloud\Orders;
+<?php namespace Ordercloud\Users;
 
-class OrderStatus
+class UserGroup
 {
     /** @var integer */
     private $id;
@@ -8,11 +8,14 @@ class OrderStatus
     private $name;
     /** @var string */
     private $description;
+    /** @var array|UserRole[] */
+    private $roles;
 
-    function __construct($id, $name, $description)
+    function __construct($id, $name, $description, array $roles)
     {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
+        $this->roles = $roles;
     }
 }

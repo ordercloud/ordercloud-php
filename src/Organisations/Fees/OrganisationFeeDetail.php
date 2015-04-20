@@ -1,4 +1,4 @@
-<?php namespace Ordercloud\Organisations;
+<?php namespace Ordercloud\Organisations\Fees;
 
 class OrganisationFeeDetail
 {

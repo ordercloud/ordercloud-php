@@ -1,8 +1,8 @@
 <?php namespace Ordercloud\Users;
 
-use Ordercloud\Organisations\Organisation;
+use Ordercloud\Organisations\OrganisationShort;
 
-class User extends ShortUser
+class User extends UserShort
 {
     /** @var boolean */
     private $enabled;
@@ -12,10 +12,10 @@ class User extends ShortUser
     private $groups;
     /** @var array| */
     private $roles;
-    /** @var array|Organisation[] */
+    /** @var array|OrganisationShort[] */
     private $organisations;
 
-    function __construct($id, $enabled, $username, $facebook_id, $profile, $groups, $roles, $organisations)
+    function __construct($id, $enabled, $username, $facebook_id, UserProfile $profile, array $groups, array $roles, array $organisations)
     {
         parent::__construct($id, $username, $profile);
         $this->enabled = $enabled;

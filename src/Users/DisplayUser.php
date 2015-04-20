@@ -1,18 +1,15 @@
 <?php namespace Ordercloud\Users;
 
-class ShortUser
+class DisplayUser
 {
     /** @var int */
     private $id;
     /** @var string */
     private $username;
-    /** @var UserProfile */
-    private $profile;
 
-    function __construct($id, $username, $profile)
+    function __construct($id, $username)
     {
         $this->id = $id;
         $this->username = $username;
-        $this->profile = $profile;
     }
 }

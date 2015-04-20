@@ -1,6 +1,6 @@
 <?php namespace Ordercloud\Products;
 
-use Ordercloud\Organisations\Organisation;
+use Ordercloud\Organisations\OrganisationShort;
 
 class Product
 {
@@ -24,8 +24,8 @@ class Product
     private $extras;
     /** @var array|ProductTag[] */
     private $tags;
-    /** @var Organisation */
-    private $organisation;
+    /** @var OrganisationShort */
+    private $organisation; //TODO: short/mini org
     /** @var boolean */
     private $enabled;
     /** @var boolean */
@@ -34,10 +34,32 @@ class Product
     private $availableOnline;
     /** @var array|ProductImage[] */
     private $images;
-    /** @var array|ProductDto[] */
+    /** @var array|Product[] */ // TODO: verify
     private $groupItems;
-    /** @var undefined */ //TODO {id, name}
+    /** @var ProductType */
     private $productType;
     /** @var undefined */ //TODO {amount, discountedProductAmount}
     private $discount;
+
+    function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $options, array $extras, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, $discount)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->description = $description;
+        $this->shortDescription = $shortDescription;
+        $this->sku = $sku;
+        $this->price = $price;
+        $this->attributes = $attributes;
+        $this->options = $options;
+        $this->extras = $extras;
+        $this->tags = $tags;
+        $this->organisation = $organisation;
+        $this->enabled = $enabled;
+        $this->available = $available;
+        $this->availableOnline = $availableOnline;
+        $this->images = $images;
+        $this->groupItems = $groupItems;
+        $this->productType = $productType;
+        $this->discount = $discount;
+    }
 }

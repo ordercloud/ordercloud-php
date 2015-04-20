@@ -1,8 +1,6 @@
 <?php namespace Ordercloud\Products;
 
-use Ordercloud\Organisations\OrganisationShort;
-
-class ProductOption
+class ProductExtraDisplay
 {
     /** @var integer */
     private $id;
@@ -12,21 +10,15 @@ class ProductOption
     private $description;
     /** @var float */
     private $price;
-    /** @var boolean */
-    private $enabled;
-    /** @var OrganisationShort */
-    private $organisation;
     /** @var array|ProductTag[] */
     private $tags;
 
-    function __construct($id, $name, $description, $price, $enabled, $organisation, array $tags)
+    function __construct($id, $name, $description, $price, array $tags)
     {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;
-        $this->enabled = $enabled;
-        $this->organisation = $organisation;
         $this->tags = $tags;
     }
 }

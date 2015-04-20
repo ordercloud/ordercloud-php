@@ -1,17 +1,20 @@
-<?php namespace Ordercloud\Orders;
+<?php namespace Ordercloud\Connections;
 
-class OrderStatus
+class ConnectionFeeMetric
 {
-    /** @var integer */
+    /** @var int */
     private $id;
+    /** @var string */
+    private $code;
     /** @var string */
     private $name;
     /** @var string */
     private $description;
 
-    function __construct($id, $name, $description)
+    function __construct($id, $code, $name, $description)
     {
         $this->id = $id;
+        $this->code = $code;
         $this->name = $name;
         $this->description = $description;
     }

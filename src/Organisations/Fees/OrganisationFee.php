@@ -1,4 +1,8 @@
-<?php namespace Ordercloud\Organisations;
+<?php namespace Ordercloud\Organisations\Fees;
+
+use Ordercloud\Organisations\Fees\OrganisationFeeDetail;
+use Ordercloud\Organisations\Fees\OrganisationFeeType;
+use Ordercloud\Organisations\OrganisationType;
 
 class OrganisationFee
 {
