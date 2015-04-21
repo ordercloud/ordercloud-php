@@ -25,7 +25,7 @@ class Product
     /** @var array|ProductTag[] */
     private $tags;
     /** @var OrganisationShort */
-    private $organisation; //TODO: short/mini org
+    private $organisation;
     /** @var boolean */
     private $enabled;
     /** @var boolean */
