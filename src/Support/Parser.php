@@ -22,7 +22,13 @@ use Ordercloud\Organisations\Settings\OrganisationSetting;
 use Ordercloud\Organisations\Settings\OrganisationSettingKey;
 use Ordercloud\Payments\Payment;
 use Ordercloud\Payments\PaymentStatus;
+use Ordercloud\Products\Product;
+use Ordercloud\Products\ProductAttribute;
+use Ordercloud\Products\ProductDiscount;
+use Ordercloud\Products\ProductExtra;
 use Ordercloud\Products\ProductExtraDisplay;
+use Ordercloud\Products\ProductImage;
+use Ordercloud\Products\ProductOption;
 use Ordercloud\Products\ProductOptionDisplay;
 use Ordercloud\Products\ProductPriceDiscount;
 use Ordercloud\Products\ProductShort;
@@ -123,76 +129,19 @@ class Parser
     }
 
     /**
-     * @param array $connectedMarketPlacesData
+     * @param array $connections
      *
      * @return array|Connection[]
      */
-    public function parseConnections(array $connectedMarketPlacesData)
+    public function parseConnections(array $connections)
     {
-        $connectedMarketPlaces = [];
+        $parsedConnections = [];
 
-        foreach ($connectedMarketPlacesData as $connectedMarketPlaceData) {
-            $type = new ConnectionType(
-                $connectedMarketPlaceData['type']['id'],
-                $connectedMarketPlaceData['type']['name'],
-                $connectedMarketPlaceData['type']['code']
-            );
-
-            $fees = [];
-            foreach ($connectedMarketPlaceData['fee'] as $fee) {
-                $feeType = new ConnectionFeeType(
-                    $fee['type']['id'],
-                    $fee['type']['code'],
-                    $fee['type']['name'],
-                    $fee['type']['description']
-                );
-
-                $metric = new ConnectionFeeMetric(
-                    $fee['metric']['id'],
-                    $fee['metric']['code'],
-                    $fee['metric']['name'],
-                    $fee['metric']['description']
-                );
-
-                $structure = new ConnectionFeeStructure(
-                    $fee['structure']['id'],
-                    $fee['structure']['code'],
-                    $fee['structure']['name'],
-                    $fee['structure']['description'],
-                    $fee['structure']['rule'],
-                    $fee['structure']['rule_name'],
-                    $fee['structure']['percentage'],
-                    $fee['structure']['flatfee'],
-                    $fee['structure']['volume']
-                );
-
-                $fees[] = new ConnectionFee(
-                    $fee['id'],
-                    $fee['startDate'],
-                    $fee['endDate'],
-                    $fee['enabled'],
-                    $fee['lastUpdated'],
-                    $fee['details'],
-                    $feeType,
-                    $metric,
-                    $structure
-                );
-            }
-
-            $connectedMarketPlaces[] = new Connection(
-                $connectedMarketPlaceData['id'],
-                $this->parseOrganisation($connectedMarketPlaceData['fromOrganisation']),
-                $this->parseOrganisation($connectedMarketPlaceData['toOrganisation']),
-                $type,
-                $connectedMarketPlaceData['ended'],
-                $fees,
-                $connectedMarketPlaceData['enabled'],
-                $connectedMarketPlaceData['status'],
-                $connectedMarketPlaceData['settlementInterval']
-            );
+        foreach ($connections as $connection) {
+            $parsedConnections[] = $this->parseConnection($connection);
         }
 
-        return $connectedMarketPlaces;
+        return $parsedConnections;
     }
 
     /**
@@ -260,12 +209,6 @@ class Parser
      */
     public function parseProductShort(array $itemDetail)
     {
-        $productType = new ProductType(
-            $itemDetail['productType']['id'],
-            $itemDetail['productType']['name'],
-            $itemDetail['productType']['description']
-        );
-
         $groupItems = [];
         foreach ($itemDetail['groupItems'] as $groupItem) {
             $groupItems[] = $this->parseProductShort($groupItem);
@@ -282,7 +225,7 @@ class Parser
             $itemDetail['enabled'],
             $itemDetail['sku'],
             $itemDetail['availableOnline'],
-            $productType,
+            $this->parseProductType($itemDetail['productType']),
             $groupItems
         );
     }
@@ -654,11 +597,226 @@ class Parser
         );
     }
 
+    public function parseProductTagTypes(array $productTagTypes)
+    {
+        $parsedTags = [];
+
+        foreach ($productTagTypes as $tagType) {
+            $parsedTags[] = $this->parseProductTagType($tagType);
+        }
+
+        return $parsedTags;
+    }
+
     public function parseProductTagLink(array $productTagLink)
     {
         return new ProductTagLink(
             $productTagLink['id'],
             $productTagLink['name']
+        );
+    }
+
+    /**
+     * @param array $product
+     *
+     * @return Product
+     */
+    public function parseProduct(array $product)
+    {
+        return new Product(
+            $product['id'],
+            $product['name'],
+            $product['description'],
+            $product['shortDescription'],
+            $product['sku'],
+            $product['price'],
+            $this->parseProductAttributes($product['attributes']),
+            $this->parseProductOptions($product['options']),
+            $this->parseProductExtras($product['extras']),
+            $this->parseProductTags($product['tags']),
+            $this->parseOrganisationShort($product['organisation']),
+            $product['enabled'],
+            $product['available'],
+            $product['availableOnline'],
+            $this->parseProductImages($product['images']),
+            $this->parseProducts($product['groupItems']),
+            $this->parseProductType($product['productType']),
+            $this->parseProductDiscount($product['discount'])
+        );
+    }
+
+    /**
+     * @param array $products
+     *
+     * @return array|Product[]
+     */
+    public function parseProducts(array $products)
+    {
+        $parsedProducts = [];
+
+        foreach ($products as $product) {
+            $parsedProducts[] = $this->parseProduct($product);
+        }
+
+        return $parsedProducts;
+    }
+
+
+    public function parseProductAttributes(array $attributes)
+    {
+        $parsedAttributes = [];
+
+        foreach ($attributes as $attribute) {
+            $parsedAttributes[] = new ProductAttribute(
+                $attribute['id'],
+                $attribute['enabled'],
+                $this->parseOrganisationShort($attribute['organisation'])
+            );
+        }
+
+        return $parsedAttributes;
+    }
+
+    public function parseProductOptions(array $options)
+    {
+        $parsedOptions = [];
+
+        foreach ($options as $option) {
+            $parsedOptions[] = new ProductOption(
+                $option['id'],
+                $option['name'],
+                $option['description'],
+                $option['price'],
+                $option['enabled'],
+                $this->parseOrganisationShort($option['organisation']),
+                $this->parseProductTags($option['tags'])
+            );
+        }
+
+        return $parsedOptions;
+    }
+
+    public function parseProductExtras(array $extras)
+    {
+        $parsedExtras = [];
+
+        foreach ($extras as $extra) {
+            $parsedExtras[] = new ProductExtra(
+                $extra['id'],
+                $extra['name'],
+                $extra['description'],
+                $extra['price'],
+                $extra['enabled'],
+                $this->parseOrganisationShort($extra['organisation']),
+                $this->parseProductTags($extra['tags'])
+            );
+        }
+
+        return $parsedExtras;
+    }
+
+    public function parseProductImages(array $images)
+    {
+        $parsedImages = [];
+
+        foreach ($images as $image) {
+            $parsedImages[] = new ProductImage(
+                $image['name'],
+                $image['thumbnail']
+            );
+        }
+
+        return $parsedImages;
+    }
+
+    public function parseProductType(array $productType)
+    {
+        return new ProductType(
+            $productType['id'],
+            $productType['name'],
+            $productType['description']
+        );
+    }
+
+    public function parseProductDiscount(array $discount)
+    {
+        return new ProductDiscount(
+            $discount['id'],
+            $this->parseOrganisationShort($discount['organisation']),
+            $this->parseOrganisationShort($discount['discountProvider']),
+            $this->parseOrganisationShort($discount['brand']),
+            $this->parseConnection($discount['connection']),
+            $this->parseProduct($discount['productItem']),
+            $discount['amount'],
+            $discount['startDate'],
+            $discount['enabled']
+        );
+    }
+
+    /**
+     * @param $connection
+     *
+     * @return Connection
+     */
+    protected function parseConnection($connection)
+    {
+        $type = new ConnectionType(
+            $connection['type']['id'],
+            $connection['type']['name'],
+            $connection['type']['code']
+        );
+
+        $fees = [];
+        foreach ($connection['fee'] as $fee) {
+            $feeType = new ConnectionFeeType(
+                $fee['type']['id'],
+                $fee['type']['code'],
+                $fee['type']['name'],
+                $fee['type']['description']
+            );
+
+            $metric = new ConnectionFeeMetric(
+                $fee['metric']['id'],
+                $fee['metric']['code'],
+                $fee['metric']['name'],
+                $fee['metric']['description']
+            );
+
+            $structure = new ConnectionFeeStructure(
+                $fee['structure']['id'],
+                $fee['structure']['code'],
+                $fee['structure']['name'],
+                $fee['structure']['description'],
+                $fee['structure']['rule'],
+                $fee['structure']['rule_name'],
+                $fee['structure']['percentage'],
+                $fee['structure']['flatfee'],
+                $fee['structure']['volume']
+            );
+
+            $fees[] = new ConnectionFee(
+                $fee['id'],
+                $fee['startDate'],
+                $fee['endDate'],
+                $fee['enabled'],
+                $fee['lastUpdated'],
+                $fee['details'],
+                $feeType,
+                $metric,
+                $structure
+            );
+        }
+
+        return new Connection(
+            $connection['id'],
+            $this->parseOrganisation($connection['fromOrganisation']),
+            $this->parseOrganisation($connection['toOrganisation']),
+            $type,
+            $connection['ended'],
+            $fees,
+            $connection['enabled'],
+            $connection['status'],
+            $connection['settlementInterval']
         );
     }
 }

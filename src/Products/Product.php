@@ -34,14 +34,14 @@ class Product
     private $availableOnline;
     /** @var array|ProductImage[] */
     private $images;
-    /** @var array|Product[] */ // TODO: verify
+    /** @var array|Product[] */
     private $groupItems;
     /** @var ProductType */
     private $productType;
-    /** @var undefined */ //TODO {amount, discountedProductAmount}
+    /** @var ProductDiscount */
     private $discount;
 
-    function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $options, array $extras, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, $discount)
+    function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $options, array $extras, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductDiscount $discount)
     {
         $this->id = $id;
         $this->name = $name;
