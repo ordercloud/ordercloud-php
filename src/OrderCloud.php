@@ -37,6 +37,7 @@ class Ordercloud extends \Ordercloud\Ordercloud\Ordercloud implements Ordercloud
 
     public function __construct(Parser $parser)
     {
+        parent::__construct();
         $this->parser = $parser;
     }
 
