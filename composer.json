@@ -1,27 +1,31 @@
 {
-  "name": "ordercloud/ordercloud",
-  "description": "Ordercloud php client",
-  "authors": [
-    {
-      "name": "Willem van Wyk",
-      "email": "willem@ordercloud.co.za"
+    "name": "ordercloud/ordercloud",
+    "description": "Ordercloud php client",
+    "authors": [
+        {
+            "name": "Willem van Wyk",
+            "email": "willem@ordercloud.co.za"
+        },
+        {
+            "name": "Michael Nel",
+            "email": "michael@ordercloud.co.za"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "guzzlehttp/guzzle": ">=3.7",
+        "nesbot/carbon": ">=1.0"
     },
-    {
-      "name": "Michael Nel",
-      "email": "michael@ordercloud.co.za"
-    }
-  ],
-  "require": {
-    "php": ">=5.4",
-    "guzzlehttp/guzzle": ">=3.7",
-    "nesbot/carbon": ">=1.0"
-  },
-  "autoload": {
-    "psr-0": {
-      "OC\\Ordercloud": "src/"
+    "require-dev": {
+        "phpspec/phpspec": "2.2.0",
+        "phpspec/nyan-formatters": "1.0.1"
     },
-    "psr-4": {
-      "Ordercloud\\": "src/"
+    "autoload": {
+        "psr-0": {
+            "OC\\Ordercloud": "src/"
+        },
+        "psr-4": {
+            "Ordercloud\\": "src/"
+        }
     }
-  }
 }

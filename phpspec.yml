@@ -1,0 +1,10 @@
+suites:
+  ordercloud:
+    namespace: Ordercloud
+    psr4_prefix: Ordercloud
+    src_path: src
+
+extensions:
+    - PhpSpec\NyanFormattersExtension\Extension
+
+formatter.name: nyan.cat
