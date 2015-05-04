@@ -11,7 +11,7 @@
       "email": "michael@ordercloud.co.za"
     }
   ],
-  "requires": {
+  "require": {
     "php": ">=5.4",
     "guzzlehttp/guzzle": ">=3.7",
     "nesbot/carbon": ">=1.0"
