@@ -1,213 +1,40 @@
 <?php namespace Ordercloud;
 
-use Ordercloud\Connections\Connection;
-use Ordercloud\Connections\ConnectionFee;
-use Ordercloud\Connections\ConnectionFeeMetric;
-use Ordercloud\Connections\ConnectionFeeStructure;
-use Ordercloud\Connections\ConnectionFeeType;
-use Ordercloud\Connections\ConnectionType;
-use Ordercloud\Ordercloud\OrdercloudInterface;
-use Ordercloud\Orders\Order;
-use Ordercloud\Orders\OrderItem;
-use Ordercloud\Orders\OrderStatus;
-use Ordercloud\Organisations\Organisation;
-use Ordercloud\Organisations\OrganisationIndustry;
-use Ordercloud\Organisations\OrganisationOperatingHours;
-use Ordercloud\Organisations\OrganisationProfile;
-use Ordercloud\Organisations\OrganisationType;
-use Ordercloud\Organisations\Settings\OrganisationSetting;
-use Ordercloud\Organisations\Settings\OrganisationSettingKey;
-use Ordercloud\Organisations\OrganisationShort;
-use Ordercloud\Products\Product;
-use Ordercloud\Products\ProductOption;
-use Ordercloud\Products\ProductShort;use Ordercloud\Products\ProductTag;
-use Ordercloud\Products\ProductType;
-use Ordercloud\Support\Parser;
-use Ordercloud\Users\UserShort;
-use Ordercloud\Users\User;
-use Ordercloud\Users\UserAddress;
-use Ordercloud\Users\UserGroup;
-use Ordercloud\Users\UserProfile;
-use Ordercloud\Users\UserRole;
+use Ordercloud\Requests\OrdercloudRequest;
+use Ordercloud\Support\CommandBus\Command;
+use Ordercloud\Support\CommandBus\CommandBus;
+use Ordercloud\Support\Http\Response;
 
-class Ordercloud extends \Ordercloud\Ordercloud\Ordercloud implements OrdercloudInterface
+class Ordercloud
 {
-    /** @var Parser */
-    private $parser;
+    private static $defaultInstance;
 
-    public function __construct(Parser $parser)
+    /** @var CommandBus */
+    private $commandBus;
+
+    public function __construct(CommandBus $commandBus)
     {
-        parent::__construct();
-        $this->parser = $parser;
+        $this->commandBus = $commandBus;
+        static::$defaultInstance = $this;
     }
 
-    public function getConnectedMarketPlaces($marketPlaceId)
+    /**
+     * TODO
+     *
+     * @param Command $command
+     *
+     * @return Response
+     */
+    public function exec(Command $command)
     {
-        $connectedMarketPlacesData = parent::getConnectedMarketPlaces($marketPlaceId);
-
-        return $this->parser->parseConnections($connectedMarketPlacesData);
+        return $this->commandBus->execute($command);
     }
 
-    public function getStore($storeId)
+    /**
+     * @return static
+     */
+    public static function getDefaultInstance()
     {
-        $storeData = parent::getStore($storeId);
-
-        return $this->parser->parseOrganisation($storeData);
-    }
-
-    public function getAllMarketPlaces()
-    {
-        $allMarketPlaces = parent::getAllMarketPlaces();
-
-        return $this->parser->parseConnections($allMarketPlaces);
-    }
-
-    public function getProductsByMarketPlace($marketPlaceId, $category, $auhType, $access_token = null)
-    {
-        $products = parent::getProductsByMarketPlace($marketPlaceId, $category, $auhType, $access_token);
-
-        return $this->parser->parseProducts($products);
-    }
-
-    public function getProduct($productId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
-    {
-        $product = parent::getProduct($productId, $auhType, $access_token);
-
-        return $this->parser->parseProduct($product);
-    }
-
-    public function getOAuthUrl($redirectUrl, $login, $mobile, $clientSecret, $organisationId)
-    {
-        return parent::getOAuthUrl($redirectUrl, $login, $mobile, $clientSecret, $organisationId);
-    }
-
-    public function getUserDetails($access_token)
-    {
-        $user = parent::getUserDetails($access_token);
-
-        return $this->parser->parseUser($user);
-    }
-
-    public function getUserAddresses($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
-    {
-        $userAddresses = parent::getUserAddresses($userId, $auhType, $access_token);
-
-        $addresses = [];
-        foreach ($userAddresses as $userAddress) {
-            $addresses[] = $this->parser->parseUserAddress($userAddress);
-        }
-
-        return $addresses;
-    }
-
-    public function createAddressForUser($userId, $name, $streetName, $city, array $addressDetails = [], $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null)
-    {
-        $addressID = parent::createAddressForUser(
-            $userId,
-            $name,
-            $streetName,
-            $city,
-            $addressDetails,
-            $auhType,
-            $access_token
-        );
-
-        return new UserAddress(
-            $addressID,
-            $name,
-            $addressDetails['streetNumber'],
-            $streetName,
-            $addressDetails['complex'],
-            null, // Suburb
-            $city,
-            $addressDetails['postalCode'],
-            null, // Notes
-            $addressDetails['latitude'],
-            $addressDetails['longitude']
-        );
-    }
-
-    // TODO: Change the autogenerated stub
-    public function createOrder($userId, array $items, $paymentStatus, $deliveryType, $amount, $userGeoId = null)
-    {
-        $orderID = parent::createOrder($userId, $items, $paymentStatus, $deliveryType, $amount, $userGeoId);
-
-        return $orderID;
-    }
-
-    public function getOrdersForUser($userId, $auhType = OrdercloudInterface::AUTH_TYPE_BASIC, $access_token = null, $page = 1, $pageSize = 10, array $orderStatuses = [], array $paymentStatuses = [], $sort = 'date+')
-    {
-        $ordersArray = parent::getOrdersForUser($userId, $auhType, $access_token, $page, $pageSize, $orderStatuses, $paymentStatuses, $sort);
-
-        $orders = [];
-        foreach ($ordersArray as $order) {
-            $orders[] = $this->parser->parseOrder($order);
-        }
-
-        return $orders;
-    }
-
-    public function getMenu($selectedStoreId)
-    {
-        $menu = parent::getMenu($selectedStoreId);
-
-        return $this->parser->parseProductTagType($menu);
-    }
-
-    public function getNewAccessToken($refreshToken)
-    {
-        return parent::getNewAccessToken($refreshToken);
-    }
-
-    public function getSettingsForOrganisation()
-    {
-        $settingsForOrganisation = parent::getSettingsForOrganisation();
-
-        $settings = [];
-        foreach ($settingsForOrganisation as $setting) {
-            $settings[] = $this->parser->parseOrganisationSetting($setting);
-        }
-
-        return $settings;
-    }
-
-    // TODO: Change the autogenerated stub
-    public function createCreditCardPayment($paymentGateway, $amount, $budgetPeriod, $cardExpiryMonth, $cardExpiryYear, $nameOnCard, $cvv, $cardNumber, $orderRef, $description, $testMode, $access_token)
-    {
-        $paymentID = parent::createCreditCardPayment(
-            $paymentGateway,
-            $amount,
-            $budgetPeriod,
-            $cardExpiryMonth,
-            $cardExpiryYear,
-            $nameOnCard,
-            $cvv,
-            $cardNumber,
-            $orderRef,
-            $description,
-            $testMode,
-            $access_token
-        );
-
-        return $paymentID;
-    }
-
-    public function getProfile($userId)
-    {
-        $profile = parent::getProfile($userId);
-
-        return $this->parser->parseUserProfile($profile);
-    }
-
-    public function updateProfile($userId, $firstName, $lastName, $nickName, $email, $cellPhoneNumber, $gender)
-    {
-        parent::updateProfile($userId, $firstName, $lastName, $nickName, $email, $cellPhoneNumber, $gender);
-    }
-
-    public function getSettingsForOrganisationByKeyName($key)
-    {
-        $setting = parent::getSettingsForOrganisationByKeyName($key);
-
-        return $this->parser->parseOrganisationSetting($setting);
+        return static::$defaultInstance;
     }
 }
