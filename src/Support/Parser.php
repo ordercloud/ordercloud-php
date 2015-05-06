@@ -1,5 +1,6 @@
 <?php namespace Ordercloud\Support;
 
+<<<<<<< HEAD
 use Ordercloud\Connections\Connection;
 use Ordercloud\Connections\ConnectionFee;
 use Ordercloud\Connections\ConnectionFeeDetail;
@@ -46,6 +47,51 @@ use Ordercloud\Users\UserGroup;
 use Ordercloud\Users\UserProfile;
 use Ordercloud\Users\UserRole;
 use Ordercloud\Users\UserShort;
+=======
+use Ordercloud\Entities\Connections\Connection;
+use Ordercloud\Entities\Connections\ConnectionFee;
+use Ordercloud\Entities\Connections\ConnectionFeeMetric;
+use Ordercloud\Entities\Connections\ConnectionFeeStructure;
+use Ordercloud\Entities\Connections\ConnectionFeeType;
+use Ordercloud\Entities\Connections\ConnectionType;
+use Ordercloud\Entities\Delivery\DeliveryAgent;
+use Ordercloud\Entities\Delivery\DeliveryAgentStatus;
+use Ordercloud\Entities\Orders\OrderItemExtra;
+use Ordercloud\Entities\Orders\OrderItemOption;
+use Ordercloud\Entities\Orders\OrderStatus;
+use Ordercloud\Entities\Organisations\Organisation;
+use Ordercloud\Entities\Organisations\OrganisationIndustry;
+use Ordercloud\Entities\Organisations\OrganisationOperatingHours;
+use Ordercloud\Entities\Organisations\OrganisationProfile;
+use Ordercloud\Entities\Organisations\OrganisationShort;
+use Ordercloud\Entities\Organisations\OrganisationType;
+use Ordercloud\Entities\Organisations\Settings\OrganisationSetting;
+use Ordercloud\Entities\Organisations\Settings\OrganisationSettingKey;
+use Ordercloud\Entities\Payments\Payment;
+use Ordercloud\Entities\Payments\PaymentStatus;
+use Ordercloud\Entities\Products\Product;
+use Ordercloud\Entities\Products\ProductAttribute;
+use Ordercloud\Entities\Products\ProductDiscount;
+use Ordercloud\Entities\Products\ProductExtra;
+use Ordercloud\Entities\Products\ProductExtraDisplay;
+use Ordercloud\Entities\Products\ProductImage;
+use Ordercloud\Entities\Products\ProductOption;
+use Ordercloud\Entities\Products\ProductOptionDisplay;
+use Ordercloud\Entities\Products\ProductPriceDiscount;
+use Ordercloud\Entities\Products\ProductShort;
+use Ordercloud\Entities\Products\ProductTag;
+use Ordercloud\Entities\Products\ProductTagLink;
+use Ordercloud\Entities\Products\ProductTagType;
+use Ordercloud\Entities\Products\ProductType;
+use Ordercloud\Entities\Users\DisplayUser;
+use Ordercloud\Entities\Users\User;
+use Ordercloud\Entities\Users\UserAddress;
+use Ordercloud\Entities\Users\UserGroup;
+use Ordercloud\Entities\Users\UserProfile;
+use Ordercloud\Entities\Users\UserRole;
+use Ordercloud\Entities\Users\UserShort;
+use Ordercloud\Orders\Order;
+>>>>>>> 47f14d76c7fd4fb7c1a9d10efc2cbb409417fff8
 
 class Parser
 {
@@ -184,7 +230,7 @@ class Parser
     /**
      * @param array $setting
      *
-     * @return OrganisationSetting
+     * @return \Ordercloud\Entities\Organisations\Settings\OrganisationSetting
      */
     public function parseOrganisationSetting(array $setting)
     {
@@ -250,7 +296,7 @@ class Parser
     /**
      * @param array $userProfile
      *
-     * @return UserProfile
+     * @return \Ordercloud\Entities\Users\UserProfile
      */
     public function parseUserProfile(array $userProfile)
     {
@@ -310,7 +356,7 @@ class Parser
     /**
      * @param array $productPriceDiscount
      *
-     * @return ProductPriceDiscount
+     * @return \Ordercloud\Entities\Products\ProductPriceDiscount
      */
     public function parseProductPriceDiscount(array $productPriceDiscount)
     {
@@ -432,7 +478,7 @@ class Parser
     /**
      * @param array $paymentStatus
      *
-     * @return PaymentStatus
+     * @return \Ordercloud\Entities\Payments\PaymentStatus
      */
     public function parsePaymentStatus(array $paymentStatus)
     {
@@ -446,7 +492,7 @@ class Parser
     /**
      * @param array $productExtraDisplay
      *
-     * @return ProductExtraDisplay
+     * @return \Ordercloud\Entities\Products\ProductExtraDisplay
      */
     public function parseProductExtraDisplay(array $productExtraDisplay)
     {
@@ -511,7 +557,7 @@ class Parser
     /**
      * @param array $productTags
      *
-     * @return array|ProductTag[]
+     * @return array|\Ordercloud\Entities\Products\ProductTag[]
      */
     public function parseProductTags(array $productTags)
     {

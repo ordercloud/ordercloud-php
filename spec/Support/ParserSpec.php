@@ -18,7 +18,7 @@ class ParserSpec extends ObjectBehavior
             'code' => 'TST'
         ];
 
-        $this->parseOrganisationShort($organisationData)->shouldReturnAnInstanceOf('Ordercloud\Organisations\OrganisationShort');
+        $this->parseOrganisationShort($organisationData)->shouldReturnAnInstanceOf('Ordercloud\Entities\Organisations\OrganisationShort');
     }
 
     function it_can_parse_a_user_role()
