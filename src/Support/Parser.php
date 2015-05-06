@@ -1,48 +1,48 @@
 <?php namespace Ordercloud\Support;
 
-use Ordercloud\Connections\Connection;
-use Ordercloud\Connections\ConnectionFee;
-use Ordercloud\Connections\ConnectionFeeMetric;
-use Ordercloud\Connections\ConnectionFeeStructure;
-use Ordercloud\Connections\ConnectionFeeType;
-use Ordercloud\Connections\ConnectionType;
-use Ordercloud\Delivery\DeliveryAgent;
-use Ordercloud\Delivery\DeliveryAgentStatus;
+use Ordercloud\Entities\Connections\Connection;
+use Ordercloud\Entities\Connections\ConnectionFee;
+use Ordercloud\Entities\Connections\ConnectionFeeMetric;
+use Ordercloud\Entities\Connections\ConnectionFeeStructure;
+use Ordercloud\Entities\Connections\ConnectionFeeType;
+use Ordercloud\Entities\Connections\ConnectionType;
+use Ordercloud\Entities\Delivery\DeliveryAgent;
+use Ordercloud\Entities\Delivery\DeliveryAgentStatus;
+use Ordercloud\Entities\Orders\OrderItemExtra;
+use Ordercloud\Entities\Orders\OrderItemOption;
+use Ordercloud\Entities\Orders\OrderStatus;
+use Ordercloud\Entities\Organisations\Organisation;
+use Ordercloud\Entities\Organisations\OrganisationIndustry;
+use Ordercloud\Entities\Organisations\OrganisationOperatingHours;
+use Ordercloud\Entities\Organisations\OrganisationProfile;
+use Ordercloud\Entities\Organisations\OrganisationShort;
+use Ordercloud\Entities\Organisations\OrganisationType;
+use Ordercloud\Entities\Organisations\Settings\OrganisationSetting;
+use Ordercloud\Entities\Organisations\Settings\OrganisationSettingKey;
+use Ordercloud\Entities\Payments\Payment;
+use Ordercloud\Entities\Payments\PaymentStatus;
+use Ordercloud\Entities\Products\Product;
+use Ordercloud\Entities\Products\ProductAttribute;
+use Ordercloud\Entities\Products\ProductDiscount;
+use Ordercloud\Entities\Products\ProductExtra;
+use Ordercloud\Entities\Products\ProductExtraDisplay;
+use Ordercloud\Entities\Products\ProductImage;
+use Ordercloud\Entities\Products\ProductOption;
+use Ordercloud\Entities\Products\ProductOptionDisplay;
+use Ordercloud\Entities\Products\ProductPriceDiscount;
+use Ordercloud\Entities\Products\ProductShort;
+use Ordercloud\Entities\Products\ProductTag;
+use Ordercloud\Entities\Products\ProductTagLink;
+use Ordercloud\Entities\Products\ProductTagType;
+use Ordercloud\Entities\Products\ProductType;
+use Ordercloud\Entities\Users\DisplayUser;
+use Ordercloud\Entities\Users\User;
+use Ordercloud\Entities\Users\UserAddress;
+use Ordercloud\Entities\Users\UserGroup;
+use Ordercloud\Entities\Users\UserProfile;
+use Ordercloud\Entities\Users\UserRole;
+use Ordercloud\Entities\Users\UserShort;
 use Ordercloud\Orders\Order;
-use Ordercloud\Orders\OrderItemExtra;
-use Ordercloud\Orders\OrderItemOption;
-use Ordercloud\Orders\OrderStatus;
-use Ordercloud\Organisations\Organisation;
-use Ordercloud\Organisations\OrganisationIndustry;
-use Ordercloud\Organisations\OrganisationOperatingHours;
-use Ordercloud\Organisations\OrganisationProfile;
-use Ordercloud\Organisations\OrganisationShort;
-use Ordercloud\Organisations\OrganisationType;
-use Ordercloud\Organisations\Settings\OrganisationSetting;
-use Ordercloud\Organisations\Settings\OrganisationSettingKey;
-use Ordercloud\Payments\Payment;
-use Ordercloud\Payments\PaymentStatus;
-use Ordercloud\Products\Product;
-use Ordercloud\Products\ProductAttribute;
-use Ordercloud\Products\ProductDiscount;
-use Ordercloud\Products\ProductExtra;
-use Ordercloud\Products\ProductExtraDisplay;
-use Ordercloud\Products\ProductImage;
-use Ordercloud\Products\ProductOption;
-use Ordercloud\Products\ProductOptionDisplay;
-use Ordercloud\Products\ProductPriceDiscount;
-use Ordercloud\Products\ProductShort;
-use Ordercloud\Products\ProductTag;
-use Ordercloud\Products\ProductTagLink;
-use Ordercloud\Products\ProductTagType;
-use Ordercloud\Products\ProductType;
-use Ordercloud\Users\DisplayUser;
-use Ordercloud\Users\User;
-use Ordercloud\Users\UserAddress;
-use Ordercloud\Users\UserGroup;
-use Ordercloud\Users\UserProfile;
-use Ordercloud\Users\UserRole;
-use Ordercloud\Users\UserShort;
 
 class Parser
 {
@@ -181,7 +181,7 @@ class Parser
     /**
      * @param array $setting
      *
-     * @return OrganisationSetting
+     * @return \Ordercloud\Entities\Organisations\Settings\OrganisationSetting
      */
     public function parseOrganisationSetting(array $setting)
     {
@@ -247,7 +247,7 @@ class Parser
     /**
      * @param array $userProfile
      *
-     * @return UserProfile
+     * @return \Ordercloud\Entities\Users\UserProfile
      */
     public function parseUserProfile(array $userProfile)
     {
@@ -307,7 +307,7 @@ class Parser
     /**
      * @param array $productPriceDiscount
      *
-     * @return ProductPriceDiscount
+     * @return \Ordercloud\Entities\Products\ProductPriceDiscount
      */
     public function parseProductPriceDiscount(array $productPriceDiscount)
     {
@@ -429,7 +429,7 @@ class Parser
     /**
      * @param array $paymentStatus
      *
-     * @return PaymentStatus
+     * @return \Ordercloud\Entities\Payments\PaymentStatus
      */
     public function parsePaymentStatus(array $paymentStatus)
     {
@@ -443,7 +443,7 @@ class Parser
     /**
      * @param array $productExtraDisplay
      *
-     * @return ProductExtraDisplay
+     * @return \Ordercloud\Entities\Products\ProductExtraDisplay
      */
     public function parseProductExtraDisplay(array $productExtraDisplay)
     {
@@ -508,7 +508,7 @@ class Parser
     /**
      * @param array $productTags
      *
-     * @return array|ProductTag[]
+     * @return array|\Ordercloud\Entities\Products\ProductTag[]
      */
     protected function parseProductTags(array $productTags)
     {

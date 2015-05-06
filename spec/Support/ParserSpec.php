@@ -18,6 +18,6 @@ class ParserSpec extends ObjectBehavior
             'code' => 'TST'
         ];
 
-        $this->parseOrganisationShort($organisationData)->shouldReturnAnInstanceOf('Ordercloud\Organisations\OrganisationShort');
+        $this->parseOrganisationShort($organisationData)->shouldReturnAnInstanceOf('Ordercloud\Entities\Organisations\OrganisationShort');
     }
 }
