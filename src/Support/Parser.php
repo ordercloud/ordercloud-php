@@ -2,6 +2,7 @@
 
 use Ordercloud\Connections\Connection;
 use Ordercloud\Connections\ConnectionFee;
+use Ordercloud\Connections\ConnectionFeeDetail;
 use Ordercloud\Connections\ConnectionFeeMetric;
 use Ordercloud\Connections\ConnectionFeeStructure;
 use Ordercloud\Connections\ConnectionFeeType;
@@ -12,11 +13,13 @@ use Ordercloud\Orders\Order;
 use Ordercloud\Orders\OrderItemExtra;
 use Ordercloud\Orders\OrderItemOption;
 use Ordercloud\Orders\OrderStatus;
+use Ordercloud\Orders\OrderItem;
 use Ordercloud\Organisations\Organisation;
 use Ordercloud\Organisations\OrganisationIndustry;
 use Ordercloud\Organisations\OrganisationOperatingHours;
 use Ordercloud\Organisations\OrganisationProfile;
 use Ordercloud\Organisations\OrganisationShort;
+use Ordercloud\Organisations\OrganisationStatus;
 use Ordercloud\Organisations\OrganisationType;
 use Ordercloud\Organisations\Settings\OrganisationSetting;
 use Ordercloud\Organisations\Settings\OrganisationSettingKey;
@@ -120,7 +123,7 @@ class Parser
             $profiles,
             $operatingHours,
             $organisation['ordersHash'],
-            $organisation['status'],
+            $this->parseOrganisationStatus($organisation['status']),
             $organisation['lastOnline'],
             $organisation['delivering'],
             $organisation['open'],
@@ -266,7 +269,7 @@ class Parser
      *
      * @return UserShort
      */
-    protected function parseUserShort(array $userShort)
+    public function parseUserShort(array $userShort)
     {
         return new UserShort(
             $userShort['id'],
@@ -288,7 +291,7 @@ class Parser
                 $group['id'],
                 $group['name'],
                 $group['description'],
-                $this->parser->parseUserRoles($group['roles'])
+                $this->parseUserRoles($group['roles'])
             );
         }
 
@@ -297,10 +300,10 @@ class Parser
             $user['enabled'],
             $user['username'],
             $user['facebook_id'],
-            $this->parser->parseUserProfile($user),
+            $this->parseUserProfile($user["profile"]),
             $groups,
-            $this->parser->parseUserRoles($user['roles']),
-            $this->parser->parseOrganisations($user['organisations'])
+            $this->parseUserRoles($user['roles']),
+            $this->parseOrganisations($user['organisations'])
         );
     }
 
@@ -327,10 +330,10 @@ class Parser
                 $item['price'],
                 $item['quantity'],
                 $item['enabled'],
-                $this->parser->parseProductShort($item['detail']),
-                $this->parser->parseOrderStatus($item['status']),
+                $this->parseProductShort($item['detail']),
+                $this->parseOrderStatus($item['status']),
                 $item['note'],
-                $this->parser->parseProductPriceDiscount($item['itemDiscount']),
+                $this->parseProductPriceDiscount($item['itemDiscount']),
                 $item['readyEstimate'],
                 $this->parseOrderItemExtras($item['extras']),
                 $this->parseOrderItemOptions($item['options'])
@@ -510,7 +513,7 @@ class Parser
      *
      * @return array|ProductTag[]
      */
-    protected function parseProductTags(array $productTags)
+    public function parseProductTags(array $productTags)
     {
         $tags = [];
 
@@ -641,7 +644,7 @@ class Parser
             $this->parseProductImages($product['images']),
             $this->parseProducts($product['groupItems']),
             $this->parseProductType($product['productType']),
-            $this->parseProductDiscount($product['discount'])
+            $this->parseProductPriceDiscount($product['discount'])
         );
     }
 
@@ -758,7 +761,7 @@ class Parser
      *
      * @return Connection
      */
-    protected function parseConnection($connection)
+    public function parseConnection($connection)
     {
         $type = new ConnectionType(
             $connection['type']['id'],
@@ -800,7 +803,7 @@ class Parser
                 $fee['endDate'],
                 $fee['enabled'],
                 $fee['lastUpdated'],
-                $fee['details'],
+                $this->parseConnectionFeeDetails($fee['details']),
                 $feeType,
                 $metric,
                 $structure
@@ -819,4 +822,37 @@ class Parser
             $connection['settlementInterval']
         );
     }
+
+    public function parseConnectionFeeDetail(array $fee)
+    {
+        return new ConnectionFeeDetail(
+            $fee["id"],
+            $fee["minValue"],
+            $fee["maxValue"],
+            $fee["fixedAmount"],
+            $fee["percentageAmount"],
+            $fee["volumeAmount"],
+            $fee["enabled"]
+        );
+    }
+
+    public function parseConnectionFeeDetails(array $fees)
+    {
+        $parsedFees = [];
+        foreach($fees as $fee)
+        {
+            $parsedFees[] = $this->parseConnectionFeeDetail($fee);
+        }
+        return $parsedFees;
+    }
+
+    public function parseOrganisationStatus ($status)
+    {
+        return new OrganisationStatus(
+            $status["id"],
+            $status["name"],
+            $status["description"]
+        );
+    }
+
 }
