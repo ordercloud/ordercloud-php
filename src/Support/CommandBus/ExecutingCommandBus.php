@@ -16,6 +16,10 @@ class ExecutingCommandBus implements CommandBus
     {
         $handler = $this->commandHandlerTransalator->resolve($command);
 
+        if (is_null($handler)) {
+            throw new CommandHandlerNotFoundException($command);
+        }
+
         return $handler->handle($command);
     }
 }
