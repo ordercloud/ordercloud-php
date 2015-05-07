@@ -2,6 +2,8 @@
 
 class ConnectionType
 {
+    const MARKETPLACE = 'M';
+
     /** @var integer */
     private $id;
     /** @var string */
