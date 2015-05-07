@@ -51,7 +51,7 @@ class ParserSpec extends ObjectBehavior
                 'code' => 'TST'
             ]
         ];
-        $this->parseOrganisationSetting($setting)->shouldReturnAnInstanceOf('Ordercloud\Organisations\Settings\OrganisationSetting');
+        $this->parseOrganisationSetting($setting)->shouldReturnAnInstanceOf('Ordercloud\Entities\Organisations\Settings\OrganisationSetting');
     }
 
     function it_can_parse_a_order_status()
@@ -62,7 +62,7 @@ class ParserSpec extends ObjectBehavior
             'description' => 'TST'
         ];
 
-        $this->parseOrderStatus($orderStatus)->shouldReturnAnInstanceOf('Ordercloud\Orders\OrderStatus');
+        $this->parseOrderStatus($orderStatus)->shouldReturnAnInstanceOf('Ordercloud\Entities\Orders\OrderStatus');
     }
 
     function it_can_parse_a_user_profile()
@@ -74,7 +74,7 @@ class ParserSpec extends ObjectBehavior
         $userProfile['cellphoneNumber'] = "0848300757";
         $userProfile['sex'] = "M";
 
-        $this->parseUserProfile($userProfile)->shouldReturnAnInstanceOf('Ordercloud\Users\UserProfile');
+        $this->parseUserProfile($userProfile)->shouldReturnAnInstanceOf('Ordercloud\Entities\Users\UserProfile');
     }
 
     function it_can_parse_a_user_short()
@@ -92,7 +92,7 @@ class ParserSpec extends ObjectBehavior
             "profile"  => $userProfile
         ];
 
-        $this->parseUserShort($user)->shouldReturnAnInstanceOf('Ordercloud\Users\UserShort');
+        $this->parseUserShort($user)->shouldReturnAnInstanceOf('Ordercloud\Entities\Users\UserShort');
     }
 
     function it_can_parse_a_product_discount_price()
@@ -100,7 +100,7 @@ class ParserSpec extends ObjectBehavior
         $productPriceDiscount['discountAmount'] = "1";
         $productPriceDiscount['discountPrice'] = "1";
 
-        $this->parseProductPriceDiscount($productPriceDiscount)->shouldReturnAnInstanceOf('Ordercloud\Products\ProductPriceDiscount');
+        $this->parseProductPriceDiscount($productPriceDiscount)->shouldReturnAnInstanceOf('Ordercloud\Entities\Products\ProductPriceDiscount');
     }
 
     function it_can_parse_a_user_address()
@@ -117,7 +117,7 @@ class ParserSpec extends ObjectBehavior
         $userAddress['latitude'] = "test";
         $userAddress['longitude'] = "test";
 
-        $this->parseUserAddress($userAddress)->shouldReturnAnInstanceOf('Ordercloud\Users\UserAddress');
+        $this->parseUserAddress($userAddress)->shouldReturnAnInstanceOf('Ordercloud\Entities\Users\UserAddress');
     }
 
     function it_can_parse_a_payment_status()
@@ -125,7 +125,7 @@ class ParserSpec extends ObjectBehavior
         $paymentStatus['status'] = "test";
         $paymentStatus['when'] = "test";
         $paymentStatus['message'] = "test";
-        $this->parsePaymentStatus($paymentStatus)->shouldReturnAnInstanceOf('Ordercloud\Payments\PaymentStatus');
+        $this->parsePaymentStatus($paymentStatus)->shouldReturnAnInstanceOf('Ordercloud\Entities\Payments\PaymentStatus');
     }
 
     function it_can_parse_product_extra_display()
@@ -159,7 +159,7 @@ class ParserSpec extends ObjectBehavior
             ]
         ];
 
-        $this->parseProductExtraDisplay($productExtraDisplay)->shouldReturnAnInstanceOf('Ordercloud\Products\ProductExtraDisplay');
+        $this->parseProductExtraDisplay($productExtraDisplay)->shouldReturnAnInstanceOf('Ordercloud\Entities\Products\ProductExtraDisplay');
     }
 
     function it_can_parse_product_option_display()
@@ -193,7 +193,7 @@ class ParserSpec extends ObjectBehavior
             ]
         ];
 
-        $this->parseProductExtraDisplay($productOptionDisplay)->shouldReturnAnInstanceOf('Ordercloud\Products\ProductExtraDisplay');
+        $this->parseProductExtraDisplay($productOptionDisplay)->shouldReturnAnInstanceOf('Ordercloud\Entities\Products\ProductExtraDisplay');
     }
 
     function it_can_parse_a_delivery_agent()
@@ -224,7 +224,7 @@ class ParserSpec extends ObjectBehavior
             'accountNo'    => "test",
             'cardNo'       => "test"
         ];
-        $this->parseDeliveryAgent($deliveryAgent)->shouldReturnAnInstanceOf('Ordercloud\Delivery\DeliveryAgent');
+        $this->parseDeliveryAgent($deliveryAgent)->shouldReturnAnInstanceOf('Ordercloud\Entities\Delivery\DeliveryAgent');
     }
 
     function it_can_parse_a_delivery_agent_status()
@@ -233,7 +233,7 @@ class ParserSpec extends ObjectBehavior
             'id'     => "test",
             'status' => "test"
         ];
-        $this->parseDeliveryAgentStatus($deliveryAgentStatus)->shouldReturnAnInstanceOf('Ordercloud\Delivery\DeliveryAgentStatus');
+        $this->parseDeliveryAgentStatus($deliveryAgentStatus)->shouldReturnAnInstanceOf('Ordercloud\Entities\Delivery\DeliveryAgentStatus');
     }
 
     function it_can_parse_a_product_tag()
@@ -263,7 +263,7 @@ class ParserSpec extends ObjectBehavior
             "childTags"        => []
         ];
 
-        $this->parseProductTag($productTag)->shouldReturnAnInstanceOf('Ordercloud\Products\ProductTag');
+        $this->parseProductTag($productTag)->shouldReturnAnInstanceOf('Ordercloud\Entities\Products\ProductTag');
     }
 
     function it_can_parse_display_user()
@@ -272,7 +272,7 @@ class ParserSpec extends ObjectBehavior
             "id"       => "test",
             "username" => "test"
         ];
-        $this->parseDisplayUser($displayUser)->shouldReturnAnInstanceOf('Ordercloud\Users\DisplayUser');
+        $this->parseDisplayUser($displayUser)->shouldReturnAnInstanceOf('Ordercloud\Entities\Users\DisplayUser');
     }
 
     function it_can_parse_a_product_tag_type()
@@ -284,7 +284,7 @@ class ParserSpec extends ObjectBehavior
             'dateCreated' => "test",
             'lastUpdated' => "test"
         ];
-        $this->parseProductTagType($productTagType)->shouldReturnAnInstanceOf('Ordercloud\Products\ProductTagType');
+        $this->parseProductTagType($productTagType)->shouldReturnAnInstanceOf('Ordercloud\Entities\Products\ProductTagType');
     }
 
     function it_can_parse_product_tag_types()
@@ -305,7 +305,7 @@ class ParserSpec extends ObjectBehavior
             "id"   => "test",
             "name" => "test"
         ];
-        $this->parseProductTagLink($productTagLink)->shouldReturnAnInstanceOf('Ordercloud\Products\ProductTagLink');
+        $this->parseProductTagLink($productTagLink)->shouldReturnAnInstanceOf('Ordercloud\Entities\Products\ProductTagLink');
     }
 
     function it_can_parse_product_type()
@@ -315,7 +315,7 @@ class ParserSpec extends ObjectBehavior
             'name'        => "test",
             'description' => "test"
         ];
-        $this->parseProductType($productType)->shouldReturnAnInstanceOf('Ordercloud\Products\ProductType');
+        $this->parseProductType($productType)->shouldReturnAnInstanceOf('Ordercloud\Entities\Products\ProductType');
     }
 
     function it_can_parse_a_connection()
@@ -450,7 +450,7 @@ class ParserSpec extends ObjectBehavior
             "fromOrganisation" => $organisation,
             "toOrganisation" => $organisation
         ];
-        $this->parseConnection($connection)->shouldReturnAnInstanceOf('Ordercloud\Connections\Connection');
+        $this->parseConnection($connection)->shouldReturnAnInstanceOf('Ordercloud\Entities\Connections\Connection');
     }
 
     function it_can_parse_a_connection_fee_detail ()
@@ -464,7 +464,7 @@ class ParserSpec extends ObjectBehavior
             "volumeAmount" => "test",
             "enabled" => "test"
         ];
-        $this->parseConnectionFeeDetail($feeDetail)->shouldReturnAnInstanceOf('Ordercloud\Connections\ConnectionFeeDetail');
+        $this->parseConnectionFeeDetail($feeDetail)->shouldReturnAnInstanceOf('Ordercloud\Entities\Connections\ConnectionFeeDetail');
     }
 
     public function it_can_parse_connection_fee_details ()
@@ -489,7 +489,7 @@ class ParserSpec extends ObjectBehavior
             "description" => "test"
         ];
 
-        $this->parseOrganisationStatus($organisationStatus)->shouldReturnAnInstanceOf('Ordercloud\Organisations\OrganisationStatus');
+        $this->parseOrganisationStatus($organisationStatus)->shouldReturnAnInstanceOf('Ordercloud\Entities\Organisations\OrganisationStatus');
     }
 
     function it_can_parse_organisations ()
@@ -619,7 +619,7 @@ class ParserSpec extends ObjectBehavior
             'open' => "test",
             'registeredDirectly' => "test"
         ];
-        $this->parseOrganisation($organisation)->shouldReturnAnInstanceOf('Ordercloud\Organisations\Organisation');
+        $this->parseOrganisation($organisation)->shouldReturnAnInstanceOf('Ordercloud\Entities\Organisations\Organisation');
     }
 
     function it_can_parse_connections ()
@@ -795,7 +795,7 @@ class ParserSpec extends ObjectBehavior
 
         $productShort["groupItems"][] = $productShort;
 
-        $this->parseProductShort($productShort)->shouldReturnAnInstanceOf('Ordercloud\Products\ProductShort');
+        $this->parseProductShort($productShort)->shouldReturnAnInstanceOf('Ordercloud\Entities\Products\ProductShort');
     }
 
     public function it_can_parse_user ()
@@ -889,7 +889,7 @@ class ParserSpec extends ObjectBehavior
             'roles' => [$roles, $roles, $roles],
             'organisations' => [$organisation, $organisation, $organisation]
         ];
-        $this->parseUser($user)->shouldReturnAnInstanceOf('Ordercloud\Users\User');
+        $this->parseUser($user)->shouldReturnAnInstanceOf('Ordercloud\Entities\Users\User');
     }
 
     function it_can_parse_order_items ()
@@ -1410,7 +1410,7 @@ class ParserSpec extends ObjectBehavior
             'instorePaymentRequired' => "test"
         ];
 
-        $this->parseOrder($order)->shouldReturnAnInstanceOf('Ordercloud\Orders\Order');
+        $this->parseOrder($order)->shouldReturnAnInstanceOf('Ordercloud\Entities\Orders\Order');
     }
 
     function it_can_parse_product_tag ()
@@ -1525,7 +1525,7 @@ class ParserSpec extends ObjectBehavior
             'gateway' => "tests",
             'grouping' => "tests"
         ];
-        $this->parsePayment($payment)->shouldReturnAnInstanceOf('Ordercloud\Payments\Payment');
+        $this->parsePayment($payment)->shouldReturnAnInstanceOf('Ordercloud\Entities\Payments\Payment');
     }
 
     function it_can_parse_product ()
@@ -1818,6 +1818,6 @@ class ParserSpec extends ObjectBehavior
             ],
             'discount' => $productPriceDiscount
         ];
-        $this->parseProduct($product)->shouldReturnAnInstanceOf('Ordercloud\Products\Product');
+        $this->parseProduct($product)->shouldReturnAnInstanceOf('Ordercloud\Entities\Products\Product');
     }
 }

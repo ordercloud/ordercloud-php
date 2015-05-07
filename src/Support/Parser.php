@@ -1,61 +1,15 @@
 <?php namespace Ordercloud\Support;
 
-<<<<<<< HEAD
-use Ordercloud\Connections\Connection;
-use Ordercloud\Connections\ConnectionFee;
-use Ordercloud\Connections\ConnectionFeeDetail;
-use Ordercloud\Connections\ConnectionFeeMetric;
-use Ordercloud\Connections\ConnectionFeeStructure;
-use Ordercloud\Connections\ConnectionFeeType;
-use Ordercloud\Connections\ConnectionType;
-use Ordercloud\Delivery\DeliveryAgent;
-use Ordercloud\Delivery\DeliveryAgentStatus;
-use Ordercloud\Orders\Order;
-use Ordercloud\Orders\OrderItemExtra;
-use Ordercloud\Orders\OrderItemOption;
-use Ordercloud\Orders\OrderStatus;
-use Ordercloud\Orders\OrderItem;
-use Ordercloud\Organisations\Organisation;
-use Ordercloud\Organisations\OrganisationIndustry;
-use Ordercloud\Organisations\OrganisationOperatingHours;
-use Ordercloud\Organisations\OrganisationProfile;
-use Ordercloud\Organisations\OrganisationShort;
-use Ordercloud\Organisations\OrganisationStatus;
-use Ordercloud\Organisations\OrganisationType;
-use Ordercloud\Organisations\Settings\OrganisationSetting;
-use Ordercloud\Organisations\Settings\OrganisationSettingKey;
-use Ordercloud\Payments\Payment;
-use Ordercloud\Payments\PaymentStatus;
-use Ordercloud\Products\Product;
-use Ordercloud\Products\ProductAttribute;
-use Ordercloud\Products\ProductDiscount;
-use Ordercloud\Products\ProductExtra;
-use Ordercloud\Products\ProductExtraDisplay;
-use Ordercloud\Products\ProductImage;
-use Ordercloud\Products\ProductOption;
-use Ordercloud\Products\ProductOptionDisplay;
-use Ordercloud\Products\ProductPriceDiscount;
-use Ordercloud\Products\ProductShort;
-use Ordercloud\Products\ProductTag;
-use Ordercloud\Products\ProductTagLink;
-use Ordercloud\Products\ProductTagType;
-use Ordercloud\Products\ProductType;
-use Ordercloud\Users\DisplayUser;
-use Ordercloud\Users\User;
-use Ordercloud\Users\UserAddress;
-use Ordercloud\Users\UserGroup;
-use Ordercloud\Users\UserProfile;
-use Ordercloud\Users\UserRole;
-use Ordercloud\Users\UserShort;
-=======
 use Ordercloud\Entities\Connections\Connection;
 use Ordercloud\Entities\Connections\ConnectionFee;
+use Ordercloud\Entities\Connections\ConnectionFeeDetail;
 use Ordercloud\Entities\Connections\ConnectionFeeMetric;
 use Ordercloud\Entities\Connections\ConnectionFeeStructure;
 use Ordercloud\Entities\Connections\ConnectionFeeType;
 use Ordercloud\Entities\Connections\ConnectionType;
 use Ordercloud\Entities\Delivery\DeliveryAgent;
 use Ordercloud\Entities\Delivery\DeliveryAgentStatus;
+use Ordercloud\Entities\Orders\OrderItem;
 use Ordercloud\Entities\Orders\OrderItemExtra;
 use Ordercloud\Entities\Orders\OrderItemOption;
 use Ordercloud\Entities\Orders\OrderStatus;
@@ -64,6 +18,7 @@ use Ordercloud\Entities\Organisations\OrganisationIndustry;
 use Ordercloud\Entities\Organisations\OrganisationOperatingHours;
 use Ordercloud\Entities\Organisations\OrganisationProfile;
 use Ordercloud\Entities\Organisations\OrganisationShort;
+use Ordercloud\Entities\Organisations\OrganisationStatus;
 use Ordercloud\Entities\Organisations\OrganisationType;
 use Ordercloud\Entities\Organisations\Settings\OrganisationSetting;
 use Ordercloud\Entities\Organisations\Settings\OrganisationSettingKey;
@@ -90,8 +45,7 @@ use Ordercloud\Entities\Users\UserGroup;
 use Ordercloud\Entities\Users\UserProfile;
 use Ordercloud\Entities\Users\UserRole;
 use Ordercloud\Entities\Users\UserShort;
-use Ordercloud\Orders\Order;
->>>>>>> 47f14d76c7fd4fb7c1a9d10efc2cbb409417fff8
+use Ordercloud\Entities\Orders\Order;
 
 class Parser
 {
