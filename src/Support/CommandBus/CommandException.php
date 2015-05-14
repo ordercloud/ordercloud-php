@@ -1,6 +1,6 @@
 <?php namespace Ordercloud\Support\CommandBus;
 
-use Ordercloud\Ordercloud\OrdercloudException;
+use Ordercloud\OrdercloudException;
 
 class CommandException extends OrdercloudException
 {
