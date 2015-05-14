@@ -430,6 +430,22 @@ class Parser
     }
 
     /**
+     * @param array $userAddresses
+     *
+     * @return array|UserAddress[]
+     */
+    public function parseUserAddresses(array $userAddresses)
+    {
+        $parsedAddresses = [];
+
+        foreach ($userAddresses as $address) {
+            $parsedAddresses[] = $this->parseUserAddress($address);
+        }
+
+        return $parsedAddresses;
+    }
+
+    /**
      * @param array $paymentStatus
      *
      * @return \Ordercloud\Entities\Payments\PaymentStatus
