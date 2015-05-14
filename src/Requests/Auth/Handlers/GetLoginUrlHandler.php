@@ -10,13 +10,10 @@ class GetLoginUrlHandler implements CommandHandler
 {
     /** @var Ordercloud */
     private $ordercloud;
-    /** @var Parser */
-    private $parser;
 
-    public function __construct(Ordercloud $ordercloud, Parser $parser)
+    public function __construct(Ordercloud $ordercloud)
     {
         $this->ordercloud = $ordercloud;
-        $this->parser = $parser;
     }
 
     /**
