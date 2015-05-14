@@ -2,6 +2,9 @@
 
 class UserProfile
 {
+    const GENDER_MALE = 'M';
+    const GENDER_FEMALE = 'F';
+
     /** @var string */
     private $firstName;
     /** @var string */
