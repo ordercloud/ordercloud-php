@@ -1,8 +1,9 @@
-<?php namespace Ordercloud\Requests\Products;
+<?php namespace Ordercloud\Requests\Products\Handlers;
 
 use Ordercloud\Entities\Products\Product;
 use Ordercloud\Ordercloud;
 use Ordercloud\Requests\OrdercloudRequest;
+use Ordercloud\Requests\Products\GetOrganisationProductsByTagNames;
 use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Parser;
 

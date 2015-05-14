@@ -1,8 +1,9 @@
-<?php namespace Ordercloud\Requests\Connections;
+<?php namespace Ordercloud\Requests\Connections\Handlers;
 
 use Ordercloud\Entities\Connections\Connection;
 use Ordercloud\Entities\Connections\ConnectionType;
 use Ordercloud\Ordercloud;
+use Ordercloud\Requests\Connections\GetMarketplaceConnections;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Parser;
