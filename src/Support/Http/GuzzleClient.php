@@ -31,12 +31,16 @@ class GuzzleClient implements Client
         }
     }
 
-    public function send($url, $method, array $params)
+    public function send($url, $method, array $params, array $headers = [])
     {
         $options = [];
 
-        if (!empty($params)) {
-            $options = [ 'json' => $params ];
+        if ( ! empty($params)) {
+            $options['body'] = $params;
+        }
+
+        if ( ! empty($headers)) {
+            $options['headers'] = $headers;
         }
 
         $guzzleRequest = $this->client->createRequest(
@@ -66,10 +70,6 @@ class GuzzleClient implements Client
     private function createResponse(ResponseInterface $response)
     {
         $data = $response->json();
-
-        if (isset($data['results'])) {
-            $data = $data['results'];
-        }
 
         return new Response(
             $response->getHeader('location'),

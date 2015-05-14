@@ -15,12 +15,15 @@ class OrdercloudRequest implements Command
     private $method;
     /** @var array */
     private $parameters;
+    /** @var array */
+    private $headers;
 
-    public function __construct($method, $url, array $parameters = [])
+    public function __construct($method, $url, array $parameters = [], $headers = [])
     {
         $this->url = $url;
         $this->method = $method;
         $this->parameters = array_filter($parameters);
+        $this->headers = $headers;
     }
 
     /**
@@ -45,5 +48,13 @@ class OrdercloudRequest implements Command
     public function getParameters()
     {
         return $this->parameters;
+    }
+
+    /**
+     * @return array
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
     }
 }

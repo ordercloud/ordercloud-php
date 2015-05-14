@@ -35,6 +35,7 @@ class OrdercloudRequestHandler implements CommandHandler
         $url = $request->getUrl();
         $method = $request->getMethod();
         $params = $request->getParameters();
+        $headers = $request->getHeaders();
 
         if (strtoupper($method) == 'GET') {
             $url = $this->appendParametersToUrl($params, $url);
@@ -42,7 +43,7 @@ class OrdercloudRequestHandler implements CommandHandler
         }
 
         try {
-            return $this->client->send($url, $method, $params);
+            return $this->client->send($url, $method, $params, $headers);
         }
         catch (OrdercloudHttpException $e) {
             throw new OrdercloudRequestException($request, $e);
