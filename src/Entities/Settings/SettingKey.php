@@ -1,6 +1,6 @@
-<?php namespace Ordercloud\Entities\Organisations\Settings;
+<?php namespace Ordercloud\Entities\Settings;
 
-class OrganisationSettingKey
+class SettingKey
 {
     /** @var integer */
     private $id;

@@ -1,14 +1,14 @@
-<?php namespace Ordercloud\Entities\Organisations\Settings;
+<?php namespace Ordercloud\Entities\Settings;
 
 use Ordercloud\Entities\Organisations\OrganisationShort;
 
-class OrganisationSetting
+class Setting
 {
     /** @var integer */
     private $id;
     /** @var string */
     private $value;
-    /** @var OrganisationSettingKey */
+    /** @var SettingKey */
     private $key;
     /** @var string */
     private $startDate;
@@ -21,7 +21,7 @@ class OrganisationSetting
     /** @var OrganisationShort */
     private $organisation;
 
-    function __construct($id, $value, OrganisationSettingKey $key, $startDate, $endDate, $dateCreated, $lastUpdated, OrganisationShort $organisation)
+    function __construct($id, $value, SettingKey $key, $startDate, $endDate, $dateCreated, $lastUpdated, OrganisationShort $organisation)
     {
         $this->id = $id;
         $this->value = $value;

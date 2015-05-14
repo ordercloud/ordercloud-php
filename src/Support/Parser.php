@@ -9,6 +9,7 @@ use Ordercloud\Entities\Connections\ConnectionFeeType;
 use Ordercloud\Entities\Connections\ConnectionType;
 use Ordercloud\Entities\Delivery\DeliveryAgent;
 use Ordercloud\Entities\Delivery\DeliveryAgentStatus;
+use Ordercloud\Entities\Orders\Order;
 use Ordercloud\Entities\Orders\OrderItem;
 use Ordercloud\Entities\Orders\OrderItemExtra;
 use Ordercloud\Entities\Orders\OrderItemOption;
@@ -20,8 +21,6 @@ use Ordercloud\Entities\Organisations\OrganisationProfile;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 use Ordercloud\Entities\Organisations\OrganisationStatus;
 use Ordercloud\Entities\Organisations\OrganisationType;
-use Ordercloud\Entities\Organisations\Settings\OrganisationSetting;
-use Ordercloud\Entities\Organisations\Settings\OrganisationSettingKey;
 use Ordercloud\Entities\Payments\Payment;
 use Ordercloud\Entities\Payments\PaymentStatus;
 use Ordercloud\Entities\Products\Product;
@@ -38,6 +37,8 @@ use Ordercloud\Entities\Products\ProductTag;
 use Ordercloud\Entities\Products\ProductTagLink;
 use Ordercloud\Entities\Products\ProductTagType;
 use Ordercloud\Entities\Products\ProductType;
+use Ordercloud\Entities\Settings\Setting;
+use Ordercloud\Entities\Settings\SettingKey;
 use Ordercloud\Entities\Users\DisplayUser;
 use Ordercloud\Entities\Users\User;
 use Ordercloud\Entities\Users\UserAddress;
@@ -45,7 +46,6 @@ use Ordercloud\Entities\Users\UserGroup;
 use Ordercloud\Entities\Users\UserProfile;
 use Ordercloud\Entities\Users\UserRole;
 use Ordercloud\Entities\Users\UserShort;
-use Ordercloud\Entities\Orders\Order;
 
 class Parser
 {
@@ -184,16 +184,16 @@ class Parser
     /**
      * @param array $setting
      *
-     * @return \Ordercloud\Entities\Organisations\Settings\OrganisationSetting
+     * @return \Ordercloud\Entities\Settings\Setting
      */
-    public function parseOrganisationSetting(array $setting)
+    public function parseSetting(array $setting)
     {
-        $key = new OrganisationSettingKey(
+        $key = new SettingKey(
             $setting['key']['id'],
             $setting['key']['name']
         );
 
-        return new OrganisationSetting(
+        return new Setting(
             $setting['id'],
             $setting['value'],
             $key,
@@ -203,6 +203,17 @@ class Parser
             $setting['lastUpdated'],
             $this->parseOrganisationShort($setting['organisation'])
         );
+    }
+
+    public function parseSettings(array $settings)
+    {
+        $parsedSettings = [];
+
+        foreach ($settings as $setting) {
+            $parsedSettings[] = $this->parseSetting($setting);
+        }
+
+        return $parsedSettings;
     }
 
     /**
