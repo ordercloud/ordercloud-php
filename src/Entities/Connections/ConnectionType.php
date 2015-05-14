@@ -3,6 +3,7 @@
 class ConnectionType
 {
     const MARKETPLACE = 'M';
+    const CHILD = 'CH';
 
     /** @var integer */
     private $id;

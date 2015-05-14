@@ -73,7 +73,7 @@ class Parser
     public function parseOrganisation(array $organisation)
     {
         $types = [];
-        foreach ($organisation['type'] as $type) {
+        foreach ($organisation['types'] as $type) {
             $types[] = new OrganisationType(
                 $type['id'],
                 $type['name'],
