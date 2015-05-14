@@ -72,7 +72,7 @@ class GuzzleClient implements Client
         }
 
         return new Response(
-            $response->getEffectiveUrl(),
+            $response->getHeader('location'),
             (string) $response->getBody(),
             $response->json() ?: [],
             $response->getStatusCode(),
