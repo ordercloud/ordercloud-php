@@ -1,11 +1,13 @@
-<?php namespace Ordercloud\Requests;
+<?php namespace Ordercloud\Requests\Connections;
 
-use Ordercloud\Entities\Organisations\Organisation;
+use Ordercloud\Entities\Connections\Connection;
+use Ordercloud\Entities\Connections\ConnectionType;
 use Ordercloud\Ordercloud;
+use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Parser;
 
-class GetOrganisationRequestHandler implements CommandHandler
+class GetMarketplaceConnectionsHandler implements CommandHandler
 {
     /** @var Parser */
     private $parser;
@@ -19,23 +21,24 @@ class GetOrganisationRequestHandler implements CommandHandler
     }
 
     /**
-     * @param GetOrganisationRequest $request
+     * @param GetMarketplaceConnections $request
      *
-     * @return Organisation
+     * @return array|Connection[]
      */
     public function handle($request)
     {
         $organisationID = $request->getOrganisationID();
         $accessToken = $request->getAccessToken();
+        $connectionType = ConnectionType::MARKETPLACE;
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
                 'GET',
-                "resource/organisations/{$organisationID}",
+                sprintf('resource/organisations/%d/connections/type/%s', $organisationID, $connectionType),
                 [ 'access_token' => $accessToken ]
             )
         );
 
-        return $this->parser->parseOrganisation($response->getData());
+        return $this->parser->parseConnections($response->getData('results'));
     }
 }

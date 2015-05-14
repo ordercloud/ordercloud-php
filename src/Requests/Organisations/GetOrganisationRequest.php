@@ -1,10 +1,10 @@
-<?php namespace Ordercloud\Requests;
+<?php namespace Ordercloud\Requests\Organisations;
 
 use Ordercloud\Support\CommandBus\Command;
 
-class GetChildConnections implements Command
+class GetOrganisationRequest implements Command
 {
-    /** @var int */
+    /** @var integer */
     private $organisationID;
     /** @var string */
     private $accessToken;

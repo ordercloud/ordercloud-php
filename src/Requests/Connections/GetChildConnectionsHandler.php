@@ -1,12 +1,13 @@
-<?php namespace Ordercloud\Requests;
+<?php namespace Ordercloud\Requests\Connections;
 
-use Ordercloud\Entities\Connections\Connection;
 use Ordercloud\Entities\Connections\ConnectionType;
 use Ordercloud\Ordercloud;
+use Ordercloud\Requests\Connection;
+use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Parser;
 
-class GetMarketplaceConnectionsHandler implements CommandHandler
+class GetChildConnectionsHandler implements CommandHandler
 {
     /** @var Parser */
     private $parser;
@@ -20,7 +21,7 @@ class GetMarketplaceConnectionsHandler implements CommandHandler
     }
 
     /**
-     * @param GetMarketplaceConnections $request
+     * @param GetChildConnections $request
      *
      * @return array|Connection[]
      */
@@ -28,7 +29,7 @@ class GetMarketplaceConnectionsHandler implements CommandHandler
     {
         $organisationID = $request->getOrganisationID();
         $accessToken = $request->getAccessToken();
-        $connectionType = ConnectionType::MARKETPLACE;
+        $connectionType = ConnectionType::CHILD;
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(

@@ -1,4 +1,4 @@
-<?php namespace Ordercloud\Requests;
+<?php namespace Ordercloud\Requests\Products;
 
 use Ordercloud\Support\CommandBus\Command;
 

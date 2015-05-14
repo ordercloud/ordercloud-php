@@ -1,8 +1,8 @@
-<?php namespace Ordercloud\Requests;
+<?php namespace Ordercloud\Requests\Connections;
 
 use Ordercloud\Support\CommandBus\Command;
 
-class GetMarketplaceConnections implements Command
+class GetChildConnections implements Command
 {
     /** @var int */
     private $organisationID;
