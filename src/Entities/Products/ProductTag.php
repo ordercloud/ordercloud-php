@@ -23,7 +23,7 @@ class ProductTag
     /** @var array|ProductTagLink[] */
     private $childTags;
 
-    function __construct($id, $name, $description, $shortDescription, $enabled, ProductTagType $tagType, OrganisationShort $organisation, ProductTagLink $parentTag, array $childTags)
+    function __construct($id, $name, $description, $shortDescription, $enabled, ProductTagType $tagType = null, OrganisationShort $organisation, ProductTagLink $parentTag = null, array $childTags)
     {
         $this->id = $id;
         $this->name = $name;

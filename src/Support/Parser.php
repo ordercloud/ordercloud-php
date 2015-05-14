@@ -542,9 +542,9 @@ class Parser
             $productTag['description'],
             $productTag['shortDescription'],
             $productTag['enabled'],
-            $this->parseProductTagType($productTag['tagType']),
+            $productTag['tagType'] ? $this->parseProductTagType($productTag['tagType']) : null,
             $this->parseOrganisationShort($productTag['organisation']),
-            $this->parseProductTagLink($productTag['parentTag']),
+            $productTag['parentTag'] ? $this->parseProductTagLink($productTag['parentTag']) : null,
             $childTags
         );
     }
@@ -633,18 +633,18 @@ class Parser
             $product['shortDescription'],
             $product['sku'],
             $product['price'],
-            $this->parseProductAttributes($product['attributes']),
-            $this->parseProductOptions($product['options']),
-            $this->parseProductExtras($product['extras']),
-            $this->parseProductTags($product['tags']),
+            $product['attributes'] ? $this->parseProductAttributes($product['attributes']) : [],
+            $product['options'] ? $this->parseProductOptions($product['options']) : [],
+            $product['extras'] ? $this->parseProductExtras($product['extras']) : [],
+            $product['tags'] ? $this->parseProductTags($product['tags']) : [],
             $this->parseOrganisationShort($product['organisation']),
             $product['enabled'],
             $product['available'],
             $product['availableOnline'],
             $this->parseProductImages($product['images']),
-            $this->parseProducts($product['groupItems']),
+            $product['groupItems'] ? $this->parseProducts($product['groupItems']) : [],
             $this->parseProductType($product['productType']),
-            $this->parseProductPriceDiscount($product['discount'])
+            $product['discount'] ? $this->parseProductPriceDiscount($product['discount']) : null
         );
     }
 
