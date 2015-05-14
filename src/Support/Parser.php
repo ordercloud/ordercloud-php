@@ -898,4 +898,14 @@ class Parser
         );
     }
 
+    public function parseResourceIDFromURL($url)
+    {
+        $resourceLocationParts = explode("/", $url);
+
+        if ( ! is_array($resourceLocationParts)) {
+            new OrdercloudException("Resource ID not found in request, loaction: $url");
+        }
+
+        return intval(end($resourceLocationParts));
+    }
 }
