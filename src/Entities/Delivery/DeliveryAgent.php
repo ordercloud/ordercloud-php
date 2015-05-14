@@ -2,12 +2,13 @@
 
 use Ordercloud\Entities\Organisations\OrganisationShort;
 use Ordercloud\Entities\Users\UserProfile;
+use Ordercloud\Entities\Users\UserShort;
 
 class DeliveryAgent
 {
     /** @var integer */
     private $id;
-    /** @var UserProfile */
+    /** @var UserShort */
     private $userProfile;
     /** @var OrganisationShort */
     private $organisation;
@@ -30,7 +31,7 @@ class DeliveryAgent
      */
     private $cardNo;
 
-    function __construct($id, UserProfile $userProfile, OrganisationShort $organisation, $minBalance, $maxBalance, $enabled, DeliveryAgentStatus $status, $accountNo, $cardNo)
+    function __construct($id, UserShort $userProfile, OrganisationShort $organisation, $minBalance, $maxBalance, $enabled, DeliveryAgentStatus $status, $accountNo, $cardNo)
     {
         $this->id = $id;
         $this->userProfile = $userProfile;

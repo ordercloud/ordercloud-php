@@ -213,7 +213,7 @@ class Parser
     public function parseProductShort(array $itemDetail)
     {
         $groupItems = [];
-        foreach ($itemDetail['groupItems'] as $groupItem) {
+        foreach ($itemDetail['groupItems'] ?: [] as $groupItem) {
             $groupItems[] = $this->parseProductShort($groupItem);
         }
 
@@ -333,7 +333,7 @@ class Parser
                 $this->parseProductShort($item['detail']),
                 $this->parseOrderStatus($item['status']),
                 $item['note'],
-                $this->parseProductPriceDiscount($item['itemDiscount']),
+                $item['itemDiscount'] ? $this->parseProductPriceDiscount($item['itemDiscount']) : null,
                 $item['readyEstimate'],
                 $this->parseOrderItemExtras($item['extras']),
                 $this->parseOrderItemOptions($item['options'])
@@ -381,7 +381,7 @@ class Parser
     public function parseOrder(array $order)
     {
         $payments = [];
-        foreach ($order['payments'] as $payment) {
+        foreach ($order['payments'] ?: [] as $payment) {
             $payments[] = $this->parsePayment($payment);
         }
 
@@ -395,16 +395,32 @@ class Parser
             $this->parseOrderStatus($order['status']),
             $this->parseOrderItems($order['items']),
             $this->parseUserShort($order['user']),
-            $this->parseUserAddress($order['userAddress']),
+            $order['userGeo'] ? $this->parseUserAddress($order['userGeo']) : null,
             $this->parseOrganisationShort($order['organisation']),
             $this->parsePaymentStatus($order['paymentStatus']),
             $payments,
-            $order['paymentMethods'],
+            $order['paymentMethod'],
             $order['deliveryType'],
-            $this->parseDeliveryAgent($order['deliveryAgent']),
+            $order['deliveryAgent'] ? $this->parseDeliveryAgent($order['deliveryAgent']) : null,
             $order['note'],
             $order['instorePaymentRequired']
         );
+    }
+
+    /**
+     * @param array $orders
+     *
+     * @return array|Order[]
+     */
+    public function parseOrders(array $orders)
+    {
+        $parsedOrders = [];
+
+        foreach ($orders as $order) {
+            $parsedOrders[] = $this->parseOrder($order);
+        }
+
+        return $parsedOrders;
     }
 
     /**
@@ -500,7 +516,7 @@ class Parser
     {
         return new DeliveryAgent(
             $deliveryAgent['id'],
-            $this->parseUserProfile($deliveryAgent['userProfile']),
+            $this->parseUserShort($deliveryAgent['user']),
             $this->parseOrganisationShort($deliveryAgent['organisation']),
             $deliveryAgent['minBalance'],
             $deliveryAgent['maxBalance'],
