@@ -32,7 +32,7 @@ class UpdateUserProfileHandler implements CommandHandler
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
-                'PUT',
+                OrdercloudRequest::METHOD_PUT,
                 "resource/users/{$userID}/profile",
                 [
                     'firstName'       => $profile->getFirstName(),

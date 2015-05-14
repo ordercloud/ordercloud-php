@@ -32,7 +32,7 @@ class GetProductHandler implements CommandHandler
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
-                'GET',
+                OrdercloudRequest::METHOD_GET,
                 "resource/product/{$productID}",
                 [ 'access_token' => $accessToken ]
             )

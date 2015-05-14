@@ -32,7 +32,7 @@ class GetOrganisationRequestHandler implements CommandHandler
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
-                'GET',
+                OrdercloudRequest::METHOD_GET,
                 "resource/organisations/{$organisationID}",
                 [ 'access_token' => $accessToken ]
             )

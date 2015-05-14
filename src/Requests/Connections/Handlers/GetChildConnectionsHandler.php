@@ -34,7 +34,7 @@ class GetChildConnectionsHandler implements CommandHandler
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
-                'GET',
+                OrdercloudRequest::METHOD_GET,
                 sprintf('resource/organisations/%d/connections/type/%s', $organisationID, $connectionType),
                 [ 'access_token' => $accessToken ]
             )

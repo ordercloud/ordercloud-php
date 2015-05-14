@@ -4,6 +4,11 @@ use Ordercloud\Support\CommandBus\Command;
 
 class OrdercloudRequest implements Command
 {
+    const METHOD_GET = 'GET';
+    const METHOD_PUT = 'PUT';
+    const METHOD_POST = 'POST';
+    const METHOD_DELETE = 'DELETE';
+
     /** @var string */
     private $url;
     /** @var string */

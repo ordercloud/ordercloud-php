@@ -27,7 +27,7 @@ class GetUserByAccessTokenHandler implements CommandHandler
     {
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
-                'GET',
+                OrdercloudRequest::METHOD_GET,
                 "resource/users/logged_in",
                 [
                     'access_token'    => $request->getAccessToken()

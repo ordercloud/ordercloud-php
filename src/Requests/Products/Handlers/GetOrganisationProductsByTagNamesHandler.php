@@ -33,7 +33,7 @@ class GetOrganisationProductsByTagNamesHandler implements CommandHandler
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
-                'PUT',
+                OrdercloudRequest::METHOD_PUT,
                 'resource/product/criteria',
                 [
                     'organisations' => [ $organisationID ],

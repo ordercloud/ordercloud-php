@@ -32,7 +32,7 @@ class GetUserProfileHandler implements CommandHandler
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
-                'GET',
+                OrdercloudRequest::METHOD_GET,
                 "resource/users/{$userID}/profile",
                 [ 'access_token' => $accessToken ]
             )

@@ -32,7 +32,7 @@ class GetUserOrdersHandler implements CommandHandler
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
-                'GET',
+                OrdercloudRequest::METHOD_GET,
                 "resource/orders/user/{$userID}",
                 [ 'access_token' => $accessToken ]
             )

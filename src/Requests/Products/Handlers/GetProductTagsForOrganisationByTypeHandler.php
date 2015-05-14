@@ -32,7 +32,7 @@ class GetProductTagsForOrganisationByTypeHandler implements CommandHandler
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
-                'GET',
+                OrdercloudRequest::METHOD_GET,
                 "/resource/product/tag/organisation/{$organisationID}/type/{$typeName}",
                 [ 'access_token' => $accessToken ]
             )
