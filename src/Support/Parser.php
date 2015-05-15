@@ -1,5 +1,6 @@
 <?php namespace Ordercloud\Support;
 
+use Ordercloud\Entities\Auth\AccessToken;
 use Ordercloud\Entities\Connections\Connection;
 use Ordercloud\Entities\Connections\ConnectionFee;
 use Ordercloud\Entities\Connections\ConnectionFeeDetail;
@@ -907,5 +908,14 @@ class Parser
         }
 
         return intval(end($resourceLocationParts));
+    }
+
+    public function parseAccessToken(array $accessToken)
+    {
+        return new AccessToken(
+            $accessToken['access_token'],
+            $accessToken['refresh_token'],
+            $accessToken['expires_in']
+        );
     }
 }
