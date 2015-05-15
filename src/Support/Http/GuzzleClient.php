@@ -3,6 +3,7 @@
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Message\ResponseInterface;
+use GuzzleHttp\Stream\Stream;
 
 class GuzzleClient implements Client
 {
@@ -18,7 +19,7 @@ class GuzzleClient implements Client
             'base_url' => $baseUrl,
             'defaults' => [
                 'headers' => [
-                    'Content-type' => 'application/json',
+                    'Content-Type' => 'application/json',
                     'User-Agent'   => 'ordercloud-php' //TODO add client version
                 ],
                 'auth' => [ $username, $password ],
@@ -26,28 +27,25 @@ class GuzzleClient implements Client
             ],
         ]);
 
-        if (!empty($accessToken)) {
+        if ( ! empty($accessToken)) {
             $this->client->setDefaultOption('query', ['access_token' => $accessToken]);
         }
     }
 
     public function send($url, $method, array $params, array $headers = [])
     {
-        $options = [];
-
-        if ( ! empty($params)) {
-            $options['body'] = $params;
-        }
-
-        if ( ! empty($headers)) {
-            $options['headers'] = $headers;
-        }
-
         $guzzleRequest = $this->client->createRequest(
             $method,
             $url,
-            $options
+            [
+                'headers' => $headers,
+                'body'    => $params
+            ]
         );
+
+        if ($guzzleRequest->getHeader('Content-Type') == 'application/json') {
+            $guzzleRequest->setBody(Stream::factory(json_encode($params)));
+        }
 
         try {
             $guzzleResponse = $this->client->send($guzzleRequest);
@@ -69,12 +67,12 @@ class GuzzleClient implements Client
      */
     private function createResponse(ResponseInterface $response)
     {
-        $data = $response->json();
+        $data = json_decode($response->getBody(), true);
 
         return new Response(
             $response->getHeader('location'),
             (string) $response->getBody(),
-            $response->json() ?: [],
+            $data ?: [],
             $response->getStatusCode(),
             $response->getHeaders(),
             (string) $response
