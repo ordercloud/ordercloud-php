@@ -47,6 +47,7 @@ use Ordercloud\Entities\Users\UserGroup;
 use Ordercloud\Entities\Users\UserProfile;
 use Ordercloud\Entities\Users\UserRole;
 use Ordercloud\Entities\Users\UserShort;
+use Ordercloud\OrdercloudException;
 
 class Parser
 {
@@ -901,10 +902,14 @@ class Parser
 
     public function parseResourceIDFromURL($url)
     {
-        $resourceLocationParts = explode("/", $url);
+        if (is_null($url)) {
+            throw new OrdercloudException('Resource ID can\'t be parsed, null url');
+        }
+
+        $resourceLocationParts = explode('/', $url);
 
         if ( ! is_array($resourceLocationParts)) {
-            new OrdercloudException("Resource ID not found in request, loaction: $url");
+            new OrdercloudException("Resource ID not found in request, loaction: {$url}");
         }
 
         return intval(end($resourceLocationParts));
