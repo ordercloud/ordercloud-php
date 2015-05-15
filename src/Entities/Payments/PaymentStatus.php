@@ -2,6 +2,12 @@
 
 class PaymentStatus
 {
+    const UNPAID = 'UNPAID';
+    const PARTLY_PAID = 'PARTLY_PAID';
+    const DEPOSIT_PAID = 'DEPOSIT_PAID';
+    const PAID = 'PAID';
+    const ACCOUNT = 'ACCOUNT';
+
     /** @var string */
     private $status;
     /** @var string */

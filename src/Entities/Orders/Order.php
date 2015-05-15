@@ -9,6 +9,9 @@ use Ordercloud\Entities\Users\UserShort;
 
 class Order
 {
+    const DELIVERY_TYPE_SELFPICKUP = 'SELFPICKUP';
+    const DELIVERY_TYPE_DELIVERY = 'DELIVERY';
+
     /** @var integer */
     private $id;
     /** @var string */
@@ -29,11 +32,11 @@ class Order
     private $user;
     /** @var UserAddress */
     private $userAddress;
-    /** @var \Ordercloud\Entities\Organisations\OrganisationShort */
+    /** @var OrganisationShort */
     private $organisation;
-    /** @var \Ordercloud\Entities\Payments\PaymentStatus */
+    /** @var PaymentStatus */
     private $paymentStatus;
-    /** @var array|\Ordercloud\Entities\Payments\Payment[] */
+    /** @var array|Payment[] */
     private $payments;
     /** @var array|string[] */
     private $paymentMethods;
