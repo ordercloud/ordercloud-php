@@ -5,6 +5,9 @@ use Ordercloud\Entities\Users\DisplayUser;
 
 class Payment
 {
+    const PAYMENT_GATEWAY_MYGATE_ZA = "MYGATE_ZA";
+    const PAYMENT_GATEWAY_PAYU_ZA = "PAYU_ZA";
+
     /** @var integer */
     private $id;
     /** @var PaymentStatus */
