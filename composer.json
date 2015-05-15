@@ -21,9 +21,6 @@
         "phpspec/nyan-formatters": "1.0.1"
     },
     "autoload": {
-        "psr-0": {
-            "OC\\Ordercloud": "src/"
-        },
         "psr-4": {
             "Ordercloud\\": "src/"
         }
