@@ -62,4 +62,148 @@ class Product
         $this->productType = $productType;
         $this->discount = $discount;
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @return array|ProductItemsProductAttribute[]
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @return array|ProductOption[]
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @return array|ProductExtra[]
+     */
+    public function getExtras()
+    {
+        return $this->extras;
+    }
+
+    /**
+     * @return array|ProductTag[]
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @return OrganisationShort
+     */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAvailable()
+    {
+        return $this->available;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAvailableOnline()
+    {
+        return $this->availableOnline;
+    }
+
+    /**
+     * @return array|ProductImage[]
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @return array|Product[]
+     */
+    public function getGroupItems()
+    {
+        return $this->groupItems;
+    }
+
+    /**
+     * @return ProductType
+     */
+    public function getProductType()
+    {
+        return $this->productType;
+    }
+
+    /**
+     * @return ProductPriceDiscount
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
 }
