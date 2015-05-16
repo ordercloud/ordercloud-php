@@ -28,13 +28,19 @@ class GetUserOrdersHandler implements CommandHandler
     public function handle($request)
     {
         $userID = $request->getUserID();
-        $accessToken = $request->getAccessToken();
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
                 OrdercloudRequest::METHOD_GET,
                 "resource/orders/user/{$userID}",
-                [ 'access_token' => $accessToken ]
+                [
+                    'page'          => $request->getPage(),
+                    'pagesize'      => $request->getPageSize(),
+                    'orderstatus'   => $request->getOrderStatuses(),
+                    'paymentstatus' => $request->getPaymentStatuses(),
+                    'sort'          => $request->getSort(),
+                    'access_token'  => $request->getAccessToken(),
+                ]
             )
         );
 
