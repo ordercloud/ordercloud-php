@@ -12,4 +12,20 @@ class ProductImage
         $this->name = $name;
         $this->thumbnail = $thumbnail;
     }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
 }
