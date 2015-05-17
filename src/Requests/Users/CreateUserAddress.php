@@ -1,18 +1,18 @@
 <?php namespace Ordercloud\Requests\Users;
 
-use Ordercloud\Entities\Users\UserAddress;
+use Ordercloud\Requests\Users\Entities\NewUserAddress;
 use Ordercloud\Support\CommandBus\Command;
 
 class CreateUserAddress implements Command
 {
     /** @var int */
     private $userID;
-    /** @var UserAddress */
+    /** @var NewUserAddress */
     private $address;
     /** @var string|null */
     private $accessToken;
 
-    public function __construct($userID, UserAddress $address, $accessToken = null)
+    public function __construct($userID, NewUserAddress $address, $accessToken = null)
     {
         $this->userID = $userID;
         $this->address = $address;
@@ -28,7 +28,7 @@ class CreateUserAddress implements Command
     }
 
     /**
-     * @return UserAddress
+     * @return NewUserAddress
      */
     public function getAddress()
     {

@@ -49,8 +49,6 @@ class CreateUserAddressHandler implements CommandHandler
             )
         );
 
-        var_dump($response);
-
         return $this->parser->parseResourceIDFromURL($response->getUrl());
     }
 }
