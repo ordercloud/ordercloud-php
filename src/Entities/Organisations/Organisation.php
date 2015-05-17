@@ -37,4 +37,84 @@ class Organisation extends OrganisationShort
         $this->open = $open;
         $this->registeredDirectly = $registeredDirectly;
     }
+
+    /**
+     * @return array|OrganisationType[]
+     */
+    public function getTypes()
+    {
+        return $this->types;
+    }
+
+    /**
+     * @return array|OrganisationIndustry[]
+     */
+    public function getIndustries()
+    {
+        return $this->industries;
+    }
+
+    /**
+     * @return array|OrganisationProfile[]
+     */
+    public function getProfiles()
+    {
+        return $this->profiles;
+    }
+
+    /**
+     * @return array|OrganisationOperatingHours[]
+     */
+    public function getOperatingHours()
+    {
+        return $this->operatingHours;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrdersHash()
+    {
+        return $this->ordersHash;
+    }
+
+    /**
+     * @return OrganisationStatus
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastOnline()
+    {
+        return $this->lastOnline;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isDelivering()
+    {
+        return $this->delivering;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isOpen()
+    {
+        return $this->open;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRegisteredDirectly()
+    {
+        return $this->registeredDirectly;
+    }
 }
