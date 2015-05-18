@@ -65,6 +65,6 @@ class OrdercloudRequestHandler implements CommandHandler
             $params = array_merge($params, $queryArray);
         }
 
-        return $url . '?' . $this->parameteriser->parameterise($params);
+        return rtrim($url, '?') . $this->parameteriser->parameterise($params);
     }
 }
