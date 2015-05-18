@@ -1,11 +1,11 @@
-<?php namespace Ordercloud\Requests;
+<?php namespace Ordercloud\Requests\Handlers;
 
-use Ordercloud\Support\CommandBus\Command;
+use Ordercloud\Requests\OrdercloudRequest;
+use Ordercloud\Requests\OrdercloudRequestException;
 use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Http\Client;
 use Ordercloud\Support\Http\OrdercloudHttpException;
 use Ordercloud\Support\Http\Response;
-use Ordercloud\Support\Http\Request;
 use Ordercloud\Support\Http\UrlParameteriser;
 
 class OrdercloudRequestHandler implements CommandHandler
