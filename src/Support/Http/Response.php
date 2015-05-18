@@ -14,8 +14,10 @@ class Response
     private $headers;
     /** @var string */
     private $rawResponse;
+    /** @var string */
+    private $rawRequest;
 
-    public function __construct($url, $rawResult, array $data, $statusCode, array $headers, $rawResponse)
+    public function __construct($url, $rawResult, array $data, $statusCode, array $headers, $rawResponse, $rawRequest)
     {
         $this->url = $url;
         $this->data = $data;
@@ -23,6 +25,7 @@ class Response
         $this->rawResult = $rawResult;
         $this->headers = $headers;
         $this->rawResponse = $rawResponse;
+        $this->rawRequest = $rawRequest;
     }
 
     /**
@@ -85,6 +88,14 @@ class Response
     public function getRawResponse()
     {
         return $this->rawResponse;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRawRequest()
+    {
+        return $this->rawRequest;
     }
 
     function __toString()

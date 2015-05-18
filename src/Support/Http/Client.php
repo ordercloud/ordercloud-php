@@ -9,6 +9,8 @@ interface Client
      * @param array  $headers
      *
      * @return Response
+     *
+     * @throws OrdercloudHttpException
      */
     public function send($url, $method, array $params, array $headers);
 }
