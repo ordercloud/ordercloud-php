@@ -12,4 +12,20 @@ class DisplayUser
         $this->id = $id;
         $this->username = $username;
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
 }

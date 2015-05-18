@@ -24,4 +24,44 @@ class User extends UserShort
         $this->roles = $roles;
         $this->organisations = $organisations;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookId()
+    {
+        return $this->facebook_id;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @return array|\Ordercloud\Entities\Organisations\OrganisationShort[]
+     */
+    public function getOrganisations()
+    {
+        return $this->organisations;
+    }
 }
