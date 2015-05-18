@@ -32,7 +32,7 @@ class ParserSpec extends ObjectBehavior
         $this->parseUserRoles([$userRole, $userRole, $userRole])->shouldBeArray();
     }
 
-    function it_can_parse_organisation_setting()
+    function it_can_parse_setting()
     {
         $settingKey["id"] = 1;
         $settingKey["name"] = "test";
@@ -51,7 +51,7 @@ class ParserSpec extends ObjectBehavior
                 'code' => 'TST'
             ]
         ];
-        $this->parseOrganisationSetting($setting)->shouldReturnAnInstanceOf('Ordercloud\Entities\Organisations\Settings\OrganisationSetting');
+        $this->parseSetting($setting)->shouldReturnAnInstanceOf('Ordercloud\Entities\Settings\Setting');
     }
 
     function it_can_parse_a_order_status()
@@ -200,14 +200,17 @@ class ParserSpec extends ObjectBehavior
     {
         $deliveryAgent = [
             'id'           => "test",
-            'userProfile'  => [
-                'firstName'       => "test",
-                'firstName'       => "test",
-                'surname'         => "test",
-                'email'           => "test",
-                'nickName'        => "test",
-                'cellphoneNumber' => "test",
-                'sex'             => "test"
+            'user'  => [
+                'id' => 1,
+                'username' => 'test',
+                'profile' => [
+                    'firstName'       => 'test',
+                    'surname'         => 'test',
+                    'email'           => 'test',
+                    'nickName'        => 'test',
+                    'cellphoneNumber' => 'test',
+                    'sex'             => 'test',
+                ],
             ],
             'organisation' => [
                 'id'   => "TEST",
@@ -419,7 +422,7 @@ class ParserSpec extends ObjectBehavior
             'id' => "test",
             'name' => "test",
             'code' => "test",
-            "type" => [$type, $type, $type],
+            "types" => [$type, $type, $type],
             'industries' => [$industry, $industry, $industry],
             "profile" => [$profile, $profile, $profile],
             'operatingHours' => [$operatingHour, $operatingHour, $operatingHour],
@@ -539,7 +542,7 @@ class ParserSpec extends ObjectBehavior
             'id' => "test",
             'name' => "test",
             'code' => "test",
-            "type" => [$type, $type, $type],
+            "types" => [$type, $type, $type],
             'industries' => [$industry, $industry, $industry],
             "profile" => [$profile, $profile, $profile],
             'operatingHours' => [$operatingHour, $operatingHour, $operatingHour],
@@ -604,7 +607,7 @@ class ParserSpec extends ObjectBehavior
             'id' => "test",
             'name' => "test",
             'code' => "test",
-            "type" => [$type, $type, $type],
+            "types" => [$type, $type, $type],
             'industries' => [$industry, $industry, $industry],
             "profile" => [$profile, $profile, $profile],
             'operatingHours' => [$operatingHour, $operatingHour, $operatingHour],
@@ -723,7 +726,7 @@ class ParserSpec extends ObjectBehavior
             'id' => "test",
             'name' => "test",
             'code' => "test",
-            "type" => [$type, $type, $type],
+            "types" => [$type, $type, $type],
             'industries' => [$industry, $industry, $industry],
             "profile" => [$profile, $profile, $profile],
             'operatingHours' => [$operatingHour, $operatingHour, $operatingHour],
@@ -845,7 +848,7 @@ class ParserSpec extends ObjectBehavior
             'id' => "test",
             'name' => "test",
             'code' => "test",
-            "type" => [$type, $type, $type],
+            "types" => [$type, $type, $type],
             'industries' => [$industry, $industry, $industry],
             "profile" => [$profile, $profile, $profile],
             'operatingHours' => [$operatingHour, $operatingHour, $operatingHour],
@@ -1313,7 +1316,7 @@ class ParserSpec extends ObjectBehavior
             'id' => "test",
             'name' => "test",
             'code' => "test",
-            "type" => [$type, $type, $type],
+            "types" => [$type, $type, $type],
             'industries' => [$industry, $industry, $industry],
             "profile" => [$profile, $profile, $profile],
             'operatingHours' => [$operatingHour, $operatingHour, $operatingHour],
@@ -1352,14 +1355,18 @@ class ParserSpec extends ObjectBehavior
 
         $deliveryAgent = [
             'id'           => "test",
-            'userProfile'  => [
-                'firstName'       => "test",
-                'firstName'       => "test",
-                'surname'         => "test",
-                'email'           => "test",
-                'nickName'        => "test",
-                'cellphoneNumber' => "test",
-                'sex'             => "test"
+            'user'  => [
+                'id' => 1,
+                'username' => 'test',
+                'profile' => [
+                    'firstName'       => "test",
+                    'firstName'       => "test",
+                    'surname'         => "test",
+                    'email'           => "test",
+                    'nickName'        => "test",
+                    'cellphoneNumber' => "test",
+                    'sex'             => "test"
+                ],
             ],
             'organisation' => [
                 'id'   => "TEST",
@@ -1391,7 +1398,7 @@ class ParserSpec extends ObjectBehavior
             ],
             'items' => [$item, $item, $item],
             'user' => $user,
-            'userAddress' => $address,
+            'userGeo' => $address,
             'organisation' => [
                 'id'   => 1,
                 'name' => 'Testing',
@@ -1403,7 +1410,7 @@ class ParserSpec extends ObjectBehavior
                 'message' => "test"
             ],
             "payments" => [$payment, $payment, $payment],
-            'paymentMethods' => ["tests", "tests"],
+            'paymentMethod' => ["tests", "tests"],
             'deliveryType' => "tests",
             'deliveryAgent' => $deliveryAgent,
             'note' => "test",
@@ -1489,7 +1496,7 @@ class ParserSpec extends ObjectBehavior
             'id' => "test",
             'name' => "test",
             'code' => "test",
-            "type" => [$type, $type, $type],
+            "types" => [$type, $type, $type],
             'industries' => [$industry, $industry, $industry],
             "profile" => [$profile, $profile, $profile],
             'operatingHours' => [$operatingHour, $operatingHour, $operatingHour],

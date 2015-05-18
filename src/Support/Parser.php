@@ -201,8 +201,6 @@ class Parser
             $key,
             $setting['startDate'],
             $setting['endDate'],
-            $setting['dateCreated'],
-            $setting['lastUpdated'],
             $this->parseOrganisationShort($setting['organisation'])
         );
     }
