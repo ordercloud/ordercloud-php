@@ -1,15 +1,15 @@
 <?php namespace Ordercloud\Entities\Connections;
 
 use Ordercloud\Entities\Organisations\Fees\OrganisationFee;
-use Ordercloud\Entities\Organisations\OrganisationShort;
+use Ordercloud\Entities\Organisations\Organisation;
 
 class Connection
 {
     /** @var integer */
     private $id;
-    /** @var OrganisationShort */
+    /** @var Organisation */
     private $fromOrganisation;
-    /** @var OrganisationShort */
+    /** @var Organisation */
     private $toOrganisation;
     /** @var ConnectionType */
     private $type;
@@ -24,7 +24,7 @@ class Connection
     /** @var string */
     private $settlementInterval;
 
-    function __construct($id, OrganisationShort $fromOrganisation, OrganisationShort $toOrganisation, ConnectionType $type, $ended, array $fees, $enabled, $status, $settlementInterval)
+    function __construct($id, Organisation $fromOrganisation, Organisation $toOrganisation, ConnectionType $type, $ended, array $fees, $enabled, $status, $settlementInterval)
     {
         $this->id = $id;
         $this->fromOrganisation = $fromOrganisation;
@@ -46,7 +46,7 @@ class Connection
     }
 
     /**
-     * @return OrganisationShort
+     * @return Organisation
      */
     public function getFromOrganisation()
     {
@@ -54,7 +54,7 @@ class Connection
     }
 
     /**
-     * @return OrganisationShort
+     * @return Organisation
      */
     public function getToOrganisation()
     {
