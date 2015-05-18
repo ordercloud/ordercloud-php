@@ -14,22 +14,16 @@ class Setting
     private $startDate;
     /** @var string */
     private $endDate;
-    /** @var string */
-    private $dateCreated;
-    /** @var string */
-    private $lastUpdated;
     /** @var OrganisationShort */
     private $organisation;
 
-    function __construct($id, $value, SettingKey $key, $startDate, $endDate, $dateCreated, $lastUpdated, OrganisationShort $organisation)
+    function __construct($id, $value, SettingKey $key, $startDate, $endDate, OrganisationShort $organisation)
     {
         $this->id = $id;
         $this->value = $value;
         $this->key = $key;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
-        $this->dateCreated = $dateCreated;
-        $this->lastUpdated = $lastUpdated;
         $this->organisation = $organisation;
     }
 
@@ -71,22 +65,6 @@ class Setting
     public function getEndDate()
     {
         return $this->endDate;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDateCreated()
-    {
-        return $this->dateCreated;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastUpdated()
-    {
-        return $this->lastUpdated;
     }
 
     /**
