@@ -1,14 +1,15 @@
 <?php namespace Ordercloud\Entities\Connections;
 
 use Ordercloud\Entities\Organisations\Fees\OrganisationFee;
+use Ordercloud\Entities\Organisations\OrganisationShort;
 
 class Connection
 {
     /** @var integer */
     private $id;
-    /** @var \Ordercloud\Entities\Organisations\OrganisationShort */
+    /** @var OrganisationShort */
     private $fromOrganisation;
-    /** @var \Ordercloud\Entities\Organisations\OrganisationShort */
+    /** @var OrganisationShort */
     private $toOrganisation;
     /** @var ConnectionType */
     private $type;
@@ -23,7 +24,7 @@ class Connection
     /** @var string */
     private $settlementInterval;
 
-    function __construct($id, $fromOrganisation, $toOrganisation, $type, $ended, array $fees, $enabled, $status, $settlementInterval)
+    function __construct($id, OrganisationShort $fromOrganisation, OrganisationShort $toOrganisation, ConnectionType $type, $ended, array $fees, $enabled, $status, $settlementInterval)
     {
         $this->id = $id;
         $this->fromOrganisation = $fromOrganisation;
@@ -34,5 +35,77 @@ class Connection
         $this->enabled = $enabled;
         $this->status = $status;
         $this->settlementInterval = $settlementInterval;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return OrganisationShort
+     */
+    public function getFromOrganisation()
+    {
+        return $this->fromOrganisation;
+    }
+
+    /**
+     * @return OrganisationShort
+     */
+    public function getToOrganisation()
+    {
+        return $this->toOrganisation;
+    }
+
+    /**
+     * @return ConnectionType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnded()
+    {
+        return $this->ended;
+    }
+
+    /**
+     * @return array|OrganisationFee[]
+     */
+    public function getFees()
+    {
+        return $this->fees;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSettlementInterval()
+    {
+        return $this->settlementInterval;
     }
 }
