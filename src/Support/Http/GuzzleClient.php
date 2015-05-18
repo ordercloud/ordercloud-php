@@ -2,6 +2,7 @@
 
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Message\RequestInterface;
 use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Stream\Stream;
 
@@ -47,14 +48,16 @@ class GuzzleClient implements Client
             $guzzleRequest->setBody(Stream::factory(json_encode($params)));
         }
 
+        $ordercloudRequest = new Request($url, $method, $params, $guzzleRequest->getHeaders(), (string)$guzzleRequest);
+
         try {
             $guzzleResponse = $this->client->send($guzzleRequest);
-            return $this->createResponse($guzzleResponse);
+            return $this->createResponse($guzzleResponse, $ordercloudRequest);
         }
         catch (BadResponseException $e) {
             throw new OrdercloudHttpException(
-                $this->createResponse($e->getResponse()),
-                new Request($url, $method, $params, $guzzleRequest->getHeaders(), (string) $guzzleRequest),
+                $this->createResponse($e->getResponse(), $ordercloudRequest),
+                $ordercloudRequest,
                 $e
             );
         }
@@ -62,10 +65,11 @@ class GuzzleClient implements Client
 
     /**
      * @param ResponseInterface $response
+     * @param Request           $request
      *
      * @return Response
      */
-    private function createResponse(ResponseInterface $response)
+    private function createResponse(ResponseInterface $response, Request $request)
     {
         $data = json_decode($response->getBody(), true);
 
@@ -75,7 +79,8 @@ class GuzzleClient implements Client
             $data ?: [],
             $response->getStatusCode(),
             $response->getHeaders(),
-            (string) $response
+            (string) $response,
+            $request
         );
     }
 }
