@@ -1,23 +1,17 @@
 <?php namespace Ordercloud\Entities\Settings;
 
-class SettingsCollection
+use Ordercloud\Support\Collection;
+
+class SettingsCollection extends Collection
 {
     /**
      * @var array|Setting[]
      */
-    private $settings;
+    protected $items;
 
     public function __construct(array $settings = [])
     {
-        $this->settings = $settings;
-    }
-
-    /**
-     * @return array|Setting[]
-     */
-    public function getSettings()
-    {
-        return $this->settings;
+        $this->items = $settings;
     }
 
     /**
@@ -25,9 +19,9 @@ class SettingsCollection
      *
      * @return Setting|null
      */
-    public function getSettingByKey(SettingKey $key)
+    public function getByKey(SettingKey $key)
     {
-        foreach ($this->getSettings() as $setting) {
+        foreach ($this->all() as $setting) {
             if ($setting->getKey()->getId() == $key->getId() || $setting->getKey()->getName() == $key->getName()) {
                 return $setting;
             }
@@ -41,9 +35,9 @@ class SettingsCollection
      *
      * @return Setting|null
      */
-    public function getSettingByKeyName($keyName)
+    public function getByKeyName($keyName)
     {
-        return $this->getSettingByKey(new SettingKey(null, $keyName));
+        return $this->getByKey(new SettingKey(null, $keyName));
     }
 
     /**
@@ -51,9 +45,9 @@ class SettingsCollection
      *
      * @return Setting|null
      */
-    public function getSettingByKeyID($keyID)
+    public function getByKeyID($keyID)
     {
-        return $this->getSettingByKey(new SettingKey($keyID, null));
+        return $this->getByKey(new SettingKey($keyID, null));
     }
 
     /**
@@ -62,9 +56,9 @@ class SettingsCollection
      *
      * @return null|string
      */
-    public function getSettingValueByKey(SettingKey $key, $default = null)
+    public function getValueByKey(SettingKey $key, $default = null)
     {
-        $setting = $this->getSettingByKey($key);
+        $setting = $this->getByKey($key);
 
         if (is_null($setting)) {
             return $default;
@@ -79,9 +73,9 @@ class SettingsCollection
      *
      * @return string|null
      */
-    public function getSettingValueByKeyName($keyName, $default = null)
+    public function getValueByKeyName($keyName, $default = null)
     {
-        return $this->getSettingValueByKey(new SettingKey(null, $keyName), $default);
+        return $this->getValueByKey(new SettingKey(null, $keyName), $default);
     }
 
     /**
@@ -90,8 +84,8 @@ class SettingsCollection
      *
      * @return string|null
      */
-    public function getSettingValueByKeyID($keyID, $default = null)
+    public function getValueByKeyID($keyID, $default = null)
     {
-        return $this->getSettingValueByKey(new SettingKey($keyID, null), $default);
+        return $this->getValueByKey(new SettingKey($keyID, null), $default);
     }
 }

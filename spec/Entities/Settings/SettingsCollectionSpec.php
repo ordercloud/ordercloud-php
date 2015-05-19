@@ -19,47 +19,47 @@ class SettingsCollectionSpec extends ObjectBehavior
 
     function it_returns_a_setting_by_key()
     {
-        $this->getSettingByKey(new SettingKey(1, null))->shouldReturnAnInstanceOf('Ordercloud\Entities\Settings\Setting');
+        $this->getByKey(new SettingKey(1, null))->shouldReturnAnInstanceOf('Ordercloud\Entities\Settings\Setting');
 
-        $this->getSettingByKey(new SettingKey(null, 'delivery'))->shouldReturnAnInstanceOf('Ordercloud\Entities\Settings\Setting');
+        $this->getByKey(new SettingKey(null, 'delivery'))->shouldReturnAnInstanceOf('Ordercloud\Entities\Settings\Setting');
 
-        $this->getSettingByKey(new SettingKey(null, null))->shouldReturn(null);
+        $this->getByKey(new SettingKey(null, null))->shouldReturn(null);
     }
 
     function it_returns_a_setting_by_key_name()
     {
-        $this->getSettingByKeyName('delivery')->shouldReturnAnInstanceOf('Ordercloud\Entities\Settings\Setting');
+        $this->getByKeyName('delivery')->shouldReturnAnInstanceOf('Ordercloud\Entities\Settings\Setting');
 
-        $this->getSettingByKeyName('unknown')->shouldReturn(null);
+        $this->getByKeyName('unknown')->shouldReturn(null);
     }
 
     function it_returns_a_setting_by_key_id()
     {
-        $this->getSettingByKeyID(1)->shouldReturnAnInstanceOf('Ordercloud\Entities\Settings\Setting');
+        $this->getByKeyID(1)->shouldReturnAnInstanceOf('Ordercloud\Entities\Settings\Setting');
 
-        $this->getSettingByKeyID(43)->shouldReturn(null);
+        $this->getByKeyID(43)->shouldReturn(null);
     }
 
     function it_returns_a_setting_value_by_key()
     {
-        $this->getSettingValueByKey(new SettingKey(1, null))->shouldReturn('2');
+        $this->getValueByKey(new SettingKey(1, null))->shouldReturn('2');
 
-        $this->getSettingValueByKey(new SettingKey(null, 'delivery'))->shouldReturn('true');
+        $this->getValueByKey(new SettingKey(null, 'delivery'))->shouldReturn('true');
 
-        $this->getSettingValueByKey(new SettingKey(null, null))->shouldReturn(null);
+        $this->getValueByKey(new SettingKey(null, null))->shouldReturn(null);
     }
 
     function it_returns_a_setting_value_by_key_name()
     {
-        $this->getSettingValueByKeyName('delivery')->shouldReturn('true');
+        $this->getValueByKeyName('delivery')->shouldReturn('true');
 
-        $this->getSettingValueByKeyName('unknown')->shouldReturn(null);
+        $this->getValueByKeyName('unknown')->shouldReturn(null);
     }
 
     function it_returns_a_setting_value_by_key_id()
     {
-        $this->getSettingValueByKeyID(1)->shouldReturn('2');
+        $this->getValueByKeyID(1)->shouldReturn('2');
 
-        $this->getSettingValueByKeyID(43)->shouldReturn(null);
+        $this->getValueByKeyID(43)->shouldReturn(null);
     }
 }
