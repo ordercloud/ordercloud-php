@@ -16,7 +16,7 @@ class ProductTag
     private $enabled;
     /** @var ProductTagType */
     private $tagType;
-    /** @var \Ordercloud\Entities\Organisations\OrganisationShort */
+    /** @var OrganisationShort */
     private $organisation;
     /** @var ProductTagLink */
     private $parentTag;
@@ -34,5 +34,77 @@ class ProductTag
         $this->organisation = $organisation;
         $this->parentTag = $parentTag;
         $this->childTags = $childTags;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return ProductTagType
+     */
+    public function getTagType()
+    {
+        return $this->tagType;
+    }
+
+    /**
+     * @return OrganisationShort
+     */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @return ProductTagLink
+     */
+    public function getParentTag()
+    {
+        return $this->parentTag;
+    }
+
+    /**
+     * @return array|ProductTagLink[]
+     */
+    public function getChildTags()
+    {
+        return $this->childTags;
     }
 }
