@@ -75,4 +75,14 @@ class UserProfile
     {
         return $this->sex;
     }
+
+    public function isMale()
+    {
+        return $this->getSex() == static::GENDER_MALE;
+    }
+
+    public function isFemale()
+    {
+        return $this->getSex() == static::GENDER_FEMALE;
+    }
 }
