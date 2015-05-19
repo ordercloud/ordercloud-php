@@ -29,9 +29,11 @@ use Ordercloud\Entities\Products\ProductAttribute;
 use Ordercloud\Entities\Products\ProductDiscount;
 use Ordercloud\Entities\Products\ProductExtra;
 use Ordercloud\Entities\Products\ProductExtraDisplay;
+use Ordercloud\Entities\Products\ProductExtraSet;
 use Ordercloud\Entities\Products\ProductImage;
 use Ordercloud\Entities\Products\ProductOption;
 use Ordercloud\Entities\Products\ProductOptionDisplay;
+use Ordercloud\Entities\Products\ProductOptionSet;
 use Ordercloud\Entities\Products\ProductPriceDiscount;
 use Ordercloud\Entities\Products\ProductShort;
 use Ordercloud\Entities\Products\ProductTag;
@@ -677,8 +679,8 @@ class Parser
             $product['sku'],
             $product['price'],
             $product['attributes'] ? $this->parseProductAttributes($product['attributes']) : [],
-            $product['options'] ? $this->parseProductOptions($product['options']) : [],
-            $product['extras'] ? $this->parseProductExtras($product['extras']) : [],
+            $product['options'] ? $this->parseProductOptionSets($product['options']) : [],
+            $product['extras'] ? $this->parseProductExtraSets($product['extras']) : [],
             $product['tags'] ? $this->parseProductTags($product['tags']) : [],
             $this->parseOrganisationShort($product['organisation']),
             $product['enabled'],
@@ -707,6 +709,37 @@ class Parser
         return $parsedProducts;
     }
 
+    public function parseProductOptionSets(array $optionSets)
+    {
+        $parsedOptionSets = [];
+
+        foreach ($optionSets as $set) {
+            $parsedOptionSets[] = new ProductOptionSet(
+                $set['id'],
+                $set['name'],
+                $this->parseProductOptions($set['options']),
+                $set['attributes'] ? $this->parseProductAttributes($set['attributes']) : []
+            );
+        }
+
+        return $parsedOptionSets;
+    }
+
+    public function parseProductExtraSets(array $extraSets)
+    {
+        $parsedExtraSets = [];
+
+        foreach ($extraSets as $set) {
+            $parsedExtraSets[] = new ProductExtraSet(
+                $set['id'],
+                $set['name'],
+                $this->parseProductExtras($set['extras']),
+                $set['attributes'] ? $this->parseProductAttributes($set['attributes']) : []
+            );
+        }
+
+        return $parsedExtraSets;
+    }
 
     public function parseProductAttributes(array $attributes)
     {
@@ -735,7 +768,7 @@ class Parser
                 $option['price'],
                 $option['enabled'],
                 $this->parseOrganisationShort($option['organisation']),
-                $this->parseProductTags($option['tags'])
+                $option['tags'] ? $this->parseProductTags($option['tags']) : []
             );
         }
 
@@ -754,7 +787,7 @@ class Parser
                 $extra['price'],
                 $extra['enabled'],
                 $this->parseOrganisationShort($extra['organisation']),
-                $this->parseProductTags($extra['tags'])
+                $extra['tags'] ? $this->parseProductTags($extra['tags']) : []
             );
         }
 

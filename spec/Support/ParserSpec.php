@@ -1575,23 +1575,39 @@ class ParserSpec extends ObjectBehavior
         ];
 
         $option = [
-            'id' => "tests",
-            'name' => "tests",
-            'description' => "tests",
-            'price' => "tests",
-            'enabled' => "tests",
-            'organisation' => $organisationData,
-            'tags' => [$productTag, $productTag, $productTag]
+            'id'           => 20,
+            'price'        => 5,
+            'tags'         => null,
+            'name'         => 'asdqwe',
+            'description'  => 'asdf',
+            'enabled'      => true,
+            'organisation' => $organisationData
+        ];
+
+        $optionSet = [
+            'id'         => 20,
+            'name'       => 'Size',
+            'options'    => [ $option, $option ],
+            'extras'     => null,
+            'attributes' => null
         ];
 
         $extra = [
-            'id' => "tests",
-            'name' => "tests",
-            'description' => "tests",
-            'price' => "tests",
-            'enabled' => "tests",
-            'organisation' => $organisationData,
-            'tags' => [$productTag]
+            'id'           => 20,
+            'price'        => 5,
+            'tags'         => null,
+            'name'         => 'asdqwe',
+            'description'  => 'asdf',
+            'enabled'      => true,
+            'organisation' => $organisationData
+        ];
+
+        $extraSet = [
+            'id'         => 20,
+            'name'       => 'Size',
+            'options'    => null,
+            'extras'     => [ $extra, $extra ],
+            'attributes' => null
         ];
 
         $productTag = [
@@ -1808,8 +1824,8 @@ class ParserSpec extends ObjectBehavior
             'available' => "Tests",
             'availableOnline' => "Tests",
             'attributes' => [$attribute, $attribute, $attribute],
-            'options' => [$option, $option, $option],
-            'extras' => [$extra, $extra, $extra],
+            'options' => [$optionSet, $optionSet],
+            'extras' => [$extraSet, $extraSet],
             'tags' => [$productTag, $productTag, $productTag],
             'organisation' => [
                 'id'   => 1,

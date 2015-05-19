@@ -18,10 +18,10 @@ class Product
     private $price;
     /** @var array|ProductItemsProductAttribute[] */
     private $attributes;
-    /** @var array|ProductOption[] */
-    private $options;
-    /** @var array|ProductExtra[] */
-    private $extras;
+    /** @var array|ProductOptionSet[] */
+    private $optionSets;
+    /** @var array|ProductExtraSet[] */
+    private $extraSets;
     /** @var array|ProductTag[] */
     private $tags;
     /** @var OrganisationShort */
@@ -41,7 +41,7 @@ class Product
     /** @var ProductPriceDiscount */
     private $discount;
 
-    function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $options, array $extras, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null)
+    function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -50,8 +50,8 @@ class Product
         $this->sku = $sku;
         $this->price = $price;
         $this->attributes = $attributes;
-        $this->options = $options;
-        $this->extras = $extras;
+        $this->optionSets = $optionSets;
+        $this->extraSets = $extraSets;
         $this->tags = $tags;
         $this->organisation = $organisation;
         $this->enabled = $enabled;
@@ -120,19 +120,19 @@ class Product
     }
 
     /**
-     * @return array|ProductOption[]
+     * @return array|ProductOptionSet[]
      */
-    public function getOptions()
+    public function getOptionSets()
     {
-        return $this->options;
+        return $this->optionSets;
     }
 
     /**
-     * @return array|ProductExtra[]
+     * @return array|ProductExtraSet[]
      */
-    public function getExtras()
+    public function getExtraSets()
     {
-        return $this->extras;
+        return $this->extraSets;
     }
 
     /**
