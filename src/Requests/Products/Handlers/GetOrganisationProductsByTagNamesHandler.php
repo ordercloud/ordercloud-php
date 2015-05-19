@@ -27,18 +27,14 @@ class GetOrganisationProductsByTagNamesHandler implements CommandHandler
      */
     public function handle($request)
     {
-        $organisationID = $request->getOrganisationID();
-        $tagNames = $request->getTagNames();
-        $accessToken = $request->getAccessToken();
-
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
                 OrdercloudRequest::METHOD_PUT,
                 'resource/product/criteria',
                 [
-                    'organisations' => [ $organisationID ],
-                    'tags' => $tagNames,
-                    'access_token' => $accessToken
+                    'organisations' => [ $request->getOrganisationID() ], // TODO: allow multiple??
+                    'tags'          => $request->getTagNames(),
+                    'access_token'  => $request->getAccessToken()
                 ]
             )
         );
