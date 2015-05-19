@@ -5,6 +5,7 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Orders\GetUserOrders;
 use Ordercloud\Support\CommandBus\CommandHandler;
+use Ordercloud\Support\PaginatedCollection;
 use Ordercloud\Support\Parser;
 
 class GetUserOrdersHandler implements CommandHandler
@@ -44,6 +45,11 @@ class GetUserOrdersHandler implements CommandHandler
             )
         );
 
-        return $this->parser->parseOrders($response->getData('results'));
+        return new PaginatedCollection(
+            $this->parser->parseOrders($response->getData('results')),
+            $response->getData('count'),
+            $request->getPage(),
+            $request->getPageSize()
+        );
     }
 }
