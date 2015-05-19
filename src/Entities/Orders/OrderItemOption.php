@@ -17,4 +17,28 @@ class OrderItemOption
         $this->price = $price;
         $this->option = $option;
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @return ProductOptionDisplay
+     */
+    public function getOption()
+    {
+        return $this->option;
+    }
 }

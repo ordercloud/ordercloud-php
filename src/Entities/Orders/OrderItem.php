@@ -42,4 +42,92 @@ class OrderItem
         $this->extras = $extras;
         $this->options = $options;
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return ProductShort
+     */
+    public function getDetail()
+    {
+        return $this->detail;
+    }
+
+    /**
+     * @return OrderStatus
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * @return ProductPriceDiscount
+     */
+    public function getItemDiscount()
+    {
+        return $this->itemDiscount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getReadyEstimate()
+    {
+        return $this->readyEstimate;
+    }
+
+    /**
+     * @return array|OrderItemExtra[]
+     */
+    public function getExtras()
+    {
+        return $this->extras;
+    }
+
+    /**
+     * @return array|OrderItemOption[]
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
 }

@@ -70,4 +70,148 @@ class Order
         $this->note = $note;
         $this->instorePaymentRequired = $instorePaymentRequired;
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortReference()
+    {
+        return $this->shortReference;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastUpdated()
+    {
+        return $this->lastUpdated;
+    }
+
+    /**
+     * @return float
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @return OrderStatus
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return array|OrderItem[]
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @return UserShort
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @return UserAddress
+     */
+    public function getUserAddress()
+    {
+        return $this->userAddress;
+    }
+
+    /**
+     * @return OrganisationShort
+     */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @return PaymentStatus
+     */
+    public function getPaymentStatus()
+    {
+        return $this->paymentStatus;
+    }
+
+    /**
+     * @return array|\Ordercloud\Entities\Payments\Payment[]
+     */
+    public function getPayments()
+    {
+        return $this->payments;
+    }
+
+    /**
+     * @return array|\string[]
+     */
+    public function getPaymentMethods()
+    {
+        return $this->paymentMethods;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeliveryType()
+    {
+        return $this->deliveryType;
+    }
+
+    /**
+     * @return DeliveryAgent
+     */
+    public function getDeliveryAgent()
+    {
+        return $this->deliveryAgent;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isInstorePaymentRequired()
+    {
+        return $this->instorePaymentRequired;
+    }
 }

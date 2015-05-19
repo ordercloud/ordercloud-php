@@ -16,9 +16,9 @@ class Payment
     private $gatewayTransactionId;
     /** @var string */
     private $requestId;
-    /** @var \Ordercloud\Entities\Users\DisplayUser */
+    /** @var DisplayUser */
     private $requestedByUser;
-    /** @var \Ordercloud\Entities\Organisations\Organisation */
+    /** @var Organisation */
     private $requestedByOrganisation;
     /** @var string */
     private $assetTypeCode;
@@ -44,5 +44,93 @@ class Payment
         $this->paymentMethod = $paymentMethod;
         $this->gateway = $gateway;
         $this->grouping = $grouping;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return PaymentStatus
+     */
+    public function getLastPaymentStatus()
+    {
+        return $this->lastPaymentStatus;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGatewayTransactionId()
+    {
+        return $this->gatewayTransactionId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestId()
+    {
+        return $this->requestId;
+    }
+
+    /**
+     * @return DisplayUser
+     */
+    public function getRequestedByUser()
+    {
+        return $this->requestedByUser;
+    }
+
+    /**
+     * @return Organisation
+     */
+    public function getRequestedByOrganisation()
+    {
+        return $this->requestedByOrganisation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAssetTypeCode()
+    {
+        return $this->assetTypeCode;
+    }
+
+    /**
+     * @return float
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGateway()
+    {
+        return $this->gateway;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGrouping()
+    {
+        return $this->grouping;
     }
 }

@@ -1,10 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-use Ordercloud\Products\long;
-
 class ProductOptionDisplay
 {
-    /** @var long */
+    /** @var int */
     private $id;
     /** @var string */
     private $name;
@@ -22,5 +20,45 @@ class ProductOptionDisplay
         $this->description = $description;
         $this->price = $price;
         $this->tags = $tags;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @return array|ProductTag[]
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

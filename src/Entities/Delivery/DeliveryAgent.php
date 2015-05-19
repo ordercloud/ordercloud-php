@@ -22,12 +22,12 @@ class DeliveryAgent
     private $status;
     /**
      * @var string
-     * The MASKED account number. Must only show the last 6 digits
+     * The MASKED account number. Only shows the last 6 digits.
      */
     private $accountNo;
     /**
      * @var string
-     * The MASKED card number. Must only show the last 4 digits.
+     * The MASKED card number. Only shows the last 4 digits.
      */
     private $cardNo;
 
@@ -42,5 +42,77 @@ class DeliveryAgent
         $this->status = $status;
         $this->accountNo = $accountNo;
         $this->cardNo = $cardNo;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return UserShort
+     */
+    public function getUserProfile()
+    {
+        return $this->userProfile;
+    }
+
+    /**
+     * @return OrganisationShort
+     */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMinBalance()
+    {
+        return $this->minBalance;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMaxBalance()
+    {
+        return $this->maxBalance;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return DeliveryAgentStatus
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccountNo()
+    {
+        return $this->accountNo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCardNo()
+    {
+        return $this->cardNo;
     }
 }

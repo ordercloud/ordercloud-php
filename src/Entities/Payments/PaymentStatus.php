@@ -21,4 +21,28 @@ class PaymentStatus
         $this->when = $when;
         $this->message = $message;
     }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWhen()
+    {
+        return $this->when;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
 }

@@ -12,4 +12,20 @@ class DeliveryAgentStatus
         $this->id = $id;
         $this->status = $status;
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }

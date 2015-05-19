@@ -12,4 +12,20 @@ class ProductPriceDiscount
         $this->discountAmount = $discountAmount;
         $this->discountPrice = $discountPrice;
     }
+
+    /**
+     * @return float
+     */
+    public function getDiscountAmount()
+    {
+        return $this->discountAmount;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscountPrice()
+    {
+        return $this->discountPrice;
+    }
 }

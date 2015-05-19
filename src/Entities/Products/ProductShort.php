@@ -48,4 +48,100 @@ class ProductShort
         $this->productType = $productType;
         $this->groupItems = $groupItems;
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortDescription()
+    {
+        return $this->shortDescription;
+    }
+
+    /**
+     * @return OrganisationShort
+     */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAvailable()
+    {
+        return $this->available;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSku()
+    {
+        return $this->sku;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAvailableOnline()
+    {
+        return $this->availableOnline;
+    }
+
+    /**
+     * @return ProductType
+     */
+    public function getProductType()
+    {
+        return $this->productType;
+    }
+
+    /**
+     * @return array|ProductShort[]
+     */
+    public function getGroupItems()
+    {
+        return $this->groupItems;
+    }
 }
