@@ -22,8 +22,8 @@ class PaginatedCollection extends Collection
         $this->currentPage = $currentPage;
         $this->pageSize = $pageSize;
         $this->totalNrPages = ceil($totalCount / $pageSize);
-        $this->nextPage = $this->totalNrPages > $currentPage ? $currentPage + 1 : false;
-        $this->previousPage = $currentPage > 1 ? $currentPage - 1 : false;
+        $this->nextPage = $this->totalNrPages > $currentPage ? $currentPage + 1 : null;
+        $this->previousPage = $currentPage > 1 ? $currentPage - 1 : null;
     }
 
     /**
@@ -72,5 +72,15 @@ class PaginatedCollection extends Collection
     public function getPreviousPage()
     {
         return $this->previousPage;
+    }
+
+    public function hasNextPage()
+    {
+        return ! is_null($this->getNextPage());
+    }
+
+    public function hasPreviousPage()
+    {
+        return ! is_null($this->getPreviousPage());
     }
 }
