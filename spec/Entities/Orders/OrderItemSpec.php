@@ -14,7 +14,7 @@ class OrderItemSpec extends ObjectBehavior
     function let(ProductShort $detail, OrderStatus $status)
     {
         $price = 10;
-        $quantity = 1;
+        $quantity = 2;
         $extras = [
             new OrderItemExtra(1, 5, new ProductExtraDisplay(null, null, null, null, [])),
             new OrderItemExtra(2, 3, new ProductExtraDisplay(null, null, null, null, [])),
@@ -27,13 +27,13 @@ class OrderItemSpec extends ObjectBehavior
         $this->beConstructedWith(1, $price, $quantity, true, $detail, $status, null, null, null, $extras, $options);
     }
 
-    function it_is_instantiable()
-    {
-        $this->shouldHaveType('Ordercloud\Entities\Orders\OrderItem');
-    }
-
     function it_can_caclulate_the_order_item_price()
     {
         $this->getOrderItemPrice()->shouldReturn(30.0);
+    }
+
+    function it_can_calculate_the_total_order_item_price()
+    {
+        $this->getTotalOrderItemPrice()->shouldReturn(60.0);
     }
 }

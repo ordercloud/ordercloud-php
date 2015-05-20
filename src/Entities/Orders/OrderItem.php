@@ -52,7 +52,10 @@ class OrderItem
     }
 
     /**
-     * @return float The price of the item / product. (Not inlcuding options & extras)
+     * Returns the price of the item / product.
+     * Excludes quantity, options & extras.
+     *
+     * @return float
      *
      * @see OrderItem::getOrderItemPrice()
      */
@@ -62,7 +65,11 @@ class OrderItem
     }
 
     /**
-     * @return float The price of the order item. (Inlcuding options & extras)
+     * Returns the price of the order item.
+     * Including options & extras.
+     * Excluding quantity.
+     *
+     * @return float
      *
      * @see OrderItem::getItemPrice()
      */
@@ -79,6 +86,19 @@ class OrderItem
         }
 
         return round($price, 2);
+    }
+
+    /**
+     * Returns the total price of the order item.
+     * Including quantity, options & extras.
+     *
+     * @return string
+     */
+    public function getTotalOrderItemPrice()
+    {
+        $totalPrice = bcmul($this->getOrderItemPrice(), $this->getQuantity(), 2);
+
+        return floatval($totalPrice);
     }
 
     /**
