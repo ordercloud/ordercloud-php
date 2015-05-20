@@ -48,8 +48,10 @@ class Order
     private $note;
     /** @var boolean */
     private $instorePaymentRequired;
+    /** @var string */
+    private $estimatedDeliveryTime;
 
-    function __construct($id, $reference, $shortReference, $dateCreated, $lastUpdated, $amount, OrderStatus $status, array $items, UserShort $user, UserAddress $userAddress = null, OrganisationShort $organisation, PaymentStatus $paymentStatus, array $payments, array $paymentMethods, $deliveryType, DeliveryAgent $deliveryAgent = null, $note, $instorePaymentRequired)
+    function __construct($id, $reference, $shortReference, $dateCreated, $lastUpdated, $amount, OrderStatus $status, array $items, UserShort $user, UserAddress $userAddress = null, OrganisationShort $organisation, PaymentStatus $paymentStatus, array $payments, array $paymentMethods, $deliveryType, DeliveryAgent $deliveryAgent = null, $note, $instorePaymentRequired, $estimatedDeliveryTime)
     {
         $this->id = $id;
         $this->reference = $reference;
@@ -69,6 +71,7 @@ class Order
         $this->deliveryAgent = $deliveryAgent;
         $this->note = $note;
         $this->instorePaymentRequired = $instorePaymentRequired;
+        $this->estimatedDeliveryTime = $estimatedDeliveryTime;
     }
 
     /**
@@ -213,5 +216,13 @@ class Order
     public function isInstorePaymentRequired()
     {
         return $this->instorePaymentRequired;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEstimatedDeliveryTime()
+    {
+        return $this->estimatedDeliveryTime;
     }
 }

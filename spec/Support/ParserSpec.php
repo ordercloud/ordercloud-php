@@ -1414,7 +1414,8 @@ class ParserSpec extends ObjectBehavior
             'deliveryType' => "tests",
             'deliveryAgent' => $deliveryAgent,
             'note' => "test",
-            'instorePaymentRequired' => "test"
+            'instorePaymentRequired' => 'test',
+            'estimatedDeliveryTime' => null,
         ];
 
         $this->parseOrder($order)->shouldReturnAnInstanceOf('Ordercloud\Entities\Orders\Order');

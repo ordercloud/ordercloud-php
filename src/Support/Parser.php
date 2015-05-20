@@ -416,7 +416,8 @@ class Parser
             $order['deliveryType'],
             $order['deliveryAgent'] ? $this->parseDeliveryAgent($order['deliveryAgent']) : null,
             $order['note'],
-            $order['instorePaymentRequired']
+            $order['instorePaymentRequired'],
+            $order['estimatedDeliveryTime']
         );
     }
 
