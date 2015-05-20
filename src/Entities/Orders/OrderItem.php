@@ -71,11 +71,11 @@ class OrderItem
         $price = $this->getItemPrice();
 
         foreach ($this->getOptions() as $option) {
-            $price = bcadd($price, $option->getPrice(), 4);
+            $price = bcadd($price, $option->getPrice(), 2);
         }
 
         foreach ($this->getExtras() as $extra) {
-            $price = bcadd($price, $extra->getPrice(), 4);
+            $price = bcadd($price, $extra->getPrice(), 2);
         }
 
         return round($price, 2);
