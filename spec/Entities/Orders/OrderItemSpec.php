@@ -1,0 +1,39 @@
+<?php namespace spec\Ordercloud\Entities\Orders;
+
+use Ordercloud\Entities\Orders\OrderItemExtra;
+use Ordercloud\Entities\Orders\OrderItemOption;
+use Ordercloud\Entities\Orders\OrderStatus;
+use Ordercloud\Entities\Products\ProductExtraDisplay;
+use Ordercloud\Entities\Products\ProductOptionDisplay;
+use Ordercloud\Entities\Products\ProductShort;
+use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
+
+class OrderItemSpec extends ObjectBehavior
+{
+    function let(ProductShort $detail, OrderStatus $status)
+    {
+        $price = 10;
+        $quantity = 1;
+        $extras = [
+            new OrderItemExtra(1, 5, new ProductExtraDisplay(null, null, null, null, [])),
+            new OrderItemExtra(2, 3, new ProductExtraDisplay(null, null, null, null, [])),
+        ];
+        $options = [
+            new OrderItemOption(1, 10, new ProductOptionDisplay(null, null, null, null, [])),
+            new OrderItemOption(2, 2, new ProductOptionDisplay(null, null, null, null, [])),
+        ];
+
+        $this->beConstructedWith(1, $price, $quantity, true, $detail, $status, null, null, null, $extras, $options);
+    }
+
+    function it_is_instantiable()
+    {
+        $this->shouldHaveType('Ordercloud\Entities\Orders\OrderItem');
+    }
+
+    function it_can_caclulate_the_order_item_price()
+    {
+        $this->getOrderItemPrice()->shouldReturn(30.0);
+    }
+}

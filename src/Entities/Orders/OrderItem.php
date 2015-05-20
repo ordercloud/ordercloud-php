@@ -52,11 +52,33 @@ class OrderItem
     }
 
     /**
-     * @return float
+     * @return float The price of the item / product. (Not inlcuding options & extras)
+     *
+     * @see OrderItem::getOrderItemPrice()
      */
-    public function getPrice()
+    public function getItemPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * @return float The price of the order item. (Inlcuding options & extras)
+     *
+     * @see OrderItem::getItemPrice()
+     */
+    public function getOrderItemPrice()
+    {
+        $price = $this->getItemPrice();
+
+        foreach ($this->getOptions() as $option) {
+            $price = bcadd($price, $option->getPrice(), 4);
+        }
+
+        foreach ($this->getExtras() as $extra) {
+            $price = bcadd($price, $extra->getPrice(), 4);
+        }
+
+        return round($price, 2);
     }
 
     /**

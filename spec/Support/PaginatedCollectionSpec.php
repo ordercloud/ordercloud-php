@@ -1,6 +1,5 @@
 <?php namespace spec\Ordercloud\Support;
 
-use Ordercloud\Support\PaginatedCollection;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
