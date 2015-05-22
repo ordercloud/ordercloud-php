@@ -44,6 +44,23 @@ class ProductExtraSet
     }
 
     /**
+     * @param $extraID
+     *
+     * @return ProductExtra|null
+     */
+    public function getExtraByID($extraID)
+    {
+        foreach ($this->getExtras() as $extra) {
+            if ($extra->getId() == $extraID) {
+                return $extra;
+            }
+        }
+
+        return null;
+    }
+
+
+    /**
      * @return array|ProductAttribute[]
      */
     public function getAttributes()

@@ -128,11 +128,43 @@ class Product
     }
 
     /**
+     * @param $optionSetID
+     *
+     * @return ProductOptionSet|null
+     */
+    public function getOptionSetByID($optionSetID)
+    {
+        foreach ($this->getOptionSets() as $optionSet) {
+            if ($optionSet->getId() == $optionSetID) {
+                return $optionSet;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @return array|ProductExtraSet[]
      */
     public function getExtraSets()
     {
         return $this->extraSets;
+    }
+
+    /**
+     * @param $extraSetID
+     *
+     * @return ProductExtraSet|null
+     */
+    public function getExtraSetByID($extraSetID)
+    {
+        foreach ($this->getExtraSets() as $extraSet) {
+            if ($extraSet->getId() == $extraSetID) {
+                return $extraSet;
+            }
+        }
+
+        return null;
     }
 
     /**

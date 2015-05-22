@@ -44,6 +44,22 @@ class ProductOptionSet
     }
 
     /**
+     * @param $optionID
+     *
+     * @return ProductOption|null
+     */
+    public function getOptionByID($optionID)
+    {
+        foreach ($this->getOptions() as $option) {
+            if ($option->getId() == $optionID) {
+                return $option;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @return array|ProductAttribute[]
      */
     public function getAttributes()
