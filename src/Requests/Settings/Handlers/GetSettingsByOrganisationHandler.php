@@ -1,6 +1,7 @@
 <?php namespace Ordercloud\Requests\Settings\Handlers;
 
 use Ordercloud\Entities\Settings\Setting;
+use Ordercloud\Entities\Settings\SettingsCollection;
 use Ordercloud\Ordercloud;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Settings\GetSettingsByOrganisation;
@@ -38,6 +39,8 @@ class GetSettingsByOrganisationHandler implements CommandHandler
             )
         );
 
-        return $this->parser->parseSettings($response->getData('results'));
+        $settings = $this->parser->parseSettings($response->getData('results'));
+
+        return new SettingsCollection($settings);
     }
 }
