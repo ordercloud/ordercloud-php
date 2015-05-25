@@ -32,7 +32,7 @@ class GetOrganisationProductsByTagNamesHandler implements CommandHandler
                 OrdercloudRequest::METHOD_PUT,
                 'resource/product/criteria',
                 [
-                    'organisations' => [ $request->getOrganisationID() ], // TODO: allow multiple??
+                    'organisations' => $request->getOrganisationIDs(),
                     'tags'          => $request->getTagNames(),
                     'access_token'  => $request->getAccessToken()
                 ]

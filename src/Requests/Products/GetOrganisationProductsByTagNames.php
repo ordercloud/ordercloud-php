@@ -5,20 +5,20 @@ use Ordercloud\Support\CommandBus\Command;
 class GetOrganisationProductsByTagNames implements Command
 {
     /** @var int */
-    private $organisationID;
+    private $organisationIDs;
     /** @var string|string */
     private $accessToken;
     /** @var array|string[] */
     private $tagNames;
 
     /**
-     * @param int         $organisationID
+     * @param int         $organisationIDs
      * @param array       $tagNames
      * @param string|null $accessToken
      */
-    public function __construct($organisationID, array $tagNames, $accessToken = null)
+    public function __construct($organisationIDs, array $tagNames, $accessToken = null)
     {
-        $this->organisationID = $organisationID;
+        $this->organisationIDs = $organisationIDs;
         $this->tagNames = $tagNames;
         $this->accessToken = $accessToken;
     }
@@ -26,9 +26,9 @@ class GetOrganisationProductsByTagNames implements Command
     /**
      * @return int
      */
-    public function getOrganisationID()
+    public function getOrganisationIDs()
     {
-        return $this->organisationID;
+        return $this->organisationIDs;
     }
 
     /**
