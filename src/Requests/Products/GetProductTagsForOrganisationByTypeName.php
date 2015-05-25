@@ -2,7 +2,7 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
-class GetProductTagsForOrganisationByType implements Command
+class GetProductTagsForOrganisationByTypeName implements Command
 {
     /** @var int */
     private $organisationID;

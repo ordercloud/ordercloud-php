@@ -2,11 +2,11 @@
 
 use Ordercloud\Ordercloud;
 use Ordercloud\Requests\OrdercloudRequest;
-use Ordercloud\Requests\Products\GetProductTagsForOrganisationByType;
+use Ordercloud\Requests\Products\GetProductTagsForOrganisationByTypeName;
 use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Parser;
 
-class GetProductTagsForOrganisationByTypeHandler implements CommandHandler
+class GetProductTagsForOrganisationByTypeNameHandler implements CommandHandler
 {
     /** @var Ordercloud */
     private $ordercloud;
@@ -20,7 +20,7 @@ class GetProductTagsForOrganisationByTypeHandler implements CommandHandler
     }
 
     /**
-     * @param GetProductTagsForOrganisationByType $request
+     * @param GetProductTagsForOrganisationByTypeName $request
      *
      * @return array|UserAddress[]
      */
