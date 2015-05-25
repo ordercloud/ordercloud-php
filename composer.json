@@ -1,6 +1,7 @@
 {
     "name": "ordercloud/ordercloud",
     "description": "Ordercloud php client",
+    "license": "MIT",
     "authors": [
         {
             "name": "Willem van Wyk",
