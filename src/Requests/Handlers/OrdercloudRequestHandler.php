@@ -41,6 +41,11 @@ class OrdercloudRequestHandler implements CommandHandler
             $url = $this->appendParametersToUrl($params, $url);
             $params = [];
         }
+        elseif (isset($params['access_token'])) {
+            $accessToken = $params['access_token'];
+            unset($params['access_token']);
+            $url = $this->appendParametersToUrl([ $accessToken ], $url);
+        }
 
         try {
             return $this->client->send($url, $method, $params, $headers);
