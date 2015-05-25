@@ -166,10 +166,26 @@ class OrderItem
     }
 
     /**
+     * @return bool
+     */
+    public function hasExtras()
+    {
+        return ! empty($this->extras);
+    }
+
+    /**
      * @return array|OrderItemOption[]
      */
     public function getOptions()
     {
         return $this->options;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasOptions()
+    {
+        return ! empty($this->options);
     }
 }
