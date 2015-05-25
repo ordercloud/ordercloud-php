@@ -4,7 +4,7 @@ use Ordercloud\Support\CommandBus\Command;
 
 class GetOrganisationProductsByTagNames implements Command
 {
-    /** @var int */
+    /** @var array|int[] */
     private $organisationIDs;
     /** @var string|string */
     private $accessToken;
@@ -16,7 +16,7 @@ class GetOrganisationProductsByTagNames implements Command
      * @param array       $tagNames
      * @param string|null $accessToken
      */
-    public function __construct($organisationIDs, array $tagNames, $accessToken = null)
+    public function __construct(array $organisationIDs, array $tagNames, $accessToken = null)
     {
         $this->organisationIDs = $organisationIDs;
         $this->tagNames = $tagNames;
