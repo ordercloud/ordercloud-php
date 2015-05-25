@@ -13,9 +13,8 @@ class GuzzleClient implements Client
     /** @var UrlParameteriser */
     private $parameteriser;
 
-    public function __construct($baseUrl, $username, $password, $accessToken)
+    public function __construct($baseUrl, $username, $password)
     {
-        // TODO: Think we should inject
         $this->client = new \GuzzleHttp\Client([
             'base_url' => $baseUrl,
             'defaults' => [
@@ -27,10 +26,6 @@ class GuzzleClient implements Client
                 'allow_redirects' => false,
             ],
         ]);
-
-        if ( ! empty($accessToken)) {
-            $this->client->setDefaultOption('query', ['access_token' => $accessToken]);
-        }
     }
 
     public function send($url, $method, array $params, array $headers = [])
