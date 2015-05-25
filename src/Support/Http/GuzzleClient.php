@@ -48,7 +48,7 @@ class GuzzleClient implements Client
             $guzzleRequest->setBody(Stream::factory(json_encode($params)));
         }
 
-        $ordercloudRequest = new Request($url, $method, $params, $guzzleRequest->getHeaders(), (string)$guzzleRequest);
+        $ordercloudRequest = new Request($url, $method, $params, $guzzleRequest->getHeaders(), (string) $guzzleRequest);
 
         try {
             $guzzleResponse = $this->client->send($guzzleRequest);
