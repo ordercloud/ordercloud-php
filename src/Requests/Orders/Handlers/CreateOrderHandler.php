@@ -39,7 +39,7 @@ class CreateOrderHandler implements CommandHandler
                     'paymentStatus' => $request->getPaymentStatus(),
                     'deliveryType'  => $request->getDeliveryType(),
                     'amount'        => $request->getAmount(),
-                    'userGeo'       => [ 'id' => $request->getDeliveryAddressID() ],
+                    'userGeo'       => $request->getDeliveryAddressID() ? [ 'id' => $request->getDeliveryAddressID() ] : null,
                     'access_token'  => $request->getAccessToken(),
                 ]
             )
