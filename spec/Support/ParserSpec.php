@@ -405,9 +405,20 @@ class ParserSpec extends ObjectBehavior
             ],
             'contactNumber' => "test",
             'enabled' => "test",
-            'distance' => "test",
-            'latitude' => "test",
-            'longitude' => "test"
+            'address' => [
+                'id' => 1,
+                'name' => "test",
+                'streetNumber' => "test",
+                'streetName' => "test",
+                'complex' => "test",
+                'suburb' => "test",
+                'city' => "test",
+                'postalCode' => "test",
+                'latitude' => "test",
+                'longitude' => "test",
+                'description' => 'test',
+                'distance' => 'test',
+            ],
         ];
 
         $operatingHour = [
@@ -525,9 +536,20 @@ class ParserSpec extends ObjectBehavior
             ],
             'contactNumber' => "test",
             'enabled' => "test",
-            'distance' => "test",
-            'latitude' => "test",
-            'longitude' => "test"
+            'address' => [
+                'id' => 1,
+                'name' => "test",
+                'streetNumber' => "test",
+                'streetName' => "test",
+                'complex' => "test",
+                'suburb' => "test",
+                'city' => "test",
+                'postalCode' => "test",
+                'latitude' => "test",
+                'longitude' => "test",
+                'description' => 'test',
+                'distance' => 'test',
+            ],
         ];
 
         $operatingHour = [
@@ -590,9 +612,20 @@ class ParserSpec extends ObjectBehavior
             ],
             'contactNumber' => "test",
             'enabled' => "test",
-            'distance' => "test",
-            'latitude' => "test",
-            'longitude' => "test"
+            'address' => [
+                'id' => 1,
+                'name' => "test",
+                'streetNumber' => "test",
+                'streetName' => "test",
+                'complex' => "test",
+                'suburb' => "test",
+                'city' => "test",
+                'postalCode' => "test",
+                'latitude' => "test",
+                'longitude' => "test",
+                'description' => 'test',
+                'distance' => 'test',
+            ],
         ];
 
         $operatingHour = [
@@ -709,9 +742,20 @@ class ParserSpec extends ObjectBehavior
             ],
             'contactNumber' => "test",
             'enabled' => "test",
-            'distance' => "test",
-            'latitude' => "test",
-            'longitude' => "test"
+            'address' => [
+                'id' => 1,
+                'name' => "test",
+                'streetNumber' => "test",
+                'streetName' => "test",
+                'complex' => "test",
+                'suburb' => "test",
+                'city' => "test",
+                'postalCode' => "test",
+                'latitude' => "test",
+                'longitude' => "test",
+                'description' => 'test',
+                'distance' => 'test',
+            ],
         ];
 
         $operatingHour = [
@@ -831,9 +875,20 @@ class ParserSpec extends ObjectBehavior
             ],
             'contactNumber' => "test",
             'enabled' => "test",
-            'distance' => "test",
-            'latitude' => "test",
-            'longitude' => "test"
+            'address' => [
+                'id' => 1,
+                'name' => "test",
+                'streetNumber' => "test",
+                'streetName' => "test",
+                'complex' => "test",
+                'suburb' => "test",
+                'city' => "test",
+                'postalCode' => "test",
+                'latitude' => "test",
+                'longitude' => "test",
+                'description' => 'test',
+                'distance' => 'test',
+            ],
         ];
 
         $operatingHour = [
@@ -1299,9 +1354,20 @@ class ParserSpec extends ObjectBehavior
             ],
             'contactNumber' => "test",
             'enabled' => "test",
-            'distance' => "test",
-            'latitude' => "test",
-            'longitude' => "test"
+            'address' => [
+                'id' => 1,
+                'name' => "test",
+                'streetNumber' => "test",
+                'streetName' => "test",
+                'complex' => "test",
+                'suburb' => "test",
+                'city' => "test",
+                'postalCode' => "test",
+                'latitude' => "test",
+                'longitude' => "test",
+                'description' => 'test',
+                'distance' => 'test',
+            ],
         ];
 
         $operatingHour = [
@@ -1480,9 +1546,20 @@ class ParserSpec extends ObjectBehavior
             ],
             'contactNumber' => "test",
             'enabled' => "test",
-            'distance' => "test",
-            'latitude' => "test",
-            'longitude' => "test"
+            'address' => [
+                'id' => 1,
+                'name' => "test",
+                'streetNumber' => "test",
+                'streetName' => "test",
+                'complex' => "test",
+                'suburb' => "test",
+                'city' => "test",
+                'postalCode' => "test",
+                'latitude' => "test",
+                'longitude' => "test",
+                'description' => 'test',
+                'distance' => 'test',
+            ],
         ];
 
         $operatingHour = [
