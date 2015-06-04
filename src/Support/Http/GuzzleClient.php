@@ -13,19 +13,23 @@ class GuzzleClient implements Client
     /** @var UrlParameteriser */
     private $parameteriser;
 
-    public function __construct($baseUrl, $username, $password)
+    public function __construct($baseUrl, $username, $password, $organisationToken = null)
     {
         $this->client = new \GuzzleHttp\Client([
             'base_url' => $baseUrl,
             'defaults' => [
                 'headers' => [
-                    'Content-Type' => 'application/json',
-                    'User-Agent'   => 'ordercloud-php' //TODO add client version
+                    'Content-Type'              => 'application/json',
+                    'User-Agent'                => 'ordercloud-php', //TODO add client version??
                 ],
                 'auth' => [ $username, $password ],
                 'allow_redirects' => false,
             ],
         ]);
+
+        if ($organisationToken) {
+            $this->client->setDefaultOption('headers/X-Ordercloud-Organisation', $organisationToken);
+        }
     }
 
     public function send($url, $method, array $params, array $headers = [])
