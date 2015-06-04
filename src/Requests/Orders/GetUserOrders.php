@@ -15,7 +15,7 @@ class GetUserOrders implements Command
     private $page;
     /** @var int */
     private $pageSize;
-    /** @var string */
+    /** @var \string */
     private $sort;
     /** @var string|null */
     protected $accessToken;
