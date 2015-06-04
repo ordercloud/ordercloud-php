@@ -17,7 +17,7 @@ class ProductItemsProductAttribute
      * @param string           $value
      * @param ProductAttribute $attribute
      */
-    function __construct($id, $product, $value, $attribute)
+    public function __construct($id, $product, $value, $attribute)
     {
         $this->id = $id;
         $this->product = $product;

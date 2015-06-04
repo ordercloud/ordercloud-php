@@ -23,8 +23,8 @@ use Ordercloud\Requests\Users\Handlers\GetUserProfileHandler;
 use Ordercloud\Requests\Users\Handlers\UpdateUserProfileHandler;
 use Ordercloud\Support\CommandBus\ArrayCommandHandlerTranslator;
 use Ordercloud\Support\CommandBus\ExecutingCommandBus;
-use Ordercloud\Support\Http\DefaultUrlParameteriser;
 use Ordercloud\Support\Http\GuzzleClient;
+use Ordercloud\Support\Http\LeagueUrlParameteriser;
 use Ordercloud\Support\Parser;
 
 class QuickStart
@@ -37,7 +37,7 @@ class QuickStart
 
         $client = new GuzzleClient($baseUrl, $username, $password, $organisationToken);
 
-        $parameteriser = new DefaultUrlParameteriser();
+        $parameteriser = new LeagueUrlParameteriser();
 
         $requestHandler = new OrdercloudRequestHandler($client, $parameteriser);
 
