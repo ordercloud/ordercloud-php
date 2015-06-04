@@ -21,7 +21,7 @@ class PaginatedCollection extends Collection
         $this->totalCount = $totalCount;
         $this->currentPage = $currentPage;
         $this->pageSize = $pageSize;
-        $this->totalNrPages = ceil($totalCount / $pageSize);
+        $this->totalNrPages = intval(ceil($totalCount / $pageSize));
         $this->nextPage = $this->totalNrPages > $currentPage ? $currentPage + 1 : null;
         $this->previousPage = $currentPage > 1 ? $currentPage - 1 : null;
     }
