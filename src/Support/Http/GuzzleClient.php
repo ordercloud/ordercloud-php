@@ -10,8 +10,6 @@ class GuzzleClient implements Client
 {
     /** @var \GuzzleHttp\Client */
     private $client;
-    /** @var UrlParameteriser */
-    private $parameteriser;
 
     public function __construct($baseUrl, $username, $password, $organisationToken = null)
     {

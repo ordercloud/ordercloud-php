@@ -1,5 +1,7 @@
 <?php namespace Ordercloud\Entities\Organisations;
 
+use Ordercloud\Entities\Users\UserShort;
+
 class OrganisationProfile
 {
     /** @var integer */
