@@ -58,14 +58,6 @@ class OrganisationProfile
     }
 
     /**
-     * @param boolean $enabled
-     */
-    public function setEnabled($enabled)
-    {
-        $this->enabled = $enabled;
-    }
-
-    /**
      * @return OrganisationAddress
      */
     public function getAddress()
