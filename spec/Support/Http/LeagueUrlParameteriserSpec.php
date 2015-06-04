@@ -17,7 +17,7 @@ class LeagueUrlParameteriserSpec extends ObjectBehavior
             'format'       => 'pretty',
         ];
 
-        $this->appendParametersToUrl('https://test.domain.com', $params)
+        $this->appendParametersToUrl($params, 'https://test.domain.com')
             ->shouldReturn('https://test.domain.com/?access_token=123&format=pretty');
     }
 
@@ -31,7 +31,7 @@ class LeagueUrlParameteriserSpec extends ObjectBehavior
             ],
         ];
 
-        $this->appendParametersToUrl('https://test.domain.com', $params)
+        $this->appendParametersToUrl($params, 'https://test.domain.com')
             ->shouldReturn('https://test.domain.com/?types=ABC&types=DEF&types=GHI');
     }
 }

@@ -3,10 +3,10 @@
 interface UrlParameteriser
 {
     /**
-     * @param string $url
      * @param array  $parameters
+     * @param string $url
      *
      * @return string
      */
-    public function appendParametersToUrl($url, array $parameters);
+    public function appendParametersToUrl(array $parameters, $url);
 }

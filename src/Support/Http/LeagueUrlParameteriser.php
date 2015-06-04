@@ -10,7 +10,7 @@ class LeagueUrlParameteriser implements UrlParameteriser
      *
      * @return string
      */
-    public function appendParametersToUrl($url, array $parameters)
+    public function appendParametersToUrl(array $parameters, $url)
     {
         $leagueUrl = Url::createFromUrl($url);
 
