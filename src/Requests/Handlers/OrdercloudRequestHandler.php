@@ -38,13 +38,13 @@ class OrdercloudRequestHandler implements CommandHandler
         $headers = $request->getHeaders();
 
         if (strtoupper($method) == 'GET') {
-            $url = $this->appendParametersToUrl($params, $url);
+            $url = $this->parameteriser->appendParametersToUrl($params, $url);
             $params = [];
         }
         elseif (isset($params['access_token'])) {
             $access_token = $params['access_token'];
             unset($params['access_token']);
-            $url = $this->appendParametersToUrl(compact('access_token'), $url);
+            $url = $this->parameteriser->appendParametersToUrl(compact('access_token'), $url);
         }
 
         try {
@@ -53,23 +53,5 @@ class OrdercloudRequestHandler implements CommandHandler
         catch (OrdercloudHttpException $e) {
             throw new OrdercloudRequestException($request, $e);
         }
-    }
-
-    //TODO: look into UrlParameteriser & http://url.thephpleague.com/3.0/overview/
-    private function appendParametersToUrl(array $params, $url)
-    {
-        if (empty($params)) {
-            return $url;
-        }
-
-        if (strpos($url, '?') !== false) {
-            list($url, $queryString) = explode('?', $url, 2);
-            parse_str($queryString, $queryArray);
-
-            // Favor params from the original URL over $parameters
-            $params = array_merge($params, $queryArray);
-        }
-
-        return rtrim($url, '?') . $this->parameteriser->parameterise($params);
     }
 }
