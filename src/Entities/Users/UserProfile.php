@@ -18,7 +18,7 @@ class UserProfile
     /** @var string */
     private $sex;
 
-    function __construct($firstName, $surname, $email, $nickName, $cellphoneNumber, $sex)
+    public function __construct($firstName, $surname, $email, $nickName, $cellphoneNumber, $sex)
     {
         $this->firstName = $firstName;
         $this->surname = $surname;

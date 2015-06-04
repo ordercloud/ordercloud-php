@@ -20,7 +20,7 @@ class GetUserOrders implements Command
     /** @var string|null */
     protected $accessToken;
 
-    function __construct($userID, array $orderStatuses = [], array $paymentStatuses = [], $page = 1, $pageSize = 10, $sort = 'date+', $accessToken = null)
+    public function __construct($userID, array $orderStatuses = [], array $paymentStatuses = [], $page = 1, $pageSize = 10, $sort = 'date+', $accessToken = null)
     {
         $this->userID = $userID;
         $this->orderStatuses = $orderStatuses;

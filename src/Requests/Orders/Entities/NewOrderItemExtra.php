@@ -9,7 +9,7 @@ class NewOrderItemExtra
     /** @var string */
     private $name;
 
-    function __construct($id = null, $price, $name = null)
+    public function __construct($id = null, $price, $name = null)
     {
         $this->id = $id;
         $this->price = $price;

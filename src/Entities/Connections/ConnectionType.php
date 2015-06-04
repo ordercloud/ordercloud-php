@@ -12,7 +12,7 @@ class ConnectionType
     /** @var string */
     private $code;
 
-    function __construct($id, $name, $code)
+    public function __construct($id, $name, $code)
     {
         $this->id = $id;
         $this->name = $name;

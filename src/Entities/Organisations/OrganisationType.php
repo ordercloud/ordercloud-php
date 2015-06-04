@@ -9,7 +9,7 @@ class OrganisationType
     /** @var string */
     private $plural;
 
-    function __construct($id, $name, $plural)
+    public function __construct($id, $name, $plural)
     {
         $this->id = $id;
         $this->name = $name;

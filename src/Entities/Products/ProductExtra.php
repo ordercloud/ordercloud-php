@@ -19,7 +19,7 @@ class ProductExtra
     /** @var array|ProductTag[] */
     private $tags;
 
-    function __construct($id, $name, $description, $price, $enabled, OrganisationShort $organisation, array $tags)
+    public function __construct($id, $name, $description, $price, $enabled, OrganisationShort $organisation, array $tags)
     {
         $this->id = $id;
         $this->name = $name;

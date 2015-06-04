@@ -16,7 +16,7 @@ class GetOrganisationProductsByTagNames implements Command
      * @param array       $tagNames
      * @param string|null $accessToken
      */
-    public function __construct(array $organisationIDs, array $tagNames, $accessToken = null)
+    public function __construct(array $organisationIDs, array $tagNames, $accessToken = null) // TODO: ProductCriteria
     {
         $this->organisationIDs = $organisationIDs;
         $this->tagNames = $tagNames;

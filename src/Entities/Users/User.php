@@ -15,7 +15,7 @@ class User extends UserShort
     /** @var array|OrganisationShort[] */
     private $organisations;
 
-    function __construct($id, $enabled, $username, $facebook_id, UserProfile $profile, array $groups, array $roles, array $organisations)
+    public function __construct($id, $enabled, $username, $facebook_id, UserProfile $profile, array $groups, array $roles, array $organisations)
     {
         parent::__construct($id, $username, $profile);
         $this->enabled = $enabled;

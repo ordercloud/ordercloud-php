@@ -9,7 +9,7 @@ class OrganisationStatus
     /** @var string */
     private $description;
 
-    function __construct($id, $name, $description)
+    public function __construct($id, $name, $description)
     {
         $this->id = $id;
         $this->name = $name;

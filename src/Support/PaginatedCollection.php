@@ -15,7 +15,7 @@ class PaginatedCollection extends Collection
     /** @var int */
     protected $previousPage;
 
-    function __construct(array $items, $totalCount, $currentPage, $pageSize)
+    public function __construct(array $items, $totalCount, $currentPage, $pageSize)
     {
         parent::__construct($items);
         $this->totalCount = $totalCount;

@@ -13,7 +13,7 @@ class OrganisationOperatingHours
     /** @var string */
     private $dayName;
 
-    function __construct($id, $day, $openTime, $closeTime, $dayName)
+    public function __construct($id, $day, $openTime, $closeTime, $dayName)
     {
         $this->id = $id;
         $this->day = $day;

@@ -7,7 +7,7 @@ class ProductPriceDiscount
     /** @var float */
     private $discountPrice; //TODO whats the difference ?
 
-    function __construct($discountAmount, $discountPrice)
+    public function __construct($discountAmount, $discountPrice)
     {
         $this->discountAmount = $discountAmount;
         $this->discountPrice = $discountPrice;

@@ -11,7 +11,7 @@ class OrderItemExtra
     /** @var ProductExtraDisplay */
     private $extra;
 
-    function __construct($id, $price, ProductExtraDisplay $extra)
+    public function __construct($id, $price, ProductExtraDisplay $extra)
     {
         $this->id = $id;
         $this->price = $price;

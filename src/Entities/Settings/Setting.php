@@ -17,7 +17,7 @@ class Setting
     /** @var OrganisationShort */
     private $organisation;
 
-    function __construct($id, $value, SettingKey $key, $startDate, $endDate, OrganisationShort $organisation)
+    public function __construct($id, $value, SettingKey $key, $startDate, $endDate, OrganisationShort $organisation)
     {
         $this->id = $id;
         $this->value = $value;

@@ -33,7 +33,7 @@ class ProductShort
      */
     private $groupItems;
 
-    function __construct($id, $name, $price, $description, $shortDescription, OrganisationShort $organisation, $available, $enabled, $sku, $availableOnline, ProductType $productType, array $groupItems)
+    public function __construct($id, $name, $price, $description, $shortDescription, OrganisationShort $organisation, $available, $enabled, $sku, $availableOnline, ProductType $productType, array $groupItems)
     {
         $this->id = $id;
         $this->name = $name;

@@ -28,7 +28,7 @@ class OrderItem
     /** @var array|OrderItemOption[] */
     private $options;
 
-    function __construct($id, $price, $quantity, $enabled, ProductShort $detail, OrderStatus $status, $note, ProductPriceDiscount $itemDiscount = null, $readyEstimate, array $extras, array $options)
+    public function __construct($id, $price, $quantity, $enabled, ProductShort $detail, OrderStatus $status, $note, ProductPriceDiscount $itemDiscount = null, $readyEstimate, array $extras, array $options)
     {
         $this->id = $id;
         $this->price = $price;

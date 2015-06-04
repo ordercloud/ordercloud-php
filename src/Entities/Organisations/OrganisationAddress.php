@@ -27,7 +27,7 @@ class OrganisationAddress
     /** @var long */
     private $distance;
 
-    function __construct($id, $longitude, $latitude, $name, $description, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $distance)
+    public function __construct($id, $longitude, $latitude, $name, $description, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $distance)
     {
         $this->id = $id;
         $this->longitude = $longitude;

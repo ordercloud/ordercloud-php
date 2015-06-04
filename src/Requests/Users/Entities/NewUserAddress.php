@@ -23,7 +23,7 @@ class NewUserAddress
     /** @var string */
     private $longitude;
 
-    function __construct($name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $note, $latitude, $longitude)
+    public function __construct($name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $note, $latitude, $longitude)
     {
         $this->name = $name;
         $this->streetNumber = $streetNumber;

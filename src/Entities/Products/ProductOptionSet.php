@@ -11,7 +11,7 @@ class ProductOptionSet
     /** @var array|ProductAttribute[] */
     protected $attributes;
 
-    function __construct($id, $name, array $options, array $attributes)
+    public function __construct($id, $name, array $options, array $attributes)
     {
         $this->id = $id;
         $this->name = $name;

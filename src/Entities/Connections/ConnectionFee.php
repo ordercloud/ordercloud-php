@@ -23,7 +23,7 @@ class ConnectionFee
     /** @var ConnectionFeeStructure */
     private $structure;
 
-    function __construct($id, $startDate, $endDate, $enabled, $lastUpdated, array $details, ConnectionFeeType $type, ConnectionFeeMetric $metric, ConnectionFeeStructure $structure)
+    public function __construct($id, $startDate, $endDate, $enabled, $lastUpdated, array $details, ConnectionFeeType $type, ConnectionFeeMetric $metric, ConnectionFeeStructure $structure)
     {
         $this->id = $id;
         $this->startDate = $startDate;

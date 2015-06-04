@@ -24,7 +24,7 @@ class Connection
     /** @var string */
     private $settlementInterval;
 
-    function __construct($id, Organisation $fromOrganisation, Organisation $toOrganisation, ConnectionType $type, $ended, array $fees, $enabled, $status, $settlementInterval)
+    public function __construct($id, Organisation $fromOrganisation, Organisation $toOrganisation, ConnectionType $type, $ended, array $fees, $enabled, $status, $settlementInterval)
     {
         $this->id = $id;
         $this->fromOrganisation = $fromOrganisation;

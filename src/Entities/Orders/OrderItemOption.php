@@ -11,7 +11,7 @@ class OrderItemOption
     /** @var ProductOptionDisplay */
     private $option;
 
-    function __construct($id, $price, ProductOptionDisplay $option)
+    public function __construct($id, $price, ProductOptionDisplay $option)
     {
         $this->id = $id;
         $this->price = $price;

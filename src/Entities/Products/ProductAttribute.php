@@ -11,7 +11,7 @@ class ProductAttribute
     /** @var OrganisationShort */
     private $organisation;
 
-    function __construct($id, $enabled, OrganisationShort $organisation)
+    public function __construct($id, $enabled, OrganisationShort $organisation)
     {
         $this->id = $id;
         $this->enabled = $enabled;

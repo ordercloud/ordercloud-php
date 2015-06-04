@@ -9,7 +9,7 @@ class GetUserProfile implements Command
     /** @var string|null */
     protected $accessToken;
 
-    function __construct($userID, $accessToken = null)
+    public function __construct($userID, $accessToken = null)
     {
         $this->userID = $userID;
         $this->accessToken = $accessToken;

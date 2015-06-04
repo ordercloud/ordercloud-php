@@ -9,7 +9,7 @@ class ProductTagType
     /** @var string */
     private $name;
 
-    function __construct($id, $description, $name)
+    public function __construct($id, $description, $name)
     {
         $this->id = $id;
         $this->description = $description;

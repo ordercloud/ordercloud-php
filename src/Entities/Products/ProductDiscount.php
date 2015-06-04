@@ -24,7 +24,7 @@ class ProductDiscount
     /** @var boolean */
     private $enabled;
 
-    function __construct($id, OrganisationShort $organisation, OrganisationShort $discountProvider, OrganisationShort $brand, Connection $connection, Product $productItem, $amount, $startDate, $enabled)
+    public function __construct($id, OrganisationShort $organisation, OrganisationShort $discountProvider, OrganisationShort $brand, Connection $connection, Product $productItem, $amount, $startDate, $enabled)
     {
         $this->id = $id;
         $this->organisation = $organisation;

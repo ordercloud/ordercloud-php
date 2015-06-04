@@ -16,7 +16,7 @@ class OrganisationProfile
     /** @var OrganisationAddress */
     private $address;
 
-    function __construct($id, $contactPerson, $contactNumber, $enabled, $address = null)
+    public function __construct($id, User $contactPerson, $contactNumber, $enabled, OrganisationAddress $address = null)
     {
         $this->id = $id;
         $this->contactPerson = $contactPerson;
@@ -42,27 +42,11 @@ class OrganisationProfile
     }
 
     /**
-     * @param undefined $contactPerson
-     */
-    public function setContactPerson($contactPerson)
-    {
-        $this->contactPerson = $contactPerson;
-    }
-
-    /**
      * @return string
      */
     public function getContactNumber()
     {
         return $this->contactNumber;
-    }
-
-    /**
-     * @param string $contactNumber
-     */
-    public function setContactNumber($contactNumber)
-    {
-        $this->contactNumber = $contactNumber;
     }
 
     /**

@@ -11,7 +11,7 @@ class ConnectionFeeType
     /** @var string */
     private $description;
 
-    function __construct($id, $code, $name, $description)
+    public function __construct($id, $code, $name, $description)
     {
         $this->id = $id;
         $this->code = $code;

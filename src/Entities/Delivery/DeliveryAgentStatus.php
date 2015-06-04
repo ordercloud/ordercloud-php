@@ -7,7 +7,7 @@ class DeliveryAgentStatus
     /** @var string */
     private $status;
 
-    function __construct($id, $status)
+    public function __construct($id, $status)
     {
         $this->id = $id;
         $this->status = $status;

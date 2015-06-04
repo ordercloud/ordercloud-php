@@ -9,7 +9,7 @@ class GetProduct implements Command
     /** @var string|null */
     protected $accessToken;
 
-    function __construct($productID, $accessToken = null)
+    public function __construct($productID, $accessToken = null)
     {
         $this->productID = $productID;
         $this->accessToken = $accessToken;

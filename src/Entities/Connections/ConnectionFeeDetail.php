@@ -17,7 +17,7 @@ class ConnectionFeeDetail
     /** @var boolean */
     private $enabled;
 
-    function __construct($id, $minValue, $maxValue, $fixedAmount, $percentageAmount, $volumeAmount, $enabled)
+    public function __construct($id, $minValue, $maxValue, $fixedAmount, $percentageAmount, $volumeAmount, $enabled)
     {
         $this->id = $id;
         $this->minValue = $minValue;

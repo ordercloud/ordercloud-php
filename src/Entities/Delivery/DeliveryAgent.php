@@ -31,7 +31,7 @@ class DeliveryAgent
      */
     private $cardNo;
 
-    function __construct($id, UserShort $userProfile, OrganisationShort $organisation, $minBalance, $maxBalance, $enabled, DeliveryAgentStatus $status, $accountNo, $cardNo)
+    public function __construct($id, UserShort $userProfile, OrganisationShort $organisation, $minBalance, $maxBalance, $enabled, DeliveryAgentStatus $status, $accountNo, $cardNo)
     {
         $this->id = $id;
         $this->userProfile = $userProfile;

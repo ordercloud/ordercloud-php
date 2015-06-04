@@ -11,7 +11,7 @@ class UserGroup
     /** @var array|UserRole[] */
     private $roles;
 
-    function __construct($id, $name, $description, array $roles)
+    public function __construct($id, $name, $description, array $roles)
     {
         $this->id = $id;
         $this->name = $name;

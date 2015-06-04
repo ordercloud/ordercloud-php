@@ -31,7 +31,7 @@ class Payment
     /** @var integer */
     private $grouping;
 
-    function __construct($id, PaymentStatus $lastPaymentStatus, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, Organisation $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $grouping)
+    public function __construct($id, PaymentStatus $lastPaymentStatus, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, Organisation $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $grouping)
     {
         $this->id = $id;
         $this->lastPaymentStatus = $lastPaymentStatus;

@@ -15,7 +15,7 @@ class PaymentStatus
     /** @var string */
     private $message;
 
-    function __construct($status, $when, $message)
+    public function __construct($status, $when, $message)
     {
         $this->status = $status;
         $this->when = $when;

@@ -25,7 +25,7 @@ class UserAddress
     /** @var string */
     private $longitude;
 
-    function __construct($id, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $note, $latitude, $longitude)
+    public function __construct($id, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $note, $latitude, $longitude)
     {
         $this->id = $id;
         $this->name = $name;

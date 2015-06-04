@@ -9,7 +9,7 @@ class NewOrderItemOption
     /** @var string */
     private $name;
 
-    function __construct($id = null, $price = null, $name = null)
+    public function __construct($id = null, $price = null, $name = null)
     {
         $this->id = $id;
         $this->price = $price;

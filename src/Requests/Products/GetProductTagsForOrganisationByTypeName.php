@@ -11,7 +11,7 @@ class GetProductTagsForOrganisationByTypeName implements Command
     /** @var string|null */
     protected $accessToken;
 
-    function __construct($organisationID, $tagName, $accessToken = null)
+    public function __construct($organisationID, $tagName, $accessToken = null)
     {
         $this->organisationID = $organisationID;
         $this->tagName = $tagName;

@@ -13,7 +13,7 @@ class ProductOptionDisplay
     /** @var array|ProductTag[] */
     private $tags;
 
-    function __construct($id, $name, $description, $price, array $tags)
+    public function __construct($id, $name, $description, $price, array $tags)
     {
         $this->id = $id;
         $this->name = $name;

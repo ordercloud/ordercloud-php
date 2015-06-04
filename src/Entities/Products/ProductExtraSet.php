@@ -11,7 +11,7 @@ class ProductExtraSet
     /** @var array|ProductAttribute[] */
     protected $attributes;
 
-    function __construct($id, $name, array $extras, array $attributes)
+    public function __construct($id, $name, array $extras, array $attributes)
     {
         $this->id = $id;
         $this->name = $name;

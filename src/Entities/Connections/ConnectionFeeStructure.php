@@ -21,7 +21,7 @@ class ConnectionFeeStructure
     /** @var boolean */
     private $volume;
 
-    function __construct($id, $code, $name, $description, $rule, $rule_name, $percentage, $flatfee, $volume)
+    public function __construct($id, $code, $name, $description, $rule, $rule_name, $percentage, $flatfee, $volume)
     {
         $this->id = $id;
         $this->code = $code;

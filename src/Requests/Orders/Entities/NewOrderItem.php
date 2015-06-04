@@ -15,7 +15,7 @@ class NewOrderItem
     /** @var array|NewOrderItemExtra[] */
     private $extras;
 
-    function __construct($productID, $price, $quantity, $note = null, array $options = [], array $extras = [])
+    public function __construct($productID, $price, $quantity, $note = null, array $options = [], array $extras = [])
     {
         $this->productID = $productID;
         $this->price = $price;
