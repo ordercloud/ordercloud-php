@@ -16,6 +16,7 @@ use Ordercloud\Entities\Orders\OrderItemExtra;
 use Ordercloud\Entities\Orders\OrderItemOption;
 use Ordercloud\Entities\Orders\OrderStatus;
 use Ordercloud\Entities\Organisations\Organisation;
+use Ordercloud\Entities\Organisations\OrganisationAddress;
 use Ordercloud\Entities\Organisations\OrganisationIndustry;
 use Ordercloud\Entities\Organisations\OrganisationOperatingHours;
 use Ordercloud\Entities\Organisations\OrganisationProfile;
@@ -103,9 +104,7 @@ class Parser
                 $this->parseUserShort($profile['contactPerson']),
                 $profile['contactNumber'],
                 $profile['enabled'],
-                $profile['distance'],
-                $profile['latitude'],
-                $profile['longitude']
+                $profile['address'] ? $this->parseOrganisationAddress($profile['address']) : null
             );
         }
 
@@ -134,6 +133,25 @@ class Parser
             $organisation['registeredDirectly']
         );
     }
+
+    public function parseOrganisationAddress(array $address)
+    {
+        return new OrganisationAddress(
+            $address['id'],
+            $address['longitude'],
+            $address['latitude'],
+            $address['name'],
+            $address['description'],
+            $address['streetNumber'],
+            $address['streetName'],
+            $address['complex'],
+            $address['suburb'],
+            $address['city'],
+            $address['postalCode'],
+            $address['distance']
+        );
+    }
+
 
     /**
      * @param array $connections

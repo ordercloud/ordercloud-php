@@ -13,22 +13,16 @@ class OrganisationProfile
     private $contactNumber;
     /** @var boolean */
     private $enabled;
-    /** @var integer */
-    private $distance;
-    /** @var string */
-    private $latitude;
-    /** @var string */
-    private $longitude;
+    /** @var OrganisationAddress */
+    private $address;
 
-    function __construct($id, $contactPerson, $contactNumber, $enabled, $distance, $latitude, $longitude)
+    function __construct($id, $contactPerson, $contactNumber, $enabled, $address = null)
     {
         $this->id = $id;
         $this->contactPerson = $contactPerson;
         $this->contactNumber = $contactNumber;
         $this->enabled = $enabled;
-        $this->distance = $distance;
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
+        $this->address = $address;
     }
 
     /**
@@ -53,22 +47,6 @@ class OrganisationProfile
     public function setContactPerson($contactPerson)
     {
         $this->contactPerson = $contactPerson;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLatitude()
-    {
-        return $this->latitude;
-    }
-
-    /**
-     * @param string $latitude
-     */
-    public function setLatitude($latitude)
-    {
-        $this->latitude = $latitude;
     }
 
     /**
@@ -104,34 +82,10 @@ class OrganisationProfile
     }
 
     /**
-     * @return int
+     * @return OrganisationAddress
      */
-    public function getDistance()
+    public function getAddress()
     {
-        return $this->distance;
-    }
-
-    /**
-     * @param int $distance
-     */
-    public function setDistance($distance)
-    {
-        $this->distance = $distance;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLongitude()
-    {
-        return $this->longitude;
-    }
-
-    /**
-     * @param string $longitude
-     */
-    public function setLongitude($longitude)
-    {
-        $this->longitude = $longitude;
+        return $this->address;
     }
 }
