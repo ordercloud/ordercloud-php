@@ -62,7 +62,7 @@ class Request
         return $this->rawRequest;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->getRawRequest();
     }

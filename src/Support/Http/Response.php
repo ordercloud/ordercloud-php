@@ -98,7 +98,7 @@ class Response
         return $this->request;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->getRawResponse();
     }

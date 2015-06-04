@@ -658,9 +658,7 @@ class Parser
         return new ProductTagType(
             $productTagType['id'],
             $productTagType['description'],
-            $productTagType['name'],
-            $productTagType['dateCreated'],
-            $productTagType['lastUpdated']
+            $productTagType['name']
         );
     }
 

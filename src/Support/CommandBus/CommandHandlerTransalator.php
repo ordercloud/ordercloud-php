@@ -12,7 +12,10 @@ interface CommandHandlerTransalator
 {
     /**
      * @param $command
+     *
      * @return CommandHandler|null
+     *
+     * @throws CommandHandlerNotFoundException
      */
     public function resolve(Command $command);
 }

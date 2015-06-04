@@ -104,7 +104,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      *
      * @return array
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return $this->items;
     }

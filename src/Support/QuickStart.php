@@ -101,11 +101,11 @@ class QuickStart
                 'Ordercloud\Requests\Users\CreateUserAddress'                      => function () use (&$ordercloud, $parser) {
                     return new CreateUserAddressHandler($ordercloud, $parser);
                 },
-                'Ordercloud\Requests\Auth\GetLoginUrl'                             => function () use (&$ordercloud, $parser) {
-                    return new GetLoginUrlHandler($ordercloud, $parser);
+                'Ordercloud\Requests\Auth\GetLoginUrl'                             => function () use (&$ordercloud) {
+                    return new GetLoginUrlHandler($ordercloud);
                 },
-                'Ordercloud\Requests\Auth\GetRegisterUrl'                          => function () use (&$ordercloud, $parser) {
-                    return new GetRegisterUrlHandler($ordercloud, $parser);
+                'Ordercloud\Requests\Auth\GetRegisterUrl'                          => function () use (&$ordercloud) {
+                    return new GetRegisterUrlHandler($ordercloud);
                 },
                 'Ordercloud\Requests\Auth\RefreshAccessToken'                      => function () use (&$ordercloud, $parser) {
                     return new RefreshAccessTokenHandler($ordercloud, $parser);

@@ -2,7 +2,7 @@
 
 class ProductItemsProductAttribute
 {
-    /** @var integer */
+    /** @var int */
     private $id;
     /** @var Product */
     private $product;
@@ -10,4 +10,18 @@ class ProductItemsProductAttribute
     private $value;
     /** @var ProductAttribute */
     private $attribute;
+
+    /**
+     * @param int              $id
+     * @param Product          $product
+     * @param string           $value
+     * @param ProductAttribute $attribute
+     */
+    function __construct($id, $product, $value, $attribute)
+    {
+        $this->id = $id;
+        $this->product = $product;
+        $this->value = $value;
+        $this->attribute = $attribute;
+    }
 }

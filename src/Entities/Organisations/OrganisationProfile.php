@@ -1,13 +1,10 @@
 <?php namespace Ordercloud\Entities\Organisations;
 
-use Ordercloud\Organisations\undefined;
-use Ordercloud\Organisations\User;
-
 class OrganisationProfile
 {
     /** @var integer */
     private $id;
-    /** @var User */
+    /** @var UserShort */
     private $contactPerson;
     /** @var string */
     private $contactNumber;
@@ -16,7 +13,7 @@ class OrganisationProfile
     /** @var OrganisationAddress */
     private $address;
 
-    public function __construct($id, User $contactPerson, $contactNumber, $enabled, OrganisationAddress $address = null)
+    public function __construct($id, UserShort $contactPerson, $contactNumber, $enabled, OrganisationAddress $address = null)
     {
         $this->id = $id;
         $this->contactPerson = $contactPerson;
@@ -34,7 +31,7 @@ class OrganisationProfile
     }
 
     /**
-     * @return undefined
+     * @return UserShort
      */
     public function getContactPerson()
     {
