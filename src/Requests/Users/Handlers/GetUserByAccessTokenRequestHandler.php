@@ -6,7 +6,6 @@ use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Users\GetUserByAccessTokenRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\EntityReflector;
-use Ordercloud\Support\Parser;
 
 class GetUserByAccessTokenRequestHandler implements CommandHandler
 {
