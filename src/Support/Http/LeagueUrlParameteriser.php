@@ -12,11 +12,15 @@ class LeagueUrlParameteriser implements UrlParameteriser
      */
     public function appendParametersToUrl(array $parameters, $url)
     {
+        if (strpos($url, '//') === false) {
+            $url = 'dummy.host/' . ltrim($url, '/');
+        }
+
         $leagueUrl = Url::createFromUrl($url);
 
         $leagueUrl->getQuery()->modify($parameters);
 
-        return $this->stripParameterArrayBrackets((string) $leagueUrl);
+        return $this->stripParameterArrayBrackets($leagueUrl->getRelativeUrl());
     }
 
     /**
