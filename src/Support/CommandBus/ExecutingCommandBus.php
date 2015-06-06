@@ -3,11 +3,11 @@
 class ExecutingCommandBus implements CommandBus
 {
     /**
-     * @var CommandHandlerTransalator
+     * @var CommandHandlerTranslator
      */
     private $commandHandlerTransalator;
 
-    public function __construct(CommandHandlerTransalator $commandHandlerTransalator)
+    public function __construct(CommandHandlerTranslator $commandHandlerTransalator)
     {
         $this->commandHandlerTransalator = $commandHandlerTransalator;
     }
