@@ -86,17 +86,16 @@ class EntityReflector extends ReflectionClass
     }
 
     /**
-     * @param array                       $arguments
      * @param array|ReflectionParameter[] $parameters
      *
      * @return array
      */
-    private function prepareArguments(array $arguments, array $parameters)
+    private function prepareArguments(array $parameters)
     {
         $prepareArguments = [];
 
         foreach ($parameters as $parameter) {
-            $prepareArguments[] = $this->prepareArgument($arguments, $parameter);
+            $prepareArguments[] = $this->prepareArgument($parameter);
         }
 
         return $prepareArguments;
@@ -111,8 +110,8 @@ class EntityReflector extends ReflectionClass
      */
     private function getArgument($parameterName)
     {
-        if (isset(static::$propertyNameOverrides[$this->getName()])) {
-            $overrides = static::$propertyNameOverrides[$this->getName()];
+        if (isset(self::$propertyNameOverrides[$this->getName()])) {
+            $overrides = self::$propertyNameOverrides[$this->getName()];
             if (isset($overrides[$parameterName])) {
                 $parameterName = $overrides[$parameterName];
             }
@@ -126,12 +125,11 @@ class EntityReflector extends ReflectionClass
     }
 
     /**
-     * @param array               $arguments
      * @param ReflectionParameter $parameter
      *
      * @return mixed
      */
-    private function prepareArgument(array $arguments, $parameter)
+    private function prepareArgument($parameter)
     {
         $parameterName = $parameter->getName();
         $argument = $this->getArgument($parameterName);
