@@ -31,7 +31,7 @@ class GetUserAddressesRequestHandler implements CommandHandler
             new OrdercloudRequest(
                 OrdercloudRequest::METHOD_GET,
                 "resource/users/{$userID}/geos",
-                [ 'access_token' => $accessToken ]
+                ['access_token' => $accessToken]
             )
         );
 

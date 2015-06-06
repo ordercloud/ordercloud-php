@@ -31,7 +31,7 @@ class GetUserProfileRequestHandler implements CommandHandler
             new OrdercloudRequest(
                 OrdercloudRequest::METHOD_GET,
                 "resource/users/{$userID}/profile",
-                [ 'access_token' => $accessToken ]
+                ['access_token' => $accessToken]
             )
         );
 

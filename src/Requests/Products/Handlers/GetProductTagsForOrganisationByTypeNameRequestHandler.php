@@ -32,7 +32,7 @@ class GetProductTagsForOrganisationByTypeNameRequestHandler implements CommandHa
             new OrdercloudRequest(
                 OrdercloudRequest::METHOD_GET,
                 "/resource/product/tag/organisation/{$organisationID}/type/{$typeName}",
-                [ 'access_token' => $accessToken ]
+                ['access_token' => $accessToken]
             )
         );
 

@@ -20,7 +20,7 @@ class GuzzleClient implements Client
                     'Content-Type'              => 'application/json',
                     'User-Agent'                => 'ordercloud-php', //TODO add client version??
                 ],
-                'auth' => [ $username, $password ],
+                'auth' => [$username, $password],
                 'allow_redirects' => false,
             ],
         ]);

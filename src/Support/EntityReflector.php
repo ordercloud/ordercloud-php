@@ -34,6 +34,10 @@ class EntityReflector extends ReflectionClass
     /** @var array */
     private $arguments;
 
+    /**
+     * @param string $className
+     * @param array  $arguments
+     */
     public function __construct($className, array $arguments)
     {
         parent::__construct($className);
@@ -70,6 +74,13 @@ class EntityReflector extends ReflectionClass
         return $reflector->reflect();
     }
 
+    /**
+     * @param $url
+     *
+     * @return int
+     *
+     * @throws OrdercloudException
+     */
     public static function parseResourceIDFromURL($url)
     {
         if (is_null($url)) {
