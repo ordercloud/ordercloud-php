@@ -67,7 +67,7 @@ class EntityReflector extends ReflectionClass
     {
         $reflector = new static($className, $arguments);
 
-        return $reflector->reflect($arguments);
+        return $reflector->reflect();
     }
 
     public static function parseResourceIDFromURL($url)
@@ -145,15 +145,13 @@ class EntityReflector extends ReflectionClass
     }
 
     /**
-     * @param array $arguments
-     *
      * @return object
      */
-    private function reflect(array $arguments)
+    private function reflect()
     {
         $parameters = $this->getConstructor()->getParameters();
 
-        $preparedArguments = $this->prepareArguments($arguments, $parameters);
+        $preparedArguments = $this->prepareArguments($parameters);
 
         return $this->newInstanceArgs($preparedArguments);
     }
