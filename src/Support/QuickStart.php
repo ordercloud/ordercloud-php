@@ -4,6 +4,8 @@ use Illuminate\Container\Container;
 use Ordercloud\Ordercloud;
 use Ordercloud\Support\CommandBus\IlluminateCommandHandlerTranslator;
 use Ordercloud\Support\Http\GuzzleClient;
+use Ordercloud\Support\Http\LoggingClient;
+use Psr\Log\LoggerInterface;
 
 class QuickStart
 {
@@ -64,6 +66,25 @@ class QuickStart
     public function make()
     {
         return $this->container->make('Ordercloud\Ordercloud');
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function registerClientLogger(LoggerInterface $logger)
+    {
+        $self = $this;
+        $this->container->singleton('Ordercloud\Support\Http\Client', function () use ($logger, $self) {
+            $client = $self->container->make('Ordercloud\Support\Http\Client');
+
+            return new LoggingClient(
+                $client,
+                $logger,
+                $self->getConfig('logging.filtering.enabled', false),
+                $self->getConfig('logging.filtering.urlPatterns', array()),
+                $self->getConfig('logging.filtering.methods', array())
+            );
+        });
     }
 
     /**
