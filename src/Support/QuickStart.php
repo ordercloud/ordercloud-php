@@ -9,6 +9,8 @@ use Psr\Log\LoggerInterface;
 
 class QuickStart
 {
+    /** @var callable */
+    private $clientFactory;
     /** @var Container */
     private $container;
     /**
@@ -24,6 +26,14 @@ class QuickStart
     {
         $this->config = $config;
         $self = $this;
+        $this->clientFactory = function () use ($self) {
+            return new GuzzleClient(
+                $self->getConfig('http.base_url'),
+                $self->getConfig('credentials.username'),
+                $self->getConfig('credentials.password'),
+                $self->getConfig('credentials.organisation_token')
+            );
+        };
         $container->singleton('Ordercloud\Ordercloud');
         $container->singleton('Ordercloud\Support\Parser');
         $container->singleton('Ordercloud\Support\Http\UrlParameteriser', 'Ordercloud\Support\Http\LeagueUrlParameteriser');
@@ -31,14 +41,7 @@ class QuickStart
         $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', function() use ($container) {
             return new IlluminateCommandHandlerTranslator($container);
         });
-        $container->singleton('Ordercloud\Support\Http\Client', function() use ($self) {
-            return new GuzzleClient(
-                $self->getConfig('http.base_url'),
-                $self->getConfig('credentials.username'),
-                $self->getConfig('credentials.password'),
-                $self->getConfig('credentials.organisation_token')
-            );
-        });
+        $container->singleton('Ordercloud\Support\Http\Client', $this->clientFactory);
         $this->container = $container;
     }
 
@@ -74,15 +77,14 @@ class QuickStart
     public function registerClientLogger(LoggerInterface $logger)
     {
         $self = $this;
-        $this->container->singleton('Ordercloud\Support\Http\Client', function () use ($logger, $self) {
-            $client = $self->container->make('Ordercloud\Support\Http\Client');
-
+        $clientFactory = $this->clientFactory;
+        $this->container->singleton('Ordercloud\Support\Http\Client', function () use ($clientFactory, $logger, $self) {
             return new LoggingClient(
-                $client,
+                $clientFactory(),
                 $logger,
                 $self->getConfig('logging.filtering.enabled', false),
-                $self->getConfig('logging.filtering.urlPatterns', array()),
-                $self->getConfig('logging.filtering.methods', array())
+                $self->getConfig('logging.filtering.urlPatterns', []),
+                $self->getConfig('logging.filtering.methods', [])
             );
         });
     }
