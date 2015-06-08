@@ -18,7 +18,13 @@ class LeagueUrlParameteriserSpec extends ObjectBehavior
         ];
 
         $this->appendParametersToUrl($params, 'https://test.domain.com')
-            ->shouldReturn('https://test.domain.com/?access_token=123&format=pretty');
+            ->shouldReturn('/?access_token=123&format=pretty');
+
+        $this->appendParametersToUrl($params, 'resource/orders/user/55')
+            ->shouldReturn('/resource/orders/user/55?access_token=123&format=pretty');
+
+        $this->appendParametersToUrl($params, '/resource/orders/user/55')
+            ->shouldReturn('/resource/orders/user/55?access_token=123&format=pretty');
     }
 
     function it_can_append_arrays()
@@ -32,6 +38,9 @@ class LeagueUrlParameteriserSpec extends ObjectBehavior
         ];
 
         $this->appendParametersToUrl($params, 'https://test.domain.com')
-            ->shouldReturn('https://test.domain.com/?types=ABC&types=DEF&types=GHI');
+            ->shouldReturn('/?types=ABC&types=DEF&types=GHI');
+
+        $this->appendParametersToUrl($params, 'resource/orders/user/55')
+            ->shouldReturn('/resource/orders/user/55?types=ABC&types=DEF&types=GHI');
     }
 }

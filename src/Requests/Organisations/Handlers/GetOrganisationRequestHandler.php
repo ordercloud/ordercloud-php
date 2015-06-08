@@ -5,18 +5,15 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
-use Ordercloud\Support\Parser;
+use Ordercloud\Support\EntityReflector;
 
 class GetOrganisationRequestHandler implements CommandHandler
 {
-    /** @var Parser */
-    private $parser;
     /** @var Ordercloud */
     private $ordercloud;
 
-    public function __construct(Ordercloud $ordercloud, Parser $parser)
+    public function __construct(Ordercloud $ordercloud)
     {
-        $this->parser = $parser;
         $this->ordercloud = $ordercloud;
     }
 
@@ -32,12 +29,10 @@ class GetOrganisationRequestHandler implements CommandHandler
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
-                OrdercloudRequest::METHOD_GET,
-                "resource/organisations/{$organisationID}",
-                [ 'access_token' => $accessToken ]
+                OrdercloudRequest::METHOD_GET, "resource/organisations/{$organisationID}", ['access_token' => $accessToken]
             )
         );
 
-        return $this->parser->parseOrganisation($response->getData());
+        return EntityReflector::parse('Ordercloud\Entities\Organisations\Organisation', $response->getData());
     }
 }

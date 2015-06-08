@@ -23,7 +23,7 @@ class Organisation extends OrganisationShort
     /** @var boolean */
     private $registeredDirectly;
 
-    public function __construct($id, $name, $code, array $types, array $industries, array $profiles, array $operatingHours, $ordersHash, OrganisationStatus $status, $lastOnline, $delivering, $open, $registeredDirectly)
+    public function __construct($id, $name, $code, array $types, array $industries, array $profiles, array $operatingHours, $ordersHash, OrganisationStatus $status = null, $lastOnline, $delivering, $open, $registeredDirectly)
     {
         parent::__construct($id, $name, $code);
         $this->types = $types;

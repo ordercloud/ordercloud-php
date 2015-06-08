@@ -1,7 +1,5 @@
 <?php namespace Ordercloud\Entities\Connections;
 
-use Ordercloud\Connections\OrganisationFeeDetail;
-
 class ConnectionFee
 {
     /** @var integer */
@@ -14,7 +12,7 @@ class ConnectionFee
     private $enabled;
     /** @var string */
     private $lastUpdated;
-    /** @var array|OrganisationFeeDetail[] */
+    /** @var array|ConnectionFeeDetail[] */
     private $details;
     /** @var ConnectionFeeType */
     private $type;

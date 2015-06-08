@@ -3,7 +3,7 @@
 use Illuminate\Container\Container;
 use ReflectionClass;
 
-class IlluminateCommandHandlerTranslator implements CommandHandlerTransalator
+class IlluminateCommandHandlerTranslator implements CommandHandlerTranslator
 {
     /** @var Container */
     private $container;

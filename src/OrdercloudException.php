@@ -2,4 +2,6 @@
 
 use Exception;
 
-class OrdercloudException extends Exception { }
+class OrdercloudException extends Exception
+{
+}
