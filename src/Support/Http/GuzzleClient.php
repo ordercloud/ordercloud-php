@@ -1,17 +1,18 @@
 <?php namespace Ordercloud\Support\Http;
 
+use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Stream\Stream;
 
 class GuzzleClient implements Client
 {
-    /** @var \GuzzleHttp\Client */
+    /** @var GuzzleHttpClient */
     private $client;
 
     public function __construct($baseUrl, $username, $password, $organisationToken = null)
     {
-        $this->client = new \GuzzleHttp\Client([
+        $this->client = new GuzzleHttpClient([
             'base_url' => $baseUrl,
             'defaults' => [
                 'headers' => [

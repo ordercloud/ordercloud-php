@@ -26,7 +26,7 @@ class QuickStart
     {
         $this->config = $config;
         $self = $this;
-        $this->clientFactory = function () use ($self) {
+        $this->clientFactory = function() use ($self) {
             return new GuzzleClient(
                 $self->getConfig('http.base_url'),
                 $self->getConfig('credentials.username'),
