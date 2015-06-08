@@ -6,7 +6,10 @@ class Organisation extends OrganisationShort
     private $types;
     /** @var array|OrganisationIndustry[] */
     private $industries;
-    /** @var array|OrganisationProfile[] */
+    /**
+     * @var array|OrganisationProfile[]
+     * @reflectName profile
+     */
     private $profiles;
     /** @var array|OrganisationOperatingHours[] */
     private $operatingHours;

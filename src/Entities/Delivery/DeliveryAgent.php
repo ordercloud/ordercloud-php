@@ -7,8 +7,10 @@ class DeliveryAgent
 {
     /** @var integer */
     private $id;
-    /** @var UserShort */
-    private $userProfile;
+    /**
+     * @var UserShort
+     */
+    private $user;
     /** @var OrganisationShort */
     private $organisation;
     /** @var float */
@@ -30,10 +32,10 @@ class DeliveryAgent
      */
     private $cardNo;
 
-    public function __construct($id, UserShort $userProfile, OrganisationShort $organisation, $minBalance, $maxBalance, $enabled, DeliveryAgentStatus $status, $accountNo, $cardNo)
+    public function __construct($id, UserShort $user, OrganisationShort $organisation, $minBalance, $maxBalance, $enabled, DeliveryAgentStatus $status, $accountNo, $cardNo)
     {
         $this->id = $id;
-        $this->userProfile = $userProfile;
+        $this->user = $user;
         $this->organisation = $organisation;
         $this->minBalance = $minBalance;
         $this->maxBalance = $maxBalance;
@@ -54,9 +56,9 @@ class DeliveryAgent
     /**
      * @return UserShort
      */
-    public function getUserProfile()
+    public function getUser()
     {
-        return $this->userProfile;
+        return $this->user;
     }
 
     /**

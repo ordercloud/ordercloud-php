@@ -18,9 +18,15 @@ class Product
     private $price;
     /** @var array|ProductItemsProductAttribute[] */
     private $attributes;
-    /** @var array|ProductOptionSet[] */
+    /**
+     * @var array|ProductOptionSet[]
+     * @reflectName options
+     */
     private $optionSets;
-    /** @var array|ProductExtraSet[] */
+    /**
+     * @var array|ProductExtraSet[]
+     * @reflectName extras
+     */
     private $extraSets;
     /** @var array|ProductTag[] */
     private $tags;

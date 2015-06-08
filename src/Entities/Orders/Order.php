@@ -30,15 +30,24 @@ class Order
     private $items;
     /** @var UserShort */
     private $user;
-    /** @var UserAddress */
+    /**
+     * @var UserAddress
+     * @reflectName userGeo
+     */
     private $userAddress;
     /** @var OrganisationShort */
     private $organisation;
     /** @var PaymentStatus */
     private $paymentStatus;
-    /** @var array|Payment[] */
+    /**
+     * @var array|Payment[]
+     * @reflect \Ordercloud\Entities\Payments\Payment
+     */
     private $payments;
-    /** @var array|string[] */
+    /**
+     * @var array|string[]
+     * @reflectName paymentMethod
+     */
     private $paymentMethods;
     /** @var string */
     private $deliveryType;

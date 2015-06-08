@@ -2,11 +2,20 @@
 
 class AccessToken
 {
-    /** @var string */
+    /**
+     * @var string
+     * @reflectName access_token
+     */
     private $accessToken;
-    /** @var string */
+    /**
+     * @var string
+     * @reflectName refresh_token
+     */
     private $refreshToken;
-    /** @var int */
+    /**
+     * @var int
+     * @reflectName expires_in
+     */
     private $expiresIn;
 
     public function __construct($accessToken, $refreshToken, $expiresIn)
