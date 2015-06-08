@@ -23,9 +23,15 @@ class OrderItem
     private $itemDiscount;
     /** @var integer */
     private $readyEstimate;
-    /** @var array|OrderItemExtra[] */
+    /**
+     * @var array|OrderItemExtra[]
+     * @reflectType Ordercloud\Entities\Orders\OrderItemExtra
+     */
     private $extras;
-    /** @var array|OrderItemOption[] */
+    /**
+     * @var array|OrderItemOption[]
+     * @reflectType Ordercloud\Entities\Orders\OrderItemOption
+     */
     private $options;
 
     public function __construct($id, $price, $quantity, $enabled, ProductShort $detail, OrderStatus $status, $note, ProductPriceDiscount $itemDiscount = null, $readyEstimate, array $extras, array $options)

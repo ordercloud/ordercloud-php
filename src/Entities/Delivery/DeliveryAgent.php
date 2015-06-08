@@ -7,9 +7,7 @@ class DeliveryAgent
 {
     /** @var integer */
     private $id;
-    /**
-     * @var UserShort
-     */
+    /** @var UserShort */
     private $user;
     /** @var OrganisationShort */
     private $organisation;

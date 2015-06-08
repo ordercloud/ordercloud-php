@@ -6,9 +6,15 @@ class ProductOptionSet
     protected $id;
     /** @var string */
     protected $name;
-    /** @var array|ProductOption[] */
+    /**
+     * @var array|ProductOption[]
+     * @reflectType Ordercloud\Entities\Products\ProductOption
+     */
     protected $options;
-    /** @var array|ProductAttribute[] */
+    /**
+     * @var array|ProductAttribute[]
+     * @reflectType Ordercloud\Entities\Products\ProductAttribute
+     */
     protected $attributes;
 
     public function __construct($id, $name, array $options, array $attributes)

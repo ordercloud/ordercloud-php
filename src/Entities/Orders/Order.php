@@ -26,7 +26,10 @@ class Order
     private $amount;
     /** @var OrderStatus */
     private $status;
-    /** @var array|OrderItem[] */
+    /**
+     * @var array|OrderItem[]
+     * @reflectType Ordercloud\Entities\Orders\OrderItem
+     */
     private $items;
     /** @var UserShort */
     private $user;
@@ -41,7 +44,7 @@ class Order
     private $paymentStatus;
     /**
      * @var array|Payment[]
-     * @reflect \Ordercloud\Entities\Payments\Payment
+     * @reflectType \Ordercloud\Entities\Payments\Payment
      */
     private $payments;
     /**

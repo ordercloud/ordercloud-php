@@ -8,7 +8,10 @@ class UserGroup
     private $name;
     /** @var string */
     private $description;
-    /** @var array|UserRole[] */
+    /**
+     * @var array|UserRole[]
+     * @reflectType Ordercloud\Entities\Users\UserRole
+     */
     private $roles;
 
     public function __construct($id, $name, $description, array $roles)

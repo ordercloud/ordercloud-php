@@ -8,11 +8,14 @@ class User extends UserShort
     private $enabled;
     /** @var string */
     private $facebook_id;
-    /** @var array| */
+    /** @var array| */ // TODO: eh?
     private $groups;
     /** @var array| */
     private $roles;
-    /** @var array|OrganisationShort[] */
+    /**
+     * @var array|OrganisationShort[]
+     * @reflectType Ordercloud\Entities\Organisations\OrganisationShort
+     */
     private $organisations;
 
     public function __construct($id, $enabled, $username, $facebook_id, UserProfile $profile, array $groups, array $roles, array $organisations)

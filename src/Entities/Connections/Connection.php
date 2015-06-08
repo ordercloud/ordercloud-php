@@ -17,6 +17,7 @@ class Connection
     /**
      * @var array|ConnectionFee[]
      * @reflectName fee
+     * @reflectType Ordercloud\Entities\Connections\ConnectionFee
      */
     private $fees;
     /** @var boolean */
