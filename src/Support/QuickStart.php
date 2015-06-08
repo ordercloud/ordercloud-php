@@ -1,15 +1,27 @@
 <?php namespace Ordercloud\Support;
 
 use Illuminate\Container\Container;
+use Ordercloud\Ordercloud;
 use Ordercloud\Support\CommandBus\IlluminateCommandHandlerTranslator;
 use Ordercloud\Support\Http\GuzzleClient;
 
 class QuickStart
 {
-    public static function create($baseUrl, $username, $password, $organisationToken)
-    {
-        $container = new Container();
+    /** @var Container */
+    private $container;
+    /**
+     * @var array
+     */
+    private $config;
 
+    /**
+     * @param Container $container
+     * @param array     $config
+     */
+    public function __construct(Container $container, array $config)
+    {
+        $this->config = $config;
+        $self = $this;
         $container->singleton('Ordercloud\Ordercloud');
         $container->singleton('Ordercloud\Support\Parser');
         $container->singleton('Ordercloud\Support\Http\UrlParameteriser', 'Ordercloud\Support\Http\LeagueUrlParameteriser');
@@ -17,10 +29,77 @@ class QuickStart
         $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', function() use ($container) {
             return new IlluminateCommandHandlerTranslator($container);
         });
-        $container->singleton('Ordercloud\Support\Http\Client', function() use ($baseUrl, $username, $password, $organisationToken) {
-            return new GuzzleClient($baseUrl, $username, $password, $organisationToken);
+        $container->singleton('Ordercloud\Support\Http\Client', function() use ($self) {
+            return new GuzzleClient(
+                $self->getConfig('http.base_url'),
+                $self->getConfig('credentials.username'),
+                $self->getConfig('credentials.password'),
+                $self->getConfig('credentials.organisation_token')
+            );
         });
+        $this->container = $container;
+    }
 
-        return $container->make('Ordercloud\Ordercloud');
+    /**
+     * Create a new instance of ordercloud
+     *
+     * @param array $config
+     *
+     * @return Ordercloud
+     */
+    public static function create(array $config)
+    {
+        $container = new Container();
+
+        $quickStart = new static($container, $config);
+
+        return $quickStart->make();
+    }
+
+    /**
+     * Creates an instance of Ordercloud.
+     *
+     * @return Ordercloud
+     */
+    public function make()
+    {
+        return $this->container->make('Ordercloud\Ordercloud');
+    }
+
+    /**
+     * @param string     $key
+     * @param mixed $default
+     *
+     * @return mixed
+     */
+    private function getConfig($key, $default = null)
+    {
+        if (array_key_exists($key, $this->config)) {
+            return $this->config[$key];
+        }
+
+        return $this->getDotNotationConfig($key, $default, $this->config);
+    }
+
+    /**
+     * Retreive a nested multidimentional array value.
+     *
+     * @param string     $key
+     * @param mixed $default
+     *
+     * @return mixed
+     */
+    private function getDotNotationConfig($key, $default)
+    {
+        $config = $this->config;
+
+        foreach (explode('.', $key) as $segment) {
+            if ( ! is_array($config) || ! array_key_exists($segment, $config)) {
+                return $default;
+            }
+            $config = $config[$segment];
+        }
+
+        return $config;
     }
 }
