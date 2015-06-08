@@ -78,7 +78,7 @@ class QuickStart
             return $this->config[$key];
         }
 
-        return $this->getDotNotationConfig($key, $default, $this->config);
+        return $this->getDotNotationConfig($key, $default);
     }
 
     /**
