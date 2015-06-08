@@ -5,7 +5,7 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Requests\Auth\RefreshAccessTokenRequest;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
-use Ordercloud\Support\EntityReflector;
+use Ordercloud\Support\Reflection\EntityReflector;
 
 class RefreshAccessTokenRequestHandler implements CommandHandler
 {

@@ -5,7 +5,7 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Users\GetUserByIdRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
-use Ordercloud\Support\EntityReflector;
+use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetUserByIdRequestHandler implements CommandHandler
 {

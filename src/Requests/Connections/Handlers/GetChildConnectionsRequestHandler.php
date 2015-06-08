@@ -6,7 +6,7 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Requests\Connections\GetChildConnectionsRequest;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
-use Ordercloud\Support\EntityReflector;
+use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetChildConnectionsRequestHandler implements CommandHandler
 {

@@ -6,7 +6,7 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Settings\GetSettingsByOrganisationRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
-use Ordercloud\Support\EntityReflector;
+use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetSettingsByOrganisationRequestHandler implements CommandHandler
 {

@@ -7,7 +7,7 @@ use Ordercloud\Requests\Orders\Entities\NewOrderItem;
 use Ordercloud\Requests\Orders\Entities\NewOrderItemExtra;
 use Ordercloud\Requests\Orders\Entities\NewOrderItemOption;
 use Ordercloud\Support\CommandBus\CommandHandler;
-use Ordercloud\Support\EntityReflector;
+use Ordercloud\Support\Reflection\EntityReflector;
 
 class CreateOrderRequestHandler implements CommandHandler
 {
