@@ -7,7 +7,7 @@ class EntityReflectorSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith('spec\Ordercloud\Support\Foo', [
+        $this->beConstructedWith('spec\Ordercloud\Support\Reflection\Foo', [
             'id' => 1,
             'bars' => [
                 [
@@ -28,7 +28,7 @@ class EntityReflectorSpec extends ObjectBehavior
 
     function it_parses_array_parameters()
     {
-        $this->reflect()->bars[0]->shouldBeAnInstanceOf('spec\Ordercloud\Support\Bar');
+        $this->reflect()->bars[0]->shouldBeAnInstanceOf('spec\Ordercloud\Support\Reflection\Bar');
         $this->reflect()->bars[0]->id->shouldBe(1);
         $this->reflect()->bars[0]->name->shouldBe('baz');
     }
@@ -44,7 +44,7 @@ class Foo {
     public $id;
     /**
      * @var array|Bar[]
-     * @reflectType spec\Ordercloud\Support\Bar
+     * @reflectType spec\Ordercloud\Support\Reflection\Bar
      */
     public $bars;
     /**
