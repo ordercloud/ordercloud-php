@@ -1,7 +1,6 @@
 <?php namespace Ordercloud\Entities\Delivery;
 
 use Ordercloud\Entities\Organisations\OrganisationShort;
-use Ordercloud\Entities\Users\UserProfile;
 use Ordercloud\Entities\Users\UserShort;
 
 class DeliveryAgent

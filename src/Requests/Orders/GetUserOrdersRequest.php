@@ -1,7 +1,6 @@
 <?php namespace Ordercloud\Requests\Orders;
 
 use Ordercloud\Support\CommandBus\Command;
-use string;
 
 class GetUserOrdersRequest implements Command
 {
@@ -15,7 +14,7 @@ class GetUserOrdersRequest implements Command
     private $page;
     /** @var int */
     private $pageSize;
-    /** @var \string */
+    /** @var string */
     private $sort;
     /** @var string|null */
     protected $accessToken;

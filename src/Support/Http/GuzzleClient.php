@@ -1,8 +1,6 @@
 <?php namespace Ordercloud\Support\Http;
 
 use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Message\RequestInterface;
 use GuzzleHttp\Message\ResponseInterface;
 use GuzzleHttp\Stream\Stream;
 
@@ -17,8 +15,8 @@ class GuzzleClient implements Client
             'base_url' => $baseUrl,
             'defaults' => [
                 'headers' => [
-                    'Content-Type'              => 'application/json',
-                    'User-Agent'                => 'ordercloud-php', //TODO add client version??
+                    'Content-Type' => 'application/json',
+                    'User-Agent'   => 'ordercloud-php', //TODO add client version??
                 ],
                 'auth' => [$username, $password],
                 'allow_redirects' => false,

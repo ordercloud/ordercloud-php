@@ -2,7 +2,7 @@
 
 class OrganisationAddress
 {
-    /** @var long */
+    /** @var int */
     private $id;
     /** @var string */
     private $longitude;
@@ -24,7 +24,7 @@ class OrganisationAddress
     private $city;
     /** @var string */
     private $postalCode;
-    /** @var long */
+    /** @var int */
     private $distance;
 
     public function __construct($id, $longitude, $latitude, $name, $description, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $distance)
@@ -44,7 +44,7 @@ class OrganisationAddress
     }
 
     /**
-     * @return long
+     * @return int
      */
     public function getId()
     {
@@ -132,7 +132,7 @@ class OrganisationAddress
     }
 
     /**
-     * @return long
+     * @return int
      */
     public function getDistance()
     {

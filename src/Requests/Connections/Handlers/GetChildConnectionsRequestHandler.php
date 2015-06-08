@@ -1,8 +1,8 @@
 <?php namespace Ordercloud\Requests\Connections\Handlers;
 
+use Ordercloud\Entities\Connections\Connection;
 use Ordercloud\Entities\Connections\ConnectionType;
 use Ordercloud\Ordercloud;
-use Ordercloud\Requests\Connection;
 use Ordercloud\Requests\Connections\GetChildConnectionsRequest;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;

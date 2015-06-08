@@ -5,6 +5,7 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Products\GetProductRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
+use Ordercloud\Support\EntityReflector;
 
 class GetProductRequestHandler implements CommandHandler
 {

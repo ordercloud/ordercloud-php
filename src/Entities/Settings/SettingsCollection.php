@@ -5,16 +5,6 @@ use Ordercloud\Support\Collection;
 class SettingsCollection extends Collection
 {
     /**
-     * @var array|Setting[]
-     */
-    protected $items;
-
-    public function __construct(array $settings = [])
-    {
-        $this->items = $settings;
-    }
-
-    /**
      * @param SettingKey $key The setting key
      *
      * @return Setting|null

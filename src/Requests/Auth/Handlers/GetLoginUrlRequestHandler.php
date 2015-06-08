@@ -18,14 +18,14 @@ class GetLoginUrlRequestHandler implements CommandHandler
     /**
      * @param GetLoginUrlRequest $request
      *
-     * @return UserShort
+     * @return string
      */
     public function handle($request)
     {
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
                 OrdercloudRequest::METHOD_POST,
-                "faces/credential",
+                'faces/credential',
                 [
                     'organisation_id' => $request->getOrganisationID(),
                     'client_secret'   => $request->getClientSecret(),

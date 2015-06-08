@@ -1,6 +1,5 @@
 <?php namespace Ordercloud\Entities\Connections;
 
-use Ordercloud\Entities\Organisations\Fees\OrganisationFee;
 use Ordercloud\Entities\Organisations\Organisation;
 
 class Connection
@@ -15,7 +14,7 @@ class Connection
     private $type;
     /** @var string */
     private $ended;
-    /** @var array|OrganisationFee[] */
+    /** @var array|ConnectionFee[] */
     private $fees;
     /** @var boolean */
     private $enabled;
@@ -78,7 +77,7 @@ class Connection
     }
 
     /**
-     * @return array|OrganisationFee[]
+     * @return array|ConnectionFee[]
      */
     public function getFees()
     {

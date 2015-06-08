@@ -1,6 +1,5 @@
 <?php namespace Ordercloud\Requests;
 
-use Exception;
 use Ordercloud\OrdercloudException;
 use Ordercloud\Support\Http\OrdercloudHttpException;
 

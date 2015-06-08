@@ -1,6 +1,5 @@
 <?php namespace Ordercloud;
 
-use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\CommandBus\Command;
 use Ordercloud\Support\CommandBus\CommandBus;
 use Ordercloud\Support\Http\Response;
@@ -16,8 +15,6 @@ class Ordercloud
     }
 
     /**
-     * TODO
-     *
      * @param Command $command
      *
      * @return Response
