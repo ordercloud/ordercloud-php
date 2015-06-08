@@ -7,7 +7,7 @@ use Ordercloud\Support\Http\GuzzleClient;
 use Ordercloud\Support\Http\LoggingClient;
 use Psr\Log\LoggerInterface;
 
-class QuickStart
+class OrdercloudBuilder
 {
     /** @var callable */
     private $clientFactory;
@@ -56,9 +56,9 @@ class QuickStart
     {
         $container = new Container();
 
-        $quickStart = new static($container, $config);
+        $builder = new static($container, $config);
 
-        return $quickStart->make();
+        return $builder->build();
     }
 
     /**
@@ -66,7 +66,7 @@ class QuickStart
      *
      * @return Ordercloud
      */
-    public function make()
+    public function build()
     {
         return $this->container->make('Ordercloud\Ordercloud');
     }
