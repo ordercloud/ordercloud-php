@@ -61,43 +61,11 @@ class CreateCreditCardPaymentRequest implements Command
     }
 
     /**
-     * @return null|string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
      * @return string
      */
     public function getBudgetPeriod()
     {
         return $this->budgetPeriod;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getOrderRef()
-    {
-        return $this->orderRef;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getDestinationRef()
-    {
-        return $this->destinationRef;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isTestMode()
-    {
-        return $this->testMode;
     }
 
     /**
