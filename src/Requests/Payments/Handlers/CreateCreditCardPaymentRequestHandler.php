@@ -24,7 +24,7 @@ class CreateCreditCardPaymentRequestHandler implements CommandHandler
         $paymentGateway = $request->getPaymentGateway();
         $creditCard = $request->getCard();
 
-        $this->ordercloud->exec(new OrdercloudRequest(
+        return $this->ordercloud->exec(new OrdercloudRequest(
             OrdercloudRequest::METHOD_POST,
             "/resource/orders/{$orderID}/pay/creditcard/{$paymentGateway}",
             [
@@ -35,10 +35,6 @@ class CreateCreditCardPaymentRequestHandler implements CommandHandler
                 'nameOnCard'      => $creditCard->getNameOnCard(),
                 'cvv'             => $creditCard->getCvv(),
                 'cardNumber'      => $creditCard->getCardNumber(),
-                'orderRef'        => $request->getOrderRef(),
-                'description'     => $request->getDescription(),
-                'destinationRef'  => $request->getDestinationRef(),
-                'testMode'        => $request->isTestMode(),
                 'access_token'    => $request->getAccessToken(),
             ]
         ));
