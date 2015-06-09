@@ -164,7 +164,7 @@ class EntityReflector extends ReflectionClass
         return $docBlock->getTag('reflectName');
     }
 
-    public function prepareArrayArgument(ReflectionParameter $parameter, array $argument)
+    public function prepareArrayArgument(ReflectionParameter $parameter, array $argument = null)
     {
         if (is_null($argument)) {
             return [];
