@@ -13,29 +13,17 @@ class CreateCreditCardPaymentRequest implements Command
     private $card;
     /** @var int */
     private $orderID;
-    /** @var string|null */
-    private $description;
     /** @var string */
     private $budgetPeriod;
     /** @var string|null */
-    private $orderRef;
-    /** @var string|null */
-    private $destinationRef;
-    /** @var bool */
-    private $testMode;
-    /** @var string|null */
     private $accessToken;
 
-    public function __construct($paymentGateway, $amount, CreditCard $card, $orderID, $description = null, $budgetPeriod = '0', $orderRef = null, $destinationRef = null, $testMode = true, $accessToken = null)
+    public function __construct($paymentGateway, $amount, CreditCard $card, $orderID, $budgetPeriod = '0', $accessToken = null)
     {
         $this->paymentGateway = $paymentGateway;
         $this->amount = $amount;
         $this->card = $card;
-        $this->description = $description;
         $this->budgetPeriod = $budgetPeriod ?: '0';
-        $this->orderRef = $orderRef;
-        $this->destinationRef = $destinationRef;
-        $this->testMode = $testMode;
         $this->accessToken = $accessToken;
         $this->orderID = $orderID;
     }
