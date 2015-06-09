@@ -6,9 +6,15 @@ class ProductExtraSet
     protected $id;
     /** @var string */
     protected $name;
-    /** @var array|ProductExtra[] */
+    /**
+     * @var array|ProductExtra[]
+     * @reflectType Ordercloud\Entities\Products\ProductExtra
+     */
     protected $extras;
-    /** @var array|ProductAttribute[] */
+    /**
+     * @var array|ProductAttribute[]
+     * @reflectType Ordercloud\Entities\Products\ProductAttribute
+     */
     protected $attributes;
 
     public function __construct($id, $name, array $extras, array $attributes)

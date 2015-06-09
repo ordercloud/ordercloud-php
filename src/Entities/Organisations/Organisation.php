@@ -2,13 +2,26 @@
 
 class Organisation extends OrganisationShort
 {
-    /** @var array|OrganisationType[] */
+    /**
+     * @var array|OrganisationType[]
+     * @reflectType Ordercloud\Entities\Organisations\OrganisationType
+     */
     private $types;
-    /** @var array|OrganisationIndustry[] */
+    /**
+     * @var array|OrganisationIndustry[]
+     * @reflectType Ordercloud\Entities\Organisations\OrganisationIndustry
+     */
     private $industries;
-    /** @var array|OrganisationProfile[] */
+    /**
+     * @var array|OrganisationProfile[]
+     * @reflectName profile
+     * @reflectType Ordercloud\Entities\Organisations\OrganisationProfile
+     */
     private $profiles;
-    /** @var array|OrganisationOperatingHours[] */
+    /**
+     * @var array|OrganisationOperatingHours[]
+     * @reflectType Ordercloud\Entities\Organisations\OrganisationOperatingHours
+     */
     private $operatingHours;
     /** @var integer */
     private $ordersHash;

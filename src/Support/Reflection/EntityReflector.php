@@ -1,4 +1,4 @@
-<?php namespace Ordercloud\Support;
+<?php namespace Ordercloud\Support\Reflection;
 
 use Ordercloud\OrdercloudException;
 use ReflectionClass;
@@ -6,31 +6,6 @@ use ReflectionParameter;
 
 class EntityReflector extends ReflectionClass
 {
-    private static $propertyNameOverrides = [
-        'Ordercloud\Entities\Organisations\Organisation' => [
-            'profiles' => 'profile'
-        ],
-        'Ordercloud\Entities\Connections\Connection' => [
-            'fees' => 'fee'
-        ],
-        'Ordercloud\Entities\Products\Product' => [
-            'optionSets' => 'options',
-            'extraSets' => 'extras',
-        ],
-        'Ordercloud\Entities\Orders\Order' => [
-            'userAddress' => 'userGeo',
-            'paymentMethods' => 'paymentMethod',
-        ],
-        'Ordercloud\Entities\Delivery\DeliveryAgent' => [
-            'userProfile' => 'user',
-        ],
-        'Ordercloud\Entities\Auth\AccessToken' => [
-            'accessToken' => 'access_token',
-            'refreshToken' => 'refresh_token',
-            'expiresIn' => 'expires_in',
-        ]
-    ];
-
     /** @var array */
     private $arguments;
 
@@ -97,19 +72,56 @@ class EntityReflector extends ReflectionClass
     }
 
     /**
+     * @return object
+     */
+    public function reflect()
+    {
+        if (is_null($this->arguments)) {
+            return null;
+        }
+
+        $parameters = $this->getConstructor()->getParameters();
+
+        $preparedArguments = $this->prepareArguments($parameters);
+
+        return $this->newInstanceArgs($preparedArguments);
+    }
+
+    /**
      * @param array|ReflectionParameter[] $parameters
      *
      * @return array
      */
     private function prepareArguments(array $parameters)
     {
-        $prepareArguments = [];
+        $preparedArguments = [];
 
         foreach ($parameters as $parameter) {
-            $prepareArguments[] = $this->prepareArgument($parameter);
+            $preparedArguments[] = $this->prepareArgument($parameter);
         }
 
-        return $prepareArguments;
+        return $preparedArguments;
+    }
+
+    /**
+     * @param ReflectionParameter $parameter
+     *
+     * @return mixed
+     */
+    private function prepareArgument(ReflectionParameter $parameter)
+    {
+        $parameterName = $parameter->getName();
+        $argument = $this->getArgument($parameterName);
+
+        if ($parameter->isArray()) {
+            return $this->prepareArrayArgument($parameter, $argument);
+        }
+
+        if ( ! is_null($argument) && $parameterClass = $parameter->getClass()) {
+            return $this->parse($parameterClass->getName(), $argument);
+        }
+
+        return $argument;
     }
 
     /**
@@ -121,12 +133,7 @@ class EntityReflector extends ReflectionClass
      */
     private function getArgument($parameterName)
     {
-        if (isset(self::$propertyNameOverrides[$this->getName()])) {
-            $overrides = self::$propertyNameOverrides[$this->getName()];
-            if (isset($overrides[$parameterName])) {
-                $parameterName = $overrides[$parameterName];
-            }
-        }
+        $parameterName = $this->getParameterAlias($parameterName);
 
         if (array_key_exists($parameterName, $this->arguments)) {
             return $this->arguments[$parameterName];
@@ -136,34 +143,50 @@ class EntityReflector extends ReflectionClass
     }
 
     /**
-     * @param ReflectionParameter $parameter
+     * @param $parameterName
      *
      * @return mixed
      */
-    private function prepareArgument($parameter)
+    private function getParameterAlias($parameterName)
     {
-        $parameterName = $parameter->getName();
-        $argument = $this->getArgument($parameterName);
-
-        if (is_null($argument) && $parameter->isArray()) {
-            $argument = [];
+        if ( ! $this->hasProperty($parameterName)) {
+            return $parameterName;
         }
-        elseif ( ! is_null($argument) && $parameterClass = $parameter->getClass()) {
-            $argument = $this->parse($parameterClass->getName(), $argument);
+
+        $property = $this->getProperty($parameterName);
+
+        $docBlock = new DocBlock($property->getDocComment());
+
+        if ( ! $docBlock->hasTag('reflectName')) {
+            return $parameterName;
+        }
+
+        return $docBlock->getTag('reflectName');
+    }
+
+    public function prepareArrayArgument(ReflectionParameter $parameter, array $argument = null)
+    {
+        if (is_null($argument)) {
+            return [];
+        }
+
+        if ($className = $this->getArrayClass($parameter->getName())) {
+            return $this->parseAll($className, $argument);
         }
 
         return $argument;
     }
 
-    /**
-     * @return object
-     */
-    private function reflect()
+    public function getArrayClass($parameterName)
     {
-        $parameters = $this->getConstructor()->getParameters();
+        $property = $this->getProperty($parameterName);
 
-        $preparedArguments = $this->prepareArguments($parameters);
+        $docBlock = new DocBlock($property->getDocComment());
 
-        return $this->newInstanceArgs($preparedArguments);
+        if ( ! $docBlock->hasTag('reflectType')) {
+            return null;
+        }
+
+        return $docBlock->getTag('reflectType');
     }
 }

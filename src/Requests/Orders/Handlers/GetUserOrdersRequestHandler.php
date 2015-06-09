@@ -5,8 +5,8 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Orders\GetUserOrdersRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
-use Ordercloud\Support\EntityReflector;
 use Ordercloud\Support\PaginatedCollection;
+use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetUserOrdersRequestHandler implements CommandHandler
 {

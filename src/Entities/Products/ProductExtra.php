@@ -16,7 +16,10 @@ class ProductExtra
     private $enabled;
     /** @var OrganisationShort */
     private $organisation;
-    /** @var array|ProductTag[] */
+    /**
+     * @var array|ProductTag[]
+     * @reflectType Ordercloud\Entities\Products\ProductTag
+     */
     private $tags;
 
     public function __construct($id, $name, $description, $price, $enabled, OrganisationShort $organisation, array $tags)

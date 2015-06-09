@@ -28,6 +28,7 @@ class ProductShort
     private $productType;
     /**
      * @var array|ProductShort[]
+     * @reflectType Ordercloud\Entities\Products\ProductShort
      *
      * eg. meal => burger + chips + coke
      */

@@ -16,13 +16,27 @@ class Product
     private $sku;
     /** @var float */
     private $price;
-    /** @var array|ProductItemsProductAttribute[] */
+    /**
+     * @var array|ProductItemsProductAttribute[]
+     * @reflectType Ordercloud\Entities\Products\ProductItemsProductAttribute
+     */
     private $attributes;
-    /** @var array|ProductOptionSet[] */
+    /**
+     * @var array|ProductOptionSet[]
+     * @reflectName options
+     * @reflectType Ordercloud\Entities\Products\ProductOptionSet
+     */
     private $optionSets;
-    /** @var array|ProductExtraSet[] */
+    /**
+     * @var array|ProductExtraSet[]
+     * @reflectName extras
+     * @reflectType Ordercloud\Entities\Products\ProductExtraSet
+     */
     private $extraSets;
-    /** @var array|ProductTag[] */
+    /**
+     * @var array|ProductTag[]
+     * @reflectType Ordercloud\Entities\Products\ProductTag
+     */
     private $tags;
     /** @var OrganisationShort */
     private $organisation;
@@ -32,9 +46,15 @@ class Product
     private $available;
     /** @var boolean */
     private $availableOnline;
-    /** @var array|ProductImage[] */
+    /**
+     * @var array|ProductImage[]
+     * @reflectType Ordercloud\Entities\Products\ProductImage
+     */
     private $images;
-    /** @var array|Product[] */
+    /**
+     * @var array|Product[]
+     * @reflectType Ordercloud\Entities\Products\Product
+     */
     private $groupItems;
     /** @var ProductType */
     private $productType;

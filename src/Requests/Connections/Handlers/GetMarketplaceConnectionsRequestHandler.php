@@ -6,7 +6,7 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Requests\Connections\GetMarketplaceConnectionsRequest;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
-use Ordercloud\Support\EntityReflector;
+use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetMarketplaceConnectionsRequestHandler implements CommandHandler
 {

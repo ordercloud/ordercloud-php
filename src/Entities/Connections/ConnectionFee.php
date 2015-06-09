@@ -12,7 +12,10 @@ class ConnectionFee
     private $enabled;
     /** @var string */
     private $lastUpdated;
-    /** @var array|ConnectionFeeDetail[] */
+    /**
+     * @var array|ConnectionFeeDetail[]
+     * @reflectType Ordercloud\Entities\Connections\ConnectionFeeDetail
+     */
     private $details;
     /** @var ConnectionFeeType */
     private $type;

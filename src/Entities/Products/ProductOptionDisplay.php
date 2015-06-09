@@ -10,7 +10,10 @@ class ProductOptionDisplay
     private $description;
     /** @var float */
     private $price;
-    /** @var array|ProductTag[] */
+    /**
+     * @var array|ProductTag[]
+     * @reflectType Ordercloud\Entities\Products\ProductTag
+     */
     private $tags;
 
     public function __construct($id, $name, $description, $price, array $tags)

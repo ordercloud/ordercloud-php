@@ -14,7 +14,11 @@ class Connection
     private $type;
     /** @var string */
     private $ended;
-    /** @var array|ConnectionFee[] */
+    /**
+     * @var array|ConnectionFee[]
+     * @reflectName fee
+     * @reflectType Ordercloud\Entities\Connections\ConnectionFee
+     */
     private $fees;
     /** @var boolean */
     private $enabled;

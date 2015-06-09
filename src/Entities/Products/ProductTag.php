@@ -20,7 +20,10 @@ class ProductTag
     private $organisation;
     /** @var ProductTagLink */
     private $parentTag;
-    /** @var array|ProductTagLink[] */
+    /**
+     * @var array|ProductTagLink[]
+     * @reflectType Ordercloud\Entities\Products\ProductTagLink
+     */
     private $childTags;
 
     public function __construct($id, $name, $description, $shortDescription, $enabled, ProductTagType $tagType = null, OrganisationShort $organisation, ProductTagLink $parentTag = null, array $childTags)
