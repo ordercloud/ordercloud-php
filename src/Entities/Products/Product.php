@@ -196,6 +196,22 @@ class Product
     }
 
     /**
+     * @param string $tagType
+     *
+     * @return ProductTag|null
+     */
+    public function getTagByType($tagType)
+    {
+        foreach ($this->getTags() as $tag) {
+            if ($tag->isType($tagType)) {
+                return $tag;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @return OrganisationShort
      */
     public function getOrganisation()
@@ -234,6 +250,21 @@ class Product
     {
         return $this->images;
     }
+
+    /**
+     * @return ProductImage|null
+     */
+    public function getDefaultImage()
+    {
+        foreach ($this->getImages() as $image) {
+            if ($image->isDefault()) {
+                return $image;
+            }
+        }
+
+        return null;
+    }
+
 
     /**
      * @return array|Product[]
