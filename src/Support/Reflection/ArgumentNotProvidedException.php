@@ -25,7 +25,7 @@ class ArgumentNotProvidedException extends Exception
         $this->className = $className;
         $this->parameterName = $parameterName;
         $this->arguments = $arguments;
-        $this->parameterAlias = $parameterAlias;
+        $this->parameterAlias = strcasecmp($parameterName, $parameterAlias) === 0 ? null : $parameterAlias;
     }
 
     /**
