@@ -265,6 +265,13 @@ class Product
         return null;
     }
 
+    /**
+     * @return bool
+     */
+    public function hasDefaultImage()
+    {
+        return ! is_null($this->getDefaultImage());
+    }
 
     /**
      * @return array|Product[]

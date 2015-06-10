@@ -63,6 +63,25 @@ class ProductSpec extends ObjectBehavior
         $this->getDefaultImage()->shouldReturn(null);
     }
 
+    function it_can_check_if_it_has_a_default_image()
+    {
+        $img1 = $this->createImage(false);
+        $img2 = $this->createImage(true);
+
+        $images = [$img1, $img2];
+        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null);
+
+        $this->hasDefaultImage()->shouldReturn(true);
+    }
+
+    function it_can_check_if_it_has_a_default_image_with_no_images()
+    {
+        $images = [];
+        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null);
+
+        $this->hasDefaultImage()->shouldReturn(false);
+    }
+
     protected function createTagWithType($type)
     {
         return new ProductTag(1, 1, 1, 1, 1, new ProductTagType(1, 1, $type), $this->organisationShort, null, []);
