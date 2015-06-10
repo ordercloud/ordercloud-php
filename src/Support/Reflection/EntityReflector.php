@@ -133,13 +133,13 @@ class EntityReflector extends ReflectionClass
      */
     private function getArgument($parameterName)
     {
-        $parameterName = $this->getParameterAlias($parameterName);
+        $parameterAlias = $this->getParameterAlias($parameterName);
 
-        if (array_key_exists($parameterName, $this->arguments)) {
-            return $this->arguments[$parameterName];
+        if (array_key_exists($parameterAlias, $this->arguments)) {
+            return $this->arguments[$parameterAlias];
         }
 
-        throw new ArgumentNotProvidedException($this->getName(), $parameterName, $this->arguments);
+        throw new ArgumentNotProvidedException($this->getName(), $this->arguments, $parameterName, $parameterAlias);
     }
 
     /**
