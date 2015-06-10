@@ -6,11 +6,14 @@ class ProductImage
     private $name;
     /** @var string */
     private $thumbnail;
+    /** @var bool */
+    private $default;
 
-    public function __construct($name, $thumbnail)
+    public function __construct($name, $thumbnail, $default)
     {
         $this->name = $name;
         $this->thumbnail = $thumbnail;
+        $this->default = $default;
     }
 
     /**
@@ -27,5 +30,13 @@ class ProductImage
     public function getThumbnail()
     {
         return $this->thumbnail;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isDefault()
+    {
+        return $this->default;
     }
 }

@@ -191,11 +191,19 @@ class Order
     }
 
     /**
-     * @return array|\string[]
+     * @return array|string[]
      */
     public function getPaymentMethods()
     {
         return $this->paymentMethods;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasPaymentMethods()
+    {
+        return ! empty($this->paymentMethods);
     }
 
     /**

@@ -13,7 +13,7 @@ class GetOrderRequest implements Command
      * @param int         $orderID
      * @param string|null $accessToken
      */
-    function __construct($orderID, $accessToken = null)
+    public function __construct($orderID, $accessToken = null)
     {
         $this->orderID = $orderID;
         $this->accessToken = $accessToken;

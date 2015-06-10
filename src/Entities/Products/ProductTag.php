@@ -15,7 +15,7 @@ class ProductTag
     /** @var boolean */
     private $enabled;
     /** @var ProductTagType */
-    private $tagType;
+    private $type;
     /** @var OrganisationShort */
     private $organisation;
     /** @var ProductTagLink */
@@ -33,7 +33,7 @@ class ProductTag
         $this->description = $description;
         $this->shortDescription = $shortDescription;
         $this->enabled = $enabled;
-        $this->tagType = $tagType;
+        $this->type = $tagType;
         $this->organisation = $organisation;
         $this->parentTag = $parentTag;
         $this->childTags = $childTags;
@@ -80,11 +80,25 @@ class ProductTag
     }
 
     /**
+     * @param string $typeName
+     *
+     * @return bool
+     */
+    public function isType($typeName)
+    {
+        if (is_null($this->getType())) {
+            return false;
+        }
+
+        return strcasecmp($this->getType()->getName(), $typeName) === 0;
+    }
+
+    /**
      * @return ProductTagType
      */
-    public function getTagType()
+    public function getType()
     {
-        return $this->tagType;
+        return $this->type;
     }
 
     /**
