@@ -78,7 +78,7 @@ class OrdercloudBuilder
     {
         $self = $this;
         $clientFactory = $this->clientFactory;
-        $this->container->singleton('Ordercloud\Support\Http\Client', function () use ($clientFactory, $logger, $self) {
+        $this->container->singleton('Ordercloud\Support\Http\Client', function() use ($clientFactory, $logger, $self) {
             return new LoggingClient(
                 $clientFactory(),
                 $logger,
