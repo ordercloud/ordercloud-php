@@ -51,16 +51,19 @@ class GetLoggedInUserRequest implements Command
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAccessToken()
     {
         return $this->accessToken;
     }
 
+    /**
+     * @return string|null
+     */
     public function getAuthHeader()
     {
-        if ($this->username && $this->password) {
+        if (empty($this->username) && empty($this->password)) {
             return 'BASIC ' . base64_encode("{$this->username}:{$this->password}");
         }
 
