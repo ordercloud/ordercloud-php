@@ -25,13 +25,13 @@ class GetOrganisationAccessTokenRequestHandler implements CommandHandler
     public function handle($request)
     {
         $organisationID = $request->getOrganisationID();
-        $accessToken = $request->getAccessToken();
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
                 OrdercloudRequest::METHOD_GET,
                 "resource/organisations/{$organisationID}/accesstoken",
-                ['access_token' => $accessToken]
+                ['access_token' => $request->getAccessToken()],
+                ['Authorization' => $request->getAuthHeader()]
             )
         );
 

@@ -64,9 +64,9 @@ class GetLoggedInUserRequest implements Command
     public function getAuthHeader()
     {
         if (empty($this->username) && empty($this->password)) {
-            return 'BASIC ' . base64_encode("{$this->username}:{$this->password}");
+            return null;
         }
 
-        return null;
+        return 'BASIC ' . base64_encode("{$this->username}:{$this->password}");
     }
 }
