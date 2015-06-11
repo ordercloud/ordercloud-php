@@ -23,7 +23,7 @@ class OrdercloudRequest implements Command
         $this->url = $url;
         $this->method = $method;
         $this->parameters = array_filter($parameters);
-        $this->headers = $headers;
+        $this->headers = array_filter($headers);
     }
 
     /**
