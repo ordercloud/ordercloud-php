@@ -1,4 +1,4 @@
-<?php namespace Ordercloud\Requests\Auth;
+<?php namespace Ordercloud\Requests\Users;
 
 use Ordercloud\Support\CommandBus\Command;
 
@@ -17,6 +17,11 @@ class GetLoggedInUserRequest implements Command
      */
     private $password;
 
+    /**
+     * @param string|null $accessToken
+     * @param string|null $username
+     * @param string|null $password
+     */
     protected function __construct($accessToken = null, $username = null, $password = null)
     {
         $this->accessToken = $accessToken;
@@ -24,11 +29,22 @@ class GetLoggedInUserRequest implements Command
         $this->password = $password;
     }
 
+    /**
+     * @param string $accessToken
+     *
+     * @return static
+     */
     public static function createWithAccessToken($accessToken)
     {
         return new static($accessToken);
     }
 
+    /**
+     * @param string $username
+     * @param string $password
+     *
+     * @return static
+     */
     public static function createWithUsernamePassword($username, $password)
     {
         return new static(null, $username, $password);

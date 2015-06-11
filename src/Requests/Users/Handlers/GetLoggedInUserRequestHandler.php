@@ -1,9 +1,9 @@
-<?php namespace Ordercloud\Requests\Auth\Handlers;
+<?php namespace Ordercloud\Requests\Users\Handlers;
 
 use Ordercloud\Entities\Users\User;
 use Ordercloud\Ordercloud;
-use Ordercloud\Requests\Auth\GetLoggedInUserRequest;
 use Ordercloud\Requests\OrdercloudRequest;
+use Ordercloud\Requests\Users\GetLoggedInUserRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Reflection\EntityReflector;
 
