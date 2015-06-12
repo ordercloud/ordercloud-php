@@ -1,19 +1,18 @@
 <?php namespace Ordercloud\Requests\Auth\Handlers;
 
-use Ordercloud\Requests\Auth\AbstractGetUrlRequest;
-use Ordercloud\Requests\Handlers\AbstractRequestHandler;
+use Ordercloud\Requests\Auth\GetUrlRequest;
+use Ordercloud\Requests\Handlers\AbstractPostRequestHandler;
 use Ordercloud\Requests\OrdercloudRequest;
 
-class UrlRequestHandler extends AbstractRequestHandler
+class UrlRequestHandler extends AbstractPostRequestHandler
 {
-    protected $method = OrdercloudRequest::METHOD_POST;
     protected $url = 'faces/credential';
     protected $headers = [
         'Content-type' => 'application/x-www-form-urlencoded'
     ];
 
     /**
-     * @param AbstractGetUrlRequest $request
+     * @param GetUrlRequest $request
      */
     protected function configure($request)
     {
