@@ -28,7 +28,8 @@ class OrdercloudBuilder
         $this->config = $config;
         $this->container = $container;
         $self = $this;
-        $this->clientFactory = function() use ($self) {
+        $this->clientFactory = function() use ($self)
+        {
             return GuzzleClient::create(
                 $self->getConfig('http.base_url'),
                 $self->getConfig('credentials.username'),
@@ -73,7 +74,8 @@ class OrdercloudBuilder
     {
         $self = $this;
         $clientFactory = $this->clientFactory;
-        $this->container->singleton('Ordercloud\Support\Http\Client', function() use ($clientFactory, $logger, $self) {
+        $this->container->singleton('Ordercloud\Support\Http\Client', function() use ($clientFactory, $logger, $self)
+        {
             return new LoggingClient(
                 $clientFactory(),
                 $logger,

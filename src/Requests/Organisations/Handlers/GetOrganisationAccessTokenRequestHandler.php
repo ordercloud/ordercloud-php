@@ -1,40 +1,22 @@
 <?php namespace Ordercloud\Requests\Organisations\Handlers;
 
-use Ordercloud\Entities\Organisations\OrganisationAccessToken;
-use Ordercloud\Ordercloud;
-use Ordercloud\Requests\OrdercloudRequest;
+use Ordercloud\Requests\Handlers\AbstractPostRequestHandler;
 use Ordercloud\Requests\Organisations\GetOrganisationAccessTokenRequest;
-use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Reflection\EntityReflector;
 
-class GetOrganisationAccessTokenRequestHandler implements CommandHandler
+class GetOrganisationAccessTokenRequestHandler extends AbstractPostRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
-    {
-        $this->ordercloud = $ordercloud;
-    }
-
     /**
      * @param GetOrganisationAccessTokenRequest $request
-     *
-     * @return OrganisationAccessToken
      */
-    public function handle($request)
+    protected function configure($request)
     {
-        $organisationID = $request->getOrganisationID();
+        $this->url = "resource/organisations/{$request->getOrganisationID()}/accesstoken";
+        $this->headers = ['Authorization' => $request->getAuthHeader()];
+    }
 
-        $response = $this->ordercloud->exec(
-            new OrdercloudRequest(
-                OrdercloudRequest::METHOD_GET,
-                "resource/organisations/{$organisationID}/accesstoken",
-                ['access_token' => $request->getAccessToken()],
-                ['Authorization' => $request->getAuthHeader()]
-            )
-        );
-
+    protected function transformResponse($response)
+    {
         return EntityReflector::parse('Ordercloud\Entities\Organisations\OrganisationAccessToken', $response->getData());
     }
 }
