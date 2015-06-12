@@ -13,4 +13,14 @@ interface Client
      * @throws OrdercloudHttpException
      */
     public function send($url, $method, array $params, array $headers);
+
+    /**
+     * @param string $accessToken
+     */
+    public function setAccessToken($accessToken);
+
+    /**
+     * @param string $organisationToken
+     */
+    public function setOrganisationToken($organisationToken);
 }

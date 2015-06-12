@@ -45,17 +45,27 @@ class LoggingClient implements Client
             $this->logger->info(
                 'ordercloud response',
                 [
+                    'rawResponse' => $response->getRawResponse(),
+                    'rawRequest'  => $response->getRequest()->getRawRequest(),
                     'url'         => $response->getUrl(),
                     'headers'     => $response->getHeaders(),
                     'statusCode'  => $response->getStatusCode(),
                     'data'        => $response->getData(),
-                    'rawResponse' => $response->getRawResponse(),
-                    'rawRequest'  => $response->getRequest()->getRawRequest(),
                 ]
             );
         }
 
         return $response;
+    }
+
+    public function setAccessToken($accessToken)
+    {
+        $this->logger->info('ordercloud http client access token set', compact('accessToken'));
+    }
+
+    public function setOrganisationToken($organisationToken)
+    {
+        $this->logger->info('ordercloud http client organisation token set', compact('organisationToken'));
     }
 
     private function shouldLog($url, $method)

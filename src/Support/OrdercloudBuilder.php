@@ -27,14 +27,17 @@ class OrdercloudBuilder
         $this->config = $config;
         $self = $this;
         $this->clientFactory = function() use ($self) {
-            return new GuzzleClient(
+            return GuzzleClient::create(
                 $self->getConfig('http.base_url'),
                 $self->getConfig('credentials.username'),
                 $self->getConfig('credentials.password'),
-                $self->getConfig('credentials.organisation_token')
+                $self->getConfig('credentials.organisation_token'),
+                $self->getConfig('credentials.access_token')
             );
         };
-        $container->singleton('Ordercloud\Ordercloud');
+        $container->singleton('Ordercloud\Ordercloud', function () use ($container) {
+            return new Ordercloud($container->make('Ordercloud\Support\CommandBus\CommandBus'), $container);
+        });
         $container->singleton('Ordercloud\Support\Parser');
         $container->singleton('Ordercloud\Support\Http\UrlParameteriser', 'Ordercloud\Support\Http\LeagueUrlParameteriser');
         $container->singleton('Ordercloud\Support\CommandBus\CommandBus', 'Ordercloud\Support\CommandBus\ExecutingCommandBus');
