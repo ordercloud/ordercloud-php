@@ -1,7 +1,7 @@
 <?php namespace Ordercloud\Requests\Handlers;
 
+use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\OrdercloudRequest;
-use Ordercloud\Requests\OrdercloudRequestException;
 use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Http\Client;
 use Ordercloud\Support\Http\OrdercloudHttpException;
@@ -51,7 +51,7 @@ class OrdercloudRequestHandler implements CommandHandler
             return $this->client->send($url, $method, $params, $headers);
         }
         catch (OrdercloudHttpException $e) {
-            throw new OrdercloudRequestException($request, $e);
+            throw OrdercloudRequestException::create($request, $e);
         }
     }
 }

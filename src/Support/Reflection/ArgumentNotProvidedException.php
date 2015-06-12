@@ -6,17 +6,26 @@ class ArgumentNotProvidedException extends Exception
 {
     /** @var string */
     private $className;
-    /** @var string */
-    private $parameterName;
     /** @var array */
     private $arguments;
+    /** @var string */
+    private $parameterName;
+    /** @var string */
+    private $parameterAlias;
 
-    public function __construct($className, $parameterName, array $arguments)
+    /**
+     * @param string $className
+     * @param array  $arguments
+     * @param string $parameterName
+     * @param string $parameterAlias
+     */
+    public function __construct($className, array $arguments, $parameterName, $parameterAlias)
     {
         parent::__construct("Required parameter [$parameterName] on class [$className] not provided.");
         $this->className = $className;
         $this->parameterName = $parameterName;
         $this->arguments = $arguments;
+        $this->parameterAlias = strcasecmp($parameterName, $parameterAlias) === 0 ? null : $parameterAlias;
     }
 
     /**
@@ -28,6 +37,14 @@ class ArgumentNotProvidedException extends Exception
     }
 
     /**
+     * @return array
+     */
+    public function getArguments()
+    {
+        return $this->arguments;
+    }
+
+    /**
      * @return string
      */
     public function getParameterName()
@@ -36,10 +53,10 @@ class ArgumentNotProvidedException extends Exception
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getArguments()
+    public function getParameterAlias()
     {
-        return $this->arguments;
+        return $this->parameterAlias;
     }
 }
