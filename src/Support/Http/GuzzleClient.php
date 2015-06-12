@@ -53,7 +53,7 @@ class GuzzleClient implements Client
             ],
         ]);
 
-        return new static($client, $organisationToken, $organisationToken);
+        return new static($client, $organisationToken, $accessToken);
     }
 
     public function send($url, $method, array $params, array $headers = [])

@@ -1,40 +1,30 @@
 <?php namespace Ordercloud\Requests\Auth\Handlers;
 
-use Ordercloud\Entities\Auth\AccessToken;
-use Ordercloud\Ordercloud;
 use Ordercloud\Requests\Auth\RefreshAccessTokenRequest;
+use Ordercloud\Requests\Handlers\AbstractRequestHandler;
 use Ordercloud\Requests\OrdercloudRequest;
-use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Reflection\EntityReflector;
 
-class RefreshAccessTokenRequestHandler implements CommandHandler
+class RefreshAccessTokenRequestHandler extends AbstractRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
-    {
-        $this->ordercloud = $ordercloud;
-    }
-
     /**
      * @param RefreshAccessTokenRequest $request
-     *
-     * @return AccessToken
      */
-    public function handle($request)
+    protected function configure($request)
     {
-        $response = $this->ordercloud->exec(
-            new OrdercloudRequest(
-                OrdercloudRequest::METHOD_POST, '/resource/token/', [
-                    'organisation_code'   => $request->getOrganisationCode(),
-                    'organisation_secret' => $request->getClientSecret(),
-                    'grant_type'          => 'refresh_token',
-                    'refresh_token'       => $request->getRefreshToken()
-                ]
-            )
-        );
+        $this->method = OrdercloudRequest::METHOD_POST;
+        $this->url = 'resource/token/';
+        $this->parameters = [
+            'organisation_code'   => $request->getOrganisationCode(),
+            'organisation_secret' => $request->getClientSecret(),
+            'grant_type'          => 'refresh_token',
+            'refresh_token'       => $request->getRefreshToken()
+        ];
+        $this->headers = ['Content-type' => 'application/x-www-form-urlencoded'];
+    }
 
+    protected function transformResponse($response)
+    {
         return EntityReflector::parse('Ordercloud\Entities\Auth\AccessToken', $response->getData());
     }
 }

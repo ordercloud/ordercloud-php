@@ -1,44 +1,30 @@
 <?php namespace Ordercloud\Requests\Auth\Handlers;
 
-use Ordercloud\Ordercloud;
-use Ordercloud\Requests\Auth\GetLoginUrlRequest;
+use Ordercloud\Requests\Auth\GetRegisterUrlRequest;
+use Ordercloud\Requests\Handlers\AbstractRequestHandler;
 use Ordercloud\Requests\OrdercloudRequest;
-use Ordercloud\Support\CommandBus\CommandHandler;
 
-class GetRegisterUrlRequestHandler implements CommandHandler
+class GetRegisterUrlRequestHandler extends AbstractRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
+    /**
+     * @param GetRegisterUrlRequest $request
+     */
+    protected function configure($request)
     {
-        $this->ordercloud = $ordercloud;
+        $this->method = OrdercloudRequest::METHOD_POST;
+        $this->url = 'faces/credential';
+        $this->parameters = [
+            'organisation_id' => $request->getOrganisationID(),
+            'client_secret'   => $request->getClientSecret(),
+            'redirect_url'    => $request->getRedirectUrl(),
+            'mobile'          => $request->isMobile(),
+            'register'        => 'register'
+        ];
+        $this->headers = ['Content-type' => 'application/x-www-form-urlencoded'];
     }
 
-    /**
-     * @param GetLoginUrlRequest $request
-     *
-     * @return string
-     */
-    public function handle($request)
+    protected function transformResponse($response)
     {
-        $response = $this->ordercloud->exec(
-            new OrdercloudRequest(
-                OrdercloudRequest::METHOD_POST,
-                'faces/credential',
-                [
-                    'organisation_id' => $request->getOrganisationID(),
-                    'client_secret'   => $request->getClientSecret(),
-                    'redirect_url'    => $request->getRedirectUrl(),
-                    'mobile'          => $request->isMobile(),
-                    'register'        => 'register'
-                ],
-                [
-                    'Content-type' => 'application/x-www-form-urlencoded'
-                ]
-            )
-        );
-
         return $response->getUrl();
     }
 }
