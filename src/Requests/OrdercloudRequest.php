@@ -43,11 +43,45 @@ class OrdercloudRequest implements Command
     }
 
     /**
+     * @param $method
+     *
+     * @return bool
+     */
+    public function isMethod($method)
+    {
+        return strcasecmp($method, $this->getMethod()) === 0;
+    }
+
+    /**
      * @return array
      */
     public function getParameters()
     {
         return $this->parameters;
+    }
+
+    /**
+     * @param string $parameterName
+     *
+     * @return bool
+     */
+    public function hasParameter($parameterName)
+    {
+        return array_key_exists($parameterName, $this->getParameters());
+    }
+
+    /**
+     * @param string $parameterName
+     *
+     * @return mixed|null
+     */
+    public function getParameter($parameterName)
+    {
+        if (isset($this->parameters[$parameterName])) {
+            return $this->parameters[$parameterName];
+        }
+
+        return null;
     }
 
     /**
