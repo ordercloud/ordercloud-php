@@ -22,11 +22,11 @@ class GuzzleClient implements Client
         $this->client = $client;
 
         if ( ! is_null($organisationToken)) {
-            $this->client->setOrganisationToken($organisationToken);
+            $this->setOrganisationToken($organisationToken);
         }
 
         if ( ! is_null($accessToken)) {
-            $this->client->setAccessToken($accessToken);
+            $this->setAccessToken($accessToken);
         }
     }
 
@@ -41,19 +41,19 @@ class GuzzleClient implements Client
      */
     public static function create($baseUrl, $username, $password, $organisationToken = null, $accessToken = null)
     {
-        return new static(
-            new GuzzleHttpClient([
-                'base_url' => $baseUrl,
-                'defaults' => [
-                    'headers' => [
-                        'Content-Type' => 'application/json',
-                        'User-Agent'   => 'ordercloud-php-v' . Ordercloud::VERSION,
-                    ],
-                    'auth' => [$username, $password],
-                    'allow_redirects' => false,
+        $client = new GuzzleHttpClient([
+            'base_url' => $baseUrl,
+            'defaults' => [
+                'headers'         => [
+                    'Content-Type' => 'application/json',
+                    'User-Agent'   => 'ordercloud-php-v' . Ordercloud::VERSION,
                 ],
-            ])
-        );
+                'auth'            => [$username, $password],
+                'allow_redirects' => false,
+            ],
+        ]);
+
+        return new static($client, $organisationToken, $organisationToken);
     }
 
     public function send($url, $method, array $params, array $headers = [])

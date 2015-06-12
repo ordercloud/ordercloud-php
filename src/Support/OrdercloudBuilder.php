@@ -1,5 +1,6 @@
 <?php namespace Ordercloud\Support;
 
+use Closure;
 use Illuminate\Container\Container;
 use Ordercloud\Ordercloud;
 use Ordercloud\Support\CommandBus\IlluminateCommandHandlerTranslator;
@@ -9,7 +10,7 @@ use Psr\Log\LoggerInterface;
 
 class OrdercloudBuilder
 {
-    /** @var callable */
+    /** @var Closure */
     private $clientFactory;
     /** @var Container */
     private $container;

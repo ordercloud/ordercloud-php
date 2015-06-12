@@ -5,8 +5,13 @@ use Ordercloud\Support\Http\Response;
 
 abstract class AbstractRequestHandler extends OrdercloudRequestHandler
 {
+    protected $method;
+    protected $url;
+    protected $parameters = [];
+    protected $headers = [];
+
     /**
-     * @param OrdercloudRequest $request
+     * @param $request
      *
      * @return mixed|\Ordercloud\Support\Http\Response
      *
@@ -15,13 +20,10 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
      */
     public function handle($request)
     {
+        $this->configure($request);
+
         $response = parent::handle(
-            new OrdercloudRequest(
-                $this->method,
-                $this->getUrl($request),
-                $this->getParameters($request),
-                $this->getHeaders($request)
-            )
+            new OrdercloudRequest($this->method, $this->url, $this->parameters, $this->headers)
         );
 
         return $this->transformResponse($response);
@@ -29,30 +31,8 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
 
     /**
      * @param $request
-     *
-     * @return string
      */
-    abstract protected function getUrl($request);
-
-    /**
-     * @param $request
-     *
-     * @return array
-     */
-    protected function getParameters($request)
-    {
-        return [];
-    }
-
-    /**
-     * @param $request
-     *
-     * @return array
-     */
-    protected function getHeaders($request)
-    {
-        return [];
-    }
+    abstract protected function configure($request);
 
     /**
      * @param Response $response
