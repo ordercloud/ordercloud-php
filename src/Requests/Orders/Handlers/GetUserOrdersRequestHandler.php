@@ -2,51 +2,52 @@
 
 use Ordercloud\Entities\Orders\Order;
 use Ordercloud\Ordercloud;
+use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Orders\GetUserOrdersRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
+use Ordercloud\Support\Http\Response;
 use Ordercloud\Support\PaginatedCollection;
 use Ordercloud\Support\Reflection\EntityReflector;
 
-class GetUserOrdersRequestHandler implements CommandHandler
+class GetUserOrdersRequestHandler extends AbstractGetRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
-    {
-        $this->ordercloud = $ordercloud;
-    }
+    /**
+     * @var int
+     */
+    private $page;
+    /**
+     * @var int
+     */
+    private $pageSize;
 
     /**
      * @param GetUserOrdersRequest $request
-     *
-     * @return array|Order[]
      */
-    public function handle($request)
+    protected function configure($request)
     {
-        $userID = $request->getUserID();
+        $this->url = "resource/orders/user/{$request->getUserID()}";
 
-        $response = $this->ordercloud->exec(
-            new OrdercloudRequest(
-                OrdercloudRequest::METHOD_GET,
-                "resource/orders/user/{$userID}",
-                [
-                    'page'          => $request->getPage(),
-                    'pagesize'      => $request->getPageSize(),
-                    'orderstatus'   => $request->getOrderStatuses(),
-                    'paymentstatus' => $request->getPaymentStatuses(),
-                    'sort'          => $request->getSort(),
-                    'access_token'  => $request->getAccessToken(),
-                ]
-            )
-        );
+        $this->parameters = [
+            'page'          => $request->getPage(),
+            'pagesize'      => $request->getPageSize(),
+            'orderstatus'   => $request->getOrderStatuses(),
+            'paymentstatus' => $request->getPaymentStatuses(),
+            'sort'          => $request->getSort(),
+            'access_token'  => $request->getAccessToken(),
+        ];
 
+        $this->page = $request->getPage();
+        $this->pageSize = $request->getPageSize();
+    }
+
+    protected function transformResponse($response)
+    {
         return new PaginatedCollection(
             EntityReflector::parseAll('Ordercloud\Entities\Orders\Order', $response->getData('results')),
             $response->getData('count'),
-            $request->getPage(),
-            $request->getPageSize()
+            $this->page,
+            $this->pageSize
         );
     }
 }

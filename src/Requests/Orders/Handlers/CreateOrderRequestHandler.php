@@ -1,45 +1,34 @@
 <?php namespace Ordercloud\Requests\Orders\Handlers;
 
-use Ordercloud\Ordercloud;
-use Ordercloud\Requests\OrdercloudRequest;
+use Ordercloud\Requests\Handlers\AbstractPostRequestHandler;
 use Ordercloud\Requests\Orders\CreateOrderRequest;
 use Ordercloud\Requests\Orders\Entities\NewOrderItem;
 use Ordercloud\Requests\Orders\Entities\NewOrderItemExtra;
 use Ordercloud\Requests\Orders\Entities\NewOrderItemOption;
-use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Reflection\EntityReflector;
 
-class CreateOrderRequestHandler implements CommandHandler
+class CreateOrderRequestHandler extends AbstractPostRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
-    {
-        $this->ordercloud = $ordercloud;
-    }
-
     /**
      * @param CreateOrderRequest $request
-     *
-     * @return int
      */
-    public function handle($request)
+    protected function configure($request)
     {
-        $response = $this->ordercloud->exec(
-            new OrdercloudRequest(
-                OrdercloudRequest::METHOD_POST, "/resource/orders/organisation/{$request->getOrganisationID()}", [
-                    'userId'        => $request->getUserID(),
-                    'items'         => $this->formatOrderItems($request->getItems()),
-                    'paymentStatus' => $request->getPaymentStatus(),
-                    'deliveryType'  => $request->getDeliveryType(),
-                    'amount'        => $request->getAmount(),
-                    'userGeo'       => $request->getDeliveryAddressID() ? ['id' => $request->getDeliveryAddressID()] : null,
-                    'access_token'  => $request->getAccessToken(),
-                ]
-            )
-        );
+        $this->url = "/resource/orders/organisation/{$request->getOrganisationID()}";
 
+        $this->parameters = [
+            'userId'        => $request->getUserID(),
+            'items'         => $this->formatOrderItems($request->getItems()),
+            'paymentStatus' => $request->getPaymentStatus(),
+            'deliveryType'  => $request->getDeliveryType(),
+            'amount'        => $request->getAmount(),
+            'userGeo'       => $request->getDeliveryAddressID() ? ['id' => $request->getDeliveryAddressID()] : null,
+            'access_token'  => $request->getAccessToken(),
+        ];
+    }
+
+    protected function transformResponse($response)
+    {
         return EntityReflector::parseResourceIDFromURL($response->getUrl());
     }
 
