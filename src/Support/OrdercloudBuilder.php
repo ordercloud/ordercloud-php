@@ -25,6 +25,7 @@ class OrdercloudBuilder
     public function __construct(Container $container, array $config)
     {
         $this->config = $config;
+        $this->container = $container;
         $self = $this;
         $this->clientFactory = function() use ($self) {
             return GuzzleClient::create(
@@ -35,17 +36,7 @@ class OrdercloudBuilder
                 $self->getConfig('credentials.access_token')
             );
         };
-        $container->singleton('Ordercloud\Ordercloud', function () use ($container) {
-            return new Ordercloud($container->make('Ordercloud\Support\CommandBus\CommandBus'), $container);
-        });
-        $container->singleton('Ordercloud\Support\Parser');
-        $container->singleton('Ordercloud\Support\Http\UrlParameteriser', 'Ordercloud\Support\Http\LeagueUrlParameteriser');
-        $container->singleton('Ordercloud\Support\CommandBus\CommandBus', 'Ordercloud\Support\CommandBus\ExecutingCommandBus');
-        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', function() use ($container) {
-            return new IlluminateCommandHandlerTranslator($container);
-        });
-        $container->singleton('Ordercloud\Support\Http\Client', $this->clientFactory);
-        $this->container = $container;
+        $this->registerComponents($container);
     }
 
     /**
@@ -93,12 +84,31 @@ class OrdercloudBuilder
     }
 
     /**
+     * @param Container $container
+     */
+    protected function registerComponents(Container $container)
+    {
+        $container->singleton('Ordercloud\Support\Parser');
+        $container->singleton('Ordercloud\Support\Http\UrlParameteriser', 'Ordercloud\Support\Http\LeagueUrlParameteriser');
+        $container->singleton('Ordercloud\Support\CommandBus\CommandBus', 'Ordercloud\Support\CommandBus\ExecutingCommandBus');
+        $container->singleton('Ordercloud\Support\Http\Client', $this->clientFactory);
+        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', function() use ($container)
+        {
+            return new IlluminateCommandHandlerTranslator($container);
+        });
+        $container->singleton('Ordercloud\Ordercloud', function() use ($container)
+        {
+            return new Ordercloud($container->make('Ordercloud\Support\CommandBus\CommandBus'), $container);
+        });
+    }
+
+    /**
      * @param string     $key
      * @param mixed $default
      *
      * @return mixed
      */
-    private function getConfig($key, $default = null)
+    protected function getConfig($key, $default = null)
     {
         if (array_key_exists($key, $this->config)) {
             return $this->config[$key];
@@ -115,7 +125,7 @@ class OrdercloudBuilder
      *
      * @return mixed
      */
-    private function getDotNotationConfig($key, $default)
+    protected function getDotNotationConfig($key, $default)
     {
         $config = $this->config;
 

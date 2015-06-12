@@ -33,38 +33,35 @@ class LoggingClient implements Client
 
     public function send($url, $method, array $params, array $headers)
     {
-        $shouldLog = $this->shouldLog($url, $method);
-
-        if ($shouldLog) {
-            $this->logger->info('ordercloud request', compact('url', 'method', 'params', 'headers'));
-        }
-
         $response = $this->client->send($url, $method, $params, $headers);
 
-        if ($shouldLog) {
-            $this->logger->info(
-                'ordercloud response',
-                [
-                    'rawResponse' => $response->getRawResponse(),
-                    'rawRequest'  => $response->getRequest()->getRawRequest(),
-                    'url'         => $response->getUrl(),
-                    'headers'     => $response->getHeaders(),
-                    'statusCode'  => $response->getStatusCode(),
-                    'data'        => $response->getData(),
-                ]
-            );
+        if ( ! $this->shouldLog($url, $method)) {
+            return $response;
         }
+
+        $this->logger->info('ordercloud request', compact('url', 'method', 'params', 'headers'));
+
+        $this->logger->info('ordercloud response', [
+            'rawResponse' => $response->getRawResponse(),
+            'rawRequest'  => $response->getRequest()->getRawRequest(),
+            'url'         => $response->getUrl(),
+            'headers'     => $response->getHeaders(),
+            'statusCode'  => $response->getStatusCode(),
+            'data'        => $response->getData(),
+        ]);
 
         return $response;
     }
 
     public function setAccessToken($accessToken)
     {
+        $this->client->setAccessToken($accessToken);
         $this->logger->info('ordercloud http client access token set', compact('accessToken'));
     }
 
     public function setOrganisationToken($organisationToken)
     {
+        $this->client->setOrganisationToken($organisationToken);
         $this->logger->info('ordercloud http client organisation token set', compact('organisationToken'));
     }
 

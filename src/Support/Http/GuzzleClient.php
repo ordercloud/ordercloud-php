@@ -14,24 +14,34 @@ class GuzzleClient implements Client
 
     /**
      * @param GuzzleHttpClient $client
+     * @param string|null      $organisationToken
+     * @param string|null      $accessToken
      */
-    protected function __construct(GuzzleHttpClient $client)
+    protected function __construct(GuzzleHttpClient $client, $organisationToken = null, $accessToken = null)
     {
         $this->client = $client;
+
+        if ( ! is_null($organisationToken)) {
+            $this->client->setOrganisationToken($organisationToken);
+        }
+
+        if ( ! is_null($accessToken)) {
+            $this->client->setAccessToken($accessToken);
+        }
     }
 
     /**
-     * @param string $baseUrl
-     * @param string $username
-     * @param string $password
-     * @param string $organisationToken
-     * @param string $accessToken
+     * @param string      $baseUrl
+     * @param string      $username
+     * @param string      $password
+     * @param string|null $organisationToken
+     * @param string|null $accessToken
      *
      * @return static
      */
     public static function create($baseUrl, $username, $password, $organisationToken = null, $accessToken = null)
     {
-        $client = new static(
+        return new static(
             new GuzzleHttpClient([
                 'base_url' => $baseUrl,
                 'defaults' => [
@@ -44,16 +54,6 @@ class GuzzleClient implements Client
                 ],
             ])
         );
-
-        if ( ! is_null($organisationToken)) {
-            $client->setOrganisationToken($organisationToken);
-        }
-
-        if ( ! is_null($accessToken)) {
-            $client->setAccessToken($accessToken);
-        }
-
-        return $client;
     }
 
     public function send($url, $method, array $params, array $headers = [])
