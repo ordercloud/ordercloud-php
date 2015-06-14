@@ -1,10 +1,10 @@
 <?php namespace Ordercloud\Requests\Organisations\Handlers;
 
-use Ordercloud\Requests\Handlers\AbstractPostRequestHandler;
+use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Organisations\GetOrganisationRequest;
 use Ordercloud\Support\Reflection\EntityReflector;
 
-class GetOrganisationRequestHandler extends AbstractPostRequestHandler
+class GetOrganisationRequestHandler extends AbstractGetRequestHandler
 {
     /**
      * @param GetOrganisationRequest $request
