@@ -2,37 +2,25 @@
 
 use Ordercloud\Entities\Products\Product;
 use Ordercloud\Ordercloud;
+use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Products\GetProductRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
+use Ordercloud\Support\Http\Response;
 use Ordercloud\Support\Reflection\EntityReflector;
 
-class GetProductRequestHandler implements CommandHandler
+class GetProductRequestHandler extends AbstractGetRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
-    {
-        $this->ordercloud = $ordercloud;
-    }
-
     /**
      * @param GetProductRequest $request
-     *
-     * @return Product
      */
-    public function handle($request)
+    protected function configure($request)
     {
-        $productID = $request->getProductID();
-        $accessToken = $request->getAccessToken();
+        $this->url = sprintf("/resource/product/%d", $request->getProductID());
+    }
 
-        $response = $this->ordercloud->exec(
-            new OrdercloudRequest(
-                OrdercloudRequest::METHOD_GET, "resource/product/{$productID}", ['access_token' => $accessToken]
-            )
-        );
-
+    protected function transformResponse($response)
+    {
         return EntityReflector::parse('Ordercloud\Entities\Products\Product', $response->getData());
     }
 }

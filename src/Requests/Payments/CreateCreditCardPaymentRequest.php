@@ -15,8 +15,6 @@ class CreateCreditCardPaymentRequest implements Command
     private $orderID;
     /** @var string */
     private $budgetPeriod;
-    /** @var string|null */
-    private $accessToken;
 
     public function __construct($paymentGateway, $amount, CreditCard $card, $orderID, $budgetPeriod = '0', $accessToken = null)
     {

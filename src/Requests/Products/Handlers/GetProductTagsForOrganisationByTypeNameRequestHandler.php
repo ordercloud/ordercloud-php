@@ -2,40 +2,25 @@
 
 use Ordercloud\Entities\Products\ProductTag;
 use Ordercloud\Ordercloud;
+use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Products\GetProductTagsForOrganisationByTypeNameRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
+use Ordercloud\Support\Http\Response;
 use Ordercloud\Support\Reflection\EntityReflector;
 
-class GetProductTagsForOrganisationByTypeNameRequestHandler implements CommandHandler
+class GetProductTagsForOrganisationByTypeNameRequestHandler extends AbstractGetRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
-    {
-        $this->ordercloud = $ordercloud;
-    }
-
     /**
      * @param GetProductTagsForOrganisationByTypeNameRequest $request
-     *
-     * @return array|ProductTag[]
      */
-    public function handle($request)
+    protected function configure($request)
     {
-        $organisationID = $request->getOrganisationID();
-        $typeName = $request->getTagName();
-        $accessToken = $request->getAccessToken();
+        $this->url = sprintf("/resource/product/tag/organisation/%s/type/%s", $request->getOrganisationID(), $request->getTagName());
+    }
 
-        $response = $this->ordercloud->exec(
-            new OrdercloudRequest(
-                OrdercloudRequest::METHOD_GET,
-                "/resource/product/tag/organisation/{$organisationID}/type/{$typeName}",
-                ['access_token' => $accessToken]
-            )
-        );
-
+    protected function transformResponse($response)
+    {
         return EntityReflector::parseAll('Ordercloud\Entities\Products\ProductTag', $response->getData('results'));
     }
 }
