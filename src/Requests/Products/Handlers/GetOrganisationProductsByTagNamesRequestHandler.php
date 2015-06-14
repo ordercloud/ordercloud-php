@@ -20,7 +20,6 @@ class GetOrganisationProductsByTagNamesRequestHandler extends AbstractPutRequest
         $this->parameters = [
             'organisations' => $request->getOrganisationIDs(),
             'tags'          => $request->getTagNames(),
-            'access_token'  => $request->getAccessToken()
         ];
     }
 
