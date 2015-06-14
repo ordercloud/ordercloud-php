@@ -9,6 +9,10 @@ class GetProductTagsForOrganisationByTypeNameRequest implements Command
     /** @var string */
     private $tagName;
 
+    /**
+     * @param int    $organisationID
+     * @param string $tagName
+     */
     public function __construct($organisationID, $tagName)
     {
         $this->organisationID = $organisationID;

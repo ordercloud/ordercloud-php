@@ -10,9 +10,8 @@ class GetOrganisationProductsByTagNamesRequest implements Command
     private $tagNames;
 
     /**
-     * @param int         $organisationIDs
+     * @param array       $organisationIDs
      * @param array       $tagNames
-     * @param string|null $accessToken
      */
     public function __construct(array $organisationIDs, array $tagNames) // TODO: ProductCriteria
     {

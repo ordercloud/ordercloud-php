@@ -16,13 +16,12 @@ class CreateCreditCardPaymentRequest implements Command
     /** @var string */
     private $budgetPeriod;
 
-    public function __construct($paymentGateway, $amount, CreditCard $card, $orderID, $budgetPeriod = '0', $accessToken = null)
+    public function __construct($paymentGateway, $amount, CreditCard $card, $orderID, $budgetPeriod = '0')
     {
         $this->paymentGateway = $paymentGateway;
         $this->amount = $amount;
         $this->card = $card;
         $this->budgetPeriod = $budgetPeriod ?: '0';
-        $this->accessToken = $accessToken;
         $this->orderID = $orderID;
     }
 
@@ -64,13 +63,5 @@ class CreateCreditCardPaymentRequest implements Command
     public function getBudgetPeriod()
     {
         return $this->budgetPeriod;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
     }
 }

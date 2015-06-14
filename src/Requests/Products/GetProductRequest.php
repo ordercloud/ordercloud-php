@@ -7,6 +7,9 @@ class GetProductRequest implements Command
     /** @var int */
     protected $productID;
 
+    /**
+     * @param int $productID
+     */
     public function __construct($productID)
     {
         $this->productID = $productID;
