@@ -1,41 +1,21 @@
 <?php namespace Ordercloud\Requests\Users\Handlers;
 
-use Ordercloud\Entities\Users\User;
-use Ordercloud\Ordercloud;
-use Ordercloud\Requests\OrdercloudRequest;
+use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Users\GetUserByIdRequest;
-use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Reflection\EntityReflector;
 
-class GetUserByIdRequestHandler implements CommandHandler
+class GetUserByIdRequestHandler extends AbstractGetRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
-    {
-        $this->ordercloud = $ordercloud;
-    }
-
     /**
      * @param GetUserByIdRequest $request
-     *
-     * @return User
      */
-    public function handle($request)
+    protected function configure($request)
     {
-        $userID = $request->getUserID();
+        $this->url = sprintf("resource/users/%d", $request->getUserID());
+    }
 
-        $response = $this->ordercloud->exec(
-            new OrdercloudRequest(
-                OrdercloudRequest::METHOD_GET,
-                "resource/users/{$userID}",
-                [
-                    'access_token'    => $request->getAccessToken()
-                ]
-            )
-        );
-
+    protected function transformResponse($response)
+    {
         return EntityReflector::parse('Ordercloud\Entities\Users\User', $response->getData());
     }
 }

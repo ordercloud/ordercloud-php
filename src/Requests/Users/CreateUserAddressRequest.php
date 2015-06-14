@@ -9,14 +9,11 @@ class CreateUserAddressRequest implements Command
     private $userID;
     /** @var NewUserAddress */
     private $address;
-    /** @var string|null */
-    private $accessToken;
 
-    public function __construct($userID, NewUserAddress $address, $accessToken = null)
+    public function __construct($userID, NewUserAddress $address)
     {
         $this->userID = $userID;
         $this->address = $address;
-        $this->accessToken = $accessToken;
     }
 
     /**
@@ -33,13 +30,5 @@ class CreateUserAddressRequest implements Command
     public function getAddress()
     {
         return $this->address;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
     }
 }

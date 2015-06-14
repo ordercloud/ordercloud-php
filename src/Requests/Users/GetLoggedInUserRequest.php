@@ -30,27 +30,6 @@ class GetLoggedInUserRequest implements Command
     }
 
     /**
-     * @param string $accessToken
-     *
-     * @return static
-     */
-    public static function createWithAccessToken($accessToken)
-    {
-        return new static($accessToken);
-    }
-
-    /**
-     * @param string $username
-     * @param string $password
-     *
-     * @return static
-     */
-    public static function createWithUsernamePassword($username, $password)
-    {
-        return new static(null, $username, $password);
-    }
-
-    /**
      * @return string|null
      */
     public function getAccessToken()

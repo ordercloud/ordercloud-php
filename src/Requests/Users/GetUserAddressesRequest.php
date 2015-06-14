@@ -6,13 +6,10 @@ class GetUserAddressesRequest implements Command
 {
     /** @var int */
     protected $userID;
-    /** @var string|null */
-    protected $accessToken;
 
-    public function __construct($userID, $accessToken = null)
+    public function __construct($userID)
     {
         $this->userID = $userID;
-        $this->accessToken = $accessToken;
     }
 
     /**
@@ -21,13 +18,5 @@ class GetUserAddressesRequest implements Command
     public function getUserID()
     {
         return $this->userID;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
     }
 }

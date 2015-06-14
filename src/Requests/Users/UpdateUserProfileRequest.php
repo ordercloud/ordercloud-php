@@ -7,16 +7,13 @@ class UpdateUserProfileRequest implements Command
 {
     /** @var UserProfile */
     private $profile;
-    /** @var null */
-    private $accessToken;
     /** @var int */
     private $userID;
 
-    public function __construct($userID, UserProfile $profile, $accessToken = null)
+    public function __construct($userID, UserProfile $profile)
     {
         $this->userID = $userID;
         $this->profile = $profile;
-        $this->accessToken = $accessToken;
     }
 
     /**
@@ -33,13 +30,5 @@ class UpdateUserProfileRequest implements Command
     public function getProfile()
     {
         return $this->profile;
-    }
-
-    /**
-     * @return null
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
     }
 }

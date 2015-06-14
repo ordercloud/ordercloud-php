@@ -1,22 +1,9 @@
 <?php namespace Ordercloud\Requests\Users;
 
-use Ordercloud\Support\CommandBus\Command;
-
-class GetUserByAccessTokenRequest implements Command
+class GetUserByAccessTokenRequest extends GetLoggedInUserRequest
 {
-    /** @var string */
-    private $accessToken;
-
     public function __construct($accessToken)
     {
-        $this->accessToken = $accessToken;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
+        parent::__construct($accessToken);
     }
 }
