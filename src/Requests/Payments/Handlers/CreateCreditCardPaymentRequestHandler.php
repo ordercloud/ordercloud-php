@@ -1,33 +1,19 @@
 <?php namespace Ordercloud\Requests\Payments\Handlers;
 
-use Ordercloud\Ordercloud;
-use Ordercloud\Requests\OrdercloudRequest;
+use Ordercloud\Requests\Handlers\AbstractPostRequestHandler;
 use Ordercloud\Requests\Payments\CreateCreditCardPaymentRequest;
-use Ordercloud\Support\CommandBus\CommandHandler;
 
-class CreateCreditCardPaymentRequestHandler implements CommandHandler
+class CreateCreditCardPaymentRequestHandler extends AbstractPostRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
-    {
-        $this->ordercloud = $ordercloud;
-    }
-
     /**
      * @param CreateCreditCardPaymentRequest $request
      */
-    public function handle($request)
+    protected function configure($request)
     {
-        $orderID = $request->getOrderID();
-        $paymentGateway = $request->getPaymentGateway();
         $creditCard = $request->getCard();
 
-        return $this->ordercloud->exec(new OrdercloudRequest(
-            OrdercloudRequest::METHOD_POST,
-            "/resource/orders/{$orderID}/pay/creditcard/{$paymentGateway}",
-            [
+        $this->setUrl('/resource/orders/%d/pay/creditcard/%s', $request->getOrderID(), $request->getPaymentGateway())
+            ->setParameters([
                 'amount'          => $request->getAmount(),
                 'budgetPeriod'    => $request->getBudgetPeriod(),
                 'cardExpiryMonth' => $creditCard->getExpiryMonth(),
@@ -35,8 +21,11 @@ class CreateCreditCardPaymentRequestHandler implements CommandHandler
                 'nameOnCard'      => $creditCard->getNameOnCard(),
                 'cvv'             => $creditCard->getCvv(),
                 'cardNumber'      => $creditCard->getCardNumber(),
-                'access_token'    => $request->getAccessToken(),
-            ]
-        ));
+            ]);
+    }
+
+    protected function transformResponse($response)
+    {
+        return $response; //TODO
     }
 }

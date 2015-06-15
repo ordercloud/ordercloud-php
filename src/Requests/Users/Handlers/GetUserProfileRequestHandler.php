@@ -1,40 +1,16 @@
 <?php namespace Ordercloud\Requests\Users\Handlers;
 
-use Ordercloud\Entities\Users\UserProfile;
-use Ordercloud\Ordercloud;
-use Ordercloud\Requests\OrdercloudRequest;
+use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Users\GetUserProfileRequest;
-use Ordercloud\Support\CommandBus\CommandHandler;
-use Ordercloud\Support\Reflection\EntityReflector;
 
-class GetUserProfileRequestHandler implements CommandHandler
+class GetUserProfileRequestHandler extends AbstractGetRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
-    {
-        $this->ordercloud = $ordercloud;
-    }
-
     /**
      * @param GetUserProfileRequest $request
-     *
-     * @return array|UserProfile[]
      */
-    public function handle($request)
+    protected function configure($request)
     {
-        $userID = $request->getUserID();
-        $accessToken = $request->getAccessToken();
-
-        $response = $this->ordercloud->exec(
-            new OrdercloudRequest(
-                OrdercloudRequest::METHOD_GET,
-                "resource/users/{$userID}/profile",
-                ['access_token' => $accessToken]
-            )
-        );
-
-        return EntityReflector::parse('Ordercloud\Entities\Users\UserProfile', $response->getData());
+        $this->setUrl('resource/users/%d/profile', $request->getUserID())
+            ->setEntityClass('Ordercloud\Entities\Users\UserProfile');
     }
 }

@@ -61,30 +61,6 @@ class OrdercloudRequest implements Command
     }
 
     /**
-     * @param string $parameterName
-     *
-     * @return bool
-     */
-    public function hasParameter($parameterName)
-    {
-        return array_key_exists($parameterName, $this->getParameters());
-    }
-
-    /**
-     * @param string $parameterName
-     *
-     * @return mixed|null
-     */
-    public function getParameter($parameterName)
-    {
-        if (isset($this->parameters[$parameterName])) {
-            return $this->parameters[$parameterName];
-        }
-
-        return null;
-    }
-
-    /**
      * @return array
      */
     public function getHeaders()

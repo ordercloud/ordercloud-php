@@ -1,72 +1,28 @@
 <?php namespace Ordercloud\Requests\Users;
 
+use Ordercloud\Requests\Auth\Entities\Authorisation;
 use Ordercloud\Support\CommandBus\Command;
 
 class GetLoggedInUserRequest implements Command
 {
     /**
-     * @var string|null
+     * @var Authorisation
      */
-    private $accessToken;
-    /**
-     * @var string|null
-     */
-    private $username;
-    /**
-     * @var string|null
-     */
-    private $password;
+    private $authorisation;
 
     /**
-     * @param string|null $accessToken
-     * @param string|null $username
-     * @param string|null $password
+     * @param Authorisation $authorisation
      */
-    protected function __construct($accessToken = null, $username = null, $password = null)
+    public function __construct(Authorisation $authorisation = null)
     {
-        $this->accessToken = $accessToken;
-        $this->username = $username;
-        $this->password = $password;
+        $this->authorisation = $authorisation;
     }
 
     /**
-     * @param string $accessToken
-     *
-     * @return static
+     * @return Authorisation|null
      */
-    public static function createWithAccessToken($accessToken)
+    public function getAuthorisation()
     {
-        return new static($accessToken);
-    }
-
-    /**
-     * @param string $username
-     * @param string $password
-     *
-     * @return static
-     */
-    public static function createWithUsernamePassword($username, $password)
-    {
-        return new static(null, $username, $password);
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAuthHeader()
-    {
-        if (empty($this->username) && empty($this->password)) {
-            return null;
-        }
-
-        return 'BASIC ' . base64_encode("{$this->username}:{$this->password}");
+        return $this->authorisation;
     }
 }

@@ -1,33 +1,11 @@
 <?php namespace Ordercloud\Requests\Connections;
 
-use Ordercloud\Support\CommandBus\Command;
+use Ordercloud\Entities\Connections\ConnectionType;
 
-class GetMarketplaceConnectionsRequest implements Command
+class GetMarketplaceConnectionsRequest extends GetConnectionsByTypeRequest
 {
-    /** @var int */
-    private $organisationID;
-    /** @var string */
-    private $accessToken;
-
-    public function __construct($organisationID, $accessToken = null)
+    public function __construct($organisationID = null)
     {
-        $this->organisationID = $organisationID;
-        $this->accessToken = $accessToken;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOrganisationID()
-    {
-        return $this->organisationID;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
+        parent::__construct(ConnectionType::MARKETPLACE, $organisationID);
     }
 }

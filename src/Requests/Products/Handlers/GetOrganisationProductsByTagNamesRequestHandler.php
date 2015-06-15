@@ -2,38 +2,25 @@
 
 use Ordercloud\Entities\Products\Product;
 use Ordercloud\Ordercloud;
+use Ordercloud\Requests\Handlers\AbstractPutRequestHandler;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Requests\Products\GetOrganisationProductsByTagNamesRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
+use Ordercloud\Support\Http\Response;
 use Ordercloud\Support\Reflection\EntityReflector;
 
-class GetOrganisationProductsByTagNamesRequestHandler implements CommandHandler
+class GetOrganisationProductsByTagNamesRequestHandler extends AbstractPutRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
-    {
-        $this->ordercloud = $ordercloud;
-    }
-
     /**
      * @param GetOrganisationProductsByTagNamesRequest $request
-     *
-     * @return array|Product[]
      */
-    public function handle($request)
+    protected function configure($request)
     {
-        $response = $this->ordercloud->exec(
-            new OrdercloudRequest(
-                OrdercloudRequest::METHOD_PUT, 'resource/product/criteria', [
-                    'organisations' => $request->getOrganisationIDs(),
-                    'tags'          => $request->getTagNames(),
-                    'access_token'  => $request->getAccessToken()
-                ]
-            )
-        );
-
-        return EntityReflector::parseAll('Ordercloud\Entities\Products\Product', $response->getData('results'));
+        $this->setUrl('/resource/product/criteria')
+            ->setParameters([
+                'organisations' => $request->getOrganisationIDs(),
+                'tags'          => $request->getTagNames(),
+            ])
+            ->setEntityArrayClass('Ordercloud\Entities\Products\Product');
     }
 }

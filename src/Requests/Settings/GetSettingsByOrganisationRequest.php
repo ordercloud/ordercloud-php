@@ -4,15 +4,14 @@ use Ordercloud\Support\CommandBus\Command;
 
 class GetSettingsByOrganisationRequest implements Command
 {
-    /** @var int */
+    /**
+     * @var int
+     */
     private $organisationID;
-    /** @var string */
-    private $accessToken;
 
-    public function __construct($organisationID, $accessToken = null)
+    public function __construct($organisationID)
     {
         $this->organisationID = $organisationID;
-        $this->accessToken = $accessToken;
     }
 
     /**
@@ -21,13 +20,5 @@ class GetSettingsByOrganisationRequest implements Command
     public function getOrganisationID()
     {
         return $this->organisationID;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
     }
 }
