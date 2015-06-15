@@ -102,7 +102,8 @@ class OrdercloudBuilder
             $reflectionTranslator = new ReflectionCommandHandlerTranslator();
 
             return new ArrayCommandHandlerTranslator($reflectionTranslator, [
-                'Ordercloud\Requests\Connections\GetMarketplaceConnectionsRequest' => 'Ordercloud\Requests\Connections\Handlers\GetConnectionsByTypeRequestHandler'
+                'Ordercloud\Requests\Connections\GetMarketplaceConnectionsRequest' => 'Ordercloud\Requests\Connections\Handlers\GetConnectionsByTypeRequestHandler',
+                'Ordercloud\Requests\Connections\GetChildConnectionsRequest' => 'Ordercloud\Requests\Connections\Handlers\GetConnectionsByTypeRequestHandler',
             ]);
         });
         $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerResolver', function() use ($container)
