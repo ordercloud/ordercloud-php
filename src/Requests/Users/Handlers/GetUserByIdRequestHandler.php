@@ -2,7 +2,6 @@
 
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Users\GetUserByIdRequest;
-use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetUserByIdRequestHandler extends AbstractGetRequestHandler
 {
@@ -11,11 +10,7 @@ class GetUserByIdRequestHandler extends AbstractGetRequestHandler
      */
     protected function configure($request)
     {
-        $this->url = sprintf("resource/users/%d", $request->getUserID());
-    }
-
-    protected function transformResponse($response)
-    {
-        return EntityReflector::parse('Ordercloud\Entities\Users\User', $response->getData());
+        $this->setUrl('resource/users/%d', $request->getUserID())
+            ->setEntityClass('Ordercloud\Entities\Users\User');
     }
 }

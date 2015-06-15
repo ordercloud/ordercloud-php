@@ -11,22 +11,21 @@ class CreateUserAddressRequestHandler extends AbstractPostRequestHandler
      */
     protected function configure($request)
     {
-        $this->url = sprintf("resource/users/%d/geos", $request->getUserID());
-
         $address = $request->getAddress();
-        $this->parameters = [
-            'name'         => $address->getName(),
-            'streetNumber' => $address->getStreetNumber(),
-            'streetName'   => $address->getStreetName(),
-            'complex'      => $address->getComplex(),
-            'suburb'       => $address->getSuburb(),
-            'city'         => $address->getCity(),
-            'postalCode'   => $address->getPostalCode(),
-            'note'         => $address->getNote(),
-            'latitude'     => $address->getLatitude(),
-            'longitude'    => $address->getLongitude(),
-            'access_token' => $request->getAccessToken()
-        ];
+
+        $this->setUrl('resource/users/%d/geos', $request->getUserID())
+            ->setParameters([
+                'name'         => $address->getName(),
+                'streetNumber' => $address->getStreetNumber(),
+                'streetName'   => $address->getStreetName(),
+                'complex'      => $address->getComplex(),
+                'suburb'       => $address->getSuburb(),
+                'city'         => $address->getCity(),
+                'postalCode'   => $address->getPostalCode(),
+                'note'         => $address->getNote(),
+                'latitude'     => $address->getLatitude(),
+                'longitude'    => $address->getLongitude(),
+            ]);
     }
 
     protected function transformResponse($response)

@@ -16,15 +16,11 @@ class GetOrganisationProductsByTagNamesRequestHandler extends AbstractPutRequest
      */
     protected function configure($request)
     {
-        $this->url = sprintf("/resource/product/criteria");
-        $this->parameters = [
-            'organisations' => $request->getOrganisationIDs(),
-            'tags'          => $request->getTagNames(),
-        ];
-    }
-
-    protected function transformResponse($response)
-    {
-        return EntityReflector::parseAll('Ordercloud\Entities\Products\Product', $response->getData('results'));
+        $this->setUrl('/resource/product/criteria')
+            ->setParameters([
+                'organisations' => $request->getOrganisationIDs(),
+                'tags'          => $request->getTagNames(),
+            ])
+            ->setEntityArrayClass('Ordercloud\Entities\Products\Product');
     }
 }

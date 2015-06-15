@@ -56,11 +56,6 @@ class OrdercloudRequestHandler implements CommandHandler
             return $this->parameteriser->appendParametersToUrl($request->getParameters(), $request->getUrl());
         }
 
-        if ($request->hasParameter('access_token')) {
-            $access_token = $request->getParameter('access_token');
-            return $this->parameteriser->appendParametersToUrl(compact('access_token'), $request->getUrl());
-        }
-
         return $request->getUrl();
     }
 
@@ -73,12 +68,6 @@ class OrdercloudRequestHandler implements CommandHandler
     {
         if ($request->isMethod(OrdercloudRequest::METHOD_GET)) {
             return [];
-        }
-
-        if ($request->hasParameter('access_token')) {
-            $params = $request->getParameters();
-            unset($params['access_token']);
-            return $params;
         }
 
         return $request->getParameters();

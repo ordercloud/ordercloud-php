@@ -2,7 +2,6 @@
 
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Users\GetLoggedInUserRequest;
-use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetLoggedInUserRequestHandler extends AbstractGetRequestHandler
 {
@@ -11,14 +10,8 @@ class GetLoggedInUserRequestHandler extends AbstractGetRequestHandler
      */
     protected function configure($request)
     {
-        $this->url = 'resource/users/logged_in';
-        $this->headers = [
-            'Authorization' => $request->getAuthHeader()
-        ];
-    }
-
-    protected function transformResponse($response)
-    {
-        return EntityReflector::parse('Ordercloud\Entities\Users\User', $response->getData());
+        $this->setUrl('resource/users/logged_in')
+            ->setHeader('Authorization', $request->getAuthHeader())
+            ->setEntityClass('Ordercloud\Entities\Users\User');
     }
 }

@@ -2,7 +2,6 @@
 
 use Ordercloud\Requests\Handlers\AbstractPostRequestHandler;
 use Ordercloud\Requests\Organisations\GetOrganisationAccessTokenRequest;
-use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetOrganisationAccessTokenRequestHandler extends AbstractPostRequestHandler
 {
@@ -11,12 +10,8 @@ class GetOrganisationAccessTokenRequestHandler extends AbstractPostRequestHandle
      */
     protected function configure($request)
     {
-        $this->url = "resource/organisations/{$request->getOrganisationID()}/accesstoken";
-        $this->headers = ['Authorization' => $request->getAuthHeader()];
-    }
-
-    protected function transformResponse($response)
-    {
-        return EntityReflector::parse('Ordercloud\Entities\Organisations\OrganisationAccessToken', $response->getData());
+        $this->setUrl('resource/organisations/%d/accesstoken', $request->getOrganisationID())
+            ->setHeader('Authorization', $request->getAuthHeader())
+            ->setEntityClass('Ordercloud\Entities\Organisations\OrganisationAccessToken');
     }
 }

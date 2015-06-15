@@ -10,18 +10,18 @@ class CreateCreditCardPaymentRequestHandler extends AbstractPostRequestHandler
      */
     protected function configure($request)
     {
-        $this->url = sprintf("/resource/orders/%d/pay/creditcard/%s", $request->getOrderID(), $request->getPaymentGateway());
-
         $creditCard = $request->getCard();
-        $this->parameters = [
-            'amount'          => $request->getAmount(),
-            'budgetPeriod'    => $request->getBudgetPeriod(),
-            'cardExpiryMonth' => $creditCard->getExpiryMonth(),
-            'cardExpiryYear'  => $creditCard->getExpiryYear(),
-            'nameOnCard'      => $creditCard->getNameOnCard(),
-            'cvv'             => $creditCard->getCvv(),
-            'cardNumber'      => $creditCard->getCardNumber(),
-        ];
+
+        $this->setUrl('/resource/orders/%d/pay/creditcard/%s', $request->getOrderID(), $request->getPaymentGateway())
+            ->setParameters([
+                'amount'          => $request->getAmount(),
+                'budgetPeriod'    => $request->getBudgetPeriod(),
+                'cardExpiryMonth' => $creditCard->getExpiryMonth(),
+                'cardExpiryYear'  => $creditCard->getExpiryYear(),
+                'nameOnCard'      => $creditCard->getNameOnCard(),
+                'cvv'             => $creditCard->getCvv(),
+                'cardNumber'      => $creditCard->getCardNumber(),
+            ]);
     }
 
     protected function transformResponse($response)

@@ -2,7 +2,6 @@
 
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Users\GetUserProfileRequest;
-use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetUserProfileRequestHandler extends AbstractGetRequestHandler
 {
@@ -11,11 +10,7 @@ class GetUserProfileRequestHandler extends AbstractGetRequestHandler
      */
     protected function configure($request)
     {
-        $this->url = sprintf("resource/users/%d/profile", $request->getUserID());
-    }
-
-    protected function transformResponse($response)
-    {
-        return EntityReflector::parse('Ordercloud\Entities\Users\UserProfile', $response->getData());
+        $this->setUrl('resource/users/%d/profile', $request->getUserID())
+            ->setEntityClass('Ordercloud\Entities\Users\UserProfile');
     }
 }

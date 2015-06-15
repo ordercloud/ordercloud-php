@@ -13,7 +13,7 @@ class GetSettingsByOrganisationRequestHandler extends AbstractGetRequestHandler
      */
     protected function configure($request)
     {
-        $this->url = sprintf("resource/organisations/%d/settings", $request->getOrganisationID());
+        $this->setUrl('resource/organisations/%d/settings', $request->getOrganisationID());
     }
 
     protected function transformResponse($response)

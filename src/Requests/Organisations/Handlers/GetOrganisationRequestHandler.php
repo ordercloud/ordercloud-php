@@ -2,7 +2,6 @@
 
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Organisations\GetOrganisationRequest;
-use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetOrganisationRequestHandler extends AbstractGetRequestHandler
 {
@@ -11,11 +10,7 @@ class GetOrganisationRequestHandler extends AbstractGetRequestHandler
      */
     protected function configure($request)
     {
-        $this->url = "resource/organisations/{$request->getOrganisationID()}";
-    }
-
-    protected function transformResponse($response)
-    {
-        return EntityReflector::parse('Ordercloud\Entities\Organisations\Organisation', $response->getData());
+        $this->setUrl('resource/organisations/%d', $request->getOrganisationID())
+            ->setEntityClass('Ordercloud\Entities\Organisations\Organisation');
     }
 }
