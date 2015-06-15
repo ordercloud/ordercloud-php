@@ -28,6 +28,17 @@ class OrdercloudHttpException extends OrdercloudException
     }
 
     /**
+     * @param Response  $response
+     * @param Exception $previousException
+     *
+     * @return static
+     */
+    public static function create(Response $response, Exception $previousException = null)
+    {
+        return new static($response, $response->getRequest(), $previousException);
+    }
+
+    /**
      * @return Response
      */
     public function getResponse()

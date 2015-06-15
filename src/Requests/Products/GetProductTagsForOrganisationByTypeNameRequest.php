@@ -8,14 +8,15 @@ class GetProductTagsForOrganisationByTypeNameRequest implements Command
     private $organisationID;
     /** @var string */
     private $tagName;
-    /** @var string|null */
-    protected $accessToken;
 
-    public function __construct($organisationID, $tagName, $accessToken = null)
+    /**
+     * @param int    $organisationID
+     * @param string $tagName
+     */
+    public function __construct($organisationID, $tagName)
     {
         $this->organisationID = $organisationID;
         $this->tagName = $tagName;
-        $this->accessToken = $accessToken;
     }
 
     /**
@@ -32,13 +33,5 @@ class GetProductTagsForOrganisationByTypeNameRequest implements Command
     public function getTagName()
     {
         return $this->tagName;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
     }
 }

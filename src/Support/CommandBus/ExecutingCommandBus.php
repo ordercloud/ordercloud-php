@@ -6,15 +6,26 @@ class ExecutingCommandBus implements CommandBus
      * @var CommandHandlerTranslator
      */
     private $commandHandlerTransalator;
+    /**
+     * @var CommandHandlerResolver
+     */
+    private $commandHandlerResolver;
 
-    public function __construct(CommandHandlerTranslator $commandHandlerTransalator)
+    /**
+     * @param CommandHandlerTranslator $commandHandlerTransalator
+     * @param CommandHandlerResolver   $commandHandlerResolver
+     */
+    public function __construct(CommandHandlerTranslator $commandHandlerTransalator, CommandHandlerResolver $commandHandlerResolver)
     {
         $this->commandHandlerTransalator = $commandHandlerTransalator;
+        $this->commandHandlerResolver = $commandHandlerResolver;
     }
 
     public function execute(Command $command)
     {
-        $handler = $this->commandHandlerTransalator->resolve($command);
+        $handlerClass = $this->commandHandlerTransalator->translate($command);
+
+        $handler = $this->commandHandlerResolver->resolve($command, $handlerClass);
 
         return $handler->handle($command);
     }

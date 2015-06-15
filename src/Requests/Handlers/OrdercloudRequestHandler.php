@@ -32,20 +32,10 @@ class OrdercloudRequestHandler implements CommandHandler
      */
     public function handle($request)
     {
-        $url = $request->getUrl();
+        $url = $this->prepareUrl($request);
         $method = $request->getMethod();
-        $params = $request->getParameters();
+        $params = $this->prepareParameters($request);
         $headers = $request->getHeaders();
-
-        if (strtoupper($method) == 'GET') {
-            $url = $this->parameteriser->appendParametersToUrl($params, $url);
-            $params = [];
-        }
-        elseif (isset($params['access_token'])) {
-            $access_token = $params['access_token'];
-            unset($params['access_token']);
-            $url = $this->parameteriser->appendParametersToUrl(compact('access_token'), $url);
-        }
 
         try {
             return $this->client->send($url, $method, $params, $headers);
@@ -53,5 +43,33 @@ class OrdercloudRequestHandler implements CommandHandler
         catch (OrdercloudHttpException $e) {
             throw OrdercloudRequestException::create($request, $e);
         }
+    }
+
+    /**
+     * @param OrdercloudRequest $request
+     *
+     * @return string
+     */
+    protected function prepareUrl($request)
+    {
+        if ($request->isMethod(OrdercloudRequest::METHOD_GET)) {
+            return $this->parameteriser->appendParametersToUrl($request->getParameters(), $request->getUrl());
+        }
+
+        return $request->getUrl();
+    }
+
+    /**
+     * @param OrdercloudRequest $request
+     *
+     * @return array
+     */
+    protected function prepareParameters($request)
+    {
+        if ($request->isMethod(OrdercloudRequest::METHOD_GET)) {
+            return [];
+        }
+
+        return $request->getParameters();
     }
 }

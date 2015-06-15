@@ -1,39 +1,23 @@
 <?php namespace Ordercloud\Requests\Settings\Handlers;
 
-use Ordercloud\Entities\Settings\Setting;
 use Ordercloud\Entities\Settings\SettingsCollection;
-use Ordercloud\Ordercloud;
-use Ordercloud\Requests\OrdercloudRequest;
+use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Settings\GetSettingsByOrganisationRequest;
-use Ordercloud\Support\CommandBus\CommandHandler;
+use Ordercloud\Support\Http\Response;
 use Ordercloud\Support\Reflection\EntityReflector;
 
-class GetSettingsByOrganisationRequestHandler implements CommandHandler
+class GetSettingsByOrganisationRequestHandler extends AbstractGetRequestHandler
 {
-    /** @var Ordercloud */
-    private $ordercloud;
-
-    public function __construct(Ordercloud $ordercloud)
-    {
-        $this->ordercloud = $ordercloud;
-    }
-
     /**
      * @param GetSettingsByOrganisationRequest $request
-     *
-     * @return array|Setting[]
      */
-    public function handle($request)
+    protected function configure($request)
     {
-        $organisationID = $request->getOrganisationID();
-        $accessToken = $request->getAccessToken();
+        $this->setUrl('resource/organisations/%d/settings', $request->getOrganisationID());
+    }
 
-        $response = $this->ordercloud->exec(
-            new OrdercloudRequest(
-                OrdercloudRequest::METHOD_GET, "resource/organisations/{$organisationID}/settings", ['access_token' => $accessToken]
-            )
-        );
-
+    protected function transformResponse($response)
+    {
         $settings = EntityReflector::parseAll('Ordercloud\Entities\Settings\Setting', $response->getData('results'));
 
         return new SettingsCollection($settings);

@@ -43,6 +43,16 @@ class OrdercloudRequest implements Command
     }
 
     /**
+     * @param $method
+     *
+     * @return bool
+     */
+    public function isMethod($method)
+    {
+        return strcasecmp($method, $this->getMethod()) === 0;
+    }
+
+    /**
      * @return array
      */
     public function getParameters()

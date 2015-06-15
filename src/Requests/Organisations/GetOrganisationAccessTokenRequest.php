@@ -1,47 +1,27 @@
 <?php namespace Ordercloud\Requests\Organisations;
 
+use Ordercloud\Requests\Auth\Entities\Authorisation;
 use Ordercloud\Support\CommandBus\Command;
 
 class GetOrganisationAccessTokenRequest implements Command
 {
-    /** @var integer */
+    /**
+     * @var integer
+     */
     private $organisationID;
-    /** @var string|null */
-    private $accessToken;
-    /** @var string|null */
-    private $username;
-    /** @var string|null */
-    private $password;
+    /**
+     * @var Authorisation|null
+     */
+    private $authorisation;
 
-    protected function __construct($organisationID, $accessToken = null, $username = null, $password = null)
+    /**
+     * @param int           $organisationID
+     * @param Authorisation $authorisation
+     */
+    public function __construct($organisationID, Authorisation $authorisation = null)
     {
         $this->organisationID = $organisationID;
-        $this->accessToken = $accessToken;
-        $this->username = $username;
-        $this->password = $password;
-    }
-
-    /**
-     * @param int    $organisationID
-     * @param string $accessToken
-     *
-     * @return static
-     */
-    public static function createWithAccessToken($organisationID, $accessToken)
-    {
-        return new static($organisationID, $accessToken);
-    }
-
-    /**
-     * @param int    $organisationID
-     * @param string $username
-     * @param string $password
-     *
-     * @return static
-     */
-    public static function createWithUsernamePassword($organisationID, $username, $password)
-    {
-        return new static($organisationID, null, $username, $password);
+        $this->authorisation = $authorisation;
     }
 
     /**
@@ -53,22 +33,10 @@ class GetOrganisationAccessTokenRequest implements Command
     }
 
     /**
-     * @return string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
-    }
-
-    /**
      * @return string|null
      */
-    public function getAuthHeader()
+    public function getAuthorisation()
     {
-        if (empty($this->username) && empty($this->password)) {
-            return null;
-        }
-
-        return 'BASIC ' . base64_encode("{$this->username}:{$this->password}");
+        return $this->authorisation;
     }
 }

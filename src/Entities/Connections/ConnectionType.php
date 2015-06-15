@@ -2,8 +2,18 @@
 
 class ConnectionType
 {
-    const MARKETPLACE = 'M';
+    const CHAIN_STORE = 'C';
     const CHILD = 'CH';
+    const COMMUNICATION_PROVIDER = 'COM';
+    const COURIER_SERVICE = 'CS';
+    const DELIVERY_SERVICE = 'DS';
+    const FRANCHISE = 'F';
+    const INVENTORY_MANAGER = 'IM';
+    const MARKETPLACE = 'M';
+    const ORDER_MANAGER = 'OM';
+    const PAYMENT_GATEWAY = 'PG';
+    const POS = 'POS';
+    const RESELLER = 'R';
 
     /** @var integer */
     private $id;
