@@ -28,7 +28,6 @@ class GetUserOrdersRequestHandler extends AbstractGetRequestHandler
                 'orderstatus'   => $request->getOrderStatuses(),
                 'paymentstatus' => $request->getPaymentStatuses(),
                 'sort'          => $request->getSort(),
-                'access_token'  => $request->getAccessToken(),
             ]);
 
         $this->page = $request->getPage();
