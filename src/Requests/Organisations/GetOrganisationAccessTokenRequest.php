@@ -35,12 +35,8 @@ class GetOrganisationAccessTokenRequest implements Command
     /**
      * @return string|null
      */
-    public function getAuthHeader()
+    public function getAuthorisation()
     {
-        if (is_null($this->authorisation)) {
-            return null;
-        }
-
-        return $this->authorisation->getAuthorisation();
+        return $this->authorisation;
     }
 }

@@ -1,9 +1,9 @@
 <?php namespace Ordercloud\Requests\Organisations\Handlers;
 
-use Ordercloud\Requests\Handlers\AbstractPostRequestHandler;
+use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Organisations\GetOrganisationAccessTokenRequest;
 
-class GetOrganisationAccessTokenRequestHandler extends AbstractPostRequestHandler
+class GetOrganisationAccessTokenRequestHandler extends AbstractGetRequestHandler
 {
     /**
      * @param GetOrganisationAccessTokenRequest $request
@@ -11,7 +11,7 @@ class GetOrganisationAccessTokenRequestHandler extends AbstractPostRequestHandle
     protected function configure($request)
     {
         $this->setUrl('resource/organisations/%d/accesstoken', $request->getOrganisationID())
-            ->setHeader('Authorization', $request->getAuthHeader())
+            ->setHeader('Authorization', $request->getAuthorisation())
             ->setEntityClass('Ordercloud\Entities\Organisations\OrganisationAccessToken');
     }
 }

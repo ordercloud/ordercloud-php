@@ -11,7 +11,7 @@ class GetLoggedInUserRequestHandler extends AbstractGetRequestHandler
     protected function configure($request)
     {
         $this->setUrl('resource/users/logged_in')
-            ->setHeader('Authorization', $request->getAuthHeader())
+            ->setHeader('Authorization', $request->getAuthorisation())
             ->setEntityClass('Ordercloud\Entities\Users\User');
     }
 }

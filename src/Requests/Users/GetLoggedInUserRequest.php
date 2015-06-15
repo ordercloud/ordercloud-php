@@ -13,20 +13,16 @@ class GetLoggedInUserRequest implements Command
     /**
      * @param Authorisation $authorisation
      */
-    protected function __construct(Authorisation $authorisation = null)
+    public function __construct(Authorisation $authorisation = null)
     {
         $this->authorisation = $authorisation;
     }
 
     /**
-     * @return string|null
+     * @return Authorisation|null
      */
-    public function getAuthHeader()
+    public function getAuthorisation()
     {
-        if (is_null($this->authorisation)) {
-            return null;
-        }
-
-        return $this->authorisation->getAuthorisation();
+        return $this->authorisation;
     }
 }

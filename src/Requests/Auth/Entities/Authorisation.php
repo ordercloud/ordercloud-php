@@ -18,7 +18,7 @@ class Authorisation
      *
      * @return static
      */
-    public static function createByUsernamePassword($username, $password)
+    public static function createWithUsernamePassword($username, $password)
     {
         $auth = base64_encode("{$username}:{$password}");
         return new static("BASIC $auth");
@@ -29,7 +29,7 @@ class Authorisation
      *
      * @return static
      */
-    public function createWithAccessToken($accessToken)
+    public static function createWithAccessToken($accessToken)
     {
         return new static("BEARER $accessToken");
     }
