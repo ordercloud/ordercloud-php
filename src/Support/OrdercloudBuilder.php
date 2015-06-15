@@ -3,7 +3,9 @@
 use Closure;
 use Illuminate\Container\Container;
 use Ordercloud\Ordercloud;
-use Ordercloud\Support\CommandBus\IlluminateCommandHandlerTranslator;
+use Ordercloud\Support\CommandBus\ArrayCommandHandlerTranslator;
+use Ordercloud\Support\CommandBus\ReflectionCommandHandlerTranslator;
+use Ordercloud\Support\CommandBus\IlluminateCommandHandlerResolver;
 use Ordercloud\Support\Http\GuzzleClient;
 use Ordercloud\Support\Http\LoggingClient;
 use Psr\Log\LoggerInterface;
@@ -95,9 +97,17 @@ class OrdercloudBuilder
         $container->singleton('Ordercloud\Support\Http\UrlParameteriser', 'Ordercloud\Support\Http\LeagueUrlParameteriser');
         $container->singleton('Ordercloud\Support\CommandBus\CommandBus', 'Ordercloud\Support\CommandBus\ExecutingCommandBus');
         $container->singleton('Ordercloud\Support\Http\Client', $this->clientFactory);
-        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', function() use ($container)
+        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', function()
         {
-            return new IlluminateCommandHandlerTranslator($container);
+            $reflectionTranslator = new ReflectionCommandHandlerTranslator();
+
+            return new ArrayCommandHandlerTranslator($reflectionTranslator, [
+                'Ordercloud\Requests\Connections\GetMarketplaceConnectionsRequest' => 'Ordercloud\Requests\Connections\Handlers\GetConnectionsByTypeRequestHandler'
+            ]);
+        });
+        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerResolver', function() use ($container)
+        {
+            return new IlluminateCommandHandlerResolver($container);
         });
         $container->singleton('Ordercloud\Ordercloud', function() use ($container)
         {

@@ -1,26 +1,27 @@
 <?php namespace Ordercloud\Requests\Organisations;
 
+use Ordercloud\Requests\Auth\Entities\Authorisation;
 use Ordercloud\Support\CommandBus\Command;
 
 class GetOrganisationAccessTokenRequest implements Command
 {
-    /** @var integer */
+    /**
+     * @var integer
+     */
     private $organisationID;
-    /** @var string|null */
-    private $username;
-    /** @var string|null */
-    private $password;
+    /**
+     * @var Authorisation|null
+     */
+    private $authorisation;
 
     /**
-     * @param int         $organisationID
-     * @param string|null $username
-     * @param string|null $password
+     * @param int           $organisationID
+     * @param Authorisation $authorisation
      */
-    public function __construct($organisationID, $username = null, $password = null)
+    public function __construct($organisationID, Authorisation $authorisation = null)
     {
         $this->organisationID = $organisationID;
-        $this->username = $username;
-        $this->password = $password;
+        $this->authorisation = $authorisation;
     }
 
     /**
@@ -36,10 +37,10 @@ class GetOrganisationAccessTokenRequest implements Command
      */
     public function getAuthHeader()
     {
-        if (empty($this->username) && empty($this->password)) {
+        if (is_null($this->authorisation)) {
             return null;
         }
 
-        return 'BASIC ' . base64_encode("{$this->username}:{$this->password}");
+        return $this->authorisation->getAuthorisation();
     }
 }

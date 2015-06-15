@@ -1,40 +1,21 @@
 <?php namespace Ordercloud\Requests\Users;
 
+use Ordercloud\Requests\Auth\Entities\Authorisation;
 use Ordercloud\Support\CommandBus\Command;
 
 class GetLoggedInUserRequest implements Command
 {
     /**
-     * @var string|null
+     * @var Authorisation
      */
-    private $accessToken;
-    /**
-     * @var string|null
-     */
-    private $username;
-    /**
-     * @var string|null
-     */
-    private $password;
+    private $authorisation;
 
     /**
-     * @param string|null $accessToken
-     * @param string|null $username
-     * @param string|null $password
+     * @param Authorisation $authorisation
      */
-    protected function __construct($accessToken = null, $username = null, $password = null)
+    protected function __construct(Authorisation $authorisation = null)
     {
-        $this->accessToken = $accessToken;
-        $this->username = $username;
-        $this->password = $password;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
+        $this->authorisation = $authorisation;
     }
 
     /**
@@ -42,10 +23,10 @@ class GetLoggedInUserRequest implements Command
      */
     public function getAuthHeader()
     {
-        if (empty($this->username) && empty($this->password)) {
+        if (is_null($this->authorisation)) {
             return null;
         }
 
-        return 'BASIC ' . base64_encode("{$this->username}:{$this->password}");
+        return $this->authorisation->getAuthorisation();
     }
 }

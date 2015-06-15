@@ -7,6 +7,9 @@ class GetUserAddressesRequest implements Command
     /** @var int */
     protected $userID;
 
+    /**
+     * @param int $userID
+     */
     public function __construct($userID)
     {
         $this->userID = $userID;

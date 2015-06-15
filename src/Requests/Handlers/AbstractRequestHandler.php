@@ -2,6 +2,7 @@
 
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\Http\Response;
+use Ordercloud\Support\Reflection\EntityReflector;
 
 abstract class AbstractRequestHandler extends OrdercloudRequestHandler
 {
@@ -43,7 +44,13 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
      */
     protected function transformResponse($response)
     {
-        return EntityReflector::parse($this->entityClass, $response->getData($this->entityDataKey));
+        // TODO this needs to get out
+
+        if ($this->entityDataKey) {
+            return EntityReflector::parseAll($this->entityClass, $response->getData($this->entityDataKey));
+        }
+
+        return EntityReflector::parse($this->entityClass, $response->getData());
     }
 
     /**

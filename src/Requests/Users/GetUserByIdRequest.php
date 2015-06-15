@@ -9,6 +9,9 @@ class GetUserByIdRequest implements Command
      */
     private $userID;
 
+    /**
+     * @param int $userID
+     */
     public function __construct($userID)
     {
         $this->userID = $userID;

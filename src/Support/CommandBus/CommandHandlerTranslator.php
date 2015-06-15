@@ -1,17 +1,16 @@
 <?php namespace Ordercloud\Support\CommandBus;
 
 /**
- * The CommandHandlerTranslator recieves a Command instance and
- * produces it's corresponding CommandHandler counter-part.
+ * The CommandHandlerTranslator recieves a Command instance
+ * and translates it to it's corresponding
+ * CommandHandler class name.
  */
 interface CommandHandlerTranslator
 {
     /**
      * @param $command
      *
-     * @return CommandHandler|null
-     *
-     * @throws CommandHandlerNotFoundException
+     * @return string
      */
-    public function resolve(Command $command);
+    public function translate(Command $command);
 }

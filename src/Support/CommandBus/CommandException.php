@@ -1,5 +1,6 @@
 <?php namespace Ordercloud\Support\CommandBus;
 
+use Exception;
 use Ordercloud\OrdercloudException;
 
 class CommandException extends OrdercloudException
@@ -8,14 +9,13 @@ class CommandException extends OrdercloudException
     private $command;
 
     /**
-     * @param string  $message
-     * @param Command $command
-     *
-     * @throws OrdercloudException
+     * @param string     $message
+     * @param Command    $command
+     * @param Exception $previousException
      */
-    public function __construct($message, Command $command)
+    public function __construct($message, Command $command, Exception $previousException = null)
     {
-        parent::__construct($message);
+        parent::__construct($message, 0, $previousException);
         $this->command = $command;
     }
 

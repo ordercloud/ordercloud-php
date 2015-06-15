@@ -10,6 +10,10 @@ class CreateUserAddressRequest implements Command
     /** @var NewUserAddress */
     private $address;
 
+    /**
+     * @param int            $userID
+     * @param NewUserAddress $address
+     */
     public function __construct($userID, NewUserAddress $address)
     {
         $this->userID = $userID;
