@@ -9,7 +9,6 @@ class GetOrderRequest implements Command
 
     /**
      * @param int         $orderID
-     * @param string|null $accessToken
      */
     public function __construct($orderID)
     {
