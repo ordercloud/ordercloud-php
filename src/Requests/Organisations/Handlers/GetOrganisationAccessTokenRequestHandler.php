@@ -11,7 +11,7 @@ class GetOrganisationAccessTokenRequestHandler extends AbstractGetRequestHandler
     protected function configure($request)
     {
         $this->setUrl('resource/organisations/%d/accesstoken', $request->getOrganisationID())
-            ->setHeader('Authorization', $request->getAuthorisation())
+            ->setHeader('Authorization', (string) $request->getAuthorisation())
             ->setEntityClass('Ordercloud\Entities\Organisations\OrganisationAccessToken');
     }
 }
