@@ -11,6 +11,8 @@ class OrderItem
     private $price;
     /** @var integer */
     private $quantity;
+    /** @var float */
+    private $linePrice;
     /** @var boolean */
     private $enabled;
     /** @var ProductShort */
@@ -34,11 +36,12 @@ class OrderItem
      */
     private $options;
 
-    public function __construct($id, $price, $quantity, $enabled, ProductShort $detail, OrderStatus $status, $note, ProductPriceDiscount $itemDiscount = null, $readyEstimate, array $extras, array $options)
+    public function __construct($id, $price, $quantity, $linePrice, $enabled, ProductShort $detail, OrderStatus $status, $note, ProductPriceDiscount $itemDiscount = null, $readyEstimate, array $extras, array $options)
     {
         $this->id = $id;
         $this->price = $price;
         $this->quantity = $quantity;
+        $this->linePrice = $linePrice;
         $this->enabled = $enabled;
         $this->detail = $detail;
         $this->status = $status;
@@ -58,40 +61,15 @@ class OrderItem
     }
 
     /**
-     * Returns the price of the item / product.
-     * Excludes quantity, options & extras.
+     * Returns the price per order item.
+     * Including options & extras.
+     * Excludes quantity.
      *
      * @return float
-     *
-     * @see OrderItem::getOrderItemPrice()
      */
-    public function getItemPrice()
+    public function getPrice()
     {
         return $this->price;
-    }
-
-    /**
-     * Returns the price of the order item.
-     * Including options & extras.
-     * Excluding quantity.
-     *
-     * @return float
-     *
-     * @see OrderItem::getItemPrice()
-     */
-    public function getOrderItemPrice()
-    {
-        $price = $this->getItemPrice();
-
-        foreach ($this->getOptions() as $option) {
-            $price = bcadd($price, $option->getPrice(), 2);
-        }
-
-        foreach ($this->getExtras() as $extra) {
-            $price = bcadd($price, $extra->getPrice(), 2);
-        }
-
-        return round($price, 2);
     }
 
     /**
@@ -100,11 +78,20 @@ class OrderItem
      *
      * @return string
      */
-    public function getTotalOrderItemPrice()
+    public function getLinePrice()
     {
-        $totalPrice = bcmul($this->getOrderItemPrice(), $this->getQuantity(), 2);
+        return $this->linePrice;
+    }
 
-        return floatval($totalPrice);
+    /**
+     * Returns the price of the product.
+     * Excludes quantity, options & extras.
+     *
+     * @return float
+     */
+    public function getItemPrice()
+    {
+        return $this->getDetail()->getPrice();
     }
 
     /**
