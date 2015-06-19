@@ -75,7 +75,7 @@ class GuzzleClient implements Client
     public function setAccessToken($accessToken)
     {
         $this->client->setDefaultOption('auth', null);
-        $this->client->setDefaultOption('headers/Authorization', "BEARER {$accessToken}");
+        $this->client->setDefaultOption('headers/Authorization', "Bearer {$accessToken}");
     }
 
     public function setOrganisationToken($organisationToken)

@@ -21,10 +21,8 @@ class CreateOrderRequest implements Command
     private $deliveryAddressID;
     /** @var string|null */
     private $note;
-    /** @var string|null */
-    private $accessToken;
 
-    public function __construct($userID, $organisationID, array $items, $amount, $paymentStatus, $deliveryType, $deliveryAddressID = null, $note = null, $accessToken = null)
+    public function __construct($userID, $organisationID, array $items, $amount, $paymentStatus, $deliveryType, $deliveryAddressID = null, $note = null)
     {
         $this->userID = $userID;
         $this->organisationID = $organisationID;
@@ -34,7 +32,6 @@ class CreateOrderRequest implements Command
         $this->deliveryType = $deliveryType;
         $this->deliveryAddressID = $deliveryAddressID;
         $this->note = $note;
-        $this->accessToken = $accessToken;
     }
 
     /**
@@ -99,13 +96,5 @@ class CreateOrderRequest implements Command
     public function getNote()
     {
         return $this->note;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
     }
 }

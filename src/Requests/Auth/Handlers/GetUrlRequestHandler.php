@@ -3,7 +3,7 @@
 use Ordercloud\Requests\Auth\GetUrlRequest;
 use Ordercloud\Requests\Handlers\AbstractPostRequestHandler;
 
-class UrlRequestHandler extends AbstractPostRequestHandler
+class GetUrlRequestHandler extends AbstractPostRequestHandler
 {
     /**
      * @param GetUrlRequest $request
@@ -13,6 +13,7 @@ class UrlRequestHandler extends AbstractPostRequestHandler
         $type = $request->getType();
 
         $this->setUrl('faces/credential')
+            ->setHeader('Content-type', 'application/x-www-form-urlencoded')
             ->setParameters([
                 'organisation_id' => $request->getOrganisationID(),
                 'client_secret'   => $request->getClientSecret(),

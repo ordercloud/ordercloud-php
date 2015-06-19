@@ -6,17 +6,13 @@ class GetOrderRequest implements Command
 {
     /** @var int */
     private $orderID;
-    /** @var string|null */
-    private $accessToken;
 
     /**
      * @param int         $orderID
-     * @param string|null $accessToken
      */
-    public function __construct($orderID, $accessToken = null)
+    public function __construct($orderID)
     {
         $this->orderID = $orderID;
-        $this->accessToken = $accessToken;
     }
 
     /**
@@ -25,13 +21,5 @@ class GetOrderRequest implements Command
     public function getOrderID()
     {
         return $this->orderID;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
     }
 }

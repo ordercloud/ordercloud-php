@@ -34,19 +34,19 @@ class Ordercloud
     }
 
     /**
-     * @param AccessToken $token
+     * @param string $token
      */
-    public function setAccessToken(AccessToken $token)
+    public function setAccessToken($token)
     {
-        $this->getHttpClient()->setAccessToken($token->getAccessToken());
+        $this->getHttpClient()->setAccessToken($token);
     }
 
     /**
-     * @param OrganisationAccessToken $token
+     * @param string $token
      */
-    public function setOrganisationToken(OrganisationAccessToken $token)
+    public function setOrganisationToken($token)
     {
-        $this->getHttpClient()->setOrganisationToken($token->getToken());
+        $this->getHttpClient()->setOrganisationToken($token);
     }
 
     /**

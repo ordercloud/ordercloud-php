@@ -16,10 +16,8 @@ class GetUserOrdersRequest implements Command
     private $pageSize;
     /** @var string */
     private $sort;
-    /** @var string|null */
-    protected $accessToken;
 
-    public function __construct($userID, array $orderStatuses = [], array $paymentStatuses = [], $page = 1, $pageSize = 10, $sort = 'date+', $accessToken = null)
+    public function __construct($userID, array $orderStatuses = [], array $paymentStatuses = [], $page = 1, $pageSize = 10, $sort = 'date+')
     {
         $this->userID = $userID;
         $this->orderStatuses = $orderStatuses;
@@ -27,7 +25,6 @@ class GetUserOrdersRequest implements Command
         $this->page = $page;
         $this->pageSize = $pageSize;
         $this->sort = $sort;
-        $this->accessToken = $accessToken;
     }
 
     /**
@@ -76,13 +73,5 @@ class GetUserOrdersRequest implements Command
     public function getSort()
     {
         return $this->sort;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getAccessToken()
-    {
-        return $this->accessToken;
     }
 }
