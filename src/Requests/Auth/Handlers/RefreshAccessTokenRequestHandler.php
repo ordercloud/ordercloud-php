@@ -10,8 +10,7 @@ class RefreshAccessTokenRequestHandler extends AbstractPostRequestHandler
      */
     protected function configure($request)
     {
-        $this->setUrl('resource/token/')
-            ->setHeader('Content-type', 'application/x-www-form-urlencoded')
+        $this->setUrl('/resource/token')
             ->setParameters([
                 'organisation_code'   => $request->getOrganisationCode(),
                 'organisation_secret' => $request->getClientSecret(),
