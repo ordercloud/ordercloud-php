@@ -69,7 +69,7 @@ class OrderItem
      */
     public function getPrice()
     {
-        return $this->price;
+        return floatval($this->price);
     }
 
     /**
@@ -80,7 +80,7 @@ class OrderItem
      */
     public function getLinePrice()
     {
-        return $this->linePrice;
+        return floatval($this->linePrice);
     }
 
     /**
