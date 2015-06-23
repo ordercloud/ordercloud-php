@@ -15,10 +15,9 @@ class GetConnectionsRequest implements Command
     /** @var string */
     public $type;
 
-    public function __construct($organisationID, $accessToken = null, $lat = null, $long = null, $radius = null, $type = null)
+    public function __construct($organisationID, $lat = null, $long = null, $radius = null, $type = null)
     {
         $this->organisationID = $organisationID;
-        $this->accessToken = $accessToken;
         $this->lat = $lat;
         $this->long = $long;
         $this->radius = $radius;

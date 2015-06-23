@@ -25,14 +25,12 @@ class GetConnectionsRequestHandler implements CommandHandler
     public function handle($request)
     {
         $organisationID = $request->getOrganisationID();
-        $accessToken = $request->getAccessToken();
 
         $response = $this->ordercloud->exec(
             new OrdercloudRequest(
                 OrdercloudRequest::METHOD_GET,
                 sprintf('resource/organisations/%d/connections', $organisationID),
                 [
-                    'access_token' => $accessToken,
                     'lat' => $request->lat,
                     'long' => $request->long,
                     'radius' => $request->radius,
