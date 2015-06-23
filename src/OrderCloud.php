@@ -51,21 +51,6 @@ class Ordercloud
     }
 
     /**
-     * @param TokenRefresher $refresher
-     */
-    public function setInvalidAccessTokenHandler(TokenRefresher $refresher)
-    {
-        // TODO move this out
-        $tokenRefreshingCommandBus = $this->container->make('Ordercloud\Support\CommandBus\TokenRefreshingCommandBus');
-        $this->container->singleton('Ordercloud\Support\CommandBus\CommandBus', function () use ($tokenRefreshingCommandBus) {
-            return $tokenRefreshingCommandBus;
-        });
-        $this->container->singleton('Ordercloud\Support\TokenRefresher', function () use ($refresher) {
-            return $refresher;
-        });
-    }
-
-    /**
      * @return Client
      */
     protected function getHttpClient()
