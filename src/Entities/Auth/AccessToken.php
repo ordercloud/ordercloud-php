@@ -26,6 +26,28 @@ class AccessToken
     }
 
     /**
+     * Create a new access token from php $_REQUEST.
+     *
+     * @return static
+     */
+    public static function createFromInput()
+    {
+        return static::createFromArray($_REQUEST);
+    }
+
+    /**
+     * Create a new access token from an indexed array.
+     *
+     * @param array $data
+     *
+     * @return static
+     */
+    public static function createFromArray(array $data = null)
+    {
+        return new static($data['access_token'], $data['refresh_token'], $data['expires']);
+    }
+
+    /**
      * @return string
      */
     public function getAccessToken()
