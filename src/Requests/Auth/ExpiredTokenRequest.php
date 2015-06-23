@@ -1,25 +1,25 @@
 <?php namespace Ordercloud\Requests\Auth;
 
-use Ordercloud\Requests\Exceptions\InvalidAccessTokenException;
+use Ordercloud\Requests\Exceptions\AccessTokenExpiredException;
 use Ordercloud\Support\CommandBus\Command;
 use Ordercloud\Support\Http\OrdercloudHttpException;
 
-class InvalidTokenRequest implements Command
+class ExpiredTokenRequest implements Command
 {
     /**
      * @var Command
      */
     private $previousRequest;
     /**
-     * @var InvalidAccessTokenException
+     * @var AccessTokenExpiredException
      */
     private $exception;
 
     /**
      * @param Command                     $request
-     * @param InvalidAccessTokenException $exception
+     * @param AccessTokenExpiredException $exception
      */
-    public function __construct(Command $request, InvalidAccessTokenException $exception)
+    public function __construct(Command $request, AccessTokenExpiredException $exception)
     {
         $this->previousRequest = $request;
         $this->exception = $exception;
@@ -34,7 +34,7 @@ class InvalidTokenRequest implements Command
     }
 
     /**
-     * @return InvalidAccessTokenException
+     * @return AccessTokenExpiredException
      */
     public function getException()
     {

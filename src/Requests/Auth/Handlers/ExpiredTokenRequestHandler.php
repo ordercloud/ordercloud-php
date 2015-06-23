@@ -1,8 +1,8 @@
 <?php namespace Ordercloud\Requests\Auth\Handlers;
 
 use Ordercloud\Ordercloud;
-use Ordercloud\Requests\Auth\InvalidTokenRequest;
-use Ordercloud\Requests\Exceptions\InvalidAccessTokenException;
+use Ordercloud\Requests\Auth\ExpiredTokenRequest;
+use Ordercloud\Requests\Exceptions\AccessTokenExpiredException;
 use Ordercloud\Requests\Handlers\OrdercloudRequestHandler;
 use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Http\Client;
@@ -10,7 +10,7 @@ use Ordercloud\Support\Http\Response;
 use Ordercloud\Support\Http\UrlParameteriser;
 use Ordercloud\Support\TokenRefresher;
 
-class InvalidTokenRequestHandler implements CommandHandler
+class ExpiredTokenRequestHandler implements CommandHandler
 {
     /**
      * @var Ordercloud
@@ -28,17 +28,17 @@ class InvalidTokenRequestHandler implements CommandHandler
     }
 
     /**
-     * @param InvalidTokenRequest $request
+     * @param ExpiredTokenRequest $request
      *
      * @return Response
      *
-     * @throws InvalidAccessTokenException
+     * @throws AccessTokenExpiredException
      */
     public function handle($request)
     {
         $accessToken = $this->tokenRefresher->refresh($this->ordercloud);
 
-        $this->ordercloud->setAccessToken($accessToken->getAccessToken());
+        $this->ordercloud->setAccessToken((string) $accessToken);
 
         return $this->ordercloud->exec($request->getPreviousRequest());
     }

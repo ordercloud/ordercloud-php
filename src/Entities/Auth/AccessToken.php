@@ -6,7 +6,7 @@ class AccessToken
      * @var string
      * @reflectName access_token
      */
-    private $accessToken;
+    private $token;
     /**
      * @var string
      * @reflectName refresh_token
@@ -20,7 +20,7 @@ class AccessToken
 
     public function __construct($accessToken, $refreshToken, $expiresIn)
     {
-        $this->accessToken = $accessToken;
+        $this->token = $accessToken;
         $this->refreshToken = $refreshToken;
         $this->expiresIn = $expiresIn;
     }
@@ -50,9 +50,9 @@ class AccessToken
     /**
      * @return string
      */
-    public function getAccessToken()
+    public function getToken()
     {
-        return $this->accessToken;
+        return $this->token;
     }
 
     /**
@@ -73,6 +73,6 @@ class AccessToken
 
     public function __toString()
     {
-        return $this->accessToken;
+        return $this->token;
     }
 }
