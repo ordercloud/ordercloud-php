@@ -32,6 +32,9 @@ class OrdercloudRequestException extends OrdercloudException
     {
         switch ($httpException->getCode()) {
             case 401:
+                if ($httpException->getResponse()->getData('error') == 'invalid_token') {
+                    return new InvalidAccessTokenException($request, $httpException);
+                }
                 return new UnauthorizedRequestException($request, $httpException);
             default:
                 return new static($request, $httpException);

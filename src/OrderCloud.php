@@ -1,25 +1,26 @@
 <?php namespace Ordercloud;
 
 use Illuminate\Container\Container;
-use Ordercloud\Entities\Auth\AccessToken;
-use Ordercloud\Entities\Organisations\OrganisationAccessToken;
 use Ordercloud\Support\CommandBus\Command;
 use Ordercloud\Support\CommandBus\CommandBus;
 use Ordercloud\Support\Http\Client;
 use Ordercloud\Support\Http\Response;
+use Ordercloud\Support\TokenRefresher;
 
 class Ordercloud
 {
     const VERSION = '0.1';
 
-    /** @var CommandBus */
-    private $commandBus;
-    /** @var Container */
+    /**
+     * @var Container
+     */
     private $container;
 
-    public function __construct(CommandBus $commandBus, Container $container)
+    /**
+     * @param Container $container
+     */
+    public function __construct(Container $container)
     {
-        $this->commandBus = $commandBus;
         $this->container = $container;
     }
 
@@ -30,7 +31,7 @@ class Ordercloud
      */
     public function exec(Command $command)
     {
-        return $this->commandBus->execute($command);
+        return $this->getCommandBus()->execute($command);
     }
 
     /**
@@ -55,5 +56,13 @@ class Ordercloud
     protected function getHttpClient()
     {
         return $this->container->make('Ordercloud\Support\Http\Client');
+    }
+
+    /**
+     * @return CommandBus
+     */
+    protected function getCommandBus()
+    {
+        return $this->container->make('Ordercloud\Support\CommandBus\CommandBus');
     }
 }

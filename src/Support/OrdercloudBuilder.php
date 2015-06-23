@@ -89,6 +89,20 @@ class OrdercloudBuilder
     }
 
     /**
+     * @param TokenRefresher $refresher
+     */
+    public function setInvalidAccessTokenHandler(TokenRefresher $refresher)
+    {
+        $tokenRefreshingCommandBus = $this->container->make('Ordercloud\Support\CommandBus\TokenRefreshingCommandBus');
+        $this->container->singleton('Ordercloud\Support\CommandBus\CommandBus', function () use ($tokenRefreshingCommandBus) {
+            return $tokenRefreshingCommandBus;
+        });
+        $this->container->singleton('Ordercloud\Support\TokenRefresher', function () use ($refresher) {
+            return $refresher;
+        });
+    }
+
+    /**
      * @param Container $container
      */
     protected function registerComponents(Container $container)
@@ -114,7 +128,7 @@ class OrdercloudBuilder
         });
         $container->singleton('Ordercloud\Ordercloud', function() use ($container)
         {
-            return new Ordercloud($container->make('Ordercloud\Support\CommandBus\CommandBus'), $container);
+            return new Ordercloud($container);
         });
     }
 
