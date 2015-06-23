@@ -35,7 +35,8 @@ class GetConnectionsRequestHandler implements CommandHandler
                     'access_token' => $accessToken,
                     'lat' => $request->lat,
                     'long' => $request->long,
-                    'radius' => $request->radius
+                    'radius' => $request->radius,
+                    'type' => $request->type
                 ]
             )
         );
