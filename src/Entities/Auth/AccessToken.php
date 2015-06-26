@@ -18,9 +18,9 @@ class AccessToken
      */
     private $expiresIn;
 
-    public function __construct($accessToken, $refreshToken, $expiresIn)
+    public function __construct($token, $refreshToken, $expiresIn)
     {
-        $this->token = $accessToken;
+        $this->token = $token;
         $this->refreshToken = $refreshToken;
         $this->expiresIn = $expiresIn;
     }
