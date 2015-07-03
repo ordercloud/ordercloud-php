@@ -16,12 +16,12 @@ class OrderItemSpec extends ObjectBehavior
         $price = 60;
         $quantity = 2;
         $extras = [
-            new OrderItemExtra(1, 5, new ProductExtraDisplay(null, null, null, null, [])),
-            new OrderItemExtra(2, 3, new ProductExtraDisplay(null, null, null, null, [])),
+            new OrderItemExtra(1, 5, new ProductExtraDisplay(null, null, null, null, null)),
+            new OrderItemExtra(2, 3, new ProductExtraDisplay(null, null, null, null, null)),
         ];
         $options = [
-            new OrderItemOption(1, 10, new ProductOptionDisplay(null, null, null, null, [])),
-            new OrderItemOption(2, 2, new ProductOptionDisplay(null, null, null, null, [])),
+            new OrderItemOption(1, 10, new ProductOptionDisplay(null, null, null, null, null)),
+            new OrderItemOption(2, 2, new ProductOptionDisplay(null, null, null, null, null)),
         ];
         $linePrice = 30;
 
