@@ -11,18 +11,17 @@ class ProductOptionDisplay
     /** @var float */
     private $price;
     /**
-     * @var array|ProductTag[]
-     * @reflectType Ordercloud\Entities\Products\ProductTag
+     * @var ProductTag
      */
-    private $tags;
+    private $tag;
 
-    public function __construct($id, $name, $description, $price, array $tags)
+    public function __construct($id, $name, $description, $price, ProductTag $tag = null) //TODO when api is fixed, remove the null
     {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;
-        $this->tags = $tags;
+        $this->tag = $tag;
     }
 
     /**
@@ -58,10 +57,10 @@ class ProductOptionDisplay
     }
 
     /**
-     * @return array|ProductTag[]
+     * @return ProductTag
      */
-    public function getTags()
+    public function getTag()
     {
-        return $this->tags;
+        return $this->tag;
     }
 }

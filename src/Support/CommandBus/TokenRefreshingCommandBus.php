@@ -1,7 +1,7 @@
 <?php namespace Ordercloud\Support\CommandBus;
 
-use Ordercloud\Requests\Auth\InvalidTokenRequest;
-use Ordercloud\Requests\Exceptions\InvalidAccessTokenException;
+use Ordercloud\Requests\Auth\ExpiredTokenRequest;
+use Ordercloud\Requests\Exceptions\AccessTokenExpiredException;
 
 class TokenRefreshingCommandBus implements CommandBus
 {
@@ -26,8 +26,8 @@ class TokenRefreshingCommandBus implements CommandBus
         try {
             return $this->commandBus->execute($command);
         }
-        catch (InvalidAccessTokenException $e) {
-            return $this->commandBus->execute(new InvalidTokenRequest($command, $e));
+        catch (AccessTokenExpiredException $e) {
+            return $this->commandBus->execute(new ExpiredTokenRequest($command, $e));
         }
     }
 }
