@@ -1,5 +1,7 @@
 <?php namespace Ordercloud\Entities\Orders;
 
+use Ordercloud\Entities\Products\ProductExtraDisplay;
+use Ordercloud\Entities\Products\ProductOptionDisplay;
 use Ordercloud\Entities\Products\ProductPriceDiscount;
 use Ordercloud\Entities\Products\ProductShort;
 
@@ -26,13 +28,13 @@ class OrderItem
     /** @var integer */
     private $readyEstimate;
     /**
-     * @var array|OrderItemExtra[]
-     * @reflectType Ordercloud\Entities\Orders\OrderItemExtra
+     * @var array|ProductExtraDisplay[]
+     * @reflectType Ordercloud\Entities\Products\ProductExtraDisplay
      */
     private $extras;
     /**
-     * @var array|OrderItemOption[]
-     * @reflectType Ordercloud\Entities\Orders\OrderItemOption
+     * @var array|ProductOptionDisplay[]
+     * @reflectType Ordercloud\Entities\Products\ProductOptionDisplay
      */
     private $options;
 
@@ -151,7 +153,7 @@ class OrderItem
     }
 
     /**
-     * @return array|OrderItemExtra[]
+     * @return array|ProductExtraDisplay[]
      */
     public function getExtras()
     {
@@ -167,7 +169,7 @@ class OrderItem
     }
 
     /**
-     * @return array|OrderItemOption[]
+     * @return array|ProductOptionDisplay[]
      */
     public function getOptions()
     {
