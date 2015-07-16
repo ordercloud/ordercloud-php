@@ -220,12 +220,12 @@ class OrdercloudBuilder
      */
     protected function bindCommandBus(Container $container)
     {
-        $this->container->singleton('Ordercloud\Support\CommandBus\CommandHandlerResolver', function () use ($container)
+        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerResolver', function () use ($container)
         {
             return new IlluminateCommandHandlerResolver($container);
         });
 
-        $this->container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', function ()
+        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', function ()
         {
             $reflectionTranslator = new ReflectionCommandHandlerTranslator();
 
