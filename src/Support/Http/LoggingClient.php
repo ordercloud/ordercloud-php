@@ -22,11 +22,11 @@ class LoggingClient implements Client
      * @param array|string[]  $loggingUrlPatterns
      * @param array|string[]  $loggingMethods
      */
-    public function __construct(Client $client, LoggerInterface $logger, $filteringEnabled, array $loggingUrlPatterns = [], array $loggingMethods = [])
+    public function __construct(Client $client, LoggerInterface $logger, array $loggingUrlPatterns = [], array $loggingMethods = [])
     {
         $this->client = $client;
         $this->logger = $logger;
-        $this->filteringEnabled = $filteringEnabled;
+        $this->filteringEnabled = empty($loggingUrlPatterns) && empty($loggingMethods);
         $this->loggingUrlPatterns = $loggingUrlPatterns;
         $this->loggingMethods = $loggingMethods;
     }
