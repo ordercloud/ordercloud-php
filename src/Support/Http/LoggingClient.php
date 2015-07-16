@@ -39,15 +39,12 @@ class LoggingClient implements Client
             return $response;
         }
 
+        // TODO: add request & responce log formatter
         $this->logger->info('ordercloud request', compact('url', 'method', 'params', 'headers'));
 
         $this->logger->info('ordercloud response', [
             'rawResponse' => $response->getRawResponse(),
             'rawRequest'  => $response->getRequest()->getRawRequest(),
-            'url'         => $response->getUrl(),
-            'headers'     => $response->getHeaders(),
-            'statusCode'  => $response->getStatusCode(),
-            'data'        => $response->getData(),
         ]);
 
         return $response;
