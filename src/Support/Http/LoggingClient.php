@@ -26,7 +26,7 @@ class LoggingClient implements Client
     {
         $this->client = $client;
         $this->logger = $logger;
-        $this->filteringEnabled = empty($loggingUrlPatterns) && empty($loggingMethods);
+        $this->filteringEnabled = ! (empty($loggingUrlPatterns) && empty($loggingMethods));
         $this->loggingUrlPatterns = $loggingUrlPatterns;
         $this->loggingMethods = $loggingMethods;
     }
