@@ -249,9 +249,11 @@ class OrdercloudBuilder
      */
     protected function bindTokenRefreshingCommandBus(Container $container)
     {
-        $container->singleton('Ordercloud\Support\CommandBus\CommandBus', function () use ($container)
+        $tokenRefreshingCommandBus = $container->make('Ordercloud\Support\CommandBus\TokenRefreshingCommandBus');
+
+        $container->singleton('Ordercloud\Support\CommandBus\CommandBus', function () use ($tokenRefreshingCommandBus)
         {
-            return $container->make('Ordercloud\Support\CommandBus\TokenRefreshingCommandBus');
+            return $tokenRefreshingCommandBus;
         });
 
         $refresher = $this->tokenRefresher;
