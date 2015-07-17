@@ -9,7 +9,7 @@ use Ordercloud\Support\TokenRefresher;
 
 class Ordercloud
 {
-    const VERSION = '0.1';
+    const VERSION = '0.2';
 
     /**
      * @var Container
@@ -27,7 +27,7 @@ class Ordercloud
     /**
      * @param Command $command
      *
-     * @return Response
+     * @return mixed
      */
     public function exec(Command $command)
     {

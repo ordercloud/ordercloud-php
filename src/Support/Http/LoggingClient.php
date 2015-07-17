@@ -18,15 +18,14 @@ class LoggingClient implements Client
     /**
      * @param Client          $client
      * @param LoggerInterface $logger
-     * @param bool            $filteringEnabled
      * @param array|string[]  $loggingUrlPatterns
      * @param array|string[]  $loggingMethods
      */
-    public function __construct(Client $client, LoggerInterface $logger, $filteringEnabled, array $loggingUrlPatterns = [], array $loggingMethods = [])
+    public function __construct(Client $client, LoggerInterface $logger, array $loggingUrlPatterns = [], array $loggingMethods = [])
     {
         $this->client = $client;
         $this->logger = $logger;
-        $this->filteringEnabled = $filteringEnabled;
+        $this->filteringEnabled = ! (empty($loggingUrlPatterns) && empty($loggingMethods));
         $this->loggingUrlPatterns = $loggingUrlPatterns;
         $this->loggingMethods = $loggingMethods;
     }
@@ -39,15 +38,12 @@ class LoggingClient implements Client
             return $response;
         }
 
+        // TODO: add request & responce log formatter
         $this->logger->info('ordercloud request', compact('url', 'method', 'params', 'headers'));
 
         $this->logger->info('ordercloud response', [
             'rawResponse' => $response->getRawResponse(),
             'rawRequest'  => $response->getRequest()->getRawRequest(),
-            'url'         => $response->getUrl(),
-            'headers'     => $response->getHeaders(),
-            'statusCode'  => $response->getStatusCode(),
-            'data'        => $response->getData(),
         ]);
 
         return $response;

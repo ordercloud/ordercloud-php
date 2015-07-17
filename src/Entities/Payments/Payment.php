@@ -1,6 +1,6 @@
 <?php namespace Ordercloud\Entities\Payments;
 
-use Ordercloud\Entities\Organisations\Organisation;
+use Ordercloud\Entities\Organisations\OrganisationShort;
 use Ordercloud\Entities\Users\DisplayUser;
 
 class Payment
@@ -18,7 +18,7 @@ class Payment
     private $requestId;
     /** @var DisplayUser */
     private $requestedByUser;
-    /** @var Organisation */
+    /** @var OrganisationShort */
     private $requestedByOrganisation;
     /** @var string */
     private $assetTypeCode;
@@ -31,7 +31,7 @@ class Payment
     /** @var integer */
     private $grouping;
 
-    public function __construct($id, PaymentStatus $lastPaymentStatus, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, Organisation $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $grouping)
+    public function __construct($id, PaymentStatus $lastPaymentStatus, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, OrganisationShort $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $grouping)
     {
         $this->id = $id;
         $this->lastPaymentStatus = $lastPaymentStatus;
@@ -87,7 +87,7 @@ class Payment
     }
 
     /**
-     * @return Organisation
+     * @return OrganisationShort
      */
     public function getRequestedByOrganisation()
     {

@@ -1,117 +1,231 @@
 <?php namespace Ordercloud\Support;
 
-use Closure;
 use Illuminate\Container\Container;
+use Ordercloud\Entities\Auth\AccessToken;
 use Ordercloud\Ordercloud;
 use Ordercloud\Support\CommandBus\ArrayCommandHandlerTranslator;
-use Ordercloud\Support\CommandBus\ReflectionCommandHandlerTranslator;
 use Ordercloud\Support\CommandBus\IlluminateCommandHandlerResolver;
+use Ordercloud\Support\CommandBus\ReflectionCommandHandlerTranslator;
 use Ordercloud\Support\Http\GuzzleClient;
 use Ordercloud\Support\Http\LoggingClient;
 use Psr\Log\LoggerInterface;
 
 class OrdercloudBuilder
 {
-    /** @var Closure */
-    private $clientFactory;
-    /** @var Container */
-    private $container;
+    /**
+     * @var string
+     */
+    private $baseUrl;
+    /**
+     * @var string
+     */
+    private $username;
+    /**
+     * @var string
+     */
+    private $password;
+    /**
+     * @var string
+     */
+    private $organisationToken;
+    /**
+     * @var AccessToken
+     */
+    private $accessToken;
+    /**
+     * @var TokenRefresher
+     */
+    private $tokenRefresher;
+    /**
+     * @var LoggerInterface
+     */
+    private $clientLogger;
     /**
      * @var array
      */
-    private $config;
+    private $filterUrls;
+    /**
+     * @var array
+     */
+    private $filterMethods;
+    /**
+     * @var Container
+     */
+    private $container;
 
     /**
      * @param Container $container
-     * @param array     $config
      */
-    public function __construct(Container $container, array $config)
+    public function __construct(Container $container)
     {
-        $this->config = $config;
         $this->container = $container;
-        $self = $this;
-        $this->clientFactory = function() use ($self)
-        {
-            return GuzzleClient::create(
-                $self->getConfig('http.base_url'),
-                $self->getConfig('credentials.username'),
-                $self->getConfig('credentials.password'),
-                $self->getConfig('credentials.organisation_token'),
-                $self->getConfig('credentials.access_token')
-            );
-        };
-        $this->registerComponents($container);
     }
 
     /**
-     * Create a new instance of ordercloud
-     *
-     * @param array $config
-     *
-     * @return Ordercloud
+     * @return static
      */
-    public static function create(array $config)
+    public static function create()
     {
-        $container = new Container();
-
-        $builder = new static($container, $config);
-
-        return $builder->build();
+        return new static(new Container());
     }
 
     /**
-     * Creates an instance of Ordercloud.
-     *
      * @return Ordercloud
      */
-    public function build()
+    public function getOrdercloud()
     {
+        $this->registerComponents($this->container);
+
         return $this->container->make('Ordercloud\Ordercloud');
     }
 
     /**
-     * @param LoggerInterface $logger
+     * @param $baseUrl
+     *
+     * @return static
      */
-    public function registerClientLogger(LoggerInterface $logger)
+    public function setBaseUrl($baseUrl)
     {
-        $self = $this;
-        $clientFactory = $this->clientFactory;
-        $this->container->singleton('Ordercloud\Support\Http\Client', function() use ($clientFactory, $logger, $self)
-        {
-            return new LoggingClient(
-                $clientFactory(),
-                $logger,
-                $self->getConfig('logging.filtering.enabled', false),
-                $self->getConfig('logging.filtering.urlPatterns', []),
-                $self->getConfig('logging.filtering.methods', [])
-            );
-        });
+        $this->baseUrl = $baseUrl;
+
+        return $this;
     }
 
     /**
-     * @param TokenRefresher $refresher
+     * @param $username
+     *
+     * @return static
      */
-    public function setInvalidAccessTokenHandler(TokenRefresher $refresher)
+    public function setUsername($username)
     {
-        $tokenRefreshingCommandBus = $this->container->make('Ordercloud\Support\CommandBus\TokenRefreshingCommandBus');
-        $this->container->singleton('Ordercloud\Support\CommandBus\CommandBus', function () use ($tokenRefreshingCommandBus) {
-            return $tokenRefreshingCommandBus;
-        });
-        $this->container->singleton('Ordercloud\Support\TokenRefresher', function () use ($refresher) {
-            return $refresher;
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @param $password
+     *
+     * @return static
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @param $organisationToken
+     *
+     * @return static
+     */
+    public function setOrganisationToken($organisationToken)
+    {
+        $this->organisationToken = $organisationToken;
+
+        return $this;
+    }
+
+    /**
+     * @param AccessToken $accessToken
+     *
+     * @return static
+     */
+    public function setAccessToken(AccessToken $accessToken)
+    {
+        $this->accessToken = $accessToken;
+
+        return $this;
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     * @param array           $filterUrls
+     * @param array           $filterMethods
+     *
+     * @return static
+     */
+    public function registerClientLogger(LoggerInterface $logger, array $filterUrls = [], array $filterMethods = [])
+    {
+        $this->clientLogger = $logger;
+        $this->filterUrls = $filterUrls;
+        $this->filterMethods = $filterMethods;
+
+        return $this;
+    }
+
+    /**
+     * @param TokenRefresher $tokenRefresher
+     *
+     * @return static
+     */
+    public function setTokenRefresher(TokenRefresher $tokenRefresher)
+    {
+        $this->tokenRefresher = $tokenRefresher;
+
+        return $this;
+    }
+
+    /**
+     * @param Container $container
+     *
+     * @return static
+     */
+    public function setContainer(Container $container)
+    {
+        $this->container = $container;
+
+        return $this;
+    }
+
+    /**
+     * Register all ordercloud components on the specified Container.
+     *
+     * @param Container $container
+     */
+    public function registerComponents(Container $container)
+    {
+        $this->bindClient($container);
+
+        $this->bindCommandBus($container);
+
+        $container->singleton('Ordercloud\Support\Parser');
+
+        $container->singleton('Ordercloud\Ordercloud', function () use ($container)
+        {
+            return new Ordercloud($container);
         });
     }
 
     /**
      * @param Container $container
      */
-    protected function registerComponents(Container $container)
+    protected function bindClient(Container $container)
     {
-        $container->singleton('Ordercloud\Support\Parser');
         $container->singleton('Ordercloud\Support\Http\UrlParameteriser', 'Ordercloud\Support\Http\LeagueUrlParameteriser');
-        $container->singleton('Ordercloud\Support\CommandBus\CommandBus', 'Ordercloud\Support\CommandBus\ExecutingCommandBus');
-        $container->singleton('Ordercloud\Support\Http\Client', $this->clientFactory);
-        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', function()
+
+        $clientFactory = $this->createClientFactory();
+
+        if (isset($this->clientLogger)) {
+            $this->bindLoggingClient($container, $clientFactory);
+        }
+        else {
+            $container->singleton('Ordercloud\Support\Http\Client', $clientFactory);
+        }
+    }
+
+    /**
+     * @param Container $container
+     */
+    protected function bindCommandBus(Container $container)
+    {
+        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerResolver', function () use ($container)
+        {
+            return new IlluminateCommandHandlerResolver($container);
+        });
+
+        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', function ()
         {
             $reflectionTranslator = new ReflectionCommandHandlerTranslator();
 
@@ -122,50 +236,64 @@ class OrdercloudBuilder
                 'Ordercloud\Requests\Auth\GetRegisterUrlRequest' => 'Ordercloud\Requests\Auth\Handlers\GetUrlRequestHandler',
             ]);
         });
-        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerResolver', function() use ($container)
+
+        $container->singleton('Ordercloud\Support\CommandBus\CommandBus', 'Ordercloud\Support\CommandBus\ExecutingCommandBus');
+
+        if (isset($this->tokenRefresher)) {
+            $this->bindTokenRefreshingCommandBus($container);
+        }
+    }
+
+    /**
+     * @param Container $container
+     */
+    protected function bindTokenRefreshingCommandBus(Container $container)
+    {
+        $tokenRefreshingCommandBus = $container->make('Ordercloud\Support\CommandBus\TokenRefreshingCommandBus');
+
+        $container->singleton('Ordercloud\Support\CommandBus\CommandBus', function () use ($tokenRefreshingCommandBus)
         {
-            return new IlluminateCommandHandlerResolver($container);
+            return $tokenRefreshingCommandBus;
         });
-        $container->singleton('Ordercloud\Ordercloud', function() use ($container)
+
+        $refresher = $this->tokenRefresher;
+
+        $container->singleton('Ordercloud\Support\TokenRefresher', function () use ($refresher)
         {
-            return new Ordercloud($container);
+            return $refresher;
         });
     }
 
     /**
-     * @param string     $key
-     * @param mixed $default
-     *
-     * @return mixed
+     * @return \Closure
      */
-    protected function getConfig($key, $default = null)
+    protected function createClientFactory()
     {
-        if (array_key_exists($key, $this->config)) {
-            return $this->config[$key];
-        }
+        $url = $this->baseUrl;
+        $username = $this->username;
+        $password = $this->password;
+        $orgToken = $this->organisationToken;
+        $accessToken = $this->accessToken;
 
-        return $this->getDotNotationConfig($key, $default);
+        return function () use ($url, $username, $password, $orgToken, $accessToken)
+        {
+            return GuzzleClient::create($url, $username, $password, $orgToken, $accessToken);
+        };
     }
 
     /**
-     * Retreive a nested multidimentional array value.
-     *
-     * @param string     $key
-     * @param mixed $default
-     *
-     * @return mixed
+     * @param Container $container
+     * @param \Closure  $clientFactory
      */
-    protected function getDotNotationConfig($key, $default)
+    protected function bindLoggingClient(Container $container, $clientFactory)
     {
-        $config = $this->config;
+        $logger = $this->clientLogger;
+        $filterUrls = $this->filterUrls;
+        $filterMethods = $this->filterMethods;
 
-        foreach (explode('.', $key) as $segment) {
-            if ( ! is_array($config) || ! array_key_exists($segment, $config)) {
-                return $default;
-            }
-            $config = $config[$segment];
-        }
-
-        return $config;
+        $container->singleton('Ordercloud\Support\Http\Client', function () use ($clientFactory, $logger, $filterUrls, $filterMethods)
+        {
+            return new LoggingClient($clientFactory(), $logger, $filterUrls, $filterMethods);
+        });
     }
 }
