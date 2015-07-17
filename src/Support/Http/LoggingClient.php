@@ -18,7 +18,6 @@ class LoggingClient implements Client
     /**
      * @param Client          $client
      * @param LoggerInterface $logger
-     * @param bool            $filteringEnabled
      * @param array|string[]  $loggingUrlPatterns
      * @param array|string[]  $loggingMethods
      */
