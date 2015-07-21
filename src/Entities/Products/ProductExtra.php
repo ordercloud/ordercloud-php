@@ -16,12 +16,8 @@ class ProductExtra
     private $enabled;
     /** @var OrganisationShort */
     private $organisation;
-    /**
-     * @var ProductTag
-     */
-    private $tag;
 
-    public function __construct($id, $name, $description, $price, $enabled, OrganisationShort $organisation, ProductTag $tag)
+    public function __construct($id, $name, $description, $price, $enabled, OrganisationShort $organisation)
     {
         $this->id = $id;
         $this->name = $name;
@@ -29,7 +25,6 @@ class ProductExtra
         $this->price = $price;
         $this->enabled = $enabled;
         $this->organisation = $organisation;
-        $this->tag = $tag;
     }
 
     /**
@@ -78,13 +73,5 @@ class ProductExtra
     public function getOrganisation()
     {
         return $this->organisation;
-    }
-
-    /**
-     * @return ProductTag
-     */
-    public function getTag()
-    {
-        return $this->tag;
     }
 }
