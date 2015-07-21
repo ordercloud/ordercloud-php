@@ -17,12 +17,11 @@ class ProductOption
     /** @var OrganisationShort */
     private $organisation;
     /**
-     * @var array|ProductTag[]
-     * @reflectType Ordercloud\Entities\Products\ProductTag
+     * @var ProductTag
      */
-    private $tags;
+    private $tag;
 
-    public function __construct($id, $name, $description, $price, $enabled, OrganisationShort $organisation, array $tags)
+    public function __construct($id, $name, $description, $price, $enabled, OrganisationShort $organisation, ProductTag $tag)
     {
         $this->id = $id;
         $this->name = $name;
@@ -30,7 +29,7 @@ class ProductOption
         $this->price = $price;
         $this->enabled = $enabled;
         $this->organisation = $organisation;
-        $this->tags = $tags;
+        $this->tag = $tag;
     }
 
     /**
@@ -82,10 +81,10 @@ class ProductOption
     }
 
     /**
-     * @return array|ProductTag[]
+     * @return ProductTag
      */
-    public function getTags()
+    public function getTag()
     {
-        return $this->tags;
+        return $this->tag;
     }
 }
