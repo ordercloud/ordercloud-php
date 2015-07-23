@@ -143,6 +143,16 @@ class Order
     }
 
     /**
+     * @param string $status
+     *
+     * @return bool
+     */
+    public function isStatus($status)
+    {
+        return strcasecmp($this->getStatus(), $status) === 0;
+    }
+
+    /**
      * @return array|OrderItem[]
      */
     public function getItems()
@@ -212,6 +222,16 @@ class Order
     public function getDeliveryType()
     {
         return $this->deliveryType;
+    }
+
+    /**
+     * @param string $deliveryType
+     *
+     * @return bool
+     */
+    public function isDeliveryType($deliveryType)
+    {
+        return strcasecmp($this->getDeliveryType(), $deliveryType) === 0;
     }
 
     /**
