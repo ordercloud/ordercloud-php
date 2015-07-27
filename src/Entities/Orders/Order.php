@@ -161,6 +161,16 @@ class Order
     }
 
     /**
+     * Returns all order items grouped by merchant
+     *
+     * @return array|MerchantItems[]
+     */
+    public function getMerchantItems()
+    {
+        return MerchantItems::createFromOrder($this);
+    }
+
+    /**
      * @return UserShort
      */
     public function getUser()
