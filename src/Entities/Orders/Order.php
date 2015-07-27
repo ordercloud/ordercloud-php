@@ -62,8 +62,10 @@ class Order
     private $instorePaymentRequired;
     /** @var string */
     private $estimatedDeliveryTime;
+    /** @var float */
+    private $deliveryCost;
 
-    public function __construct($id, $reference, $shortReference, $dateCreated, $lastUpdated, $amount, OrderStatus $status, array $items, UserShort $user, UserAddress $userAddress = null, OrganisationShort $organisation, PaymentStatus $paymentStatus, array $payments, array $paymentMethods, $deliveryType, DeliveryAgent $deliveryAgent = null, $note, $instorePaymentRequired, $estimatedDeliveryTime)
+    public function __construct($id, $reference, $shortReference, $dateCreated, $lastUpdated, $amount, OrderStatus $status, array $items, UserShort $user, UserAddress $userAddress = null, OrganisationShort $organisation, PaymentStatus $paymentStatus, array $payments, array $paymentMethods, $deliveryType, DeliveryAgent $deliveryAgent = null, $note, $instorePaymentRequired, $estimatedDeliveryTime, $deliveryCost)
     {
         $this->id = $id;
         $this->reference = $reference;
@@ -84,6 +86,7 @@ class Order
         $this->note = $note;
         $this->instorePaymentRequired = $instorePaymentRequired;
         $this->estimatedDeliveryTime = $estimatedDeliveryTime;
+        $this->deliveryCost = $deliveryCost;
     }
 
     /**
@@ -274,5 +277,13 @@ class Order
     public function getEstimatedDeliveryTime()
     {
         return $this->estimatedDeliveryTime;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDeliveryCost()
+    {
+        return $this->deliveryCost;
     }
 }
