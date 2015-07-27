@@ -69,4 +69,18 @@ class MerchantItems
     {
         return $this->items;
     }
+
+    /**
+     * @return float
+     */
+    public function getTotalAmount()
+    {
+        $total = 0.0;
+
+        foreach ($this->getItems() as $item) {
+            $total = bcadd($total, $item->getLinePrice(), 2);
+        }
+
+        return $total;
+    }
 }
