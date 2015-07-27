@@ -1,11 +1,9 @@
 <?php namespace Ordercloud\Entities\Orders;
 
-use Ordercloud\Entities\Organisations\OrganisationShort;
-
 class MerchantItems
 {
     /**
-     * @var OrganisationShort
+     * @var OrderItemMerchant
      */
     private $merchant;
     /**
@@ -14,10 +12,10 @@ class MerchantItems
     private $items;
 
     /**
-     * @param OrganisationShort $merchant
+     * @param OrderItemMerchant $merchant
      * @param array|OrderItem[] $items
      */
-    public function __construct(OrganisationShort $merchant, array $items = [])
+    public function __construct(OrderItemMerchant $merchant, array $items = [])
     {
         $this->merchant = $merchant;
         $this->items = $items;
@@ -55,7 +53,7 @@ class MerchantItems
     }
 
     /**
-     * @return OrganisationShort
+     * @return OrderItemMerchant
      */
     public function getMerchant()
     {
