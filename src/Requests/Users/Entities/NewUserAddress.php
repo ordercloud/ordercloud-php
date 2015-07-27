@@ -4,6 +4,11 @@ use Ordercloud\Entities\Delivery\AbstractAddress;
 
 class NewUserAddress extends AbstractAddress
 {
+    /**
+     * @var string
+     */
+    private $note;
+
     public function __construct($name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $note, $latitude, $longitude)
     {
         parent::__construct($longitude, $latitude, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode);
