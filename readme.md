@@ -1,4 +1,6 @@
-# Ordercloud PHP client - [![Build Status](https://travis-ci.org/ordercloud/ordercloud-php.svg?branch=master)](https://travis-ci.org/ordercloud/ordercloud-php) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ordercloud/ordercloud-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ordercloud/ordercloud-php/?branch=master)
+# Ordercloud PHP client
+* master [![Build Status](https://travis-ci.org/ordercloud/ordercloud-php.svg?branch=master)](https://travis-ci.org/ordercloud/ordercloud-php) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ordercloud/ordercloud-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ordercloud/ordercloud-php/?branch=master)
+* develop [![Build Status](https://travis-ci.org/ordercloud/ordercloud-php.svg?branch=develop)](https://travis-ci.org/ordercloud/ordercloud-php) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ordercloud/ordercloud-php/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/ordercloud/ordercloud-php/?branch=develop)
 
 ## Introduction
 This is the official Ordercloud PHP client.
