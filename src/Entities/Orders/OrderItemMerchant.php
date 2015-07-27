@@ -3,7 +3,7 @@
 use Ordercloud\Entities\Organisations\OrganisationAddress;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 
-class Merchant extends OrganisationShort
+class OrderItemMerchant extends OrganisationShort
 {
     /**
      * @var OrganisationAddress
