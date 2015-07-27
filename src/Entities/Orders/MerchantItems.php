@@ -31,16 +31,7 @@ class MerchantItems
         $groupedItems = [];
 
         foreach ($order->getItems() as $item) {
-            $merchantId = $item->getDetail()->getOrganisation()->getId();
-
-            if (array_key_exists($merchantId, $groupedItems)) {
-                $groupedItems[$merchantId]['items'][] = $item;
-            }
-            else {
-                $groupedItems[$merchantId] = [];
-                $groupedItems[$merchantId]['org'] = $item->getDetail()->getOrganisation();
-                $groupedItems[$merchantId]['items'] = [$item];
-            }
+            $groupedItems = self::groupItem($item, $groupedItems);
         }
 
         $merchantItems = [];
@@ -50,6 +41,28 @@ class MerchantItems
         }
 
         return $merchantItems;
+    }
+
+    /**
+     * @param OrderItem $item
+     * @param array     $groupedItems
+     *
+     * @return array
+     */
+    protected static function groupItem(OrderItem $item, array $groupedItems)
+    {
+        $merchantId = $item->getDetail()->getOrganisation()->getId();
+
+        if ( ! array_key_exists($merchantId, $groupedItems)) {
+            $groupedItems[$merchantId] = [
+                'org' => $item->getDetail()->getOrganisation(),
+                'items' => []
+            ];
+        }
+
+        $groupedItems[$merchantId]['items'][] = $item;
+
+        return $groupedItems;
     }
 
     /**
