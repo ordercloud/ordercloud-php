@@ -3,7 +3,6 @@
 use Ordercloud\Entities\Products\ProductExtraDisplay;
 use Ordercloud\Entities\Products\ProductOptionDisplay;
 use Ordercloud\Entities\Products\ProductPriceDiscount;
-use Ordercloud\Entities\Products\ProductShort;
 
 class OrderItem
 {
@@ -17,7 +16,7 @@ class OrderItem
     private $linePrice;
     /** @var boolean */
     private $enabled;
-    /** @var ProductShort */
+    /** @var OrderItemDetail */
     private $detail;
     /** @var OrderStatus */
     private $status;
@@ -38,7 +37,7 @@ class OrderItem
      */
     private $options;
 
-    public function __construct($id, $price, $quantity, $linePrice, $enabled, ProductShort $detail, OrderStatus $status, $note, ProductPriceDiscount $itemDiscount = null, $readyEstimate, array $extras, array $options)
+    public function __construct($id, $price, $quantity, $linePrice, $enabled, OrderItemDetail $detail, OrderStatus $status, $note, ProductPriceDiscount $itemDiscount = null, $readyEstimate, array $extras, array $options)
     {
         $this->id = $id;
         $this->price = $price;
@@ -113,7 +112,7 @@ class OrderItem
     }
 
     /**
-     * @return ProductShort
+     * @return OrderItemDetail
      */
     public function getDetail()
     {
