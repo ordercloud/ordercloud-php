@@ -1,17 +1,17 @@
 <?php namespace spec\Ordercloud\Entities\Orders;
 
+use Ordercloud\Entities\Orders\OrderItemDetail;
 use Ordercloud\Entities\Orders\OrderItemExtra;
 use Ordercloud\Entities\Orders\OrderItemOption;
 use Ordercloud\Entities\Orders\OrderStatus;
 use Ordercloud\Entities\Products\ProductExtraDisplay;
 use Ordercloud\Entities\Products\ProductOptionDisplay;
-use Ordercloud\Entities\Products\ProductShort;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class OrderItemSpec extends ObjectBehavior
 {
-    function let(ProductShort $detail, OrderStatus $status)
+    function let(OrderItemDetail $detail, OrderStatus $status)
     {
         $price = 60;
         $quantity = 2;
