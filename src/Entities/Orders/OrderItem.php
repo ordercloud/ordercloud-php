@@ -36,8 +36,24 @@ class OrderItem
      * @reflectType Ordercloud\Entities\Products\ProductOptionDisplay
      */
     private $options;
+    /** @var bool */
+    private $instorePaymentRequired;
 
-    public function __construct($id, $price, $quantity, $linePrice, $enabled, OrderItemDetail $detail, OrderStatus $status, $note, ProductPriceDiscount $itemDiscount = null, $readyEstimate, array $extras, array $options)
+    public function __construct(
+        $id,
+        $price,
+        $quantity,
+        $linePrice,
+        $enabled,
+        OrderItemDetail $detail,
+        OrderStatus $status,
+        $note,
+        ProductPriceDiscount $itemDiscount = null,
+        $readyEstimate,
+        array $extras,
+        array $options,
+        $instorePaymentRequired
+    )
     {
         $this->id = $id;
         $this->price = $price;
@@ -51,6 +67,7 @@ class OrderItem
         $this->readyEstimate = $readyEstimate;
         $this->extras = $extras;
         $this->options = $options;
+        $this->instorePaymentRequired = $instorePaymentRequired;
     }
 
     /**
@@ -181,5 +198,13 @@ class OrderItem
     public function hasOptions()
     {
         return ! empty($this->options);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInstorePaymentRequired()
+    {
+        return $this->instorePaymentRequired;
     }
 }
