@@ -58,14 +58,38 @@ class Order
     private $deliveryAgent;
     /** @var string */
     private $note;
-    /** @var boolean */
-    private $instorePaymentRequired;
     /** @var string */
     private $estimatedDeliveryTime;
     /** @var float */
     private $deliveryCost;
+    /**
+     * @var OrderSourceChannel
+     */
+    private $orderSourceChannel;
 
-    public function __construct($id, $reference, $shortReference, $dateCreated, $lastUpdated, $amount, OrderStatus $status, array $items, UserShort $user, UserAddress $userAddress = null, OrganisationShort $organisation, PaymentStatus $paymentStatus, array $payments, array $paymentMethods, $deliveryType, DeliveryAgent $deliveryAgent = null, $note, $instorePaymentRequired, $estimatedDeliveryTime, $deliveryCost)
+    //TODO add: tip + delivery + statusHistory
+    public function __construct(
+        $id,
+        $reference,
+        $shortReference,
+        $dateCreated,
+        $lastUpdated,
+        $amount,
+        OrderStatus $status,
+        array $items,
+        UserShort $user,
+        UserAddress $userAddress = null,
+        OrganisationShort $organisation,
+        PaymentStatus $paymentStatus,
+        array $payments,
+        array $paymentMethods,
+        $deliveryType,
+        DeliveryAgent $deliveryAgent = null,
+        $note,
+        $estimatedDeliveryTime,
+        $deliveryCost,
+        OrderSourceChannel $orderSourceChannel = null
+    )
     {
         $this->id = $id;
         $this->reference = $reference;
@@ -84,9 +108,9 @@ class Order
         $this->deliveryType = $deliveryType;
         $this->deliveryAgent = $deliveryAgent;
         $this->note = $note;
-        $this->instorePaymentRequired = $instorePaymentRequired;
         $this->estimatedDeliveryTime = $estimatedDeliveryTime;
         $this->deliveryCost = $deliveryCost;
+        $this->orderSourceChannel = $orderSourceChannel;
     }
 
     /**
@@ -264,14 +288,6 @@ class Order
     }
 
     /**
-     * @return boolean
-     */
-    public function isInstorePaymentRequired()
-    {
-        return $this->instorePaymentRequired;
-    }
-
-    /**
      * @return string
      */
     public function getEstimatedDeliveryTime()
@@ -285,5 +301,13 @@ class Order
     public function getDeliveryCost()
     {
         return $this->deliveryCost;
+    }
+
+    /**
+     * @return OrderSourceChannel
+     */
+    public function getOrderSourceChannel()
+    {
+        return $this->orderSourceChannel;
     }
 }
