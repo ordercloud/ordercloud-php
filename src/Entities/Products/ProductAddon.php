@@ -1,5 +1,7 @@
 <?php namespace Ordercloud\Entities\Products;
 
+use Ordercloud\Entities\Organisations\OrganisationShort;
+
 abstract class ProductAddon extends AbstractProductAddon
 {
     /** @var boolean */
