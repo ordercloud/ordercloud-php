@@ -25,7 +25,7 @@ class OrderItemSpec extends ObjectBehavior
         ];
         $linePrice = 30;
 
-        $this->beConstructedWith(1, $price, $quantity, $linePrice, true, $detail, $status, null, null, null, $extras, $options);
+        $this->beConstructedWith(1, $price, $quantity, $linePrice, true, $detail, $status, null, null, null, $extras, $options, false);
     }
 
     function it_can_caclulate_the_order_item_price()
