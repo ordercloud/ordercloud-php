@@ -14,14 +14,18 @@ class CreateOrderRequestHandler extends AbstractPostRequestHandler
      */
     protected function configure($request)
     {
-        $this->setUrl('/resource/orders/organisation/%d', $request->getOrganisationID())
+        $this->setUrl('/resource/orders/organisation/%d', $request->getOrganisationId())
             ->setParameters([
-                'userId'        => $request->getUserID(),
-                'items'         => $this->formatOrderItems($request->getItems()),
-                'paymentStatus' => $request->getPaymentStatus(),
-                'deliveryType'  => $request->getDeliveryType(),
-                'amount'        => $request->getAmount(),
-                'userGeo'       => $request->getDeliveryAddressID() ? ['id' => $request->getDeliveryAddressID()] : null,
+                'userId'             => $request->getUserId(),
+                'paymentStatus'      => $request->getPaymentStatus(),
+                'deliveryType'       => $request->getDeliveryType(),
+                'amount'             => $request->getAmount(),
+                'userGeo'            => $request->getDeliveryAddressId() ? ['id' => $request->getDeliveryAddressId()] : null,
+                'items'              => $this->formatOrderItems($request->getItems()),
+                'note'               => $request->getNote(),
+                'tip'                => $request->getTip(),
+                'deliveryService'    => $request->getDeliveryServiceId() ? ['id' => $request->getDeliveryServiceId()] : null,
+                'orderSourceChannel' => $request->getOrderSourceChannelId() ? ['id' => $request->getOrderSourceChannelId()] : null,
             ]);
     }
 

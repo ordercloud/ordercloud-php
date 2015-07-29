@@ -6,9 +6,9 @@ use Ordercloud\Support\CommandBus\Command;
 class CreateOrderRequest implements Command
 {
     /** @var int */
-    private $userID;
+    private $userId;
     /** @var int */
-    private $organisationID;
+    private $organisationId;
     /** @var array|NewOrderItem[] */
     private $items;
     /** @var string|float */
@@ -17,37 +17,52 @@ class CreateOrderRequest implements Command
     private $paymentStatus;
     /** @var string */
     private $deliveryType;
-    /** @var int|null */
-    private $deliveryAddressID;
-    /** @var string|null */
+    /** @var int */
+    private $deliveryAddressId;
+    /** @var string */
     private $note;
+    /**
+     * @var int
+     */
+    private $tip;
+    /**
+     * @var int
+     */
+    private $deliveryServiceId;
+    /**
+     * @var int
+     */
+    private $orderSourceChannelId;
 
-    public function __construct($userID, $organisationID, array $items, $amount, $paymentStatus, $deliveryType, $deliveryAddressID = null, $note = null)
+    public function __construct($userId, $organisationId, array $items, $amount, $paymentStatus, $deliveryType, $deliveryAddressId, $note, $tip, $deliveryServiceId, $orderSourceChannelId)
     {
-        $this->userID = $userID;
-        $this->organisationID = $organisationID;
+        $this->userId = $userId;
+        $this->organisationId = $organisationId;
         $this->items = $items;
         $this->amount = $amount;
         $this->paymentStatus = $paymentStatus;
         $this->deliveryType = $deliveryType;
-        $this->deliveryAddressID = $deliveryAddressID;
+        $this->deliveryAddressId = $deliveryAddressId;
         $this->note = $note;
+        $this->tip = $tip;
+        $this->deliveryServiceId = $deliveryServiceId;
+        $this->orderSourceChannelId = $orderSourceChannelId;
     }
 
     /**
      * @return int
      */
-    public function getUserID()
+    public function getUserId()
     {
-        return $this->userID;
+        return $this->userId;
     }
 
     /**
      * @return int
      */
-    public function getOrganisationID()
+    public function getOrganisationId()
     {
-        return $this->organisationID;
+        return $this->organisationId;
     }
 
     /**
@@ -85,9 +100,9 @@ class CreateOrderRequest implements Command
     /**
      * @return int|null
      */
-    public function getDeliveryAddressID()
+    public function getDeliveryAddressId()
     {
-        return $this->deliveryAddressID;
+        return $this->deliveryAddressId;
     }
 
     /**
@@ -96,5 +111,29 @@ class CreateOrderRequest implements Command
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTip()
+    {
+        return $this->tip;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDeliveryServiceId()
+    {
+        return $this->deliveryServiceId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrderSourceChannelId()
+    {
+        return $this->orderSourceChannelId;
     }
 }
