@@ -32,10 +32,7 @@ class OrdercloudRequestException extends OrdercloudException
     {
         switch ($httpException->getCode()) {
             case 401:
-                if ($httpException->getResponse()->getData('error') == 'expired_token') {
-                    return new AccessTokenExpiredException($request, $httpException);
-                }
-                return new UnauthorizedRequestException($request, $httpException);
+                return UnauthorizedRequestException::create($request, $httpException);
             default:
                 return new static($request, $httpException);
         }
