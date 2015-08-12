@@ -32,7 +32,7 @@ class CreateOrderRequest implements Command
     /**
      * @var int
      */
-    private $orderSourceChannelId;
+    private $orderSourceChannelId; //TODO rather use Name - Or allow for both
 
     public function __construct($userId, $organisationId, array $items, $amount, $paymentStatus, $deliveryType, $deliveryAddressId, $note, $tip, $deliveryServiceId, $orderSourceChannelId)
     {
