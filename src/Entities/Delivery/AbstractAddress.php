@@ -108,7 +108,7 @@ abstract class AbstractAddress
 
     /**
      * Returns an array of address lines.
-     * 
+     *
      * @return array|string[]
      */
     public function getAddressLines()
