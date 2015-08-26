@@ -48,10 +48,11 @@ class CreateOrderRequestHandler extends AbstractPostRequestHandler
                 'id'       => $item->getProductID(),
                 'quantity' => $item->getQuantity(),
                 'price'    => $item->getPrice(),
+                'note'     => $item->getNote(),
                 'detail'   => [
                     'options' => $this->formatOptions($item->getOptions()),
                     'extras'  => $this->formatExtras($item->getExtras())
-                ]
+                ],
             ];
         }
 
