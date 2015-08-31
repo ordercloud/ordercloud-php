@@ -49,6 +49,15 @@ class ProductExtraSet
         return $this->extras;
     }
 
+    public function getSortedExtras(ProductAddonComparator $comparator)
+    {
+        $extras = $this->getExtras();
+
+        usort($extras, $comparator);
+
+        return $extras;
+    }
+
     /**
      * @param $extraID
      *
