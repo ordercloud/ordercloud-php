@@ -6,17 +6,14 @@ class OrganisationAddress extends AbstractAddress
 {
     /** @var int */
     private $id;
-    /** @var string */
-    private $description;
     /** @var int */
     private $distance;
 
-    public function __construct($id, $description, $distance, $longitude, $latitude, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode)
+    public function __construct($id, $distance, $longitude, $latitude, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode)
     {
         parent::__construct($longitude, $latitude, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode);
         $this->id = $id;
         $this->distance = $distance;
-        $this->description = $description;
     }
 
     /**
@@ -25,14 +22,6 @@ class OrganisationAddress extends AbstractAddress
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 
     /**
