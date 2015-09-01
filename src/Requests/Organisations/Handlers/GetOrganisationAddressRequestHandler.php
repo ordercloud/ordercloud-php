@@ -2,7 +2,6 @@
 
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Organisations\GetOrganisationAddressRequest;
-use Ordercloud\Requests\Organisations\GetOrganisationRequest;
 
 class GetOrganisationAddressRequestHandler extends AbstractGetRequestHandler
 {

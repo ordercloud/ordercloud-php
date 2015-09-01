@@ -16,10 +16,12 @@ class FindUserRequest implements Command
 
     /**
      * @param string $emailAddress
+     * @param string $mobileNumber
      */
-    public function __construct($emailAddress)
+    public function __construct($emailAddress, $mobileNumber)
     {
         $this->emailAddress = $emailAddress;
+        $this->mobileNumber = $mobileNumber;
     }
 
     /**
