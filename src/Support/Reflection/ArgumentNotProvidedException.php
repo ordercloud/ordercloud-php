@@ -1,8 +1,6 @@
 <?php namespace Ordercloud\Support\Reflection;
 
-use Exception;
-
-class ArgumentNotProvidedException extends Exception
+class ArgumentNotProvidedException extends EntityReflectionException
 {
     /** @var string */
     private $className;
@@ -21,7 +19,13 @@ class ArgumentNotProvidedException extends Exception
      */
     public function __construct($className, array $arguments, $parameterName, $parameterAlias)
     {
-        parent::__construct("Required parameter [$parameterName] on class [$className] not provided.");
+        $parameterAlias = strcasecmp($parameterName, $parameterAlias) === 0 ? null : $parameterAlias;
+        $alias = is_null($parameterAlias) ? null : "aliased as [$parameterAlias] ";
+
+        parent::__construct(
+            sprintf('Required parameter [%s] %son class [%s] not provided.', $parameterName, $alias, $className)
+        );
+
         $this->className = $className;
         $this->parameterName = $parameterName;
         $this->arguments = $arguments;

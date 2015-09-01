@@ -40,13 +40,22 @@ class EntityReflector extends ReflectionClass
      * @param string $className
      * @param array  $arguments
      *
-     * @return object
+     * @return mixed
+     *
+     * @throws EntityParseException
      */
     public static function parse($className, array $arguments)
     {
         $reflector = new static($className, $arguments);
 
-        return $reflector->reflect();
+        try {
+            $reflection = $reflector->reflect();
+        }
+        catch (EntityReflectionException $e) {
+            throw new EntityParseException($className, $arguments, $e);
+        }
+
+        return $reflection;
     }
 
     /**
@@ -54,21 +63,27 @@ class EntityReflector extends ReflectionClass
      *
      * @return int
      *
-     * @throws OrdercloudException
+     * @throws EntityReflectionException
      */
     public static function parseResourceIDFromURL($url)
     {
         if (is_null($url)) {
-            throw new OrdercloudException("Resource ID can't be parsed, null url");
+            throw new EntityReflectionException("Resource ID can't be parsed, null url");
         }
 
         $resourceLocationParts = explode('/', $url);
 
         if ( ! is_array($resourceLocationParts)) {
-            new OrdercloudException("Resource ID not found in request, loaction: {$url}");
+            throw new EntityReflectionException("Resource ID not found in request, loaction: {$url}");
         }
 
-        return intval(end($resourceLocationParts));
+        $id = intval(end($resourceLocationParts));
+
+        if ($id === 0) {
+            throw new EntityReflectionException("Invalid resource ID found in request, loaction: {$url}");
+        }
+
+        return $id;
     }
 
     /**
@@ -107,6 +122,9 @@ class EntityReflector extends ReflectionClass
      * @param ReflectionParameter $parameter
      *
      * @return mixed
+     *
+     * @throws ArgumentNotProvidedException
+     * @throws NullRequiredArgumentException
      */
     private function prepareArgument(ReflectionParameter $parameter)
     {
@@ -117,8 +135,12 @@ class EntityReflector extends ReflectionClass
             return $this->prepareArrayArgument($parameter, $argument);
         }
 
+        if (is_null($argument) && ! $parameter->allowsNull()) {
+            throw NullRequiredArgumentException::create($parameterName);
+        }
+
         if ( ! is_null($argument) && $parameterClass = $parameter->getClass()) {
-            return $this->parse($parameterClass->getName(), $argument);
+            return (new static($parameterClass->getName(), $argument))->reflect();
         }
 
         return $argument;
@@ -171,7 +193,13 @@ class EntityReflector extends ReflectionClass
         }
 
         if ($className = $this->getArrayClass($parameter->getName())) {
-            return $this->parseAll($className, $argument);
+            $results = [];
+
+            foreach ($argument as $objectArguments) {
+                $results[] = (new static($className, $objectArguments))->reflect();
+            }
+
+            return $results;
         }
 
         return $argument;
