@@ -2,7 +2,6 @@
 
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Users\FindUserRequest;
-use Ordercloud\Requests\Users\GetLoggedInUserRequest;
 
 class FindUserRequestHandler extends AbstractGetRequestHandler
 {
