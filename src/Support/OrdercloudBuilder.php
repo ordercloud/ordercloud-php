@@ -6,6 +6,7 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Support\CommandBus\ArrayCommandHandlerTranslator;
 use Ordercloud\Support\CommandBus\IlluminateCommandHandlerResolver;
 use Ordercloud\Support\CommandBus\ReflectionCommandHandlerTranslator;
+use Ordercloud\Support\ExceptionGenerators\ChainedExceptionGeneratorService;
 use Ordercloud\Support\Http\GuzzleClient;
 use Ordercloud\Support\Http\LoggingClient;
 use Psr\Log\LoggerInterface;
@@ -189,6 +190,15 @@ class OrdercloudBuilder
         $this->bindClient($container);
 
         $this->bindCommandBus($container);
+
+        $container->singleton('Ordercloud\Support\ExceptionGenerators\ExceptionGeneratorService', function () use ($container)
+        {
+            return new ChainedExceptionGeneratorService($container, [
+                'Ordercloud\Support\ExceptionGenerators\DeliveryNotAvailableExceptionGenerator',
+                'Ordercloud\Support\ExceptionGenerators\OrderTotalConflictExceptionGenerator',
+                'Ordercloud\Support\ExceptionGenerators\DefaultExceptionGenerator', // Always chain default handler last
+            ]);
+        });
 
         $container->singleton('Ordercloud\Support\Parser');
 

@@ -3,6 +3,7 @@
 use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\CommandBus\CommandHandler;
+use Ordercloud\Support\ExceptionGenerators\ExceptionGeneratorService;
 use Ordercloud\Support\Http\Client;
 use Ordercloud\Support\Http\OrdercloudHttpException;
 use Ordercloud\Support\Http\Response;
@@ -16,11 +17,16 @@ class OrdercloudRequestHandler implements CommandHandler
      * @var UrlParameteriser
      */
     private $parameteriser;
+    /**
+     * @var ExceptionGeneratorService
+     */
+    private $exceptionGenerator;
 
-    public function __construct(Client $client, UrlParameteriser $parameteriser)
+    public function __construct(Client $client, UrlParameteriser $parameteriser, ExceptionGeneratorService $exceptionGenerator)
     {
         $this->client = $client;
         $this->parameteriser = $parameteriser;
+        $this->exceptionGenerator = $exceptionGenerator;
     }
 
     /**
@@ -41,7 +47,7 @@ class OrdercloudRequestHandler implements CommandHandler
             return $this->client->send($url, $method, $params, $headers);
         }
         catch (OrdercloudHttpException $e) {
-            throw OrdercloudRequestException::create($request, $e);
+            throw $this->exceptionGenerator->generateException($request, $e);
         }
     }
 
