@@ -10,10 +10,6 @@ class EntityParseException extends EntityReflectionException
      * @var array
      */
     private $arguments;
-    /**
-     * @var EntityReflectionException|null
-     */
-    private $previousException;
 
     /**
      * @param string                         $className
@@ -26,7 +22,6 @@ class EntityParseException extends EntityReflectionException
 
         $this->className = $className;
         $this->arguments = $arguments;
-        $this->previousException = $previousException;
     }
 
     /**
@@ -43,13 +38,5 @@ class EntityParseException extends EntityReflectionException
     public function getArguments()
     {
         return $this->arguments;
-    }
-
-    /**
-     * @return EntityReflectionException|null
-     */
-    public function getPreviousException()
-    {
-        return $this->previousException;
     }
 }

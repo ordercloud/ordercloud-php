@@ -136,7 +136,7 @@ class EntityReflector extends ReflectionClass
         }
 
         if (is_null($argument) && ! $parameter->allowsNull()) {
-            throw NullRequiredArgumentException::create($parameterName);
+            throw NullRequiredArgumentException::create($parameterName, $this->getName());
         }
 
         if ( ! is_null($argument) && $parameterClass = $parameter->getClass()) {

@@ -2,8 +2,8 @@
 
 class NullRequiredArgumentException extends EntityReflectionException
 {
-    public static function create($parameterName)
+    public static function create($parameterName, $className)
     {
-        return new static("Required parameter [{$parameterName}] is null");
+        return new static("Required parameter [{$parameterName}] is null on [{$className}]");
     }
 }
