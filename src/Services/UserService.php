@@ -110,7 +110,7 @@ class UserService extends OrdercloudService
      */
     public function getAddress($addressId)
     {
-        $this->request(
+        return $this->request(
             new GetUserAddressByIdRequest($addressId)
         );
     }
