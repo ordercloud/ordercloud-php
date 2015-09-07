@@ -31,6 +31,5 @@ class UpdateUserAddressRequestHandler extends AbstractPutRequestHandler
     protected function transformResponse($response)
     {
         return $response;
-//        return EntityReflector::parseResourceIDFromURL($response->getUrl());
     }
 }
