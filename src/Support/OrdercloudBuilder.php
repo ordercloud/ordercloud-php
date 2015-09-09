@@ -202,6 +202,9 @@ class OrdercloudBuilder
 
         $container->singleton('Ordercloud\Support\Parser');
 
+        $container->singleton('Ordercloud\Services\UserService');
+        $container->singleton('Ordercloud\Services\OrganisationService');
+
         $container->singleton('Ordercloud\Ordercloud', function () use ($container)
         {
             return new Ordercloud($container);
