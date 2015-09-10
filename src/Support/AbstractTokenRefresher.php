@@ -1,8 +1,7 @@
 <?php namespace Ordercloud\Support;
 
 use Ordercloud\Entities\Auth\AccessToken;
-use Ordercloud\Ordercloud;
-use Ordercloud\Requests\Auth\RefreshAccessTokenRequest;
+use Ordercloud\Services\AuthService;
 
 abstract class AbstractTokenRefresher implements TokenRefresher
 {
@@ -31,16 +30,9 @@ abstract class AbstractTokenRefresher implements TokenRefresher
         $this->refreshToken = $refreshToken;
     }
 
-    /**
-     * @param Ordercloud $ordercloud
-     *
-     * @return AccessToken
-     */
-    public function refresh(Ordercloud $ordercloud)
+    public function refresh(AuthService $auth)
     {
-        $refreshRequest = new RefreshAccessTokenRequest($this->organisationCode, $this->clientSecret, $this->refreshToken);
-
-        $accessToken = $ordercloud->exec($refreshRequest);
+        $accessToken = $auth->refreshAccessToken($this->organisationCode, $this->clientSecret, $this->refreshToken);
 
         $this->onAccessTokenRefreshed($accessToken);
 
