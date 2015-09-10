@@ -245,8 +245,6 @@ class OrdercloudBuilder
             return new ArrayCommandHandlerTranslator($reflectionTranslator, [
                 'Ordercloud\Requests\Connections\GetMarketplaceConnectionsRequest' => 'Ordercloud\Requests\Connections\Handlers\GetConnectionsByTypeRequestHandler',
                 'Ordercloud\Requests\Connections\GetChildConnectionsRequest' => 'Ordercloud\Requests\Connections\Handlers\GetConnectionsByTypeRequestHandler',
-                'Ordercloud\Requests\Auth\GetLoginUrlRequest' => 'Ordercloud\Requests\Auth\Handlers\GetUrlRequestHandler',
-                'Ordercloud\Requests\Auth\GetRegisterUrlRequest' => 'Ordercloud\Requests\Auth\Handlers\GetUrlRequestHandler',
             ]);
         });
 

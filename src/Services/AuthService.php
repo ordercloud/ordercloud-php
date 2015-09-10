@@ -3,6 +3,7 @@
 use Ordercloud\Entities\Auth\AccessToken;
 use Ordercloud\Requests\Auth\GetLoginUrlRequest;
 use Ordercloud\Requests\Auth\GetRegisterUrlRequest;
+use Ordercloud\Requests\Auth\GetUrlRequest;
 use Ordercloud\Requests\Auth\RefreshAccessTokenRequest;
 
 class AuthService extends OrdercloudService
@@ -17,9 +18,7 @@ class AuthService extends OrdercloudService
      */
     public function getLoginUrl($organisationID, $clientSecret, $redirectUrl, $mobile = false)
     {
-        return $this->request(
-            new GetLoginUrlRequest($organisationID, $clientSecret, $redirectUrl, $mobile)
-        );
+        return $this->getUrl($organisationID, $clientSecret, $redirectUrl, 'login', $mobile);
     }
 
     /**
@@ -32,8 +31,22 @@ class AuthService extends OrdercloudService
      */
     public function getRegisterUrl($organisationID, $clientSecret, $redirectUrl, $mobile = false)
     {
+        return $this->getUrl($organisationID, $clientSecret, $redirectUrl, 'register', $mobile);
+    }
+
+    /**
+     * @param int        $organisationID
+     * @param string     $clientSecret
+     * @param string     $redirectUrl
+     * @param string     $type
+     * @param bool|false $mobile
+     *
+     * @return string
+     */
+    public function getUrl($organisationID, $clientSecret, $redirectUrl, $type, $mobile = false)
+    {
         return $this->request(
-            new GetRegisterUrlRequest($organisationID, $clientSecret, $redirectUrl, $mobile)
+            new GetUrlRequest($organisationID, $clientSecret, $redirectUrl, $type, $mobile)
         );
     }
 
