@@ -74,13 +74,13 @@ class EntityReflector extends ReflectionClass
         $resourceLocationParts = explode('/', $url);
 
         if ( ! is_array($resourceLocationParts)) {
-            throw new EntityReflectionException("Resource ID not found in request, loaction: {$url}");
+            throw new EntityReflectionException("Resource ID not found in request, location: {$url}");
         }
 
         $id = intval(end($resourceLocationParts));
 
         if ($id === 0) {
-            throw new EntityReflectionException("Invalid resource ID found in request, loaction: {$url}");
+            throw new EntityReflectionException("Invalid resource ID found in request, location: {$url}");
         }
 
         return $id;
