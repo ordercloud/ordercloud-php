@@ -6,8 +6,6 @@ class OrganisationAddress extends AbstractAddress
 {
     /** @var int */
     private $id;
-    /** @var int */
-    private $distance;
 
     // TODO: UserAddress & Organisation address are now the same - refactor
 
