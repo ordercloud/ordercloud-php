@@ -20,7 +20,7 @@ abstract class ExceptionGenerator
      *
      * @return OrdercloudRequestException
      */
-    public abstract function generateException(OrdercloudRequest $request, OrdercloudHttpException $exception);
+    abstract public function generateException(OrdercloudRequest $request, OrdercloudHttpException $exception);
 
     /**
      * Set the ExceptionGenerator that should be executed next

@@ -11,7 +11,7 @@ abstract class ProductAddonComparator
      *
      * @return int
      */
-    public abstract function compare(ProductAddon $a, ProductAddon $b);
+    abstract public function compare(ProductAddon $a, ProductAddon $b);
 
     public function __invoke(ProductAddon $a, ProductAddon $b)
     {
