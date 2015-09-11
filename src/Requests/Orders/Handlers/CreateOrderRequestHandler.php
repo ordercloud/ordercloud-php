@@ -1,6 +1,7 @@
 <?php namespace Ordercloud\Requests\Orders\Handlers;
 
 use Ordercloud\Requests\Handlers\AbstractPostRequestHandler;
+use Ordercloud\Requests\Handlers\IdentifyByIdTrait;
 use Ordercloud\Requests\Orders\CreateOrderRequest;
 use Ordercloud\Requests\Orders\Entities\NewOrderItem;
 use Ordercloud\Requests\Orders\Entities\NewOrderItemExtra;
@@ -9,6 +10,8 @@ use Ordercloud\Support\Reflection\EntityReflector;
 
 class CreateOrderRequestHandler extends AbstractPostRequestHandler
 {
+    use IdentifyByIdTrait;
+
     /**
      * @param CreateOrderRequest $request
      */
@@ -20,12 +23,12 @@ class CreateOrderRequestHandler extends AbstractPostRequestHandler
                 'paymentStatus'      => $request->getPaymentStatus(),
                 'deliveryType'       => $request->getDeliveryType(),
                 'amount'             => $request->getAmount(),
-                'userGeo'            => $request->getDeliveryAddressId() ? ['id' => $request->getDeliveryAddressId()] : null,
+                'userGeo'            => $this->identifyById([$request->getDeliveryAddressId()]),
                 'items'              => $this->formatOrderItems($request->getItems()),
                 'note'               => $request->getNote(),
                 'tip'                => $request->getTip(),
-                'deliveryService'    => $request->getDeliveryServiceId() ? ['id' => $request->getDeliveryServiceId()] : null,
-                'orderSourceChannel' => $request->getOrderSourceChannelId() ? ['id' => $request->getOrderSourceChannelId()] : null,
+                'deliveryService'    => $this->identifyById([$request->getDeliveryServiceId()]),
+                'orderSourceChannel' => $this->identifyById([$request->getOrderSourceChannelId()]),
             ]);
     }
 

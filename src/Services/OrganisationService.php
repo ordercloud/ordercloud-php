@@ -82,23 +82,23 @@ class OrganisationService extends OrdercloudService
     }
 
     /**
-     * @param int|null    $organisationId
-     * @param ConnectionsByTypeCriteria|null $criteria
+     * @param int|null                     $organisationId
+     * @param BasicConnectionCriteria|null $criteria
      *
      * @return array|Connection[]
      */
-    public function getChildConnections($organisationId = null, ConnectionsByTypeCriteria $criteria = null)
+    public function getChildConnections($organisationId = null, BasicConnectionCriteria $criteria = null)
     {
         return $this->getConnectionsByType(ConnectionType::CHILD, $organisationId, $criteria);
     }
 
     /**
-     * @param int|null    $organisationId
-     * @param ConnectionsByTypeCriteria|null $criteria
+     * @param int|null                     $organisationId
+     * @param BasicConnectionCriteria|null $criteria
      *
      * @return array|Connection[]
      */
-    public function getMarketplaceConnections($organisationId = null, ConnectionsByTypeCriteria $criteria = null)
+    public function getMarketplaceConnections($organisationId = null, BasicConnectionCriteria $criteria = null)
     {
         return $this->getConnectionsByType(ConnectionType::MARKETPLACE, $organisationId, $criteria);
     }
