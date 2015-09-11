@@ -7,7 +7,7 @@ use Ordercloud\Entities\Organisations\OrganisationAccessToken;
 use Ordercloud\Entities\Organisations\OrganisationAddress;
 use Ordercloud\Entities\Settings\SettingsCollection;
 use Ordercloud\Requests\Auth\Entities\Authorisation;
-use Ordercloud\Requests\Organisations\Criteria\ConnectionsByTypeCriteria;
+use Ordercloud\Requests\Organisations\Criteria\BasicConnectionCriteria;
 use Ordercloud\Requests\Organisations\GetOrganisationAccessTokenRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationAddressRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationConnectionsByTypeRequest;
@@ -66,15 +66,15 @@ class OrganisationService extends OrdercloudService
     }
 
     /**
-     * @param int                            $typeCode
-     * @param int|null                       $organisationId
-     * @param ConnectionsByTypeCriteria|null $criteria
+     * @param int                          $typeCode
+     * @param int|null                     $organisationId
+     * @param BasicConnectionCriteria|null $criteria
      *
      * @return array|Connection[]
      */
-    public function getConnectionsByType($typeCode, $organisationId = null, ConnectionsByTypeCriteria $criteria = null)
+    public function getConnectionsByType($typeCode, $organisationId = null, BasicConnectionCriteria $criteria = null)
     {
-        $criteria = $criteria ?: ConnectionsByTypeCriteria::create();
+        $criteria = $criteria ?: BasicConnectionCriteria::create();
 
         return $this->request(
             new GetOrganisationConnectionsByTypeRequest($typeCode, $organisationId, $criteria)

@@ -1,6 +1,6 @@
 <?php namespace Ordercloud\Requests\Organisations;
 
-use Ordercloud\Requests\Organisations\Criteria\ConnectionsByTypeCriteria;
+use Ordercloud\Requests\Organisations\Criteria\BasicConnectionCriteria;
 use Ordercloud\Support\CommandBus\Command;
 
 class GetOrganisationConnectionsByTypeRequest implements Command
@@ -14,16 +14,16 @@ class GetOrganisationConnectionsByTypeRequest implements Command
      */
     private $organisationId;
     /**
-     * @var ConnectionsByTypeCriteria
+     * @var BasicConnectionCriteria
      */
     private $criteria;
 
     /**
      * @param int                       $typeCode
      * @param int|null                  $organisationId
-     * @param ConnectionsByTypeCriteria $criteria
+     * @param BasicConnectionCriteria $criteria
      */
-    public function __construct($typeCode, $organisationId = null, ConnectionsByTypeCriteria $criteria)
+    public function __construct($typeCode, $organisationId = null, BasicConnectionCriteria $criteria)
     {
         $this->typeCode = $typeCode;
         $this->organisationId = $organisationId;
@@ -55,7 +55,7 @@ class GetOrganisationConnectionsByTypeRequest implements Command
     }
 
     /**
-     * @return ConnectionsByTypeCriteria
+     * @return BasicConnectionCriteria
      */
     public function getCriteria()
     {

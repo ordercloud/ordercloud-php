@@ -4,11 +4,12 @@ use Ordercloud\Requests\Criteria\Criteria;
 use Ordercloud\Requests\Criteria\PaginationCriterion;
 use Ordercloud\Requests\Criteria\SortCriterion;
 
-class ConnectionsByTypeCriteria extends Criteria
+class BasicConnectionCriteria extends Criteria
 {
     use PaginationCriterion,
         SortCriterion;
 
+    /** @var bool */
     private $showDisabled = false;
 
     /**
