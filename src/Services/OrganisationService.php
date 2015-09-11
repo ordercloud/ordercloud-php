@@ -7,10 +7,12 @@ use Ordercloud\Entities\Organisations\OrganisationAccessToken;
 use Ordercloud\Entities\Organisations\OrganisationAddress;
 use Ordercloud\Entities\Settings\SettingsCollection;
 use Ordercloud\Requests\Auth\Entities\Authorisation;
+use Ordercloud\Requests\Organisations\Criteria\AdvancedConnectionCriteria;
 use Ordercloud\Requests\Organisations\Criteria\BasicConnectionCriteria;
 use Ordercloud\Requests\Organisations\GetOrganisationAccessTokenRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationAddressRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationConnectionsByTypeRequest;
+use Ordercloud\Requests\Organisations\GetOrganisationConnectionsRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationRequest;
 use Ordercloud\Requests\Organisations\GetSettingsByOrganisationRequest;
 
@@ -101,5 +103,18 @@ class OrganisationService extends OrdercloudService
     public function getMarketplaceConnections($organisationId = null, BasicConnectionCriteria $criteria = null)
     {
         return $this->getConnectionsByType(ConnectionType::MARKETPLACE, $organisationId, $criteria);
+    }
+
+    /**
+     * @param int|null                        $organisationId
+     * @param AdvancedConnectionCriteria|null $criteria
+     *
+     * @return array|Connection[]
+     */
+    public function getConnections($organisationId = null, AdvancedConnectionCriteria $criteria = null)
+    {
+        return $this->request(
+            new GetOrganisationConnectionsRequest($organisationId, $criteria)
+        );
     }
 }
