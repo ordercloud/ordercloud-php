@@ -274,6 +274,14 @@ class Product
     }
 
     /**
+     * @return bool
+     */
+    public function hasImages()
+    {
+        return sizeof($this->getImages()) > 0;
+    }
+
+    /**
      * @return array|Product[]
      */
     public function getGroupItems()
