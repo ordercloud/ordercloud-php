@@ -23,12 +23,12 @@ class CreateOrderRequestHandler extends AbstractPostRequestHandler
                 'paymentStatus'      => $request->getPaymentStatus(),
                 'deliveryType'       => $request->getDeliveryType(),
                 'amount'             => $request->getAmount(),
-                'userGeo'            => $this->identifyById([$request->getDeliveryAddressId()]),
+                'userGeo'            => $this->identifyById($request->getDeliveryAddressId()),
                 'items'              => $this->formatOrderItems($request->getItems()),
                 'note'               => $request->getNote(),
                 'tip'                => $request->getTip(),
-                'deliveryService'    => $this->identifyById([$request->getDeliveryServiceId()]),
-                'orderSourceChannel' => $this->identifyById([$request->getOrderSourceChannelId()]),
+                'deliveryService'    => $this->identifyById($request->getDeliveryServiceId()),
+                'orderSourceChannel' => $this->identifyById($request->getOrderSourceChannelId()),
             ]);
     }
 
