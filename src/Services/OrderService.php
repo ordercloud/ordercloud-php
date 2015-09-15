@@ -31,7 +31,7 @@ class OrderService extends OrdercloudService
     public function getUserOrders($userId, UserOrderCriteria $criteria)
     {
         return $this->request(
-            new GetUserOrdersRequest($userId)
+            new GetUserOrdersRequest($userId, $criteria)
         );
     }
 

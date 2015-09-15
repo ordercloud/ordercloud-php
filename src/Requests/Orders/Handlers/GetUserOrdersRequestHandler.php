@@ -21,13 +21,15 @@ class GetUserOrdersRequestHandler extends AbstractGetRequestHandler
      */
     protected function configure($request)
     {
-        $this->setUrl('resource/orders/user/%d', $request->getUserID())
+        $criteria = $request->getCriteria();
+
+        $this->setUrl('resource/orders/user/%d', $request->getUserId())
             ->setParameters([
-                'page'          => $request->getPage(),
-                'pagesize'      => $request->getPageSize(),
-                'orderstatus'   => $request->getOrderStatuses(),
-                'paymentstatus' => $request->getPaymentStatuses(),
-                'sort'          => $request->getSort(),
+                'page'          => $criteria->getPage(),
+                'pagesize'      => $criteria->getPageSize(),
+                'orderstatus'   => $criteria->getOrderStatuses(),
+                'paymentstatus' => $criteria->getPaymentStatuses(),
+                'sort'          => $criteria->getSort(),
             ]);
 
         $this->page = $request->getPage();
