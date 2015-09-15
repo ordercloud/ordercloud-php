@@ -1,9 +1,9 @@
 <?php namespace Ordercloud\Requests\Products\Handlers;
 
+use Ordercloud\Entities\Products\ProductCollection;
 use Ordercloud\Requests\Handlers\AbstractPutRequestHandler;
 use Ordercloud\Requests\Handlers\FormatBooleanTrait;
 use Ordercloud\Requests\Products\FindProductsRequest;
-use Ordercloud\Support\PaginatedCollection;
 use Ordercloud\Support\Reflection\EntityReflector;
 
 class FindProductsRequestHandler extends AbstractPutRequestHandler
@@ -42,7 +42,7 @@ class FindProductsRequestHandler extends AbstractPutRequestHandler
 
     protected function transformResponse($response)
     {
-        return new PaginatedCollection(
+        return new ProductCollection(
             EntityReflector::parseAll('Ordercloud\Entities\Products\Product', $response->getData('results')),
             $response->getData('count'),
             $this->page,

@@ -1,6 +1,7 @@
 <?php namespace Ordercloud\Services;
 
 use Ordercloud\Entities\Products\Product;
+use Ordercloud\Entities\Products\ProductCollection;
 use Ordercloud\Entities\Products\ProductTag;
 use Ordercloud\Requests\Products\Criteria\ProductCriteria;
 use Ordercloud\Requests\Products\FindProductsRequest;
@@ -24,7 +25,7 @@ class ProductService extends OrdercloudService
     /**
      * @param ProductCriteria $criteria
      *
-     * @return array|Product[]
+     * @return ProductCollection|Product[]
      */
     public function getProducts(ProductCriteria $criteria)
     {
