@@ -1,8 +1,8 @@
 <?php namespace Ordercloud\Requests\Orders\Handlers;
 
+use Ordercloud\Entities\Orders\OrderCollection;
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Orders\GetUserOrdersRequest;
-use Ordercloud\Support\PaginatedCollection;
 use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetUserOrdersRequestHandler extends AbstractGetRequestHandler
@@ -36,7 +36,7 @@ class GetUserOrdersRequestHandler extends AbstractGetRequestHandler
 
     protected function transformResponse($response)
     {
-        return new PaginatedCollection(
+        return new OrderCollection(
             EntityReflector::parseAll('Ordercloud\Entities\Orders\Order', $response->getData('results')),
             $response->getData('count'),
             $this->page,
