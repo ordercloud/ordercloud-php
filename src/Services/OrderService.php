@@ -1,5 +1,6 @@
 <?php namespace Ordercloud\Services;
 
+use Ordercloud\Entities\Orders\Order;
 use Ordercloud\Entities\Orders\OrderCollection;
 use Ordercloud\Requests\Orders\CreateOrderRequest;
 use Ordercloud\Requests\Orders\Criteria\UserOrderCriteria;
