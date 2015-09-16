@@ -29,7 +29,7 @@ class UserOrderCriteria extends Criteria
     /**
      * @param array|int[] $orderStatuses
      *
-     * @return UserOrderCriteria
+     * @return static
      */
     public function setOrderStatuses($orderStatuses)
     {
@@ -49,7 +49,7 @@ class UserOrderCriteria extends Criteria
     /**
      * @param array|string[] $paymentStatuses
      *
-     * @return UserOrderCriteria
+     * @return static
      */
     public function setPaymentStatuses($paymentStatuses)
     {

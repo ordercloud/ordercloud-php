@@ -34,7 +34,7 @@ class AdvancedConnectionCriteria extends ExtendedConnectionCriteria
     /**
      * @param array|int[] $statuses
      *
-     * @return AdvancedConnectionCriteria
+     * @return static
      */
     public function setStatuses(array $statuses)
     {
@@ -54,7 +54,7 @@ class AdvancedConnectionCriteria extends ExtendedConnectionCriteria
     /**
      * @param int $radius
      *
-     * @return AdvancedConnectionCriteria
+     * @return static
      */
     public function setRadius($radius)
     {
@@ -74,7 +74,7 @@ class AdvancedConnectionCriteria extends ExtendedConnectionCriteria
     /**
      * @param string $lat
      *
-     * @return AdvancedConnectionCriteria
+     * @return static
      */
     public function setLat($lat)
     {
@@ -94,7 +94,7 @@ class AdvancedConnectionCriteria extends ExtendedConnectionCriteria
     /**
      * @param string $lon
      *
-     * @return AdvancedConnectionCriteria
+     * @return static
      */
     public function setLon($lon)
     {
@@ -114,7 +114,7 @@ class AdvancedConnectionCriteria extends ExtendedConnectionCriteria
     /**
      * @param array|int[] $industries
      *
-     * @return AdvancedConnectionCriteria
+     * @return static
      */
     public function setIndustries($industries)
     {
