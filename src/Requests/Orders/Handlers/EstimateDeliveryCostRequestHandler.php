@@ -1,7 +1,7 @@
 <?php namespace Ordercloud\Requests\Orders\Handlers;
 
-use Ordercloud\EstimateDeliveryCostRequest;
 use Ordercloud\Requests\Handlers\AbstractPutRequestHandler;
+use Ordercloud\Requests\Orders\EstimateDeliveryCostRequest;
 use Ordercloud\Support\Http\Response;
 
 class EstimateDeliveryCostRequestHandler extends AbstractPutRequestHandler
@@ -11,10 +11,10 @@ class EstimateDeliveryCostRequestHandler extends AbstractPutRequestHandler
      */
     protected function configure($request)
     {
-        $orderingOrdganisationId = $request->getOrderingOrdganisationId();
+        $deliveryServiceOrdganisationId = $request->getDeliveryServiceOrganisationId();
         $geoId = $request->getGeoId();
 
-        $this->setUrl('/resource/orders/organisation/%d/delivery/geo/%d', $orderingOrdganisationId, $geoId)
+        $this->setUrl('/resource/orders/organisation/%d/delivery/geo/%d', $deliveryServiceOrdganisationId, $geoId)
              ->setParameters($request->getMerchantDtos());
     }
 

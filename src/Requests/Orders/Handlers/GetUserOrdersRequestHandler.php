@@ -1,8 +1,8 @@
 <?php namespace Ordercloud\Requests\Orders\Handlers;
 
+use Ordercloud\Entities\Orders\OrderCollection;
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Orders\GetUserOrdersRequest;
-use Ordercloud\Support\PaginatedCollection;
 use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetUserOrdersRequestHandler extends AbstractGetRequestHandler
@@ -21,13 +21,15 @@ class GetUserOrdersRequestHandler extends AbstractGetRequestHandler
      */
     protected function configure($request)
     {
-        $this->setUrl('resource/orders/user/%d', $request->getUserID())
+        $criteria = $request->getCriteria();
+
+        $this->setUrl('resource/orders/user/%d', $request->getUserId())
             ->setParameters([
-                'page'          => $request->getPage(),
-                'pagesize'      => $request->getPageSize(),
-                'orderstatus'   => $request->getOrderStatuses(),
-                'paymentstatus' => $request->getPaymentStatuses(),
-                'sort'          => $request->getSort(),
+                'page'          => $criteria->getPage(),
+                'pagesize'      => $criteria->getPageSize(),
+                'orderstatus'   => $criteria->getOrderStatuses(),
+                'paymentstatus' => $criteria->getPaymentStatuses(),
+                'sort'          => $criteria->getSort(),
             ]);
 
         $this->page = $request->getPage();
@@ -36,7 +38,7 @@ class GetUserOrdersRequestHandler extends AbstractGetRequestHandler
 
     protected function transformResponse($response)
     {
-        return new PaginatedCollection(
+        return new OrderCollection(
             EntityReflector::parseAll('Ordercloud\Entities\Orders\Order', $response->getData('results')),
             $response->getData('count'),
             $this->page,

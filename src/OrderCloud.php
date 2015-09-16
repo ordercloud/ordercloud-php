@@ -4,8 +4,6 @@ use Illuminate\Container\Container;
 use Ordercloud\Support\CommandBus\Command;
 use Ordercloud\Support\CommandBus\CommandBus;
 use Ordercloud\Support\Http\Client;
-use Ordercloud\Support\Http\Response;
-use Ordercloud\Support\TokenRefresher;
 
 class Ordercloud
 {

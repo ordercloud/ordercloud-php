@@ -4,6 +4,10 @@ use Ordercloud\Entities\Organisations\Organisation;
 
 class Connection
 {
+    const STATUS_CONNECTED = 'CONNECTED';
+    const STATUS_DECLINED = 'DECLINED';
+    const STATUS_PENDING = 'PENDING';
+
     /** @var integer */
     private $id;
     /** @var Organisation */

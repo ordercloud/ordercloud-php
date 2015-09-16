@@ -1,77 +1,40 @@
 <?php namespace Ordercloud\Requests\Orders;
 
+use Ordercloud\Requests\Orders\Criteria\UserOrderCriteria;
 use Ordercloud\Support\CommandBus\Command;
 
 class GetUserOrdersRequest implements Command
 {
     /** @var int */
-    protected $userID;
-    /** @var array|string[] */
-    private $orderStatuses;
-    /** @var array|string[] */
-    private $paymentStatuses;
-    /** @var int */
-    private $page;
-    /** @var int */
-    private $pageSize;
-    /** @var string */
-    private $sort;
+    protected $userId;
+    /**
+     * @var UserOrderCriteria
+     */
+    private $criteria;
 
-    public function __construct($userID, array $orderStatuses = [], array $paymentStatuses = [], $page = 1, $pageSize = 10, $sort = 'date+')
+    /**
+     * @param int               $userId
+     * @param UserOrderCriteria $criteria
+     */
+    public function __construct($userId, UserOrderCriteria $criteria)
     {
-        $this->userID = $userID;
-        $this->orderStatuses = $orderStatuses;
-        $this->paymentStatuses = $paymentStatuses;
-        $this->page = $page;
-        $this->pageSize = $pageSize;
-        $this->sort = $sort;
+        $this->userId = $userId;
+        $this->criteria = $criteria;
     }
 
     /**
      * @return int
      */
-    public function getUserID()
+    public function getUserId()
     {
-        return $this->userID;
+        return $this->userId;
     }
 
     /**
-     * @return array|string[]
+     * @return UserOrderCriteria
      */
-    public function getOrderStatuses()
+    public function getCriteria()
     {
-        return $this->orderStatuses;
-    }
-
-    /**
-     * @return array|string[]
-     */
-    public function getPaymentStatuses()
-    {
-        return $this->paymentStatuses;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPage()
-    {
-        return $this->page;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPageSize()
-    {
-        return $this->pageSize;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSort()
-    {
-        return $this->sort;
+        return $this->criteria;
     }
 }

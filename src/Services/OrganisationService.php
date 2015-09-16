@@ -1,12 +1,18 @@
 <?php namespace Ordercloud\Services;
 
+use Ordercloud\Entities\Connections\Connection;
+use Ordercloud\Entities\Connections\ConnectionType;
 use Ordercloud\Entities\Organisations\Organisation;
 use Ordercloud\Entities\Organisations\OrganisationAccessToken;
 use Ordercloud\Entities\Organisations\OrganisationAddress;
 use Ordercloud\Entities\Settings\SettingsCollection;
 use Ordercloud\Requests\Auth\Entities\Authorisation;
+use Ordercloud\Requests\Organisations\Criteria\AdvancedConnectionCriteria;
+use Ordercloud\Requests\Organisations\Criteria\BasicConnectionCriteria;
 use Ordercloud\Requests\Organisations\GetOrganisationAccessTokenRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationAddressRequest;
+use Ordercloud\Requests\Organisations\GetOrganisationConnectionsByTypeRequest;
+use Ordercloud\Requests\Organisations\GetOrganisationConnectionsRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationRequest;
 use Ordercloud\Requests\Organisations\GetSettingsByOrganisationRequest;
 
@@ -58,6 +64,57 @@ class OrganisationService extends OrdercloudService
     {
         return $this->request(
             new GetOrganisationRequest($organisationId)
+        );
+    }
+
+    /**
+     * @param int                          $typeCode
+     * @param int|null                     $organisationId
+     * @param BasicConnectionCriteria|null $criteria
+     *
+     * @return array|Connection[]
+     */
+    public function getConnectionsByType($typeCode, $organisationId = null, BasicConnectionCriteria $criteria = null)
+    {
+        $criteria = $criteria ?: BasicConnectionCriteria::create();
+
+        return $this->request(
+            new GetOrganisationConnectionsByTypeRequest($typeCode, $organisationId, $criteria)
+        );
+    }
+
+    /**
+     * @param int|null                     $organisationId
+     * @param BasicConnectionCriteria|null $criteria
+     *
+     * @return array|Connection[]
+     */
+    public function getChildConnections($organisationId = null, BasicConnectionCriteria $criteria = null)
+    {
+        return $this->getConnectionsByType(ConnectionType::CHILD, $organisationId, $criteria);
+    }
+
+    /**
+     * @param int|null                     $organisationId
+     * @param BasicConnectionCriteria|null $criteria
+     *
+     * @return array|Connection[]
+     */
+    public function getMarketplaceConnections($organisationId = null, BasicConnectionCriteria $criteria = null)
+    {
+        return $this->getConnectionsByType(ConnectionType::MARKETPLACE, $organisationId, $criteria);
+    }
+
+    /**
+     * @param int|null                        $organisationId
+     * @param AdvancedConnectionCriteria|null $criteria
+     *
+     * @return array|Connection[]
+     */
+    public function getConnections($organisationId = null, AdvancedConnectionCriteria $criteria = null)
+    {
+        return $this->request(
+            new GetOrganisationConnectionsRequest($organisationId, $criteria)
         );
     }
 }
