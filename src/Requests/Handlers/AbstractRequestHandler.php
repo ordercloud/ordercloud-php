@@ -1,7 +1,10 @@
 <?php namespace Ordercloud\Requests\Handlers;
 
+use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
+use Ordercloud\Requests\Exceptions\ResponseParseException;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\Http\Response;
+use Ordercloud\Support\Reflection\EntityParseException;
 use Ordercloud\Support\Reflection\EntityReflector;
 
 abstract class AbstractRequestHandler extends OrdercloudRequestHandler
@@ -19,12 +22,11 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
     abstract protected function configure($request);
 
     /**
-     * @param $request
+     * @param OrdercloudRequest $request
      *
-     * @return mixed|\Ordercloud\Support\Http\Response
-     *
-     * @throws \Ordercloud\Requests\Exceptions\UnauthorizedRequestException
-     * @throws \Ordercloud\Requests\Exceptions\OrdercloudRequestException
+     * @return mixed|Response
+     * @throws OrdercloudRequestException
+     * @throws ResponseParseException
      */
     public function handle($request)
     {
@@ -34,7 +36,12 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
             new OrdercloudRequest($this->method, $this->url, $this->parameters, $this->headers)
         );
 
-        return $this->transformResponse($response);
+        try {
+            return $this->transformResponse($response);
+        }
+        catch (EntityParseException $e) {
+            throw new ResponseParseException($response, $e);
+        }
     }
 
     /**
