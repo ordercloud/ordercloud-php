@@ -58,12 +58,38 @@ class Order
     private $deliveryAgent;
     /** @var string */
     private $note;
-    /** @var boolean */
-    private $instorePaymentRequired;
     /** @var string */
     private $estimatedDeliveryTime;
+    /** @var float */
+    private $deliveryCost;
+    /**
+     * @var OrderSourceChannel
+     */
+    private $orderSourceChannel;
 
-    public function __construct($id, $reference, $shortReference, $dateCreated, $lastUpdated, $amount, OrderStatus $status, array $items, UserShort $user, UserAddress $userAddress = null, OrganisationShort $organisation, PaymentStatus $paymentStatus, array $payments, array $paymentMethods, $deliveryType, DeliveryAgent $deliveryAgent = null, $note, $instorePaymentRequired, $estimatedDeliveryTime)
+    //TODO add: tip + delivery + statusHistory
+    public function __construct(
+        $id,
+        $reference,
+        $shortReference,
+        $dateCreated,
+        $lastUpdated,
+        $amount,
+        OrderStatus $status,
+        array $items,
+        UserShort $user,
+        UserAddress $userAddress = null,
+        OrganisationShort $organisation,
+        PaymentStatus $paymentStatus,
+        array $payments,
+        array $paymentMethods,
+        $deliveryType,
+        DeliveryAgent $deliveryAgent = null,
+        $note,
+        $estimatedDeliveryTime,
+        $deliveryCost,
+        OrderSourceChannel $orderSourceChannel = null
+    )
     {
         $this->id = $id;
         $this->reference = $reference;
@@ -82,8 +108,9 @@ class Order
         $this->deliveryType = $deliveryType;
         $this->deliveryAgent = $deliveryAgent;
         $this->note = $note;
-        $this->instorePaymentRequired = $instorePaymentRequired;
         $this->estimatedDeliveryTime = $estimatedDeliveryTime;
+        $this->deliveryCost = $deliveryCost;
+        $this->orderSourceChannel = $orderSourceChannel;
     }
 
     /**
@@ -143,11 +170,31 @@ class Order
     }
 
     /**
+     * @param string $status
+     *
+     * @return bool
+     */
+    public function isStatus($status)
+    {
+        return strcasecmp($this->getStatus(), $status) === 0;
+    }
+
+    /**
      * @return array|OrderItem[]
      */
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * Returns all order items grouped by merchant
+     *
+     * @return array|MerchantItems[]
+     */
+    public function getMerchantItems()
+    {
+        return MerchantItems::createFromOrder($this);
     }
 
     /**
@@ -215,6 +262,16 @@ class Order
     }
 
     /**
+     * @param string $deliveryType
+     *
+     * @return bool
+     */
+    public function isDeliveryType($deliveryType)
+    {
+        return strcasecmp($this->getDeliveryType(), $deliveryType) === 0;
+    }
+
+    /**
      * @return DeliveryAgent
      */
     public function getDeliveryAgent()
@@ -231,18 +288,26 @@ class Order
     }
 
     /**
-     * @return boolean
-     */
-    public function isInstorePaymentRequired()
-    {
-        return $this->instorePaymentRequired;
-    }
-
-    /**
      * @return string
      */
     public function getEstimatedDeliveryTime()
     {
         return $this->estimatedDeliveryTime;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDeliveryCost()
+    {
+        return $this->deliveryCost;
+    }
+
+    /**
+     * @return OrderSourceChannel
+     */
+    public function getOrderSourceChannel()
+    {
+        return $this->orderSourceChannel;
     }
 }

@@ -50,6 +50,20 @@ class ProductOptionSet
     }
 
     /**
+     * @param ProductAddonComparator $comparator
+     *
+     * @return array|ProductOption[]
+     */
+    public function getSortedOptions(ProductAddonComparator $comparator)
+    {
+        $options = $this->getOptions();
+
+        usort($options, $comparator);
+
+        return $options;
+    }
+
+    /**
      * @param $optionID
      *
      * @return ProductOption|null

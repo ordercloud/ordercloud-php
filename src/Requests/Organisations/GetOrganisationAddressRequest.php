@@ -1,12 +1,10 @@
-<?php namespace Ordercloud\Requests\Settings;
+<?php namespace Ordercloud\Requests\Organisations;
 
 use Ordercloud\Support\CommandBus\Command;
 
-class GetSettingsByOrganisationRequest implements Command
+class GetOrganisationAddressRequest implements Command
 {
-    /**
-     * @var int
-     */
+    /** @var integer */
     private $organisationID;
 
     public function __construct($organisationID)

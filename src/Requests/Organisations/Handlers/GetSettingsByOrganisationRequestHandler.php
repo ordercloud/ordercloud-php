@@ -1,9 +1,8 @@
-<?php namespace Ordercloud\Requests\Settings\Handlers;
+<?php namespace Ordercloud\Requests\Organisations\Handlers;
 
 use Ordercloud\Entities\Settings\SettingsCollection;
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
-use Ordercloud\Requests\Settings\GetSettingsByOrganisationRequest;
-use Ordercloud\Support\Http\Response;
+use Ordercloud\Requests\Organisations\GetSettingsByOrganisationRequest;
 use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetSettingsByOrganisationRequestHandler extends AbstractGetRequestHandler
@@ -13,7 +12,7 @@ class GetSettingsByOrganisationRequestHandler extends AbstractGetRequestHandler
      */
     protected function configure($request)
     {
-        $this->setUrl('resource/organisations/%d/settings', $request->getOrganisationID());
+        $this->setUrl('resource/organisations/%d/settings', $request->getOrganisationId());
     }
 
     protected function transformResponse($response)

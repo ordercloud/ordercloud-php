@@ -8,7 +8,7 @@ class Setting
     private $id;
     /** @var string */
     private $value;
-    /** @var SettingKey */
+    /** @var SettingKeyShort */
     private $key;
     /** @var string */
     private $startDate;
@@ -17,7 +17,7 @@ class Setting
     /** @var OrganisationShort */
     private $organisation;
 
-    public function __construct($id, $value, SettingKey $key, $startDate, $endDate, OrganisationShort $organisation)
+    public function __construct($id, $value, SettingKeyShort $key, $startDate, $endDate, OrganisationShort $organisation)
     {
         $this->id = $id;
         $this->value = $value;
@@ -44,7 +44,7 @@ class Setting
     }
 
     /**
-     * @return SettingKey
+     * @return SettingKeyShort
      */
     public function getKey()
     {

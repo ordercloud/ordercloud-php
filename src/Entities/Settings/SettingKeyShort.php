@@ -1,6 +1,6 @@
 <?php namespace Ordercloud\Entities\Settings;
 
-class SettingKey
+class SettingKeyShort
 {
     /** @var integer */
     private $id;

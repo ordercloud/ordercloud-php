@@ -10,7 +10,7 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
     private $url;
     private $parameters = [];
     private $headers = [];
-    private $entityClass = 'Ordercloud\Entities\Users\UserProfile';
+    private $entityClass;
     private $entityDataKey = null;
 
     /**
@@ -50,7 +50,11 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
             return EntityReflector::parseAll($this->entityClass, $response->getData($this->entityDataKey));
         }
 
-        return EntityReflector::parse($this->entityClass, $response->getData());
+        if ($this->entityClass) {
+            return EntityReflector::parse($this->entityClass, $response->getData());
+        }
+
+        return $response;
     }
 
     /**

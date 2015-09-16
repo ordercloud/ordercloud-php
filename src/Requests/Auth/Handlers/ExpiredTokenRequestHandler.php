@@ -4,6 +4,7 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Requests\Auth\ExpiredTokenRequest;
 use Ordercloud\Requests\Exceptions\AccessTokenExpiredException;
 use Ordercloud\Requests\Handlers\OrdercloudRequestHandler;
+use Ordercloud\Services\AuthService;
 use Ordercloud\Support\CommandBus\CommandHandler;
 use Ordercloud\Support\Http\Client;
 use Ordercloud\Support\Http\Response;
@@ -20,11 +21,16 @@ class ExpiredTokenRequestHandler implements CommandHandler
      * @var TokenRefresher
      */
     private $tokenRefresher;
+    /**
+     * @var AuthService
+     */
+    private $auth;
 
-    public function __construct(Ordercloud $ordercloud, TokenRefresher $tokenRefresher)
+    public function __construct(Ordercloud $ordercloud, TokenRefresher $tokenRefresher, AuthService $auth)
     {
         $this->ordercloud = $ordercloud;
         $this->tokenRefresher = $tokenRefresher;
+        $this->auth = $auth;
     }
 
     /**
@@ -36,7 +42,7 @@ class ExpiredTokenRequestHandler implements CommandHandler
      */
     public function handle($request)
     {
-        $accessToken = $this->tokenRefresher->refresh($this->ordercloud);
+        $accessToken = $this->tokenRefresher->refresh($this->auth);
 
         $this->ordercloud->setAccessToken((string) $accessToken);
 

@@ -1,5 +1,5 @@
 <?php namespace Ordercloud\Requests\Exceptions;
 
-class AccessTokenExpiredException extends OrdercloudRequestException
+class AccessTokenExpiredException extends UnauthorizedRequestException
 {
 }

@@ -6,6 +6,7 @@ use Ordercloud\Ordercloud;
 use Ordercloud\Support\CommandBus\ArrayCommandHandlerTranslator;
 use Ordercloud\Support\CommandBus\IlluminateCommandHandlerResolver;
 use Ordercloud\Support\CommandBus\ReflectionCommandHandlerTranslator;
+use Ordercloud\Support\ExceptionGenerators\ChainedExceptionGeneratorService;
 use Ordercloud\Support\Http\GuzzleClient;
 use Ordercloud\Support\Http\LoggingClient;
 use Psr\Log\LoggerInterface;
@@ -190,7 +191,19 @@ class OrdercloudBuilder
 
         $this->bindCommandBus($container);
 
+        $container->singleton('Ordercloud\Support\ExceptionGenerators\ExceptionGeneratorService', function () use ($container)
+        {
+            return new ChainedExceptionGeneratorService($container, [
+                'Ordercloud\Support\ExceptionGenerators\DeliveryNotAvailableExceptionGenerator',
+                'Ordercloud\Support\ExceptionGenerators\OrderTotalConflictExceptionGenerator',
+                'Ordercloud\Support\ExceptionGenerators\DefaultExceptionGenerator', // Always chain default handler last
+            ]);
+        });
+
         $container->singleton('Ordercloud\Support\Parser');
+
+        $container->singleton('Ordercloud\Services\UserService');
+        $container->singleton('Ordercloud\Services\OrganisationService');
 
         $container->singleton('Ordercloud\Ordercloud', function () use ($container)
         {
@@ -232,8 +245,6 @@ class OrdercloudBuilder
             return new ArrayCommandHandlerTranslator($reflectionTranslator, [
                 'Ordercloud\Requests\Connections\GetMarketplaceConnectionsRequest' => 'Ordercloud\Requests\Connections\Handlers\GetConnectionsByTypeRequestHandler',
                 'Ordercloud\Requests\Connections\GetChildConnectionsRequest' => 'Ordercloud\Requests\Connections\Handlers\GetConnectionsByTypeRequestHandler',
-                'Ordercloud\Requests\Auth\GetLoginUrlRequest' => 'Ordercloud\Requests\Auth\Handlers\GetUrlRequestHandler',
-                'Ordercloud\Requests\Auth\GetRegisterUrlRequest' => 'Ordercloud\Requests\Auth\Handlers\GetUrlRequestHandler',
             ]);
         });
 

@@ -5,11 +5,11 @@ use Ordercloud\Support\Collection;
 class SettingsCollection extends Collection
 {
     /**
-     * @param SettingKey $key The setting key
+     * @param SettingKeyShort $key The setting key
      *
      * @return Setting|null
      */
-    public function getByKey(SettingKey $key)
+    public function getByKey(SettingKeyShort $key)
     {
         foreach ($this->all() as $setting) {
             if ($setting->getKey()->getId() == $key->getId() || $setting->getKey()->getName() == $key->getName()) {
@@ -27,7 +27,7 @@ class SettingsCollection extends Collection
      */
     public function getByKeyName($keyName)
     {
-        return $this->getByKey(new SettingKey(null, $keyName));
+        return $this->getByKey(new SettingKeyShort(null, $keyName));
     }
 
     /**
@@ -37,16 +37,16 @@ class SettingsCollection extends Collection
      */
     public function getByKeyID($keyID)
     {
-        return $this->getByKey(new SettingKey($keyID, null));
+        return $this->getByKey(new SettingKeyShort($keyID, null));
     }
 
     /**
-     * @param SettingKey $key
+     * @param SettingKeyShort $key
      * @param mixed $default The default value to return if setting not found
      *
      * @return null|string
      */
-    public function getValueByKey(SettingKey $key, $default = null)
+    public function getValueByKey(SettingKeyShort $key, $default = null)
     {
         $setting = $this->getByKey($key);
 
@@ -65,7 +65,7 @@ class SettingsCollection extends Collection
      */
     public function getValueByKeyName($keyName, $default = null)
     {
-        return $this->getValueByKey(new SettingKey(null, $keyName), $default);
+        return $this->getValueByKey(new SettingKeyShort(null, $keyName), $default);
     }
 
     /**
@@ -76,6 +76,6 @@ class SettingsCollection extends Collection
      */
     public function getValueByKeyID($keyID, $default = null)
     {
-        return $this->getValueByKey(new SettingKey($keyID, null), $default);
+        return $this->getValueByKey(new SettingKeyShort($keyID, null), $default);
     }
 }

@@ -3,7 +3,6 @@
 use Ordercloud\Entities\Products\ProductExtraDisplay;
 use Ordercloud\Entities\Products\ProductOptionDisplay;
 use Ordercloud\Entities\Products\ProductPriceDiscount;
-use Ordercloud\Entities\Products\ProductShort;
 
 class OrderItem
 {
@@ -17,7 +16,7 @@ class OrderItem
     private $linePrice;
     /** @var boolean */
     private $enabled;
-    /** @var ProductShort */
+    /** @var OrderItemDetail */
     private $detail;
     /** @var OrderStatus */
     private $status;
@@ -37,8 +36,24 @@ class OrderItem
      * @reflectType Ordercloud\Entities\Products\ProductOptionDisplay
      */
     private $options;
+    /** @var bool */
+    private $instorePaymentRequired;
 
-    public function __construct($id, $price, $quantity, $linePrice, $enabled, ProductShort $detail, OrderStatus $status, $note, ProductPriceDiscount $itemDiscount = null, $readyEstimate, array $extras, array $options)
+    public function __construct(
+        $id,
+        $price,
+        $quantity,
+        $linePrice,
+        $enabled,
+        OrderItemDetail $detail,
+        OrderStatus $status,
+        $note,
+        ProductPriceDiscount $itemDiscount = null,
+        $readyEstimate,
+        array $extras,
+        array $options,
+        $instorePaymentRequired
+    )
     {
         $this->id = $id;
         $this->price = $price;
@@ -52,6 +67,7 @@ class OrderItem
         $this->readyEstimate = $readyEstimate;
         $this->extras = $extras;
         $this->options = $options;
+        $this->instorePaymentRequired = $instorePaymentRequired;
     }
 
     /**
@@ -113,7 +129,7 @@ class OrderItem
     }
 
     /**
-     * @return ProductShort
+     * @return OrderItemDetail
      */
     public function getDetail()
     {
@@ -182,5 +198,13 @@ class OrderItem
     public function hasOptions()
     {
         return ! empty($this->options);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInstorePaymentRequired()
+    {
+        return $this->instorePaymentRequired;
     }
 }

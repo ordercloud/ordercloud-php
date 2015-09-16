@@ -1,14 +1,16 @@
 <?php namespace Ordercloud\Support;
 
 use Ordercloud\Entities\Auth\AccessToken;
-use Ordercloud\Ordercloud;
+use Ordercloud\Services\AuthService;
 
 interface TokenRefresher
 {
     /**
-     * @param Ordercloud $ordercloud
+     * @param AuthService $auth
      *
      * @return AccessToken
+     * @internal param AuthService $ordercloud
+     *
      */
-    public function refresh(Ordercloud $ordercloud);
+    public function refresh(AuthService $auth);
 }

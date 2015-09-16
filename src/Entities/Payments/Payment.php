@@ -31,7 +31,8 @@ class Payment
     /** @var integer */
     private $grouping;
 
-    public function __construct($id, PaymentStatus $lastPaymentStatus, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, OrganisationShort $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $grouping)
+    // TODO $lastPaymentStatus is not supposed to be null - or even on this entity...
+    public function __construct($id, PaymentStatus $lastPaymentStatus = null, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, OrganisationShort $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $grouping)
     {
         $this->id = $id;
         $this->lastPaymentStatus = $lastPaymentStatus;
