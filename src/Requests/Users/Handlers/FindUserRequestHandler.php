@@ -15,6 +15,6 @@ class FindUserRequestHandler extends AbstractGetRequestHandler
                 'email' => $request->getEmailAddress(),
                 'mobile' => $request->getMobileNumber()
             ])
-            ->setEntityClass('Ordercloud\Entities\Users\User');
+			->setEntityArrayClass('Ordercloud\Entities\Users\User');
     }
 }
