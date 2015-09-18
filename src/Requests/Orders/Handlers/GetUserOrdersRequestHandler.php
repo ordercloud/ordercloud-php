@@ -32,8 +32,8 @@ class GetUserOrdersRequestHandler extends AbstractGetRequestHandler
                 'sort'          => $criteria->getSort(),
             ]);
 
-        $this->page = $request->getPage();
-        $this->pageSize = $request->getPageSize();
+        $this->page = $criteria->getPage();
+        $this->pageSize = $criteria->getPageSize();
     }
 
     protected function transformResponse($response)
