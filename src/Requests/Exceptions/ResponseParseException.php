@@ -3,7 +3,7 @@
 use Ordercloud\OrdercloudException;
 use Ordercloud\Support\Http\Request;
 use Ordercloud\Support\Http\Response;
-use Ordercloud\Support\Reflection\EntityParseException;
+use Ordercloud\Support\Reflection\Exceptions\EntityParseException;
 
 class ResponseParseException extends OrdercloudException
 {

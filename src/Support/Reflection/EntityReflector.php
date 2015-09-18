@@ -1,6 +1,9 @@
 <?php namespace Ordercloud\Support\Reflection;
 
-use Ordercloud\OrdercloudException;
+use Ordercloud\Support\Reflection\Exceptions\ArgumentNotProvidedException;
+use Ordercloud\Support\Reflection\Exceptions\EntityParseException;
+use Ordercloud\Support\Reflection\Exceptions\EntityReflectionException;
+use Ordercloud\Support\Reflection\Exceptions\NullRequiredArgumentException;
 use ReflectionClass;
 use ReflectionParameter;
 
@@ -123,7 +126,7 @@ class EntityReflector extends ReflectionClass
      *
      * @return mixed
      *
-     * @throws ArgumentNotProvidedException
+     * @throws \Ordercloud\Support\Reflection\Exceptions\ArgumentNotProvidedException
      * @throws NullRequiredArgumentException
      */
     private function prepareArgument(ReflectionParameter $parameter)
@@ -151,7 +154,7 @@ class EntityReflector extends ReflectionClass
      *
      * @return array
      *
-     * @throws ArgumentNotProvidedException
+     * @throws \Ordercloud\Support\Reflection\Exceptions\ArgumentNotProvidedException
      */
     private function getArgument($parameterName)
     {

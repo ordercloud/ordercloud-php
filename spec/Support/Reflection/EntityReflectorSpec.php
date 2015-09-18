@@ -58,7 +58,7 @@ class EntityReflectorSpec extends ObjectBehavior
             'exampleAlias' => 'aliased'
         ]);
 
-        $this->shouldThrow('Ordercloud\Support\Reflection\ArgumentNotProvidedException')->duringReflect();
+        $this->shouldThrow('Ordercloud\Support\Reflection\Exceptions\ArgumentNotProvidedException')->duringReflect();
     }
 
     function it_throws_null_required_argument_exception()
@@ -75,12 +75,12 @@ class EntityReflectorSpec extends ObjectBehavior
             'exampleAlias' => 'aliased'
         ]);
 
-        $this->shouldThrow('Ordercloud\Support\Reflection\NullRequiredArgumentException')->duringReflect();
+        $this->shouldThrow('Ordercloud\Support\Reflection\Exceptions\NullRequiredArgumentException')->duringReflect();
     }
 
     function it_throws_entity_parse_exception()
     {
-        $this->shouldThrow('Ordercloud\Support\Reflection\EntityParseException')
+        $this->shouldThrow('Ordercloud\Support\Reflection\Exceptions\EntityParseException')
             ->duringParse('spec\Ordercloud\Support\Reflection\Foo', []);
     }
 }

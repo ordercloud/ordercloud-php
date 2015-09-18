@@ -4,8 +4,8 @@ use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\Exceptions\ResponseParseException;
 use Ordercloud\Requests\OrdercloudRequest;
 use Ordercloud\Support\Http\Response;
-use Ordercloud\Support\Reflection\EntityParseException;
 use Ordercloud\Support\Reflection\EntityReflector;
+use Ordercloud\Support\Reflection\Exceptions\EntityParseException;
 
 abstract class AbstractRequestHandler extends OrdercloudRequestHandler
 {
