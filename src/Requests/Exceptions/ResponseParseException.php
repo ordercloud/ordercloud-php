@@ -1,6 +1,7 @@
 <?php namespace Ordercloud\Requests\Exceptions;
 
 use Ordercloud\OrdercloudException;
+use Ordercloud\Support\Http\Request;
 use Ordercloud\Support\Http\Response;
 use Ordercloud\Support\Reflection\EntityParseException;
 
@@ -25,8 +26,19 @@ class ResponseParseException extends OrdercloudException
         return $this->response;
     }
 
+    /**
+     * @return Request
+     */
     public function getRequest()
     {
         return $this->response->getRequest();
+    }
+
+    /**
+     * @return EntityParseException
+     */
+    public function getParseException()
+    {
+        return $this->getPrevious();
     }
 }
