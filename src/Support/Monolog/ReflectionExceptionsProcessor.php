@@ -1,7 +1,9 @@
-<?php namespace Ordercloud\Support\Reflection\Exceptions;
+<?php namespace Ordercloud\Support\Monolog;
 
 use Ordercloud\Requests\Exceptions\ResponseParseException;
-use Ordercloud\Support\Errors\AbstractExceptionProcessor;
+use Ordercloud\Support\Reflection\Exceptions\ArgumentNotProvidedException;
+use Ordercloud\Support\Reflection\Exceptions\EntityParseException;
+use Ordercloud\Support\Reflection\Exceptions\NullRequiredArgumentException;
 
 class ReflectionExceptionsProcessor extends AbstractExceptionProcessor
 {
