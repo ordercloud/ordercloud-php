@@ -4,27 +4,31 @@ use Ordercloud\Entities\Organisations\OrganisationShort;
 
 class User extends UserShort
 {
-    /** @var boolean */
+    /**
+     * @var boolean
+     */
     private $enabled;
-    /** @var string */
+    /**
+     * @var string
+     */
     private $facebook_id;
-    /** @var array| */ // TODO: eh?
+    /**
+     * @var array|UserGroup[]
+     * @reflectType Ordercloud\Entities\Users\UserGroup
+     */
     private $groups;
-    /** @var array| */
-    private $roles;
     /**
      * @var array|OrganisationShort[]
      * @reflectType Ordercloud\Entities\Organisations\OrganisationShort
      */
     private $organisations;
 
-    public function __construct($id, $enabled, $username, $facebook_id, UserProfile $profile, array $groups, array $roles, array $organisations)
+    public function __construct($id, $enabled, $username, $facebook_id, UserProfile $profile, array $groups, array $organisations)
     {
         parent::__construct($id, $username, $profile);
         $this->enabled = $enabled;
         $this->facebook_id = $facebook_id;
         $this->groups = $groups;
-        $this->roles = $roles;
         $this->organisations = $organisations;
     }
 
@@ -45,7 +49,7 @@ class User extends UserShort
     }
 
     /**
-     * @return array
+     * @return array|UserGroup[]
      */
     public function getGroups()
     {
@@ -53,15 +57,7 @@ class User extends UserShort
     }
 
     /**
-     * @return array
-     */
-    public function getRoles()
-    {
-        return $this->roles;
-    }
-
-    /**
-     * @return array|\Ordercloud\Entities\Organisations\OrganisationShort[]
+     * @return array|OrganisationShort[]
      */
     public function getOrganisations()
     {
