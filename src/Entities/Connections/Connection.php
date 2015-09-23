@@ -4,6 +4,10 @@ use Ordercloud\Entities\Organisations\Organisation;
 
 class Connection
 {
+    const STATUS_CONNECTED = 'CONNECTED';
+    const STATUS_DECLINED = 'DECLINED';
+    const STATUS_PENDING = 'PENDING';
+
     /** @var integer */
     private $id;
     /** @var Organisation */
@@ -14,12 +18,6 @@ class Connection
     private $type;
     /** @var string */
     private $ended;
-    /**
-     * @var array|ConnectionFee[]
-     * @reflectName fee
-     * @reflectType Ordercloud\Entities\Connections\ConnectionFee
-     */
-    private $fees;
     /** @var boolean */
     private $enabled;
     /** @var string */
@@ -27,14 +25,13 @@ class Connection
     /** @var string */
     private $settlementInterval;
 
-    public function __construct($id, Organisation $fromOrganisation, Organisation $toOrganisation, ConnectionType $type, $ended, array $fees, $enabled, $status, $settlementInterval)
+    public function __construct($id, Organisation $fromOrganisation, Organisation $toOrganisation, ConnectionType $type, $ended, $enabled, $status, $settlementInterval)
     {
         $this->id = $id;
         $this->fromOrganisation = $fromOrganisation;
         $this->toOrganisation = $toOrganisation;
         $this->type = $type;
         $this->ended = $ended;
-        $this->fees = $fees;
         $this->enabled = $enabled;
         $this->status = $status;
         $this->settlementInterval = $settlementInterval;
@@ -78,14 +75,6 @@ class Connection
     public function getEnded()
     {
         return $this->ended;
-    }
-
-    /**
-     * @return array|ConnectionFee[]
-     */
-    public function getFees()
-    {
-        return $this->fees;
     }
 
     /**

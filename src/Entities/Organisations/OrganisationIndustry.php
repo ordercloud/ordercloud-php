@@ -2,6 +2,23 @@
 
 class OrganisationIndustry
 {
+    /**
+     * Fast Food and Restaurants
+     */
+    const FOOD = 'Food';
+    /**
+     * Clothing Stores
+     */
+    const CLOTHING = 'Clothing';
+    /**
+     * Retail Stores
+     */
+    const RETAIL = 'Retail';
+    /**
+     * Furniture Stores
+     */
+    const FURNITURE = 'Furniture';
+
     /** @var integer */
     private $id;
     /** @var string */

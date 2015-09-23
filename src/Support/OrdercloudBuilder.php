@@ -238,15 +238,7 @@ class OrdercloudBuilder
             return new IlluminateCommandHandlerResolver($container);
         });
 
-        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', function ()
-        {
-            $reflectionTranslator = new ReflectionCommandHandlerTranslator();
-
-            return new ArrayCommandHandlerTranslator($reflectionTranslator, [
-                'Ordercloud\Requests\Connections\GetMarketplaceConnectionsRequest' => 'Ordercloud\Requests\Connections\Handlers\GetConnectionsByTypeRequestHandler',
-                'Ordercloud\Requests\Connections\GetChildConnectionsRequest' => 'Ordercloud\Requests\Connections\Handlers\GetConnectionsByTypeRequestHandler',
-            ]);
-        });
+        $container->singleton('Ordercloud\Support\CommandBus\CommandHandlerTranslator', 'Ordercloud\Support\CommandBus\ReflectionCommandHandlerTranslator');
 
         $container->singleton('Ordercloud\Support\CommandBus\CommandBus', 'Ordercloud\Support\CommandBus\ExecutingCommandBus');
 

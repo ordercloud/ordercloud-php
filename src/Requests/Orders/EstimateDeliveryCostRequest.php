@@ -7,7 +7,7 @@ class EstimateDeliveryCostRequest implements Command
     /**
      * @var int
      */
-    private $orderingOrdganisationId;
+    private $deliveryServiceOrganisationId;
     /**
      * @var int
      */
@@ -17,9 +17,9 @@ class EstimateDeliveryCostRequest implements Command
      */
     private $merchantIds;
 
-    public function __construct($orderingOrdganisationId, $geoId, array $merchantIds)
+    public function __construct($deliveryServiceOrganisationId, $geoId, array $merchantIds)
     {
-        $this->orderingOrdganisationId = $orderingOrdganisationId;
+        $this->deliveryServiceOrganisationId = $deliveryServiceOrganisationId;
         $this->geoId = $geoId;
         $this->merchantIds = $merchantIds;
     }
@@ -27,9 +27,9 @@ class EstimateDeliveryCostRequest implements Command
     /**
      * @return int
      */
-    public function getOrderingOrdganisationId()
+    public function getDeliveryServiceOrganisationId()
     {
-        return $this->orderingOrdganisationId;
+        return $this->deliveryServiceOrganisationId;
     }
 
     /**

@@ -1,4 +1,4 @@
-<?php namespace Ordercloud\Support\Reflection;
+<?php namespace Ordercloud\Support\Reflection\Exceptions;
 
 use Exception;
 
