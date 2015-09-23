@@ -28,5 +28,8 @@
         "psr-4": {
             "Ordercloud\\": "src/"
         }
+    },
+    "suggest": {
+        "ordercloud/extentions-monolog": "Provides monolog helper processors & formatters"
     }
 }
