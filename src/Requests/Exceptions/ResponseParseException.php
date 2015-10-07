@@ -14,7 +14,7 @@ class ResponseParseException extends OrdercloudException
 
     public function __construct(Response $response, EntityParseException $parseException)
     {
-        parent::__construct('Failed to parse response', $response->getStatusCode(), $parseException);
+        parent::__construct('Failed to parse response', 0, $parseException);
         $this->response = $response;
     }
 
