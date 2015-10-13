@@ -14,6 +14,7 @@ class ConnectionType
     const PAYMENT_GATEWAY = 'PG';
     const POS = 'POS';
     const RESELLER = 'R';
+    const CALL_CENTRE = 'CC';
 
     /** @var integer */
     private $id;
