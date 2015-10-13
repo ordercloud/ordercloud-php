@@ -194,9 +194,8 @@ class OrdercloudBuilder
         $container->singleton('Ordercloud\Support\ExceptionGenerators\ExceptionGeneratorService', function () use ($container)
         {
             return new ChainedExceptionGeneratorService($container, [
-                'Ordercloud\Support\ExceptionGenerators\DeliveryNotAvailableExceptionGenerator',
-                'Ordercloud\Support\ExceptionGenerators\OrderTotalConflictExceptionGenerator',
-                'Ordercloud\Support\ExceptionGenerators\DefaultExceptionGenerator', // Always chain default handler last
+                'Ordercloud\Requests\Orders\Exceptions\OrderExceptionGenerator',
+                'Ordercloud\Requests\Exceptions\RequestExceptionGenerator', // Always chain default handler last
             ]);
         });
 

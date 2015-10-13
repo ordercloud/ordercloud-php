@@ -23,22 +23,6 @@ class OrdercloudRequestException extends OrdercloudException
     }
 
     /**
-     * @param OrdercloudRequest       $request
-     * @param OrdercloudHttpException $httpException
-     *
-     * @return UnauthorizedRequestException|static
-     */
-    public static function create(OrdercloudRequest $request, OrdercloudHttpException $httpException)
-    {
-        switch ($httpException->getCode()) {
-            case 401:
-                return UnauthorizedRequestException::create($request, $httpException);
-            default:
-                return new static($request, $httpException);
-        }
-    }
-
-    /**
      * @return OrdercloudRequest
      */
     public function getRequest()
