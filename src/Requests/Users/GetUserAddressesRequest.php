@@ -17,7 +17,7 @@ class GetUserAddressesRequest implements Command
      * @param int                 $userID
      * @param UserAddressCriteria $criteria
      */
-    public function __construct($userID, UserAddressCriteria $criteria = null)
+    public function __construct($userID, UserAddressCriteria $criteria)
     {
         $this->userID = $userID;
         $this->criteria = $criteria;
