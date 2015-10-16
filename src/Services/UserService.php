@@ -5,6 +5,7 @@ use Ordercloud\Entities\Users\UserAddress;
 use Ordercloud\Entities\Users\UserProfile;
 use Ordercloud\Requests\Auth\Entities\Authorisation;
 use Ordercloud\Requests\Users\CreateUserAddressRequest;
+use Ordercloud\Requests\Users\Criteria\UserAddressCriteria;
 use Ordercloud\Requests\Users\DisableUserAddressRequest;
 use Ordercloud\Requests\Users\Entities\NewUserAddress;
 use Ordercloud\Requests\Users\FindUserRequest;
@@ -91,13 +92,18 @@ class UserService extends OrdercloudService
             new UpdateUserProfileRequest($userId, $profile)
         );
     }
+
     /**
-     * @param int $userId
+     * @param int                 $userId
      *
-     * @return UserAddress[]
+     * @param UserAddressCriteria $criteria
+     *
+     * @return \Ordercloud\Entities\Users\UserAddress[]
      */
-    public function getAddresses($userId)
+    public function getAddresses($userId, UserAddressCriteria $criteria = null)
     {
+        $criteria = $criteria != null ? $criteria : UserAddressCriteria::create();
+
         return $this->request(
             new GetUserAddressesRequest($userId)
         );
