@@ -102,7 +102,7 @@ class UserService extends OrdercloudService
      */
     public function getAddresses($userId, UserAddressCriteria $criteria = null)
     {
-        $criteria = $criteria != null ? $criteria : UserAddressCriteria::create();
+        $criteria = $criteria ?: UserAddressCriteria::create();
 
         return $this->request(
             new GetUserAddressesRequest($userId, $criteria)
