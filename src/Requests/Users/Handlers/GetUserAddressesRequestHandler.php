@@ -10,7 +10,12 @@ class GetUserAddressesRequestHandler extends AbstractGetRequestHandler
      */
     protected function configure($request)
     {
+        $criteria = $request->getCriteria();
         $this->setUrl('resource/users/%d/geos', $request->getUserID())
+            ->setParameters([
+                'page'          => $criteria->getPage(),
+                'pagesize'      => $criteria->getPageSize(),
+            ])
             ->setEntityArrayClass('Ordercloud\Entities\Users\UserAddress');
     }
 }

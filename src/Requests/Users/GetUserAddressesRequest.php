@@ -1,5 +1,6 @@
 <?php namespace Ordercloud\Requests\Users;
 
+use Ordercloud\Requests\Users\Criteria\UserAddressCriteria;
 use Ordercloud\Support\CommandBus\Command;
 
 class GetUserAddressesRequest implements Command
@@ -8,11 +9,18 @@ class GetUserAddressesRequest implements Command
     protected $userID;
 
     /**
-     * @param int $userID
+     * @var UserAddressCriteria
      */
-    public function __construct($userID)
+    private $criteria;
+
+    /**
+     * @param int                 $userID
+     * @param UserAddressCriteria $criteria
+     */
+    public function __construct($userID, UserAddressCriteria $criteria)
     {
         $this->userID = $userID;
+        $this->criteria = $criteria;
     }
 
     /**
@@ -21,5 +29,13 @@ class GetUserAddressesRequest implements Command
     public function getUserID()
     {
         return $this->userID;
+    }
+
+    /**
+     * @return UserAddressCriteria
+     */
+    public function getCriteria()
+    {
+        return $this->criteria;
     }
 }
