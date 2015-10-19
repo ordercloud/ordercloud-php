@@ -35,7 +35,7 @@ class ProductOption extends ProductAddon
      */
     public function hasUnlockOptionSets()
     {
-        return empty($this->unlockOptionSets);
+        return ! empty($this->unlockOptionSets);
     }
 
     /**
@@ -51,7 +51,7 @@ class ProductOption extends ProductAddon
      */
     public function hasUnlockExtraSets()
     {
-        return empty($this->unlockExtraSets);
+        return ! empty($this->unlockExtraSets);
     }
 
     /**
