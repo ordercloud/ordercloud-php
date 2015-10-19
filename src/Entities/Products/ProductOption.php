@@ -6,10 +6,12 @@ class ProductOption extends ProductAddon
 {
     /**
      * @var array|ProductOptionSet[]
+     * @reflectType Ordercloud\Entities\Products\ProductOptionSet
      */
     private $unlockOptionSets;
     /**
      * @var array|ProductExtraSet[]
+     * @reflectType Ordercloud\Entities\Products\ProductExtraSet
      */
     private $unlockExtraSets;
 
