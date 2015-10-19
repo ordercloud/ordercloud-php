@@ -23,13 +23,11 @@ class Product
     private $attributes;
     /**
      * @var array|ProductOptionSet[]
-     * @reflectName options
      * @reflectType Ordercloud\Entities\Products\ProductOptionSet
      */
     private $optionSets;
     /**
      * @var array|ProductExtraSet[]
-     * @reflectName extras
      * @reflectType Ordercloud\Entities\Products\ProductExtraSet
      */
     private $extraSets;

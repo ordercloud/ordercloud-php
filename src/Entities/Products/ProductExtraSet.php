@@ -1,44 +1,25 @@
 <?php namespace Ordercloud\Entities\Products;
 
-class ProductExtraSet
+class ProductExtraSet extends AbstractProductAddonSet
 {
-    /** @var int */
-    protected $id;
-    /** @var string */
-    protected $name;
     /**
      * @var array|ProductExtra[]
      * @reflectType Ordercloud\Entities\Products\ProductExtra
      */
     protected $extras;
-    /**
-     * @var array|ProductAttribute[]
-     * @reflectType Ordercloud\Entities\Products\ProductAttribute
-     */
-    protected $attributes;
 
-    public function __construct($id, $name, array $extras, array $attributes)
+    /**
+     * @param int                  $id
+     * @param string               $name
+     * @param string               $displayName
+     * @param string               $description
+     * @param boolean              $enabled
+     * @param array|ProductExtra[] $extras
+     */
+    public function __construct($id, $name, $displayName, $description, $enabled, array $extras)
     {
-        $this->id = $id;
-        $this->name = $name;
+        parent::__construct($id, $name, $displayName, $description, $enabled);
         $this->extras = $extras;
-        $this->attributes = $attributes;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -72,14 +53,5 @@ class ProductExtraSet
         }
 
         return null;
-    }
-
-
-    /**
-     * @return array|ProductAttribute[]
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
     }
 }

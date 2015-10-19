@@ -50,6 +50,4 @@ abstract class AbstractProductAddon
     {
         return $this->price;
     }
-
-
 }
