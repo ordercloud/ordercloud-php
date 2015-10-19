@@ -31,11 +31,27 @@ class ProductOption extends ProductAddon
     }
 
     /**
+     * @return bool
+     */
+    public function hasUnlockOptionSets()
+    {
+        return empty($this->unlockOptionSets);
+    }
+
+    /**
      * @return array|ProductOptionSet[]
      */
     public function getUnlockOptionSets()
     {
         return $this->unlockOptionSets;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasUnlockExtraSets()
+    {
+        return empty($this->unlockExtraSets);
     }
 
     /**
