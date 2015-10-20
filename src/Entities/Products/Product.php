@@ -162,6 +162,14 @@ class Product
     }
 
     /**
+     * @return array|UnlockableProductOptionSet[]
+     */
+    public function getUnlockableOptionSets()
+    {
+        return UnlockableProductOptionSet::createFromProduct($this);
+    }
+
+    /**
      * @return array|ProductExtraSet[]
      */
     public function getExtraSets()
@@ -183,6 +191,14 @@ class Product
         }
 
         return null;
+    }
+
+    /**
+     * @return array|UnlockableProductExtraSet[]
+     */
+    public function getUnlockableExtraSets()
+    {
+        return UnlockableProductExtraSet::createFromProduct($this);
     }
 
     /**
