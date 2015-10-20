@@ -36,7 +36,7 @@ class UnlockableProductExtraSet extends ProductExtraSet
 
         while ($set = array_shift($productOptionSets)) {
             foreach ($set->getOptions() as $option) {
-                $productOptionSets[] = array_merge($productOptionSets, $option->getUnlockOptionSets());
+                $productOptionSets = array_merge($productOptionSets, $option->getUnlockOptionSets());
                 foreach ($option->getUnlockExtraSets() as $unlockExtraSet) {
                     $linkedSets[$unlockExtraSet->getId()]['set'] = $unlockExtraSet;
                     $linkedSets[$unlockExtraSet->getId()]['options'][] = $option->getId();
