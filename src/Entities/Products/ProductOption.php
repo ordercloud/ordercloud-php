@@ -25,9 +25,9 @@ class ProductOption extends ProductAddon
      * @param array|ProductOptionSet[] $unlockOptionSets
      * @param array|ProductExtraSet[]  $unlockExtraSets
      */
-    public function __construct($id, $name, $description, $price, $enabled, OrganisationShort $organisation, array $unlockOptionSets = [], array $unlockExtraSets = [])
+    public function __construct($id, $name, $description, $price, $enabled, array $unlockOptionSets = [], array $unlockExtraSets = [])
     {
-        parent::__construct($id, $name, $description, $price, $enabled, $organisation);
+        parent::__construct($id, $name, $description, $price, $enabled);
         $this->unlockOptionSets = $unlockOptionSets ?: [];
         $this->unlockExtraSets = $unlockExtraSets ?: [];
     }

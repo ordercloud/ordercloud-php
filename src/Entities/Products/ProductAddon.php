@@ -6,10 +6,6 @@ abstract class ProductAddon extends AbstractProductAddon
 {
     /** @var boolean */
     private $enabled;
-    /**
-     * @var OrganisationShort
-     */
-    private $organisation;
 
     /**
      * @param int                      $id
@@ -17,13 +13,11 @@ abstract class ProductAddon extends AbstractProductAddon
      * @param string                   $description
      * @param float                    $price
      * @param boolean                  $enabled
-     * @param OrganisationShort        $organisation
      */
-    public function __construct($id, $name, $description, $price, $enabled, OrganisationShort $organisation)
+    public function __construct($id, $name, $description, $price, $enabled)
     {
         parent::__construct($id, $name, $description, $price);
         $this->enabled = $enabled;
-        $this->organisation = $organisation;
     }
 
     /**
@@ -32,13 +26,5 @@ abstract class ProductAddon extends AbstractProductAddon
     public function isEnabled()
     {
         return $this->enabled;
-    }
-
-    /**
-     * @return OrganisationShort
-     */
-    public function getOrganisation()
-    {
-        return $this->organisation;
     }
 }
