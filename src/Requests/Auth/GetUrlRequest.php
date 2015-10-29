@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetUrlRequest
+ *
+ * @see Ordercloud\Requests\Auth\Handlers\GetUrlRequestHandler
+ */
 class GetUrlRequest implements Command
 {
     /**

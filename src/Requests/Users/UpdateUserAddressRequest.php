@@ -3,6 +3,11 @@
 use Ordercloud\Entities\Users\UserAddress;
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class UpdateUserAddressRequest
+ *
+ * @see Ordercloud\Requests\Users\Handlers\UpdateUserAddressRequestHandler
+ */
 class UpdateUserAddressRequest implements Command
 {
     /** @var UserAddress */

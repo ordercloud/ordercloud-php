@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetProductRequest
+ *
+ * @see Ordercloud\Requests\Products\Handlers\GetProductRequestHandler
+ */
 class GetProductRequest implements Command
 {
     /** @var int */

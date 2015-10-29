@@ -3,6 +3,11 @@
 use Ordercloud\Requests\Products\Criteria\ProductCriteria;
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class FindProductsRequest
+ *
+ * @see Ordercloud\Requests\Products\Handlers\FindProductsRequestHandler
+ */
 class FindProductsRequest implements Command
 {
     /**

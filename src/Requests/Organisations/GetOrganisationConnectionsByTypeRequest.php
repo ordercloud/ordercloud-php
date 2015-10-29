@@ -3,6 +3,11 @@
 use Ordercloud\Requests\Organisations\Criteria\BasicConnectionCriteria;
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetOrganisationConnectionsByTypeRequest
+ *
+ * @see Ordercloud\Requests\Organisations\Handlers\GetOrganisationConnectionsByTypeRequestHandler
+ */
 class GetOrganisationConnectionsByTypeRequest implements Command
 {
     /**

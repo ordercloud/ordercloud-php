@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetProductTagsForOrganisationByTypeNameRequest
+ *
+ * @see Ordercloud\Requests\Products\Handlers\GetProductTagsForOrganisationByTypeNameRequestHandler
+ */
 class GetProductTagsForOrganisationByTypeNameRequest implements Command
 {
     /** @var int */

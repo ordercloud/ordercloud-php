@@ -3,6 +3,11 @@
 use Ordercloud\Requests\Orders\Criteria\UserOrderCriteria;
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetUserOrdersRequest
+ *
+ * @see Ordercloud\Requests\Orders\Handlers\GetUserOrdersRequestHandler
+ */
 class GetUserOrdersRequest implements Command
 {
     /** @var int */

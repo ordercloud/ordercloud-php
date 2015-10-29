@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class EstimateDeliveryCostRequest
+ *
+ * @see Ordercloud\Requests\Orders\Handlers\EstimateDeliveryCostRequestHandler
+ */
 class EstimateDeliveryCostRequest implements Command
 {
     /**

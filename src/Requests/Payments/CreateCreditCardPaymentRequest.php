@@ -3,6 +3,11 @@
 use Ordercloud\Requests\Payments\Entities\CreditCard;
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class CreateCreditCardPaymentRequest
+ *
+ * @see Ordercloud\Requests\Payments\Handlers\CreateCreditCardPaymentRequestHandler
+ */
 class CreateCreditCardPaymentRequest implements Command
 {
     /** @var string */

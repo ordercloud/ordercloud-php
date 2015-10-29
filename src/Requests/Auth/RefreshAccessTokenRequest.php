@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class RefreshAccessTokenRequest
+ *
+ * @see Ordercloud\Requests\Auth\Handlers\RefreshAccessTokenRequestHandler
+ */
 class RefreshAccessTokenRequest implements Command
 {
     /** @var string */

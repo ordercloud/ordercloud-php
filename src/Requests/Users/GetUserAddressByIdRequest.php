@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetUserAddressByIdRequest
+ *
+ * @see Ordercloud\Requests\Users\Handlers\GetUserAddressByIdRequestHandler
+ */
 class GetUserAddressByIdRequest implements Command
 {
     /** @var int */

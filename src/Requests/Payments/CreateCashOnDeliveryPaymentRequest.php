@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class CreateCashOnDeliveryPaymentRequest
+ *
+ * @see Ordercloud\Requests\Payments\Handlers\CreateCashOnDeliveryPaymentRequestHandler
+ */
 class CreateCashOnDeliveryPaymentRequest implements Command
 {
     /**

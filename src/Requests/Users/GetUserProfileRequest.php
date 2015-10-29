@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetUserProfileRequest
+ *
+ * @see Ordercloud\Requests\Users\Handlers\GetUserProfileRequestHandler
+ */
 class GetUserProfileRequest implements Command
 {
     /** @var int */

@@ -3,6 +3,11 @@
 use Ordercloud\Requests\Users\Entities\NewUserAddress;
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class CreateUserAddressRequest
+ *
+ * @see Ordercloud\Requests\Users\Handlers\CreateUserAddressRequestHandler
+ */
 class CreateUserAddressRequest implements Command
 {
     /** @var int */

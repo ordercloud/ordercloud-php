@@ -3,6 +3,11 @@
 use Ordercloud\Requests\Users\Criteria\UserAddressCriteria;
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetUserAddressesRequest
+ *
+ * @see Ordercloud\Requests\Users\Handlers\GetUserAddressesRequestHandler
+ */
 class GetUserAddressesRequest implements Command
 {
     /** @var int */
