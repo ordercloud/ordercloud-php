@@ -3,7 +3,10 @@
 use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\Exceptions\ResponseParseException;
 use Ordercloud\Requests\OrdercloudRequest;
+use Ordercloud\Support\ExceptionGenerators\ExceptionGeneratorService;
+use Ordercloud\Support\Http\Client;
 use Ordercloud\Support\Http\Response;
+use Ordercloud\Support\Http\UrlParameteriser;
 use Ordercloud\Support\Reflection\EntityReflector;
 use Ordercloud\Support\Reflection\Exceptions\EntityParseException;
 
@@ -11,10 +14,22 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
 {
     protected $method;
     private $url;
-    private $parameters = [];
+    private $queryParameters = [];
+    private $bodyParameters = [];
+    private $formParameters = [];
     private $headers = [];
     private $entityClass;
     private $entityDataKey = null;
+    /**
+     * @var UrlParameteriser
+     */
+    private $parameteriser;
+
+    public function __construct(Client $client, ExceptionGeneratorService $exceptionGenerator, UrlParameteriser $parameteriser)
+    {
+        parent::__construct($client, $exceptionGenerator);
+        $this->parameteriser = $parameteriser;
+    }
 
     /**
      * @param $request
@@ -33,7 +48,7 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
         $this->configure($request);
 
         $response = parent::handle(
-            new OrdercloudRequest($this->method, $this->url, $this->parameters, $this->headers)
+            new OrdercloudRequest($this->method, $this->getUrl(), $this->getParameters(), $this->getHeaders())
         );
 
         try {
@@ -81,26 +96,88 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
     }
 
     /**
-     * @param array $parameters
+     * Set the parameters that should be passed via url.
+     *
+     * @param array $queryParameters
      *
      * @return static
      */
-    protected function setParameters($parameters)
+    public function setQueryParameters(array $queryParameters)
     {
-        $this->parameters = $parameters;
+        $this->queryParameters = $queryParameters;
 
         return $this;
     }
 
     /**
+     * Set parameters that should be passed via body.
+     *
+     * @param array $bodyParameters
+     *
+     * @return static
+     */
+    public function setBodyParameters(array $bodyParameters)
+    {
+        $this->bodyParameters = $bodyParameters;
+
+        return $this;
+    }
+
+    /**
+     * Set parameters that should be passed via form encoded body.
+     *
+     * @param array $formParameters
+     *
+     * @return static
+     */
+    public function setFormParameters(array $formParameters)
+    {
+        $this->formParameters = $formParameters;
+
+        return $this;
+    }
+
+    /**
+     * Set a parameter that should be passed via body.
+     *
      * @param string $key
      * @param string $value
      *
      * @return static
      */
-    protected function setParameter($key, $value)
+    protected function setBodyParameter($key, $value)
     {
-        $this->parameters[$key] = $value;
+        $this->bodyParameters[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set a parameter that should be passed via url.
+     *
+     * @param string $key
+     * @param string $value
+     *
+     * @return static
+     */
+    protected function setQueryParameter($key, $value)
+    {
+        $this->queryParameters[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set a parameter that should be passed via form encoded body.
+     *
+     * @param string $key
+     * @param string $value
+     *
+     * @return static
+     */
+    protected function setFormParameter($key, $value)
+    {
+        $this->formParameters[$key] = $value;
 
         return $this;
     }
@@ -163,5 +240,38 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
         $this->entityDataKey = $entityDataKey;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    private function getUrl()
+    {
+        if (empty($this->queryParameters)) {
+            return $this->url;
+        }
+
+        return $this->parameteriser->appendParametersToUrl($this->queryParameters, $this->url);
+    }
+
+    /**
+     * @return array
+     */
+    private function getParameters()
+    {
+        if ( ! empty($this->formParameters)) {
+            return $this->formParameters;
+        }
+
+        return $this->bodyParameters;
+    }
+
+    private function getHeaders()
+    {
+        if ( ! empty($this->formParameters)) {
+            $this->setHeader('Content-type', 'application/x-www-form-urlencoded');
+        }
+
+        return $this->headers;
     }
 }

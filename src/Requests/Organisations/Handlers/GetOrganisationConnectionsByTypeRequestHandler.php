@@ -18,7 +18,7 @@ class GetOrganisationConnectionsByTypeRequestHandler extends AbstractGetRequestH
         }
 
         $this->setUrl('/resource/organisations/%sconnections/type/%s', $organisaionId, $request->getTypeCode())
-             ->setParameters([
+             ->setQueryParameters([
                  'showDisabled' => $criteria->getShowDisabled() ? 'true' : 'false',
                  'page'         => $criteria->getPage(),
                  'pagesize'     => $criteria->getPageSize(),

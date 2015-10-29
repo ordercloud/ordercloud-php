@@ -11,7 +11,7 @@ class RefreshAccessTokenRequestHandler extends AbstractPostRequestHandler
     protected function configure($request)
     {
         $this->setUrl('/resource/token')
-            ->setParameters([
+            ->setBodyParameters([
                 'organisation_code'   => $request->getOrganisationCode(),
                 'organisation_secret' => $request->getClientSecret(),
                 'grant_type'          => 'refresh_token',
