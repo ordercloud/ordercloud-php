@@ -15,7 +15,7 @@ class EstimateDeliveryCostRequestHandler extends AbstractPutRequestHandler
         $geoId = $request->getGeoId();
 
         $this->setUrl('/resource/orders/organisation/%d/delivery/geo/%d', $deliveryServiceOrdganisationId, $geoId)
-             ->setParameters($request->getMerchantDtos());
+             ->setBodyParameters($request->getMerchantDtos());
     }
 
     /**

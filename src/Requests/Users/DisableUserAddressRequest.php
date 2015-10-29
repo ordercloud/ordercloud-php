@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class DisableUserAddressRequest
+ *
+ * @see Ordercloud\Requests\Users\Handlers\DisableUserAddressRequestHandler
+ */
 class DisableUserAddressRequest implements Command
 {
     /**

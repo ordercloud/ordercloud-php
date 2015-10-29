@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetOrganisationRequest
+ *
+ * @see Ordercloud\Requests\Organisations\Handlers\GetOrganisationRequestHandler
+ */
 class GetOrganisationRequest implements Command
 {
     /** @var integer */

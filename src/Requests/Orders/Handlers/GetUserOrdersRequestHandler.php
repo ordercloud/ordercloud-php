@@ -24,7 +24,7 @@ class GetUserOrdersRequestHandler extends AbstractGetRequestHandler
         $criteria = $request->getCriteria();
 
         $this->setUrl('resource/orders/user/%d', $request->getUserId())
-            ->setParameters([
+            ->setQueryParameters([
                 'page'          => $criteria->getPage(),
                 'pagesize'      => $criteria->getPageSize(),
                 'orderstatus'   => $criteria->getOrderStatuses(),

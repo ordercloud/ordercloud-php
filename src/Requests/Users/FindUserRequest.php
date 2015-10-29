@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class FindUserRequest
+ *
+ * @see Ordercloud\Requests\Users\Handlers\FindUserRequestHandler
+ */
 class FindUserRequest implements Command
 {
     /**

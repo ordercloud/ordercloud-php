@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class ResetUserPasswordRequest
+ *
+ * @see Ordercloud\Requests\Users\Handlers\ResetUserPasswordRequestHandler
+ */
 class ResetUserPasswordRequest implements Command
 {
     /**

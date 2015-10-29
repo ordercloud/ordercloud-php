@@ -3,6 +3,11 @@
 use Ordercloud\Entities\Users\UserProfile;
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class UpdateUserProfileRequest
+ *
+ * @see Ordercloud\Requests\Users\Handlers\UpdateUserProfileRequestHandler
+ */
 class UpdateUserProfileRequest implements Command
 {
     /** @var UserProfile */

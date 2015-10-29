@@ -13,7 +13,7 @@ class UpdateUserProfileRequestHandler extends AbstractPutRequestHandler
         $profile = $request->getProfile();
 
         $this->setUrl('resource/users/%d/profile', $request->getUserID())
-            ->setParameters([
+            ->setBodyParameters([
                 'firstName'       => $profile->getFirstName(),
                 'surname'         => $profile->getSurname(),
                 'nickName'        => $profile->getNickName(),

@@ -14,7 +14,7 @@ class UpdateUserAddressRequestHandler extends AbstractPutRequestHandler
         $address = $request->getAddress();
 
         $this->setUrl('resource/users/geos/%d', $address->getId())
-            ->setParameters([
+            ->setBodyParameters([
                 'name'         => $address->getName(),
                 'streetNumber' => $address->getStreetNumber(),
                 'streetName'   => $address->getStreetName(),

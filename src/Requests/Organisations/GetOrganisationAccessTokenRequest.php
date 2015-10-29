@@ -3,6 +3,11 @@
 use Ordercloud\Requests\Auth\Entities\Authorisation;
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetOrganisationAccessTokenRequest
+ *
+ * @see Ordercloud\Requests\Organisations\Handlers\GetOrganisationAccessTokenRequestHandler
+ */
 class GetOrganisationAccessTokenRequest implements Command
 {
     /**

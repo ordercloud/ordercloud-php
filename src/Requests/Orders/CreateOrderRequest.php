@@ -3,6 +3,11 @@
 use Ordercloud\Requests\Orders\Entities\NewOrderItem;
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class CreateOrderRequest
+ *
+ * @see Ordercloud\Requests\Orders\Handlers\CreateOrderRequestHandler
+ */
 class CreateOrderRequest implements Command
 {
     /** @var int */

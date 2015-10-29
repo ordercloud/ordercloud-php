@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetSettingsByOrganisationRequest
+ *
+ * @see Ordercloud\Requests\Organisations\Handlers\GetSettingsByOrganisationRequestHandler
+ */
 class GetSettingsByOrganisationRequest implements Command
 {
     /**

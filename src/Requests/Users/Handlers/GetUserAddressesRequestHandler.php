@@ -12,7 +12,7 @@ class GetUserAddressesRequestHandler extends AbstractGetRequestHandler
     {
         $criteria = $request->getCriteria();
         $this->setUrl('resource/users/%d/geos', $request->getUserID())
-            ->setParameters([
+            ->setQueryParameters([
                 'page'          => $criteria->getPage(),
                 'pagesize'      => $criteria->getPageSize(),
             ])

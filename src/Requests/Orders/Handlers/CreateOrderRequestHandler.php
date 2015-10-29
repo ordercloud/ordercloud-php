@@ -18,7 +18,7 @@ class CreateOrderRequestHandler extends AbstractPostRequestHandler
     protected function configure($request)
     {
         $this->setUrl('/resource/orders/organisation/%d', $request->getOrganisationId())
-            ->setParameters([
+            ->setBodyParameters([
                 'userId'             => $request->getUserId(),
                 'paymentStatus'      => $request->getPaymentStatus(),
                 'deliveryType'       => $request->getDeliveryType(),

@@ -11,7 +11,7 @@ class CreateCashOnDeliveryPaymentRequestHandler extends AbstractPostRequestHandl
     protected function configure($request)
     {
         $this->setUrl('/resource/orders/%d/pay/cod', $request->getOrderId())
-             ->setParameter('amt', $request->getAmount());
+             ->setBodyParameter('amt', $request->getAmount());
     }
 
     protected function transformResponse($response)

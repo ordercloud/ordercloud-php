@@ -14,7 +14,7 @@ class CreateUserAddressRequestHandler extends AbstractPostRequestHandler
         $address = $request->getAddress();
 
         $this->setUrl('resource/users/%d/geos', $request->getUserID())
-            ->setParameters([
+            ->setBodyParameters([
                 'name'         => $address->getName(),
                 'streetNumber' => $address->getStreetNumber(),
                 'streetName'   => $address->getStreetName(),

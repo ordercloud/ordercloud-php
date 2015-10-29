@@ -2,8 +2,12 @@
 
 use Ordercloud\Requests\Exceptions\AccessTokenExpiredException;
 use Ordercloud\Support\CommandBus\Command;
-use Ordercloud\Support\Http\OrdercloudHttpException;
 
+/**
+ * Class ExpiredTokenRequest
+ *
+ * @see Ordercloud\Requests\Auth\Handlers\ExpiredTokenRequestHandler
+ */
 class ExpiredTokenRequest implements Command
 {
     /**
