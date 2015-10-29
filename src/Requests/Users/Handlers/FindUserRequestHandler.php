@@ -11,10 +11,10 @@ class FindUserRequestHandler extends AbstractGetRequestHandler
     protected function configure($request)
     {
         $this->setUrl('resource/users/search')
-            ->setParameters([
+            ->setQueryParameters([
                 'email' => $request->getEmailAddress(),
                 'mobile' => $request->getMobileNumber()
             ])
-			->setEntityArrayClass('Ordercloud\Entities\Users\User');
+            ->setEntityArrayClass('Ordercloud\Entities\Users\User');
     }
 }

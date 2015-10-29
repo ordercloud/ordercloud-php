@@ -13,19 +13,15 @@ class OrdercloudRequestHandler implements CommandHandler
 {
     /** @var Client */
     private $client;
-    /**
-     * @var UrlParameteriser
-     */
-    private $parameteriser;
+
     /**
      * @var ExceptionGeneratorService
      */
     private $exceptionGenerator;
 
-    public function __construct(Client $client, UrlParameteriser $parameteriser, ExceptionGeneratorService $exceptionGenerator)
+    public function __construct(Client $client, ExceptionGeneratorService $exceptionGenerator)
     {
         $this->client = $client;
-        $this->parameteriser = $parameteriser;
         $this->exceptionGenerator = $exceptionGenerator;
     }
 
@@ -38,13 +34,13 @@ class OrdercloudRequestHandler implements CommandHandler
      */
     public function handle($request)
     {
-        $url = $this->prepareUrl($request);
-        $method = $request->getMethod();
-        $params = $this->prepareParameters($request);
-        $headers = $request->getHeaders();
-
         try {
-            return $this->client->send($url, $method, $params, $headers);
+            return $this->client->send(
+                $request->getUrl(),
+                $request->getMethod(),
+                $request->getParameters(),
+                $request->getHeaders()
+            );
         }
         catch (OrdercloudHttpException $e) {
             throw $this->exceptionGenerator->generateException($request, $e);

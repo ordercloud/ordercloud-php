@@ -11,7 +11,7 @@ class GeocodeAddressRequestHandler extends AbstractPutRequestHandler
     protected function configure($request)
     {
         $this->setUrl('resource/users/geocode')
-            ->setParameters([
+            ->setBodyParameters([
                 'streetName'   => $request->getStreetName(),
                 'streetNumber' => $request->getStreetNumber(),
                 'city'         => $request->getCity(),

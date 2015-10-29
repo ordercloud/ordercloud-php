@@ -27,7 +27,7 @@ class FindProductsRequestHandler extends AbstractPutRequestHandler
         $criteria = $request->getCriteria();
 
         $this->setUrl('resource/product/criteria?page=%d&pagesize=%d', $criteria->getPage(), $criteria->getPageSize())
-             ->setParameters([
+             ->setBodyParameters([
                  'tags'          => $criteria->getTags(),
                  'available'     => $this->formatBoolean($criteria->isAvailable()),
                  'order'         => $criteria->getOrders(),

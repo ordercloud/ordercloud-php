@@ -13,8 +13,7 @@ class GetUrlRequestHandler extends AbstractPostRequestHandler
         $type = $request->getType();
 
         $this->setUrl('faces/credential')
-            ->setHeader('Content-type', 'application/x-www-form-urlencoded')
-            ->setParameters([
+            ->setFormParameters([
                 'organisation_id' => $request->getOrganisationID(),
                 'client_secret'   => $request->getClientSecret(),
                 'redirect_url'    => $request->getRedirectUrl(),

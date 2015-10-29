@@ -13,7 +13,7 @@ class CreateCreditCardPaymentRequestHandler extends AbstractPostRequestHandler
         $creditCard = $request->getCard();
 
         $this->setUrl('/resource/orders/%d/pay/creditcard/%s', $request->getOrderID(), $request->getPaymentGateway())
-            ->setParameters([
+            ->setBodyParameters([
                 'amount'          => $request->getAmount(),
                 'budgetPeriod'    => $request->getBudgetPeriod(),
                 'cardExpiryMonth' => $creditCard->getExpiryMonth(),
