@@ -158,6 +158,12 @@ class Product
             }
         }
 
+        foreach ($this->getUnlockableOptionSets() as $optionSet) {
+            if ($optionSet->getId() == $optionSetID) {
+                return $optionSet;
+            }
+        }
+
         return null;
     }
 
@@ -185,6 +191,12 @@ class Product
     public function getExtraSetByID($extraSetID)
     {
         foreach ($this->getExtraSets() as $extraSet) {
+            if ($extraSet->getId() == $extraSetID) {
+                return $extraSet;
+            }
+        }
+
+        foreach ($this->getUnlockableExtraSets() as $extraSet) {
             if ($extraSet->getId() == $extraSetID) {
                 return $extraSet;
             }
