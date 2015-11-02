@@ -47,6 +47,14 @@ class UserProfile
     /**
      * @return string
      */
+    public function getFullname()
+    {
+        return implode(' ', [$this->getFirstName(), $this->getSurname()]);
+    }
+
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
