@@ -26,6 +26,8 @@ class CreateOrderRequestBuilder
     private $deliveryServiceId;
     /** @var int */
     private $orderSourceChannelId;
+    /** @var string */
+    private $deliveryTime;
 
     /**
      * @return static
@@ -51,7 +53,8 @@ class CreateOrderRequestBuilder
             $this->note,
             $this->tip,
             $this->deliveryServiceId,
-            $this->orderSourceChannelId
+            $this->orderSourceChannelId,
+            $this->deliveryTime
         );
     }
 
@@ -183,6 +186,18 @@ class CreateOrderRequestBuilder
     public function setOrderSourceChannelId($orderSourceChannelId)
     {
         $this->orderSourceChannelId = $orderSourceChannelId;
+
+        return $this;
+    }
+
+    /**
+     * @param string $deliveryTime
+     *
+     * @return static
+     */
+    public function setDeliveryTime($deliveryTime)
+    {
+        $this->deliveryTime = $deliveryTime;
 
         return $this;
     }
