@@ -73,7 +73,7 @@ class CreateOrderRequestHandler extends AbstractPostRequestHandler
         $formattedOptions = [];
 
         foreach ($options as $option) {
-            $formattedOptions[] = $this->identifyById($option->getId());
+            $formattedOptions[] = $option->getId();
         }
 
         return $formattedOptions;
@@ -89,7 +89,7 @@ class CreateOrderRequestHandler extends AbstractPostRequestHandler
         $formattedExtras = [];
 
         foreach ($extras as $extra) {
-            $formattedExtras[] = $this->identifyById($extra->getId());
+            $formattedExtras[] = $extra->getId();
         }
 
         return $formattedExtras;
