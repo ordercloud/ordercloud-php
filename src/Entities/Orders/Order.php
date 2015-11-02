@@ -66,6 +66,10 @@ class Order
      * @var OrderSourceChannel
      */
     private $orderSourceChannel;
+    /**
+     * @var string
+     */
+    private $scheduledDeliveryDate;
 
     //TODO add: tip + delivery + statusHistory
     public function __construct(
@@ -88,7 +92,8 @@ class Order
         $note,
         $estimatedDeliveryTime,
         $deliveryCost,
-        OrderSourceChannel $orderSourceChannel = null
+        OrderSourceChannel $orderSourceChannel = null,
+        $scheduledDeliveryDate = null
     )
     {
         $this->id = $id;
@@ -111,6 +116,7 @@ class Order
         $this->estimatedDeliveryTime = $estimatedDeliveryTime;
         $this->deliveryCost = $deliveryCost;
         $this->orderSourceChannel = $orderSourceChannel;
+        $this->scheduledDeliveryDate = $scheduledDeliveryDate;
     }
 
     /**
@@ -309,5 +315,13 @@ class Order
     public function getOrderSourceChannel()
     {
         return $this->orderSourceChannel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScheduledDeliveryDate()
+    {
+        return $this->scheduledDeliveryDate;
     }
 }
