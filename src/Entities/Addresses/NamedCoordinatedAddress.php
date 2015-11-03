@@ -3,7 +3,7 @@
 class NamedCoordinatedAddress extends Address
 {
     /**
-     * @var Coordinates
+     * @var GeoCoordinates
      */
     private $coordinates;
     /**
@@ -25,7 +25,7 @@ class NamedCoordinatedAddress extends Address
     public function __construct($streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $name, $latitude, $longitude)
     {
         parent::__construct($streetNumber, $streetName, $complex, $suburb, $city, $postalCode);
-        $this->coordinates = new Coordinates($latitude, $longitude);
+        $this->coordinates = new GeoCoordinates($latitude, $longitude);
         $this->name = $name;
     }
 
@@ -38,7 +38,7 @@ class NamedCoordinatedAddress extends Address
     }
 
     /**
-     * @return Coordinates
+     * @return GeoCoordinates
      */
     public function getCoordinates()
     {

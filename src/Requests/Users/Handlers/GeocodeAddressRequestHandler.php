@@ -21,6 +21,6 @@ class GeocodeAddressRequestHandler extends AbstractPutRequestHandler
                 'complex'      => $address->getComplex(),
                 'postalCode'   => $address->getPostalCode(),
             ])
-            ->setEntityClass('Ordercloud\Entities\Users\UserAddress');
+            ->setEntityClass('Ordercloud\Entities\Addresses\GeoCoordinates');
     }
 }

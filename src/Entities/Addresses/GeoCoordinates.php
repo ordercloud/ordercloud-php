@@ -1,6 +1,6 @@
 <?php namespace Ordercloud\Entities\Addresses;
 
-class Coordinates
+class GeoCoordinates
 {
     /** @var string */
     private $latitude;
