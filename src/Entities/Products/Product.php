@@ -17,8 +17,8 @@ class Product
     /** @var float */
     private $price;
     /**
-     * @var array|ProductItemsProductAttribute[]
-     * @reflectType Ordercloud\Entities\Products\ProductItemsProductAttribute
+     * @var array|ProductAttributeSet[]
+     * @reflectType Ordercloud\Entities\Products\ProductAttributeSet
      */
     private $attributeSets;
     /**
@@ -130,7 +130,7 @@ class Product
     }
 
     /**
-     * @return array|ProductItemsProductAttribute[]
+     * @return array|ProductAttributeSet[]
      */
     public function getAttributeSets()
     {
