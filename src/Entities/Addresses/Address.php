@@ -1,13 +1,7 @@
-<?php namespace Ordercloud\Entities\Delivery;
+<?php namespace Ordercloud\Entities\Addresses;
 
-abstract class AbstractAddress
+class Address
 {
-    /** @var string */
-    private $longitude;
-    /** @var string */
-    private $latitude;
-    /** @var string */
-    private $name;
     /** @var string */
     private $streetNumber;
     /** @var string */
@@ -21,41 +15,22 @@ abstract class AbstractAddress
     /** @var string */
     private $postalCode;
 
-    public function __construct($longitude, $latitude, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode)
+    /**
+     * @param string $streetNumber
+     * @param string $streetName
+     * @param string $complex
+     * @param string $suburb
+     * @param string $city
+     * @param string $postalCode
+     */
+    public function __construct($streetNumber, $streetName, $complex, $suburb, $city, $postalCode)
     {
-        $this->longitude = $longitude;
-        $this->latitude = $latitude;
-        $this->name = $name;
         $this->streetNumber = $streetNumber;
         $this->streetName = $streetName;
         $this->complex = $complex;
         $this->suburb = $suburb;
         $this->city = $city;
         $this->postalCode = $postalCode;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLongitude()
-    {
-        return $this->longitude;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLatitude()
-    {
-        return $this->latitude;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -115,7 +90,7 @@ abstract class AbstractAddress
     {
         return array_filter([
             $this->getComplex(),
-            $this->getStreetNumber() . ' ' . $this->getStreetName(),
+            implode(' ', array_filter([$this->getStreetNumber(), $this->getStreetName()])),
             $this->getSuburb(),
             $this->getCity(),
             $this->getPostalCode()
