@@ -50,7 +50,7 @@ class ProductSpec extends ObjectBehavior
         $img2 = $this->createImage(false);
 
         $images = [$img1, $img2];
-        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null);
+        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true);
 
         $this->getDefaultImage()->shouldReturn(null);
     }
@@ -69,7 +69,7 @@ class ProductSpec extends ObjectBehavior
         $img2 = $this->createImage(true);
 
         $images = [$img1, $img2];
-        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null);
+        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true);
 
         $this->hasDefaultImage()->shouldReturn(true);
     }
