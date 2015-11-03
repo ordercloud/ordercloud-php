@@ -20,7 +20,7 @@ class Product
      * @var array|ProductItemsProductAttribute[]
      * @reflectType Ordercloud\Entities\Products\ProductItemsProductAttribute
      */
-    private $attributes;
+    private $attributeSets;
     /**
      * @var array|ProductOptionSet[]
      * @reflectType Ordercloud\Entities\Products\ProductOptionSet
@@ -59,7 +59,7 @@ class Product
     /** @var ProductPriceDiscount */
     private $discount;
 
-    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null)
+    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributeSets, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -67,7 +67,7 @@ class Product
         $this->shortDescription = $shortDescription;
         $this->sku = $sku;
         $this->price = $price;
-        $this->attributes = $attributes;
+        $this->attributeSets = $attributeSets;
         $this->optionSets = $optionSets;
         $this->extraSets = $extraSets;
         $this->tags = $tags;
@@ -132,9 +132,9 @@ class Product
     /**
      * @return array|ProductItemsProductAttribute[]
      */
-    public function getAttributes()
+    public function getAttributeSets()
     {
-        return $this->attributes;
+        return $this->attributeSets;
     }
 
     /**
