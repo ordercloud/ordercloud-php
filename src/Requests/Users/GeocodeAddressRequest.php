@@ -1,6 +1,6 @@
 <?php namespace Ordercloud\Requests\Users;
 
-use Ordercloud\Entities\Delivery\AbstractAddress;
+use Ordercloud\Entities\Addresses\Address;
 use Ordercloud\Support\CommandBus\Command;
 
 /**
@@ -8,10 +8,26 @@ use Ordercloud\Support\CommandBus\Command;
  *
  * @see Ordercloud\Requests\Users\Handlers\GeocodeAddressRequestHandler
  */
-class GeocodeAddressRequest extends AbstractAddress implements Command
+class GeocodeAddressRequest implements Command
 {
-    public function __construct($streetNumber, $streetName, $complex, $suburb, $city, $postalCode)
+    /**
+     * @var Address
+     */
+    private $address;
+
+    /**
+     * @param Address $address
+     */
+    public function __construct(Address $address)
     {
-        parent::__construct(null, null, null, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode);
+        $this->address = $address;
+    }
+
+    /**
+     * @return Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 }

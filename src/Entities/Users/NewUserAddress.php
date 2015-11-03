@@ -1,16 +1,15 @@
-<?php namespace Ordercloud\Entities\Organisations;
+<?php namespace Ordercloud\Entities\Users;
 
 use Ordercloud\Entities\Addresses\NamedCoordinatedAddress;
 
-class OrganisationAddress extends NamedCoordinatedAddress
+class NewUserAddress extends NamedCoordinatedAddress
 {
-    /** @var int */
-    private $id;
+    /**
+     * @var string
+     */
+    private $note;
 
     /**
-     * @param int    $id
-     * @param string $longitude
-     * @param string $latitude
      * @param string $name
      * @param string $streetNumber
      * @param string $streetName
@@ -18,8 +17,11 @@ class OrganisationAddress extends NamedCoordinatedAddress
      * @param string $suburb
      * @param string $city
      * @param string $postalCode
+     * @param string $note
+     * @param string $latitude
+     * @param string $longitude
      */
-    public function __construct($id, $longitude, $latitude, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode)
+    public function __construct($name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $note, $latitude, $longitude)
     {
         parent::__construct(
             $streetNumber,
@@ -32,14 +34,14 @@ class OrganisationAddress extends NamedCoordinatedAddress
             $latitude,
             $longitude
         );
-        $this->id = $id;
+        $this->note = $note;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId()
+    public function getNote()
     {
-        return $this->id;
+        return $this->note;
     }
 }

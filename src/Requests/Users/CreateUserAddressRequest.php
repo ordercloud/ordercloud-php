@@ -1,6 +1,6 @@
 <?php namespace Ordercloud\Requests\Users;
 
-use Ordercloud\Requests\Users\Entities\NewUserAddress;
+use Ordercloud\Entities\Users\NewUserAddress;
 use Ordercloud\Support\CommandBus\Command;
 
 /**

@@ -1,7 +1,5 @@
 <?php namespace Ordercloud\Entities\Users;
 
-use Ordercloud\Requests\Users\Entities\NewUserAddress;
-
 class UserAddress extends NewUserAddress
 {
     /**

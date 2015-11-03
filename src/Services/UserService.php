@@ -1,5 +1,7 @@
 <?php namespace Ordercloud\Services;
 
+use Ordercloud\Entities\Addresses\Address;
+use Ordercloud\Entities\Users\NewUserAddress;
 use Ordercloud\Entities\Users\User;
 use Ordercloud\Entities\Users\UserAddress;
 use Ordercloud\Entities\Users\UserProfile;
@@ -7,7 +9,6 @@ use Ordercloud\Requests\Auth\Entities\Authorisation;
 use Ordercloud\Requests\Users\CreateUserAddressRequest;
 use Ordercloud\Requests\Users\Criteria\UserAddressCriteria;
 use Ordercloud\Requests\Users\DisableUserAddressRequest;
-use Ordercloud\Requests\Users\Entities\NewUserAddress;
 use Ordercloud\Requests\Users\FindUserRequest;
 use Ordercloud\Requests\Users\GeocodeAddressRequest;
 use Ordercloud\Requests\Users\GetLoggedInUserRequest;
@@ -155,19 +156,14 @@ class UserService extends OrdercloudService
     }
 
     /**
-     * @param string $streetNumber
-     * @param string $streetName
-     * @param string $complex
-     * @param string $suburb
-     * @param string $city
-     * @param string $postalCode
+     * @param Address $address
      *
      * @return UserAddress
      */
-    public function geocodeAddress($streetNumber, $streetName, $complex, $suburb, $city, $postalCode)
+    public function geocodeAddress(Address $address)
     {
         return $this->request(
-            new GeocodeAddressRequest($streetNumber, $streetName, $complex, $suburb, $city, $postalCode)
+            new GeocodeAddressRequest($address)
         );
     }
 }

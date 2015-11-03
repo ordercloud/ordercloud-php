@@ -10,14 +10,16 @@ class GeocodeAddressRequestHandler extends AbstractPutRequestHandler
      */
     protected function configure($request)
     {
+        $address = $request->getAddress();
+
         $this->setUrl('resource/users/geocode')
             ->setBodyParameters([
-                'streetName'   => $request->getStreetName(),
-                'streetNumber' => $request->getStreetNumber(),
-                'city'         => $request->getCity(),
-                'suburb'       => $request->getSuburb(),
-                'complex'      => $request->getComplex(),
-                'postalCode'   => $request->getPostalCode(),
+                'streetName'   => $address->getStreetName(),
+                'streetNumber' => $address->getStreetNumber(),
+                'city'         => $address->getCity(),
+                'suburb'       => $address->getSuburb(),
+                'complex'      => $address->getComplex(),
+                'postalCode'   => $address->getPostalCode(),
             ])
             ->setEntityClass('Ordercloud\Entities\Users\UserAddress');
     }
