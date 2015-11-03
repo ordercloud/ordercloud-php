@@ -60,8 +60,10 @@ class Product
     private $productType;
     /** @var ProductPriceDiscount */
     private $discount;
+    /** @var Boolean */
+    private $globalProduct;
 
-    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null)
+    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null, $globalProduct)
     {
         $this->id = $id;
         $this->name = $name;
@@ -81,6 +83,7 @@ class Product
         $this->groupItems = $groupItems;
         $this->productType = $productType;
         $this->discount = $discount;
+        $this->globalProduct = $globalProduct;
     }
 
     /**
@@ -303,5 +306,11 @@ class Product
     public function getDiscount()
     {
         return $this->discount;
+    }
+
+    /** @return boolean */
+    public function isGlobalProduct()
+    {
+        return $this->globalProduct;
     }
 }
