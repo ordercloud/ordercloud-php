@@ -1,6 +1,7 @@
 <?php namespace Ordercloud\Services;
 
 use Ordercloud\Entities\Addresses\Address;
+use Ordercloud\Entities\Addresses\GeoCoordinates;
 use Ordercloud\Entities\Users\NewUserAddress;
 use Ordercloud\Entities\Users\User;
 use Ordercloud\Entities\Users\UserAddress;
@@ -158,7 +159,7 @@ class UserService extends OrdercloudService
     /**
      * @param Address $address
      *
-     * @return UserAddress
+     * @return GeoCoordinates
      */
     public function geocodeAddress(Address $address)
     {
