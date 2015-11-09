@@ -14,6 +14,7 @@ class OrderStatus
     const STATUS_FLAGGED = 10;
     const STATUS_REPLACED = 11;
     const STATUS_PICKED_UP = 12;
+    const STATUS_SCHEDULED = 13;
 
     /** @var integer */
     private $id;
