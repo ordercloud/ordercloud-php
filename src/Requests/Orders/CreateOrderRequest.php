@@ -41,9 +41,9 @@ class CreateOrderRequest implements Command
     /**
      * @var string
      */
-    private $deliveryTime;
+    private $scheduledTime;
 
-    public function __construct($userId, $organisationId, array $items, $amount, $paymentStatus, $deliveryType, $deliveryAddressId, $note, $tip, $deliveryServiceId, $orderSourceChannelId, $deliveryTime)
+    public function __construct($userId, $organisationId, array $items, $amount, $paymentStatus, $deliveryType, $deliveryAddressId, $note, $tip, $deliveryServiceId, $orderSourceChannelId, $scheduledTime)
     {
         $this->userId = $userId;
         $this->organisationId = $organisationId;
@@ -56,7 +56,7 @@ class CreateOrderRequest implements Command
         $this->tip = $tip;
         $this->deliveryServiceId = $deliveryServiceId;
         $this->orderSourceChannelId = $orderSourceChannelId;
-        $this->deliveryTime = $deliveryTime;
+        $this->scheduledTime = $scheduledTime;
     }
 
     /**
@@ -150,8 +150,8 @@ class CreateOrderRequest implements Command
     /**
      * @return string
      */
-    public function getDeliveryTime()
+    public function getScheduledTime()
     {
-        return $this->deliveryTime;
+        return $this->scheduledTime;
     }
 }
