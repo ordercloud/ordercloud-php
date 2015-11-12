@@ -2,9 +2,15 @@
 
 class ProductPriceDiscount
 {
-    /** @var float */
+    /**
+     * The amount of discount
+     * @var float
+     */
     private $discountAmount;
-    /** @var float */
+    /**
+     * Item price after discount
+     * @var float
+     */
     private $discountPrice; //TODO whats the difference ?
 
     public function __construct($discountAmount, $discountPrice)
