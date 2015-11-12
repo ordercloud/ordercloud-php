@@ -28,8 +28,10 @@ class OrderService extends OrdercloudService
      *
      * @return OrderCollection
      */
-    public function getUserOrders($userId, UserOrderCriteria $criteria)
+    public function getUserOrders($userId, UserOrderCriteria $criteria = null)
     {
+        $criteria = $criteria ?: UserOrderCriteria::create();
+
         return $this->request(
             new GetUserOrdersRequest($userId, $criteria)
         );
