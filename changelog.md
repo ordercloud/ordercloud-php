@@ -5,6 +5,7 @@ This project does not (yet) adhere to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - Renamed `deliveryTime` -> `scheduledTime` on `CreateOrderRequestBuilder` & `CreateOrderRequest`
+- Renamed `scheduledDeliveryDate` -> `scheduledDate` on `Order` entity
 
 ## [< 0.3.1]
 ### History unavailable
