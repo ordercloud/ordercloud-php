@@ -2,6 +2,7 @@
 
 use Ordercloud\Requests\Handlers\AbstractPostRequestHandler;
 use Ordercloud\Requests\Payments\CreateCreditCardPaymentRequest;
+use Ordercloud\Support\Reflection\EntityReflector;
 
 class CreateCreditCardPaymentRequestHandler extends AbstractPostRequestHandler
 {
@@ -14,18 +15,18 @@ class CreateCreditCardPaymentRequestHandler extends AbstractPostRequestHandler
 
         $this->setUrl('/resource/orders/%d/pay/creditcard/%s', $request->getOrderID(), $request->getPaymentGateway())
             ->setBodyParameters([
-                'amount'          => $request->getAmount(),
                 'budgetPeriod'    => $request->getBudgetPeriod(),
                 'cardExpiryMonth' => $creditCard->getExpiryMonth(),
                 'cardExpiryYear'  => $creditCard->getExpiryYear(),
                 'nameOnCard'      => $creditCard->getNameOnCard(),
                 'cvv'             => $creditCard->getCvv(),
                 'cardNumber'      => $creditCard->getCardNumber(),
+                'threeDSecure'    => $request->isThreeDSecure(),
             ]);
     }
 
     protected function transformResponse($response)
     {
-        return $response; //TODO
+        return EntityReflector::parseResourceIDFromURL($response->getUrl());
     }
 }

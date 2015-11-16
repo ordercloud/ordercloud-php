@@ -2,6 +2,7 @@
 
 use Ordercloud\Requests\Handlers\AbstractPostRequestHandler;
 use Ordercloud\Requests\Payments\CreateCashOnDeliveryPaymentRequest;
+use Ordercloud\Support\Reflection\EntityReflector;
 
 class CreateCashOnDeliveryPaymentRequestHandler extends AbstractPostRequestHandler
 {
@@ -10,12 +11,11 @@ class CreateCashOnDeliveryPaymentRequestHandler extends AbstractPostRequestHandl
      */
     protected function configure($request)
     {
-        $this->setUrl('/resource/orders/%d/pay/cod', $request->getOrderId())
-             ->setBodyParameter('amt', $request->getAmount());
+        $this->setUrl('/resource/orders/%d/pay/cod', $request->getOrderId());
     }
 
     protected function transformResponse($response)
     {
-        return $response;
+        return EntityReflector::parseResourceIDFromURL($response->getUrl());
     }
 }

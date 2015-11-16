@@ -7,27 +7,25 @@ use Ordercloud\Requests\Payments\Entities\CreditCard;
 class PaymentService extends OrdercloudService
 {
     /**
-     * @param int   $orderId
-     * @param float $amount
+     * @param int $orderId
      */
-    public function createCashOnDeliveryPayment($orderId, $amount)
+    public function createCashOnDeliveryPayment($orderId)
     {
         $this->request(
-            new CreateCashOnDeliveryPaymentRequest($orderId, $amount)
+            new CreateCashOnDeliveryPaymentRequest($orderId)
         );
     }
 
     /**
      * @param string     $paymentGateway
-     * @param float      $amount
      * @param CreditCard $card
      * @param int        $orderID
      * @param string     $budgetPeriod
      */
-    public function createCreditCardPayment($paymentGateway, $amount, CreditCard $card, $orderID, $budgetPeriod = '0')
+    public function createCreditCardPayment($paymentGateway, CreditCard $card, $orderID, $budgetPeriod = '0')
     {
         $this->request(
-            new CreateCreditCardPaymentRequest($paymentGateway, $amount, $card, $orderID, $budgetPeriod)
+            new CreateCreditCardPaymentRequest($paymentGateway, $card, $orderID, $budgetPeriod)
         );
     }
 }
