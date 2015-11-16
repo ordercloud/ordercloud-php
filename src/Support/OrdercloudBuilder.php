@@ -195,6 +195,7 @@ class OrdercloudBuilder
         {
             return new ChainedExceptionGeneratorService($container, [
                 'Ordercloud\Requests\Orders\Exceptions\OrderExceptionGenerator',
+                'Ordercloud\Requests\Payments\Exceptions\PaymentExceptionGenerator',
                 'Ordercloud\Requests\Exceptions\RequestExceptionGenerator', // Always chain default handler last
             ]);
         });
