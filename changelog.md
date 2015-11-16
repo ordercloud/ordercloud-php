@@ -10,6 +10,9 @@ This project does not (yet) adhere to [Semantic Versioning](http://semver.org/).
 ### Added
 - Added `SettingCriteria`
 
+### Fixed
+- Fixed "scheduledTime" body parameter name on create order request
+
 ## [< 0.3.1]
 ### History unavailable
 
