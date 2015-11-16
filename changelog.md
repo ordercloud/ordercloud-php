@@ -7,5 +7,10 @@ This project does not (yet) adhere to [Semantic Versioning](http://semver.org/).
 - Renamed `deliveryTime` -> `scheduledTime` on `CreateOrderRequestBuilder` & `CreateOrderRequest`
 - Renamed `scheduledDeliveryDate` -> `scheduledDate` on `Order` entity
 
+### Added
+- Added `SettingCriteria`
+
 ## [< 0.3.1]
 ### History unavailable
+
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...HEAD
