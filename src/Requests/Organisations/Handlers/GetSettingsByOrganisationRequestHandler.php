@@ -12,7 +12,12 @@ class GetSettingsByOrganisationRequestHandler extends AbstractGetRequestHandler
      */
     protected function configure($request)
     {
-        $this->setUrl('resource/organisations/%d/settings', $request->getOrganisationId());
+        $criteria = $request->getCriteria();
+        $this->setUrl('resource/organisations/%d/settings', $request->getOrganisationId())
+        ->setBodyParameters([
+            'page'         => $criteria->getPage(),
+            'pagesize'     => $criteria->getPageSize(),
+        ]);
     }
 
     protected function transformResponse($response)
