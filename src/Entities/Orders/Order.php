@@ -69,7 +69,7 @@ class Order
     /**
      * @var string
      */
-    private $scheduledDeliveryDate;
+    private $scheduledDate;
 
     //TODO add: tip + delivery + statusHistory
     public function __construct(
@@ -93,7 +93,7 @@ class Order
         $estimatedDeliveryTime,
         $deliveryCost,
         OrderSourceChannel $orderSourceChannel = null,
-        $scheduledDeliveryDate = null
+        $scheduledDate = null
     )
     {
         $this->id = $id;
@@ -116,7 +116,7 @@ class Order
         $this->estimatedDeliveryTime = $estimatedDeliveryTime;
         $this->deliveryCost = $deliveryCost;
         $this->orderSourceChannel = $orderSourceChannel;
-        $this->scheduledDeliveryDate = $scheduledDeliveryDate;
+        $this->scheduledDate = $scheduledDate;
     }
 
     /**
@@ -320,8 +320,8 @@ class Order
     /**
      * @return string
      */
-    public function getScheduledDeliveryDate()
+    public function getScheduledDate()
     {
-        return $this->scheduledDeliveryDate;
+        return $this->scheduledDate;
     }
 }

@@ -52,7 +52,7 @@ class OrganisationService extends OrdercloudService
      *
      * @return OrganisationAccessToken
      */
-    public function getAccessToken($organisationId, Authorisation $authorisation)
+    public function getAccessToken($organisationId, Authorisation $authorisation = null)
     {
         return $this->request(
             new GetOrganisationAccessTokenRequest($organisationId, $authorisation)
@@ -129,6 +129,8 @@ class OrganisationService extends OrdercloudService
      */
     public function getConnections($organisationId = null, AdvancedConnectionCriteria $criteria = null)
     {
+        $criteria = $criteria ?: AdvancedConnectionCriteria::create();
+
         return $this->request(
             new GetOrganisationConnectionsRequest($organisationId, $criteria)
         );
