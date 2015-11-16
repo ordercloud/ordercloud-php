@@ -1,5 +1,6 @@
 <?php namespace Ordercloud\Requests\Organisations;
 
+use Ordercloud\Requests\Settings\Criteria\SettingsCriteria;
 use Ordercloud\Support\CommandBus\Command;
 
 /**
@@ -14,9 +15,13 @@ class GetSettingsByOrganisationRequest implements Command
      */
     private $organisationId;
 
-    public function __construct($organisationId)
+    /** @var SettingsCriteria */
+    private $criteria;
+
+    public function __construct($organisationId, SettingsCriteria $criteria)
     {
         $this->organisationId = $organisationId;
+        $this->criteria = $criteria;
     }
 
     /**
@@ -25,5 +30,13 @@ class GetSettingsByOrganisationRequest implements Command
     public function getOrganisationId()
     {
         return $this->organisationId;
+    }
+
+    /**
+     * @return SettingsCriteria
+     */
+    public function getCriteria()
+    {
+        return $this->criteria;
     }
 }
