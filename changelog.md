@@ -9,6 +9,7 @@ This project does not (yet) adhere to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Added `SettingCriteria`
+- Added contact number to `OrderItemMerchant`
 
 ## [< 0.3.1]
 ### History unavailable
