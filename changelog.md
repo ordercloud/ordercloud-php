@@ -15,6 +15,7 @@ This project does not (yet) adhere to [Semantic Versioning](http://semver.org/).
 - `threeDSecure` & `threeDSecureReturnUrl` on `CreateCreditCardPaymentRequest`
 - `CreditCardPaymentFailedException`
 - `GetPaymentThreeDSecureRequest` & `PaymentService::getPaymentThreeDSecure()`
+- `GetPaymentRequest` & `PaymentService::getPayment()`
 
 ### Fixed
 - Fixed "scheduledTime" body parameter name on create order request

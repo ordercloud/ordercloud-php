@@ -1,10 +1,12 @@
 <?php namespace Ordercloud\Services;
 
+use Ordercloud\Entities\Payments\Payment;
 use Ordercloud\Entities\Payments\ThreeDSecure;
 use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\Payments\CreateCashOnDeliveryPaymentRequest;
 use Ordercloud\Requests\Payments\CreateCreditCardPaymentRequest;
 use Ordercloud\Requests\Payments\Entities\CreditCard;
+use Ordercloud\Requests\Payments\GetPaymentRequest;
 use Ordercloud\Requests\Payments\GetPaymentThreeDSecureRequest;
 
 class PaymentService extends OrdercloudService
@@ -16,9 +18,7 @@ class PaymentService extends OrdercloudService
      */
     public function createCashOnDeliveryPayment($orderId)
     {
-        $this->request(
-            new CreateCashOnDeliveryPaymentRequest($orderId)
-        );
+        $this->request(new CreateCashOnDeliveryPaymentRequest($orderId));
     }
 
     /**
@@ -28,10 +28,12 @@ class PaymentService extends OrdercloudService
      * @param string     $budgetPeriod
      * @param bool       $threeDSecure
      * @param string     $threeDSecureReturnUrl
+     *
+     * @return int
      */
     public function createCreditCardPayment($paymentGateway, CreditCard $card, $orderID, $budgetPeriod = '0', $threeDSecure = false, $threeDSecureReturnUrl = null)
     {
-        $this->request(
+        return $this->request(
             new CreateCreditCardPaymentRequest($paymentGateway, $card, $orderID, $budgetPeriod, $threeDSecure, $threeDSecureReturnUrl)
         );
     }
@@ -43,8 +45,16 @@ class PaymentService extends OrdercloudService
      */
     public function getPaymentThreeDSecure($paymentId)
     {
-        return $this->request(
-            new GetPaymentThreeDSecureRequest($paymentId)
-        );
+        return $this->request(new GetPaymentThreeDSecureRequest($paymentId));
+    }
+
+    /**
+     * @param $paymentId
+     *
+     * @return Payment
+     */
+    public function getPayment($paymentId)
+    {
+        return $this->request(new GetPaymentRequest($paymentId));
     }
 }
