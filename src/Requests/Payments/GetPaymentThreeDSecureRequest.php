@@ -2,6 +2,11 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
+/**
+ * Class GetPaymentThreeDSecureRequest
+ *
+ * @see Ordercloud\Requests\Payments\Handlers\GetPaymentThreeDSecureRequestHandler
+ */
 class GetPaymentThreeDSecureRequest implements Command
 {
     /**

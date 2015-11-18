@@ -3,14 +3,14 @@
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Payments\GetPaymentThreeDSecureRequest;
 
-class GetPayment3DSecureRequestHandler extends AbstractGetRequestHandler
+class GetPaymentThreeDSecureRequestHandler extends AbstractGetRequestHandler
 {
     /**
      * @param GetPaymentThreeDSecureRequest $request
      */
     protected function configure($request)
     {
-        $this->setUrl('/resource/payment/%d/three_d_secure', $request->getPaymentId())
+        $this->setUrl('/resource/payments/%d/three_d_secure', $request->getPaymentId())
             ->setEntityClass('Ordercloud\Entities\Payments\ThreeDSecure');
     }
 }

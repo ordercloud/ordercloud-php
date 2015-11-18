@@ -22,6 +22,10 @@ class CreateCreditCardPaymentRequest implements Command
      * @var bool
      */
     private $threeDSecure;
+    /**
+     * @var string
+     */
+    private $threeDSecureReturnUrl;
 
     /**
      * @param string     $paymentGateway
@@ -29,14 +33,16 @@ class CreateCreditCardPaymentRequest implements Command
      * @param int        $orderID
      * @param string     $budgetPeriod
      * @param bool       $threeDSecure
+     * @param string     $threeDSecureReturnUrl
      */
-    public function __construct($paymentGateway, CreditCard $card, $orderID, $budgetPeriod = '0', $threeDSecure = false)
+    public function __construct($paymentGateway, CreditCard $card, $orderID, $budgetPeriod = '0', $threeDSecure = false, $threeDSecureReturnUrl = null)
     {
         $this->paymentGateway = $paymentGateway;
         $this->card = $card;
         $this->budgetPeriod = $budgetPeriod ?: '0';
         $this->orderID = $orderID;
-        $this->threeDSecure = (bool) $threeDSecure;
+        $this->threeDSecure = (bool)$threeDSecure;
+        $this->threeDSecureReturnUrl = $threeDSecureReturnUrl;
     }
 
     /**
@@ -77,5 +83,13 @@ class CreateCreditCardPaymentRequest implements Command
     public function isThreeDSecure()
     {
         return $this->threeDSecure;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThreeDSecureReturnUrl()
+    {
+        return $this->threeDSecureReturnUrl;
     }
 }
