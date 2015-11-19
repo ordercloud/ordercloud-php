@@ -22,6 +22,7 @@ For now, please use all minor versions as major versions and each build version 
 - `GetPaymentRequest` & `PaymentService::getPayment()`
 - `OrderPaymentStatus`
 - `contactNumber` to `OrderItemMerchant`
+- GetProductTag request and handler
 
 ### Fixed
 - Fixed "scheduledTime" body parameter name on create order request
