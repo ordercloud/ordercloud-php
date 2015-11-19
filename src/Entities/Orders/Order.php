@@ -3,7 +3,6 @@
 use Ordercloud\Entities\Delivery\DeliveryAgent;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 use Ordercloud\Entities\Payments\Payment;
-use Ordercloud\Entities\Payments\PaymentStatus;
 use Ordercloud\Entities\Users\UserAddress;
 use Ordercloud\Entities\Users\UserShort;
 
@@ -40,7 +39,7 @@ class Order
     private $userAddress;
     /** @var OrganisationShort */
     private $organisation;
-    /** @var PaymentStatus */
+    /** @var OrderPaymentStatus */
     private $paymentStatus;
     /**
      * @var array|Payment[]
@@ -84,7 +83,7 @@ class Order
         UserShort $user,
         UserAddress $userAddress = null,
         OrganisationShort $organisation,
-        PaymentStatus $paymentStatus,
+        OrderPaymentStatus $paymentStatus,
         array $payments,
         array $paymentMethods,
         $deliveryType,
@@ -228,7 +227,7 @@ class Order
     }
 
     /**
-     * @return PaymentStatus
+     * @return OrderPaymentStatus
      */
     public function getPaymentStatus()
     {
