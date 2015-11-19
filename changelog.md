@@ -4,7 +4,7 @@ This project does NOT (yet) adhere to [Semantic Versioning](http://semver.org/).
 It is running as an Alfa/Beta, once v1 is reached we will start supporting semver.
 For now, please use all minor versions as major versions and each build version will be a minor version.
 
-## [Unreleased]
+## [0.4.0]
 ### Removed
 - `amount` from `CreateCreditCardPaymentRequest` & `CreateCashOnDeliveryPaymentRequest`
 
@@ -28,4 +28,5 @@ For now, please use all minor versions as major versions and each build version 
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...0.4.0
