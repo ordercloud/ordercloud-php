@@ -20,6 +20,7 @@ For now, please use all minor versions as major versions and each build version 
 - `GetPaymentThreeDSecureRequest` & `PaymentService::getPaymentThreeDSecure()`
 - `GetPaymentRequest` & `PaymentService::getPayment()`
 - `OrderPaymentStatus`
+- `contactNumber` to `OrderItemMerchant`
 
 ### Fixed
 - Fixed "scheduledTime" body parameter name on create order request

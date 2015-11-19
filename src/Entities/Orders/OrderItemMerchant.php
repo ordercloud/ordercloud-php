@@ -9,11 +9,14 @@ class OrderItemMerchant extends OrganisationShort
      * @var OrganisationAddress
      */
     private $address;
+    /** @var string */
+    private $contactNumber;
 
-    public function __construct($id, $name, $code, OrganisationAddress $address = null)
+    public function __construct($id, $name, $code, OrganisationAddress $address = null, $contactNumber)
     {
         parent::__construct($id, $name, $code);
         $this->address = $address;
+        $this->contactNumber = $contactNumber;
     }
 
     /**
@@ -23,4 +26,13 @@ class OrderItemMerchant extends OrganisationShort
     {
         return $this->address;
     }
+
+    /**
+     * @return string
+     */
+    public function getContactNumber()
+    {
+        return $this->contactNumber;
+    }
+
 }
