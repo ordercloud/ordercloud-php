@@ -27,8 +27,10 @@ class ProductService extends OrdercloudService
      *
      * @return ProductCollection|Product[]
      */
-    public function getProducts(ProductCriteria $criteria)
+    public function getProducts(ProductCriteria $criteria = null)
     {
+        $criteria = $criteria ?: ProductCriteria::create();
+
         return $this->request(
             new FindProductsRequest($criteria)
         );

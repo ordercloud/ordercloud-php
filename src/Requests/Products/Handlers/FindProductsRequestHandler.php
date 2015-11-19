@@ -26,7 +26,7 @@ class FindProductsRequestHandler extends AbstractPutRequestHandler
     {
         $criteria = $request->getCriteria();
 
-        $this->setUrl('resource/product/criteria?page=%d&pagesize=%d', $criteria->getPage(), $criteria->getPageSize())
+        $this->setUrl('resource/product/criteria')
              ->setBodyParameters([
                  'tags'          => $criteria->getTags(),
                  'available'     => $this->formatBoolean($criteria->isAvailable()),
@@ -34,6 +34,10 @@ class FindProductsRequestHandler extends AbstractPutRequestHandler
                  'organisations' => $criteria->getOrganisations(),
                  'search'        => $criteria->getSearch(),
              ])
+            ->setQueryParameters([
+                "page"     => $criteria->getPage(),
+                "pagesize" => $criteria->getPageSize()
+            ])
              ->setEntityArrayClass('Ordercloud\Entities\Products\Product');
 
         $this->page = $criteria->getPage();

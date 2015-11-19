@@ -8,7 +8,7 @@ class ProductCriteria extends Criteria
     use PaginationCriterion;
 
     /**
-     * @var array|string[]
+     * @var array|int[]
      */
     private $tags;
     /**
@@ -29,7 +29,7 @@ class ProductCriteria extends Criteria
     private $search;
 
     /**
-     * @return array|string[]
+     * @return array|int[]
      */
     public function getTags()
     {
@@ -37,7 +37,7 @@ class ProductCriteria extends Criteria
     }
 
     /**
-     * @param array|string[] $tags
+     * @param array|int[] $tags
      *
      * @return static
      */
