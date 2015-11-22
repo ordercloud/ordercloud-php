@@ -1,0 +1,63 @@
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+
+<dom-module id="services-page">
+
+    <link rel="import" type="css" href="pages.css">
+
+    <template>
+        <paper-material>
+
+            <!-- Mardown -->
+            <marked-element>
+                <div class="markdown-html"></div>
+                <script type="text/markdown">
+Services encapsulate a set of requests related to a service, eg `PaymentService`, `UserService`, etc. All services reside under `Ordercloud\Services`
+
+They provide documented parameters, return types & @throws annotations.
+                </script>
+            </marked-element>
+
+            <!-- Info card -->
+            <paper-card class="info">
+                <div class="card-content">
+                    <iron-icon icon="icons:info"></iron-icon>
+                    It is recommended to use these services instead of executing the requests directly
+                </div>
+            </paper-card>
+
+            <!-- Mardown -->
+            <marked-element>
+                <div class="markdown-html"></div>
+                <script type="text/markdown">
+Example
+```php
+use Ordercloud\Services\UserService;
+
+// Instantiate the service
+$userService = new UserService($ordercloud);
+
+// Make some calls
+$user = $userService->getLoggedInUser();
+$addresses = $userService->getAddresses($user->getId());
+$userService->resetPassword($user->getId());
+```
+                </script>
+            </marked-element>
+
+        </paper-material>
+    </template>
+
+    <script>
+    (function () {
+        'use strict';
+
+        Polymer({
+            is: 'services-page'
+        });
+    })();
+    </script>
+
+</dom-module>

@@ -1,0 +1,76 @@
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+
+<dom-module id="changelog-page">
+
+    <link rel="import" type="css" href="pages.css">
+
+    <template>
+        <paper-material>
+
+            <!-- Mardown -->
+            <marked-element>
+                <div class="markdown-html"></div>
+                <script type="text/markdown">
+All notable changes to this project will be documented in this file.
+            </script>
+            </marked-element>
+
+            <!-- Info card -->
+            <paper-card class="info" heading="Note!">
+                <div class="card-content">
+                    This project does NOT (yet) adhere to <a href="http://semver.org/">Semantic Versioning</a>!
+                    It is running as an Alfa/Beta, once v1 is reached we will start supporting semver.
+                    For now, please use all minor versions as major versions and each build version will be a minor version.
+                </div>
+            </paper-card>
+
+            <marked-element>
+                <div class="markdown-html"></div>
+                <script type="text/markdown">
+## [0.4]
+### Removed
+- `amount` from `CreateCreditCardPaymentRequest` & `CreateCashOnDeliveryPaymentRequest`
+
+### Changed
+- Renamed `deliveryTime` -> `scheduledTime` on `CreateOrderRequestBuilder` & `CreateOrderRequest`
+- Renamed `scheduledDeliveryDate` -> `scheduledDate` on `Order` entity
+- Changed order's payment status from `PaymentStatus` to `OrderPaymentStatus`
+- Searching by tag uses a tag ID and not a tag name anymore
+
+### Added
+- Added `SettingCriteria`
+- `threeDSecure` & `threeDSecureReturnUrl` on `CreateCreditCardPaymentRequest`
+- `CreditCardPaymentFailedException`
+- `GetPaymentThreeDSecureRequest` & `PaymentService::getPaymentThreeDSecure()`
+- `GetPaymentRequest` & `PaymentService::getPayment()`
+- `OrderPaymentStatus`
+- `contactNumber` to `OrderItemMerchant`
+- GetProductTag request and handler
+
+### Fixed
+- Fixed "scheduledTime" body parameter name on create order request
+
+## [< 0.3.1]
+### History unavailable
+
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.4...HEAD
+[0.4]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...0.4
+                </script>
+            </marked-element>
+
+        </paper-material>
+    </template>
+
+    <script>
+    (function () {
+        'use strict';
+
+        Polymer({
+            is: 'changelog-page'
+        });
+    })();
+    </script>
+
+</dom-module>

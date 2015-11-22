@@ -1,0 +1,54 @@
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+
+<dom-module id="installation-page">
+
+    <link rel="import" type="css" href="pages.css">
+
+    <template>
+        <paper-material>
+
+            <marked-element>
+                <div class="markdown-html"></div>
+                <script type="text/markdown">
+The recommeded way to install the client is by composer:
+```bash
+composer require ordercloud/ordercloud
+```
+
+Once you have installed the package you can instantiate the client:
+```php
+use Ordercloud\Support\OrdercloudBuilder;
+
+$ordercloud = OrdercloudBuilder::create()
+    ->setBaseUrl('https://staging-api.ordercloud.com')
+    ->setUsername('admin@example.com')
+    ->setPassword('password')
+    ->setOrganisationToken('organisation_token')
+    ->getOrdercloud();
+```
+
+Now let's make some requests!
+```php
+use Ordercloud\Requests\Organisations\GetOrganisationRequest;
+
+// Get an organisation by ID
+$organisation = $ordercloud->exec(new GetOrganisationRequest(3));
+```
+                </script>
+            </marked-element>
+
+        </paper-material>
+    </template>
+
+    <script>
+    (function () {
+        'use strict';
+
+        Polymer({
+            is: 'installation-page'
+        });
+    })();
+    </script>
+
+</dom-module>

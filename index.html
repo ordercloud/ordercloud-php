@@ -1,96 +1,28 @@
 <!doctype html>
 <html>
-  <head>
+<head>
+
+    <title>Ordercloud PHP Client</title>
+
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Ordercloud PHP Client by ordercloud</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Ordercloud PHP Client</h1>
-        <p class="header">Official Ordercloud PHP Client </p>
+    <script src="/bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="elements/docs-app.html">
+    <link rel="import" href="bower_components/prism-element/prism-highlighter.html">
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/ordercloud/ordercloud-php/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/ordercloud/ordercloud-php/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/ordercloud/ordercloud-php">View On GitHub</a></li>
-        </ul>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
 
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/ordercloud">ordercloud</a></p>
+</head>
+<body>
+<prism-highlighter></prism-highlighter>
 
+<docs-app id="app"></docs-app>
 
-      </header>
-      <section>
-        <h1>
-<a id="ordercloud-php-client" class="anchor" href="#ordercloud-php-client" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ordercloud PHP client</h1>
-
-<ul>
-<li>master <a href="https://travis-ci.org/ordercloud/ordercloud-php"><img src="https://travis-ci.org/ordercloud/ordercloud-php.svg?branch=master" alt="Build Status"></a> <a href="https://scrutinizer-ci.com/g/ordercloud/ordercloud-php/?branch=master"><img src="https://scrutinizer-ci.com/g/ordercloud/ordercloud-php/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
-</li>
-<li>develop <a href="https://travis-ci.org/ordercloud/ordercloud-php"><img src="https://travis-ci.org/ordercloud/ordercloud-php.svg?branch=develop" alt="Build Status"></a> <a href="https://scrutinizer-ci.com/g/ordercloud/ordercloud-php/?branch=develop"><img src="https://scrutinizer-ci.com/g/ordercloud/ordercloud-php/badges/quality-score.png?b=develop" alt="Scrutinizer Code Quality"></a>
-</li>
-</ul>
-
-<h2>
-<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h2>
-
-<p>This is the official Ordercloud PHP client.</p>
-
-<h2>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
-
-<div class="highlight highlight-source-shell"><pre>$ composer require ordercloud/ordercloud</pre></div>
-
-<h2>
-<a id="creating-an-ordercloud-instance" class="anchor" href="#creating-an-ordercloud-instance" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating an Ordercloud instance</h2>
-
-<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Ordercloud\Support\OrdercloudBuilder</span>;</span>
-<span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-smi">$ordercloud</span> <span class="pl-k">=</span> <span class="pl-c1">OrdercloudBuilder</span><span class="pl-k">::</span>create()</span>
-<span class="pl-s1">    <span class="pl-k">-&gt;</span>setBaseUrl(<span class="pl-s"><span class="pl-pds">'</span>https://test-api.ordercloud.com<span class="pl-pds">'</span></span>)</span>
-<span class="pl-s1">    <span class="pl-k">-&gt;</span>setUsername(<span class="pl-s"><span class="pl-pds">'</span>admin@example.com<span class="pl-pds">'</span></span>)</span>
-<span class="pl-s1">    <span class="pl-k">-&gt;</span>setPassword(<span class="pl-s"><span class="pl-pds">'</span>password<span class="pl-pds">'</span></span>)</span>
-<span class="pl-s1">    <span class="pl-k">-&gt;</span>setOrganisationToken(<span class="pl-s"><span class="pl-pds">'</span>organisation_token<span class="pl-pds">'</span></span>)</span>
-<span class="pl-s1">    <span class="pl-k">-&gt;</span>getOrdercloud()</span></pre></div>
-
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
-
-<p>All Api calls are presented as Request objects. If the request has not yet been modelled, then a custom request class can be used.</p>
-
-<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Ordercloud\Requests\Organisations\GetOrganisationRequest</span>;</span>
-<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Ordercloud\Requests\OrdercloudRequest</span>;</span>
-<span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-c">// Get an organisation by ID</span></span>
-<span class="pl-s1"><span class="pl-smi">$organisation</span> <span class="pl-k">=</span> <span class="pl-smi">$ordercloud</span><span class="pl-k">-&gt;</span>exec(<span class="pl-k">new</span> <span class="pl-c1">GetOrganisationRequest</span>(<span class="pl-c1">3</span>));</span>
-<span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-c">// Custom api request</span></span>
-<span class="pl-s1"><span class="pl-k">new</span> <span class="pl-c1">OrdercloudRequest</span>(<span class="pl-smi">$method</span>, <span class="pl-smi">$uri</span>, <span class="pl-smi">$parameters</span>, <span class="pl-smi">$headers</span>);</span>
-<span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-c">// Example of custom request</span></span>
-<span class="pl-s1"><span class="pl-smi">$organisation</span> <span class="pl-k">=</span> <span class="pl-smi">$ordercloud</span><span class="pl-k">-&gt;</span>exec(</span>
-<span class="pl-s1">    <span class="pl-k">new</span> <span class="pl-c1">OrdercloudRequest</span>(<span class="pl-c1">OrdercloudRequest</span><span class="pl-k">::</span><span class="pl-c1">METHOD_GET</span>, <span class="pl-s"><span class="pl-pds">'</span>/resource/organisations/3<span class="pl-pds">'</span></span>)</span>
-<span class="pl-s1">);</span></pre></div>
-
-<h2>
-<a id="requests" class="anchor" href="#requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requests</h2>
-
-<p>All requests reside under the namespace Ordercloud\Requests.</p>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
-  </body>
+</body>
 </html>

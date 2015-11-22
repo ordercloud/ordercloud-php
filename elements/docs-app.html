@@ -1,0 +1,104 @@
+<!-- Polymer -->
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+
+<!-- Docs -->
+<link rel="import" href="routing.html">
+
+<dom-module id="docs-app">
+
+    <link rel="import" type="css" href="docs-app.css">
+
+    <template>
+        <paper-drawer-panel id="drawerPanel" responsive-width="1280px">
+
+            <div class="nav" drawer>
+
+                <paper-toolbar id="app-name">
+                    <img src="/images/ordercloud-logo.png">
+                </paper-toolbar>
+
+                <paper-menu selectable="paper-item" attr-for-selected="data-route" selected="[[route]]">
+                    <h3>Getting started</h3>
+                    <paper-item data-route="introduction">Introduction</paper-item>
+                    <paper-item data-route="installation">Installation</paper-item>
+                    <paper-item data-route="configuration" disabled>Configuration</paper-item>
+                    <paper-item data-route="changelog">Changelog</paper-item>
+                    <h3>Concepts</h3>
+                    <paper-item data-route="client" disabled>Client</paper-item>
+                    <paper-item data-route="entities">Entities</paper-item>
+                    <paper-item data-route="services">Services</paper-item>
+                    <paper-item data-route="requests">Requests</paper-item>
+                    <h3>Extensions</h3>
+                    <paper-item data-route="monolog" disabled>Monolog</paper-item>
+                    <paper-item data-route="laravel" disabled>Laravel</paper-item>
+                </paper-menu>
+            </div>
+
+            <paper-header-panel class="main" main mode="waterfall">
+
+                <paper-toolbar>
+                    <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+                    <div id="app-title">[[title]]</div>
+                </paper-toolbar>
+
+                <!-- Main Content -->
+                <div class="content">
+                    <iron-pages attr-for-selected="data-route" selected="[[route]]">
+
+                        <introduction-page data-route="introduction"></introduction-page>
+                        <installation-page data-route="installation"></installation-page>
+                        <changelog-page data-route="changelog"></changelog-page>
+                        <configuration-page data-route="configuration"></configuration-page>
+
+                        <client-page data-route="client"></client-page>
+                        <entities-page data-route="entities"></entities-page>
+                        <services-page data-route="services"></services-page>
+                        <requests-page data-route="requests"></requests-page>
+
+                    </iron-pages>
+                </div>
+
+            </paper-header-panel>
+
+        </paper-drawer-panel>
+
+    </template>
+
+    <script>
+    Polymer({
+        is: 'docs-app',
+
+        listeners: {
+            'click': 'routeTo'
+        },
+
+        scrollPageToTop: function() {
+            document.getElementById('mainContainer').scrollTop = 0;
+        },
+
+        routeTo: function (e) {
+            if ('route' in e.srcElement.dataset) {
+                page('/' + e.srcElement.dataset.route);
+                var drawerPanel = document.getElementById('drawerPanel');
+                if (drawerPanel.narrow) {
+                    drawerPanel.closeDrawer();
+                }
+            }
+        },
+
+        syntaxHighlight: function (a, b, c) {
+            console.log({a: a, b:b,c:c});
+        }
+
+    });
+    </script>
+
+</dom-module>

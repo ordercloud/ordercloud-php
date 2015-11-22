@@ -1,0 +1,110 @@
+<link rel="import" href="pages/introduction.html">
+<link rel="import" href="pages/installation.html">
+<link rel="import" href="pages/configuration.html">
+<link rel="import" href="pages/changelog.html">
+
+<link rel="import" href="pages/entities.html">
+<link rel="import" href="pages/services.html">
+<link rel="import" href="pages/requests.html">
+<link rel="import" href="pages/client.html">
+
+<!--
+    We use Page.js for routing. This is a Micro
+    client-side router inspired by the Express router
+    More info: https://visionmedia.github.io/page.js/
+-->
+<script src="../bower_components/page/page.js"></script>
+
+<script type="application/javascript">
+window.addEventListener('WebComponentsReady', function () {
+
+    var app = document.querySelector('#app');
+
+    app.routes = [
+        {
+            route: 'introduction',
+            uri: '/introduction',
+            title: 'Introduction'
+        },
+        {
+            route: 'installation',
+            uri: '/installation',
+            title: 'Installation'
+        },
+        {
+            route: 'configuration',
+            uri: '/configuration',
+            title: 'Configuration'
+        },
+        {
+            route: 'changelog',
+            uri: '/changelog',
+            title: 'Changelog'
+        },
+        {
+            route: 'client',
+            uri: '/client',
+            title: 'Client'
+        },
+        {
+            route: 'entities',
+            uri: '/entities',
+            title: 'Entities'
+        },
+        {
+            route: 'services',
+            uri: '/services',
+            title: 'Services'
+        },
+        {
+            route: 'requests',
+            uri: '/requests',
+            title: 'Requests'
+        },
+        {
+            route: 'monolog',
+            uri: '/monolog',
+            title: 'Monolog'
+        },
+        {
+            route: 'laravel',
+            uri: '/laravel',
+            title: 'Laravel'
+        }
+    ];
+
+    // Scroll to top on each new page
+    page(function (ctx, next) {
+        app.scrollPageToTop();
+        next();
+    });
+
+    // Register routes
+    for (var i in app.routes) {
+        registerPage(app.routes[i]);
+    }
+
+    // Defualt
+    page.redirect('/', '/introduction');
+
+    // 404 handler
+    page('*', function (ctx, next) {
+        console.error('route not found', {'ctx': ctx});
+        alert('page not found');
+        page('/introduction');
+    });
+
+    // add #! before urls
+    page({
+        hashbang: true
+    });
+
+    function registerPage(route) {
+        page(route.uri, function () {
+            app.route = route.route;
+            app.title = route.title;
+        });
+    }
+
+});
+</script>

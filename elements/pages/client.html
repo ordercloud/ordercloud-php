@@ -1,0 +1,42 @@
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+
+<dom-module id="client-page">
+
+    <link rel="import" type="css" href="pages.css">
+
+    <template>
+        <paper-material>
+
+            <!-- Mardown -->
+            <marked-element>
+                <div class="markdown-html"></div>
+                <script type="text/markdown">
+The Ordercloud client
+                </script>
+            </marked-element>
+
+            <!-- Info card -->
+            <paper-card class="info">
+                <div class="card-content">
+                    <iron-icon icon="icons:info"></iron-icon>
+                    todo
+                </div>
+            </paper-card>
+
+        </paper-material>
+    </template>
+
+    <script>
+    (function () {
+        'use strict';
+
+        Polymer({
+            is: 'client-page'
+        });
+    })();
+    </script>
+
+</dom-module>

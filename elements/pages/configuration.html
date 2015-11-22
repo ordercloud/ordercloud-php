@@ -1,0 +1,45 @@
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+
+<dom-module id="configuration-page">
+
+    <link rel="import" type="css" href="pages.css">
+
+    <template>
+        <paper-material>
+
+            <!-- Info card -->
+            <paper-card class="info">
+                <div class="card-content">
+                    <iron-icon icon="icons:info"></iron-icon>
+                    @todo
+                </div>
+            </paper-card>
+
+            <!-- Mardown -->
+            <marked-element>
+                <div class="markdown-html"></div>
+                <script type="text/markdown">
+# Builder
+
+# Client logger
+
+# Access token
+            </script>
+            </marked-element>
+
+        </paper-material>
+    </template>
+
+    <script>
+    (function () {
+        'use strict';
+
+        Polymer({
+            is: 'configuration-page'
+        });
+    })();
+    </script>
+
+</dom-module>
