@@ -1,6 +1,4 @@
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+<link rel="import" href="pages-import.html">
 
 <dom-module id="changelog-page">
 
@@ -9,26 +7,16 @@
     <template>
         <paper-material>
 
-            <!-- Mardown -->
-            <marked-element>
-                <div class="markdown-html"></div>
-                <script type="text/markdown">
-All notable changes to this project will be documented in this file.
-            </script>
-            </marked-element>
+            <oc-markdown markdown="All notable changes to this project will be documented here."></oc-markdown>
 
-            <!-- Info card -->
-            <paper-card class="info" heading="Note!">
-                <div class="card-content">
-                    This project does NOT (yet) adhere to <a href="http://semver.org/">Semantic Versioning</a>!
-                    It is running as an Alfa/Beta, once v1 is reached we will start supporting semver.
-                    For now, please use all minor versions as major versions and each build version will be a minor version.
-                </div>
-            </paper-card>
+            <oc-info-card
+                markdown="
+This project does NOT (yet) adhere to [Semantic Versioning](http://semver.org/).
+It is running as an Alfa/Beta, once v1 is reached we will start supporting semver.
+For now, please use all minor versions as major versions and each build version will be a minor version.
+            "></oc-info-card>
 
-            <marked-element>
-                <div class="markdown-html"></div>
-                <script type="text/markdown">
+            <oc-markdown markdown="
 ## [0.4]
 ### Removed
 - `amount` from `CreateCreditCardPaymentRequest` & `CreateCashOnDeliveryPaymentRequest`
@@ -50,15 +38,14 @@ All notable changes to this project will be documented in this file.
 - GetProductTag request and handler
 
 ### Fixed
-- Fixed "scheduledTime" body parameter name on create order request
+- Fixed `scheduledTime` body parameter name on create order request
 
 ## [< 0.3.1]
 ### History unavailable
 
 [Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.4...HEAD
 [0.4]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...0.4
-                </script>
-            </marked-element>
+            "></oc-markdown>
 
         </paper-material>
     </template>

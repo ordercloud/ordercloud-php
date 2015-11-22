@@ -67,3 +67,17 @@ paper-menu paper-item:hover {
 paper-menu paper-item[disabled] {
 
 }
+
+/* Tablet */
+@media (max-width: 900px) {
+    .content {
+        padding: 1em 1em;
+    }
+}
+
+/* phone */
+@media (max-width: 400px) {
+    .content {
+        padding: 0em 0em 1em;
+    }
+}

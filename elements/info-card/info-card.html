@@ -1,0 +1,67 @@
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../markdown/markdown.html">
+
+<dom-module id="oc-info-card">
+
+    <style>
+        :host {
+            --oc-markdown: {
+                display: inline-block;
+                margin-left: 3em;
+                margin-top: 0.45em;
+            }
+        }
+        iron-icon {
+            top: 1em;
+            position: absolute;
+        }
+        paper-card.info {
+            background-color: var(--light-primary-color);
+            display: block;
+            margin: 1em 0;
+            min-height: 2em;
+        }
+        paper-card.info iron-icon {
+            color: var(--default-primary-color);
+            --iron-icon-width: 2em;
+            --iron-icon-height: 2em;
+            margin-right: 1em;
+        }
+    </style>
+
+    <template>
+        <paper-card class="info" heading="{{heading}}">
+            <div class="card-content">
+                <iron-icon icon="icons:info" hidden="{{showIcon(heading)}}"></iron-icon>
+                <oc-markdown markdown="{{markdown}}"></oc-markdown>
+            </div>
+        </paper-card>
+    </template>
+
+    <script>
+    (function () {
+        'use strict';
+
+        Polymer({
+            is: 'oc-info-card',
+
+            properties: {
+                heading: {
+                    type: String
+                },
+                markdown: {
+                    type: String,
+                    notify: true
+                }
+            },
+
+            showIcon: function (heading) {
+                if (heading) return true;
+                return false;
+            }
+
+        });
+    })();
+    </script>
+
+</dom-module>

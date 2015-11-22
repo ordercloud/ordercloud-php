@@ -1,5 +1,4 @@
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+<link rel="import" href="pages-import.html">
 
 <dom-module id="entities-page">
 
@@ -8,9 +7,7 @@
     <template>
         <paper-material>
 
-            <marked-element>
-                <div class="markdown-html"></div>
-                <script type="text/markdown">
+            <oc-markdown markdown="
 Entities are just POPO's (Plain Old PHP Objects).
 
 They represent resource entities of ordercloud, such as a User, Payment, Order, Product, etc. Standard `get` methods are available to retrieve the entity's attributes, eg `$user->getName()`. Some entities have helper methods, `$address->getAddressLines()` or even helpful constants `PaymentStatus::SUCCESSFUL`.
@@ -22,8 +19,7 @@ Entities can be found under the `Ordercloud\Entities` namespace.
 Some requests return a `Collection` object. Collections can be treated as normal arrays, which allow it to be used in a `foreach($orders as $order)` or even `$orders[0]`.
 
 Paginated results return a `PaginatedCollection` which extend the `Collection` object. They provide pagination meta data: `getCurrentPage()`, `getPageSize()`, `getTotalNrPages()`, `getNextPage()` & more.
-                </script>
-            </marked-element>
+            "></oc-markdown>
 
         </paper-material>
     </template>

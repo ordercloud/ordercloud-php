@@ -1,0 +1,53 @@
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+<link rel="import" href="markdown-import.html">
+
+<dom-module id="oc-markdown">
+
+    <style>
+        .markdown-html {
+            @apply(--oc-markdown);
+        }
+        .markdown-html p:first-child {
+            margin-top: 0;
+        }
+        .markdown-html p:last-child {
+            margin-bottom: 0;
+        }
+        .markdown-html a {
+            color: var(--default-primary-color);
+        }
+    </style>
+
+    <template>
+        <marked-element markdown="{{md}}">
+            <div class="markdown-html"></div>
+        </marked-element>
+    </template>
+
+    <script>
+    (function () {
+        'use strict';
+
+        Polymer({
+            is: 'oc-markdown',
+
+            properties: {
+                markdown: {
+                    type: String,
+                    notify: true
+                },
+                md: {
+                    type: String,
+                    computed: 'computeMarkdown(markdown)'
+                }
+            },
+
+            computeMarkdown: function (markdown) {
+                return markdown.replace('↵', '\n').trim();
+            }
+
+        });
+    })();
+    </script>
+
+</dom-module>

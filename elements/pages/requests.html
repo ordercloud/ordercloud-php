@@ -1,7 +1,4 @@
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/marked-element/marked-element.html">
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="pages-import.html">
 
 <dom-module id="requests-page">
 
@@ -10,10 +7,7 @@
     <template>
         <paper-material>
 
-            <!-- Mardown -->
-            <marked-element>
-                <div class="markdown-html"></div>
-                <script type="text/markdown">
+            <oc-markdown markdown="
 All Api calls are presented as Request objects. Requests are executed by the Ordercloud client.
 
 All requests reside under the namespace `Ordercloud\Requests`.
@@ -25,21 +19,11 @@ use Ordercloud\Requests\Organisations\GetOrganisationRequest;
 $organisation = $ordercloud->exec(new GetOrganisationRequest(3));
 // returns Ordercloud\Entities\Organisations\Organisation
 ```
-                </script>
-            </marked-element>
+            "></oc-markdown>
 
-            <!-- Info card -->
-            <paper-card class="info">
-                <div class="card-content">
-                    <iron-icon icon="icons:info"></iron-icon>
-                    If the request has not yet been modeled, then a custom request class can be used.
-                </div>
-            </paper-card>
+            <oc-info-card markdown="If the request has not yet been modeled, then a custom request class can be used."></oc-info-card>
 
-            <!-- Mardown -->
-            <marked-element>
-                <div class="markdown-html"></div>
-                <script type="text/markdown">
+            <oc-markdown markdown="
 ```php
 use Ordercloud\Requests\OrdercloudRequest;
 
@@ -52,18 +36,21 @@ $response = $ordercloud->exec(
 );
 // returns Ordercloud\Support\Http\Response
 ```
+            "></oc-markdown>
 
-# Requests & RequestHandlers
+            <!--<oc-markdown markdown="-->
+<!--# Requests & RequestHandlers-->
 
-## @todo
+<!--## @todo-->
+            <!--"></oc-markdown>-->
 
+            <oc-markdown markdown="
 # Create your own Request
 
 Requests implement `Command` & RequestHandlers extend `Abstract<http_method>RequestHandler`
 
 RequestHandler should be located in `Handlers` namespace under the namespace of the Request class
-                </script>
-            </marked-element>
+            "></oc-markdown>
 
         </paper-material>
     </template>

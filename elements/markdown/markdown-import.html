@@ -1,0 +1,44 @@
+<script src='../../bower_components/marked/lib/marked.js'></script>
+<script type="application/javascript">
+(function(document) {
+    'use strict';
+
+    function escape(html, encode) {
+        return html
+              .replace(!encode ? /&(?!#?\w+;)/g : /&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;')
+              .replace(/'/g, '&#39;');
+    }
+    var renderer = marked.defaults.renderer;
+    renderer.code = function (code, lang, escaped) {
+        if (marked.defaults.renderer.options.highlight) {
+            var out = marked.defaults.renderer.options.highlight(code, lang);
+            if (out != null && out !== code) {
+                escaped = true;
+                code = out;
+            }
+        }
+
+        if (!lang) {
+            return '<pre><code>'
+                  + (escaped ? code : escape(code, true))
+                  + '\n</code></pre>';
+        }
+
+        var ret = '<pre class="language-'
+              + escape(lang, true)
+              + '">'
+              + '<code class="language-'
+              + escape(lang, true)
+              + '">'
+              + (escaped ? code : escape(code, true))
+              + '\n</code></pre>\n';
+        return ret;
+    };
+    marked.defaults.renderer = renderer;
+    marked.defaults.langPrefix = 'language-';
+
+})(document);
+</script>

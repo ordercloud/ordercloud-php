@@ -2,22 +2,5 @@ paper-material {
     padding: 1em;
     background-color: #ffffff;
 }
-.markdown-html p:first-child {
-    margin-top: 0;
-}
-.markdown-html a {
-    color: var(--default-primary-color);
-}
 
 /* Info card*/
-paper-card.info {
-    background-color: var(--light-primary-color);
-    display: block;
-    margin: 1em 0;
-}
-paper-card.info iron-icon {
-    color: var(--default-primary-color);
-    --iron-icon-width: 2em;
-    --iron-icon-height: 2em;
-    margin-right: 1em;
-}

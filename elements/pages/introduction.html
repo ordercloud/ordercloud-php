@@ -1,5 +1,4 @@
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+<link rel="import" href="pages-import.html">
 
 <dom-module id="introduction-page">
 
@@ -8,14 +7,11 @@
     <template>
         <paper-material>
 
-            <marked-element>
-                <div class="markdown-html"></div>
-                <script type="text/markdown">
+            <oc-markdown markdown="
 [![Source](https://img.shields.io/badge/source-ordercloud%2Fordercloud-blue.svg?style=flat-square)](https://github.com/ordercloud/ordercloud-php) [![License](https://img.shields.io/badge/license-MIT%20License-green.svg?style=flat-square)](https://github.com/ordercloud/ordercloud-php) [![packagist](https://img.shields.io/packagist/v/ordercloud/ordercloud.svg?style=flat-square)](https://packagist.org/packages/ordercloud/ordercloud/) [![Scrutinizer](https://img.shields.io/scrutinizer/g/ordercloud/ordercloud-php.svg?style=flat-square)](scrutinizer-ci.com/g/ordercloud/ordercloud-php/) [![travis-ci](https://img.shields.io/travis/ordercloud/ordercloud-php.svg?style=flat-square)](https://travis-ci.org/ordercloud/ordercloud-php)
 
 Ordercloud is a central integration platform for order-fulfillment, this is a PHP client providing services and requests to communicate with Ordercloud.
-                </script>
-            </marked-element>
+            "></oc-markdown>
 
         </paper-material>
     </template>
