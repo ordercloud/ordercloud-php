@@ -30,8 +30,10 @@
 #app-title {
     font-size: 1.4em;
 }
-#app-name img {
+#app-name iron-image {
     height: 50px;
+    width: 140px;
+    cursor: pointer;
 }
 
 /* Side nav */

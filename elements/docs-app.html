@@ -8,6 +8,7 @@
 <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
 
 <!-- Docs -->
 <link rel="import" href="routing.html">
@@ -22,7 +23,7 @@
             <div class="nav" drawer>
 
                 <paper-toolbar id="app-name">
-                    <img src="../images/ordercloud-logo.png">
+                    <iron-image src="../images/ordercloud-logo.png" sizing="contain" data-route="introduction" on-click="onRouteClick"></iron-image>
                 </paper-toolbar>
 
                 <paper-menu selectable="paper-item" attr-for-selected="data-route" selected="[[route]]">
@@ -49,10 +50,9 @@
                     <div id="app-title">[[title]]</div>
                 </paper-toolbar>
 
-                <!-- Main Content -->
                 <div class="content">
+                    <!-- Pages -->
                     <iron-pages attr-for-selected="data-route" selected="[[route]]">
-
                         <introduction-page data-route="introduction"></introduction-page>
                         <installation-page data-route="installation"></installation-page>
                         <changelog-page data-route="changelog"></changelog-page>
@@ -62,7 +62,6 @@
                         <entities-page data-route="entities"></entities-page>
                         <services-page data-route="services"></services-page>
                         <requests-page data-route="requests"></requests-page>
-
                     </iron-pages>
                 </div>
 
@@ -77,21 +76,46 @@
         is: 'docs-app',
 
         listeners: {
-            'click': 'routeTo'
+            'click': 'onRouteClick'
+        },
+
+        entryAnimation: {
+            'entry': {
+                name: 'cascaded-animation',
+                animation: 'transform-animation',
+                transformFrom: 'translateY(100%)',
+                transformTo: 'none',
+                timing: {
+                    delay: 50
+                }
+            },
+            'exit': {
+                // provided by neon-animation-animations/fade-out-animation.html
+                name: 'fade-out-animation',
+                node: this
+            }
         },
 
         scrollPageToTop: function() {
             document.getElementById('mainContainer').scrollTop = 0;
         },
 
-        routeTo: function (e) {
+        onRouteClick: function (e) {
             if ('route' in e.srcElement.dataset) {
-                page('/' + e.srcElement.dataset.route);
-                var drawerPanel = document.getElementById('drawerPanel');
-                if (drawerPanel.narrow) {
-                    drawerPanel.closeDrawer();
-                }
+                this.routeTo(e.srcElement.dataset.route);
             }
+        },
+
+        routeTo: function (route) {
+            page('/' + route);
+            var drawerPanel = document.getElementById('drawerPanel');
+            if (drawerPanel.narrow) {
+                drawerPanel.closeDrawer();
+            }
+        },
+
+        onNameClick: function () {
+            this.routeTo('introduction');
         }
 
     });
