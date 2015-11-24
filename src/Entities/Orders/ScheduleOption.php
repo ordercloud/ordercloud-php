@@ -1,5 +1,7 @@
 <?php namespace Ordercloud\Entities\Orders;
 
+use Carbon\Carbon;
+
 class ScheduleOption
 {
     /**
@@ -49,5 +51,30 @@ class ScheduleOption
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * @param int $interval In minutes
+     *
+     * @return array|Carbon
+     */
+    public function getTimeOptions($interval)
+    {
+        $min = Carbon::parse($this->getMin());
+        $max = Carbon::parse($this->getMax());
+        $options = [];
+
+        // Round up to the closest interval
+        while ($min->minute % $interval != 0) {
+            $min->addMinute();
+        }
+
+        // Add options foreach interval
+        while ($min->lte($max)) {
+            $options[] = $min->copy();
+            $min->addMinutes($interval);
+        }
+
+        return $options;
     }
 }

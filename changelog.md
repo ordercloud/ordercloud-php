@@ -7,7 +7,7 @@ For now, please use all minor versions as major versions and each build version 
 
 ## [Unreleased]
 ### Added
-- `GetOrderScheduleOptionsRequest` & `OrderService::getScheduleOptions()`
+- `GetOrderScheduleOptionsRequest`, `OrderService::getScheduleOptions()` & `ScheduleOption` entity
 
 ## [0.4.0]
 ### Removed
