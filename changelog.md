@@ -8,6 +8,7 @@ For now, please use all minor versions as major versions and each build version 
 ## [Unreleased]
 ### Added
 - `GetOrderScheduleOptionsRequest`, `OrderService::getScheduleOptions()` & `ScheduleOption` entity
+- `GetUserPaymentsToOrganisationRequest`, `PaymentService::getUserPaymentsToOrganisation()` & `PaymentCollection` entity
 
 ## [0.4.0]
 ### Removed

@@ -6,10 +6,12 @@ use Ordercloud\Requests\Exceptions\NotFoundRequestException;
 use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\Payments\CreateCashOnDeliveryPaymentRequest;
 use Ordercloud\Requests\Payments\CreateCreditCardPaymentRequest;
+use Ordercloud\Requests\Payments\Criteria\UserPaymentsToOrganisationCriteria;
 use Ordercloud\Requests\Payments\Entities\CreditCard;
 use Ordercloud\Requests\Payments\Exceptions\CreditCardPaymentFailedException;
 use Ordercloud\Requests\Payments\GetPaymentRequest;
 use Ordercloud\Requests\Payments\GetPaymentThreeDSecureRequest;
+use Ordercloud\Requests\Payments\GetUserPaymentsToOrganisationRequest;
 
 class PaymentService extends OrdercloudService
 {
@@ -67,5 +69,23 @@ class PaymentService extends OrdercloudService
     public function getPayment($paymentId)
     {
         return $this->request(new GetPaymentRequest($paymentId));
+    }
+
+    /**
+     * @param int                                $userId
+     * @param int                                $organisationId
+     * @param UserPaymentsToOrganisationCriteria $criteria
+     *
+     * @return Payment[]
+     *
+     * @throws OrdercloudRequestException
+     */
+    public function getUserPaymentsToOrganisation($userId, $organisationId, UserPaymentsToOrganisationCriteria $criteria = null)
+    {
+        $criteria = $criteria ?: UserPaymentsToOrganisationCriteria::create();
+
+        return $this->request(
+            new GetUserPaymentsToOrganisationRequest($userId, $organisationId, $criteria)
+        );
     }
 }
