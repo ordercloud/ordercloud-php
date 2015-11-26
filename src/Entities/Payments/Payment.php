@@ -30,9 +30,12 @@ class Payment
     private $gateway;
     /** @var integer */
     private $grouping;
+    /**
+     * @var string
+     */
+    private $creationDate;
 
-    // TODO $lastPaymentStatus is not supposed to be null - or even on this entity...
-    public function __construct($id, PaymentStatus $lastPaymentStatus = null, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, OrganisationShort $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $grouping)
+    public function __construct($id, PaymentStatus $lastPaymentStatus, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, OrganisationShort $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $grouping, $creationDate)
     {
         $this->id = $id;
         $this->lastPaymentStatus = $lastPaymentStatus;
@@ -45,6 +48,7 @@ class Payment
         $this->paymentMethod = $paymentMethod;
         $this->gateway = $gateway;
         $this->grouping = $grouping;
+        $this->creationDate = $creationDate;
     }
 
     /**
@@ -133,5 +137,13 @@ class Payment
     public function getGrouping()
     {
         return $this->grouping;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
     }
 }
