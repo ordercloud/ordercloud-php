@@ -84,7 +84,7 @@ class ProductSpec extends ObjectBehavior
 
     protected function createTagWithType($type)
     {
-        return new ProductTag(1, 1, 1, 1, 1, new ProductTagType(1, 1, $type), $this->organisationShort, null, []);
+        return new ProductTag(1, 1, 1, 1, 1, new ProductTagType(1, 1, $type), null, []);
     }
 
     protected function createImage($default)
