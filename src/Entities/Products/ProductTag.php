@@ -1,7 +1,5 @@
 <?php namespace Ordercloud\Entities\Products;
 
-use Ordercloud\Entities\Organisations\OrganisationShort;
-
 class ProductTag
 {
     /** @var integer */
@@ -16,8 +14,6 @@ class ProductTag
     private $enabled;
     /** @var ProductTagType */
     private $type;
-    /** @var OrganisationShort */
-    private $organisation;
     /** @var ProductTagLink */
     private $parentTag;
     /**
@@ -26,7 +22,7 @@ class ProductTag
      */
     private $childTags;
 
-    public function __construct($id, $name, $description, $shortDescription, $enabled, ProductTagType $tagType = null, OrganisationShort $organisation, ProductTagLink $parentTag = null, array $childTags)
+    public function __construct($id, $name, $description, $shortDescription, $enabled, ProductTagType $tagType = null, ProductTagLink $parentTag = null, array $childTags)
     {
         $this->id = $id;
         $this->name = $name;
@@ -34,7 +30,6 @@ class ProductTag
         $this->shortDescription = $shortDescription;
         $this->enabled = $enabled;
         $this->type = $tagType;
-        $this->organisation = $organisation;
         $this->parentTag = $parentTag;
         $this->childTags = $childTags;
     }
@@ -99,14 +94,6 @@ class ProductTag
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * @return OrganisationShort
-     */
-    public function getOrganisation()
-    {
-        return $this->organisation;
     }
 
     /**
