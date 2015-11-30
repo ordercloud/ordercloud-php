@@ -6,16 +6,17 @@ For now, please use all minor versions as major versions and each build version 
 
 
 ## [Unreleased]
-### Added
-- `GetOrderScheduleOptionsRequest`, `OrderService::getScheduleOptions()` & `ScheduleOption` entity
-- `GetUserPaymentsToOrganisationRequest`, `PaymentService::getUserPaymentsToOrganisation()` & `PaymentCollection` entity
-- `creationDate` on `Payment` entity
-
 ### Changed
 - `Organisation`'s profile changed from an array of profiles to a single `Profile`
 
 ### Removed
 - `organisation` from `ProductTag`
+
+## [0.4.1]
+### Added
+- `GetOrderScheduleOptionsRequest`, `OrderService::getScheduleOptions()` & `ScheduleOption` entity
+- `GetUserPaymentsToOrganisationRequest`, `PaymentService::getUserPaymentsToOrganisation()` & `PaymentCollection` entity
+- `creationDate` on `Payment` entity
 
 ## [0.4.0]
 ### Removed
@@ -43,5 +44,6 @@ For now, please use all minor versions as major versions and each build version 
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.4...HEAD
-[0.4]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...0.4
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.5...HEAD
+[0.4.1]: https://github.com/ordercloud/ordercloud-php/compare/0.4.0...0.4.1
+[0.4.0]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...0.4.0
