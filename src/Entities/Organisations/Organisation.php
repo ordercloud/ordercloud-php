@@ -13,11 +13,9 @@ class Organisation extends OrganisationShort
      */
     private $industries;
     /**
-     * @var array|OrganisationProfile[]
-     * @reflectName profile
-     * @reflectType Ordercloud\Entities\Organisations\OrganisationProfile
+     * @var OrganisationProfile
      */
-    private $profiles;
+    private $profile;
     /**
      * @var array|OrganisationOperatingHours[]
      * @reflectType Ordercloud\Entities\Organisations\OrganisationOperatingHours
@@ -36,12 +34,12 @@ class Organisation extends OrganisationShort
     /** @var boolean */
     private $registeredDirectly;
 
-    public function __construct($id, $name, $code, array $types, array $industries, array $profiles, array $operatingHours, $ordersHash, OrganisationStatus $status = null, $lastOnline, $delivering, $open, $registeredDirectly)
+    public function __construct($id, $name, $code, array $types, array $industries, OrganisationProfile $profile, array $operatingHours, $ordersHash, OrganisationStatus $status = null, $lastOnline, $delivering, $open, $registeredDirectly)
     {
         parent::__construct($id, $name, $code);
         $this->types = $types;
         $this->industries = $industries;
-        $this->profiles = $profiles;
+        $this->profile = $profile;
         $this->operatingHours = $operatingHours;
         $this->ordersHash = $ordersHash;
         $this->status = $status;
@@ -68,11 +66,11 @@ class Organisation extends OrganisationShort
     }
 
     /**
-     * @return array|OrganisationProfile[]
+     * @return OrganisationProfile
      */
-    public function getProfiles()
+    public function getProfile()
     {
-        return $this->profiles;
+        return $this->profile;
     }
 
     /**

@@ -11,6 +11,9 @@ For now, please use all minor versions as major versions and each build version 
 - `GetUserPaymentsToOrganisationRequest`, `PaymentService::getUserPaymentsToOrganisation()` & `PaymentCollection` entity
 - `creationDate` on `Payment` entity
 
+### Changed
+- `Organisation`'s profile changed from an array of profiles to a single `Profile`
+
 ## [0.4.0]
 ### Removed
 - `amount` from `CreateCreditCardPaymentRequest` & `CreateCashOnDeliveryPaymentRequest`
