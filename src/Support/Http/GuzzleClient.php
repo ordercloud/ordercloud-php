@@ -95,7 +95,7 @@ class GuzzleClient implements Client
     {
         $guzzleRequest = $this->client->createRequest($method, $url, ['headers' => $headers, 'body' => $params]);
 
-        if ($guzzleRequest->getHeader('Content-Type') == 'application/json') {
+        if ($guzzleRequest->getHeader('Content-Type') == 'application/json' && sizeof($params) > 0) {
             $guzzleRequest->setBody(Stream::factory(json_encode($params)));
         }
 
