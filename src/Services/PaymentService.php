@@ -1,6 +1,7 @@
 <?php namespace Ordercloud\Services;
 
 use Ordercloud\Entities\Payments\Payment;
+use Ordercloud\Entities\Payments\PaymentCollection;
 use Ordercloud\Entities\Payments\ThreeDSecure;
 use Ordercloud\Requests\Exceptions\NotFoundRequestException;
 use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
@@ -76,7 +77,7 @@ class PaymentService extends OrdercloudService
      * @param int                                $organisationId
      * @param UserPaymentsToOrganisationCriteria $criteria
      *
-     * @return Payment[]
+     * @return PaymentCollection
      *
      * @throws OrdercloudRequestException
      */
