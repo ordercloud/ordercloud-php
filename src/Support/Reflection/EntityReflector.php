@@ -1,8 +1,10 @@
 <?php namespace Ordercloud\Support\Reflection;
 
+use ErrorException;
 use Ordercloud\Support\Reflection\Exceptions\ArgumentNotProvidedException;
 use Ordercloud\Support\Reflection\Exceptions\EntityParseException;
 use Ordercloud\Support\Reflection\Exceptions\EntityReflectionException;
+use Ordercloud\Support\Reflection\Exceptions\InvalidArgumentException;
 use Ordercloud\Support\Reflection\Exceptions\NullRequiredArgumentException;
 use ReflectionClass;
 use ReflectionParameter;
@@ -28,7 +30,7 @@ class EntityReflector extends ReflectionClass
      *
      * @return array
      */
-    public static function parseAll($className, array $arguments)
+    public static function parseAll($className, $arguments)
     {
         $results = [];
 
@@ -46,16 +48,19 @@ class EntityReflector extends ReflectionClass
      * @return mixed
      *
      * @throws EntityParseException
+     * @throws InvalidArgumentException
      */
-    public static function parse($className, array $arguments)
+    public static function parse($className, $arguments)
     {
-        $reflector = new static($className, $arguments);
-
         try {
+            $reflector = new static($className, $arguments);
             $reflection = $reflector->reflect();
         }
         catch (EntityReflectionException $e) {
             throw new EntityParseException($className, $arguments, $e);
+        }
+        catch (ErrorException $e) {
+            throw new InvalidArgumentException($className, $arguments);
         }
 
         return $reflection;
@@ -199,7 +204,12 @@ class EntityReflector extends ReflectionClass
             $results = [];
 
             foreach ($argument as $objectArguments) {
-                $results[] = (new static($className, $objectArguments))->reflect();
+                try {
+                    $results[] = (new static($className, $objectArguments))->reflect();
+                }
+                catch (ErrorException $e) {
+                    throw new InvalidArgumentException($className, $objectArguments);
+                }
             }
 
             return $results;

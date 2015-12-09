@@ -6,6 +6,9 @@ For now, please use all minor versions as major versions and each build version 
 
 
 ## [Unreleased]
+### Added
+- `InvalidArgumentException` to `EntityReflector`
+
 ### Changed
 - `Organisation`'s profile changed from an array of profiles to a single `Profile`
 
