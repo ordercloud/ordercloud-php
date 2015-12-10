@@ -4,7 +4,6 @@ use ErrorException;
 use Ordercloud\Support\Reflection\Exceptions\ArgumentNotProvidedException;
 use Ordercloud\Support\Reflection\Exceptions\EntityParseException;
 use Ordercloud\Support\Reflection\Exceptions\EntityReflectionException;
-use Ordercloud\Support\Reflection\Exceptions\InvalidArgumentException;
 use Ordercloud\Support\Reflection\Exceptions\NullRequiredArgumentException;
 use ReflectionClass;
 use ReflectionParameter;
@@ -29,10 +28,16 @@ class EntityReflector extends ReflectionClass
      * @param array  $arguments
      *
      * @return array
+     *
+     * @throws EntityParseException
      */
     public static function parseAll($className, $arguments)
     {
         $results = [];
+
+        if (!is_array($arguments)) {
+            throw new EntityParseException($className, $arguments);
+        }
 
         foreach ($arguments as $objectArguments) {
             $results[] = static::parse($className, $objectArguments);
@@ -48,7 +53,6 @@ class EntityReflector extends ReflectionClass
      * @return mixed
      *
      * @throws EntityParseException
-     * @throws InvalidArgumentException
      */
     public static function parse($className, $arguments)
     {
@@ -60,7 +64,7 @@ class EntityReflector extends ReflectionClass
             throw new EntityParseException($className, $arguments, $e);
         }
         catch (ErrorException $e) {
-            throw new InvalidArgumentException($className, $arguments);
+            throw new EntityParseException($className, $arguments);
         }
 
         return $reflection;
@@ -208,7 +212,7 @@ class EntityReflector extends ReflectionClass
                     $results[] = (new static($className, $objectArguments))->reflect();
                 }
                 catch (ErrorException $e) {
-                    throw new InvalidArgumentException($className, $objectArguments);
+                    throw new EntityParseException($className, $objectArguments);
                 }
             }
 
