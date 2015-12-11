@@ -23,10 +23,6 @@ class ProductCriteria extends Criteria
      * @var array|int[]
      */
     private $organisations;
-    /**
-     * @var string
-     */
-    private $search;
 
     /**
      * @return array|int[]
@@ -104,26 +100,6 @@ class ProductCriteria extends Criteria
     public function setOrganisations($organisations)
     {
         $this->organisations = $organisations;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSearch()
-    {
-        return $this->search;
-    }
-
-    /**
-     * @param string $search
-     *
-     * @return static
-     */
-    public function setSearch($search)
-    {
-        $this->search = $search;
 
         return $this;
     }

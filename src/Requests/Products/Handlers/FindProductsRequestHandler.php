@@ -32,7 +32,6 @@ class FindProductsRequestHandler extends AbstractPutRequestHandler
                  'available'     => $this->formatBoolean($criteria->isAvailable()),
                  'order'         => $criteria->getOrders(),
                  'organisations' => $criteria->getOrganisations(),
-                 'search'        => $criteria->getSearch(),
              ])
             ->setQueryParameters([
                 "page"     => $criteria->getPage(),

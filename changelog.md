@@ -14,6 +14,11 @@ For now, please use all minor versions as major versions and each build version 
 
 ### Removed
 - `organisation` from `ProductTag`
+- `search` from `ProductCriteria` which is used by `FindProductsRequest`
+
+## [0.4.2]
+### Fixed
+- Do not send empty array when body empty on http request
 
 ## [0.4.1]
 ### Added
@@ -47,6 +52,7 @@ For now, please use all minor versions as major versions and each build version 
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.5...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.4.2...HEAD
+[0.4.2]: https://github.com/ordercloud/ordercloud-php/compare/0.4.1...0.4.2
 [0.4.1]: https://github.com/ordercloud/ordercloud-php/compare/0.4.0...0.4.1
 [0.4.0]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...0.4.0
