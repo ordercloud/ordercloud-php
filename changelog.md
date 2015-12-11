@@ -8,9 +8,12 @@ For now, please use all minor versions as major versions and each build version 
 ## [Unreleased]
 ### Added
 - `InvalidArgumentException` to `EntityReflector`
+- `ProductTagCriteria` for enhanced product search by tag  
+- `ProductTagTypeCriteria` for enhanced product search by tag type
 
 ### Changed
 - `Organisation`'s profile changed from an array of profiles to a single `Profile`
+- `ProductCriteria`'s tags from integers to `ProductTagCriteria`
 
 ### Removed
 - `organisation` from `ProductTag`
