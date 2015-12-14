@@ -4,8 +4,9 @@ This project does NOT (yet) adhere to [Semantic Versioning](http://semver.org/).
 It is running as an Alfa/Beta, once v1 is reached we will start supporting semver.
 For now, please use all minor versions as major versions and each build version will be a minor version.
 
-
 ## [Unreleased]
+
+## [0.5.0]
 ### Added
 - `InvalidArgumentException` to `EntityReflector`
 - `ProductTagCriteria` for enhanced product search by tag  
@@ -55,7 +56,8 @@ For now, please use all minor versions as major versions and each build version 
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.4.2...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.5.0...HEAD
+[0.5.0]: https://github.com/ordercloud/ordercloud-php/compare/0.4.2...0.5.0
 [0.4.2]: https://github.com/ordercloud/ordercloud-php/compare/0.4.1...0.4.2
 [0.4.1]: https://github.com/ordercloud/ordercloud-php/compare/0.4.0...0.4.1
 [0.4.0]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...0.4.0
