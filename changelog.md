@@ -6,6 +6,10 @@ For now, please use all minor versions as major versions and each build version 
 
 ## [Unreleased]
 
+## [0.5.1]
+### Fixed
+- `GetSettingsByOrganisationRequest` handler to send pagination parameters as query parameters
+
 ## [0.5.0]
 ### Added
 - `InvalidArgumentException` to `EntityReflector`
@@ -56,7 +60,8 @@ For now, please use all minor versions as major versions and each build version 
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.5.0...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.5.1...HEAD
+[0.5.1]: https://github.com/ordercloud/ordercloud-php/compare/0.5.0...0.5.1
 [0.5.0]: https://github.com/ordercloud/ordercloud-php/compare/0.4.2...0.5.0
 [0.4.2]: https://github.com/ordercloud/ordercloud-php/compare/0.4.1...0.4.2
 [0.4.1]: https://github.com/ordercloud/ordercloud-php/compare/0.4.0...0.4.1

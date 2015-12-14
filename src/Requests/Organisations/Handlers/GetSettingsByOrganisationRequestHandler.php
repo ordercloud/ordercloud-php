@@ -14,10 +14,10 @@ class GetSettingsByOrganisationRequestHandler extends AbstractGetRequestHandler
     {
         $criteria = $request->getCriteria();
         $this->setUrl('resource/organisations/%d/settings', $request->getOrganisationId())
-        ->setBodyParameters([
-            'page'         => $criteria->getPage(),
-            'pagesize'     => $criteria->getPageSize(),
-        ]);
+            ->setQueryParameters([
+                'page'     => $criteria->getPage(),
+                'pagesize' => $criteria->getPageSize(),
+            ]);
     }
 
     protected function transformResponse($response)
