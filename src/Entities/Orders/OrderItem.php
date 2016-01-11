@@ -15,6 +15,10 @@ class OrderItem implements JsonSerializable
      * @var float
      */
     private $markup;
+    /**
+     * @var float
+     */
+    private $unitPrice;
     /** @var integer */
     private $quantity;
     /** @var float */
@@ -48,6 +52,7 @@ class OrderItem implements JsonSerializable
         $id,
         $price,
         $markup,
+        $unitPrice,
         $quantity,
         $linePrice,
         $enabled,
@@ -75,6 +80,7 @@ class OrderItem implements JsonSerializable
         $this->extras = $extras;
         $this->options = $options;
         $this->instorePaymentRequired = $instorePaymentRequired;
+        $this->unitPrice = $unitPrice;
     }
 
     /**
@@ -103,6 +109,14 @@ class OrderItem implements JsonSerializable
     public function getMarkup()
     {
         return floatval($this->markup);
+    }
+
+    /**
+     * @return float
+     */
+    public function getUnitPrice()
+    {
+        return floatval($this->unitPrice);
     }
 
     /**
@@ -232,6 +246,7 @@ class OrderItem implements JsonSerializable
             'id' => $this->getId(),
             'price' => $this->getPrice(),
             'markup' => $this->getMarkup(),
+            'unitPrice' => $this->getUnitPrice(),
             'quantity' => $this->getQuantity(),
             'linePrice' => $this->getLinePrice(),
             'enabled' => $this->isEnabled(),
