@@ -11,6 +11,10 @@ class OrderItem implements JsonSerializable
     private $id;
     /** @var float */
     private $price;
+    /**
+     * @var float
+     */
+    private $markup;
     /** @var integer */
     private $quantity;
     /** @var float */
@@ -43,6 +47,7 @@ class OrderItem implements JsonSerializable
     public function __construct(
         $id,
         $price,
+        $markup,
         $quantity,
         $linePrice,
         $enabled,
@@ -58,6 +63,7 @@ class OrderItem implements JsonSerializable
     {
         $this->id = $id;
         $this->price = $price;
+        $this->markup = $markup;
         $this->quantity = $quantity;
         $this->linePrice = $linePrice;
         $this->enabled = $enabled;
@@ -89,6 +95,14 @@ class OrderItem implements JsonSerializable
     public function getPrice()
     {
         return floatval($this->price);
+    }
+
+    /**
+     * @return float
+     */
+    public function getMarkup()
+    {
+        return floatval($this->markup);
     }
 
     /**

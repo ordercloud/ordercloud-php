@@ -5,6 +5,9 @@ It is running as an Alfa/Beta, once v1 is reached we will start supporting semve
 For now, please use all minor versions as major versions and each build version will be a minor version.
 
 ## [Unreleased]
+## Added
+- `JsonSerializable` to all entities - all entities can now be serialized to JSON
+- `markup` to `OrderItem` 
 
 ## [0.5.1]
 ### Fixed
