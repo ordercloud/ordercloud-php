@@ -231,6 +231,7 @@ class OrderItem implements JsonSerializable
         return [
             'id' => $this->getId(),
             'price' => $this->getPrice(),
+            'markup' => $this->getMarkup(),
             'quantity' => $this->getQuantity(),
             'linePrice' => $this->getLinePrice(),
             'enabled' => $this->isEnabled(),

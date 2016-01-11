@@ -70,8 +70,12 @@ class Order implements JsonSerializable
      * @var string
      */
     private $scheduledDate;
+    /**
+     * @var float
+     */
+    private $tip;
 
-    //TODO add: tip + delivery + statusHistory
+    //TODO add: delivery + statusHistory
     public function __construct(
         $id,
         $reference,
@@ -93,7 +97,8 @@ class Order implements JsonSerializable
         $estimatedDeliveryTime,
         $deliveryCost,
         OrderSourceChannel $orderSourceChannel = null,
-        $scheduledDate = null
+        $scheduledDate = null,
+        $tip
     )
     {
         $this->id = $id;
@@ -117,6 +122,7 @@ class Order implements JsonSerializable
         $this->deliveryCost = $deliveryCost;
         $this->orderSourceChannel = $orderSourceChannel;
         $this->scheduledDate = $scheduledDate;
+        $this->tip = $tip;
     }
 
     /**
@@ -325,6 +331,11 @@ class Order implements JsonSerializable
         return $this->scheduledDate;
     }
 
+    public function getTip()
+    {
+        return $this->tip;
+    }
+
     /**
      * Specify data which should be serialized to JSON
      */
@@ -352,6 +363,7 @@ class Order implements JsonSerializable
             'deliveryCost' => $this->getDeliveryCost(),
             'orderSourceChannel' => $this->getOrderSourceChannel(),
             'scheduledDate' => $this->getScheduledDate(),
+            'tip' => $this->tip,
         ];
     }
 }

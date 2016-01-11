@@ -8,6 +8,7 @@ For now, please use all minor versions as major versions and each build version 
 ## Added
 - `JsonSerializable` to all entities - all entities can now be serialized to JSON
 - `markup` to `OrderItem` 
+- `tip` to `Order` 
 
 ## [0.5.1]
 ### Fixed
