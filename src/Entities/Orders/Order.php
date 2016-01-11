@@ -1,12 +1,13 @@
 <?php namespace Ordercloud\Entities\Orders;
 
+use JsonSerializable;
 use Ordercloud\Entities\Delivery\DeliveryAgent;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 use Ordercloud\Entities\Payments\Payment;
 use Ordercloud\Entities\Users\UserAddress;
 use Ordercloud\Entities\Users\UserShort;
 
-class Order
+class Order implements JsonSerializable
 {
     const DELIVERY_TYPE_SELFPICKUP = 'SELFPICKUP';
     const DELIVERY_TYPE_DELIVERY = 'DELIVERY';
@@ -322,5 +323,35 @@ class Order
     public function getScheduledDate()
     {
         return $this->scheduledDate;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'reference' => $this->getReference(),
+            'shortReference' => $this->getShortReference(),
+            'dateCreated' => $this->getDateCreated(),
+            'lastUpdated' => $this->getLastUpdated(),
+            'amount' => $this->getAmount(),
+            'status' => $this->getStatus(),
+            'items' => $this->getItems(),
+            'user' => $this->getUser(),
+            'userGeo' => $this->getUserAddress(),
+            'organisation' => $this->getOrganisation(),
+            'paymentStatus' => $this->getPaymentStatus(),
+            'payments' => $this->getPayments(),
+            'paymentMethod' => $this->getPaymentMethods(),
+            'deliveryType' => $this->getDeliveryType(),
+            'deliveryAgent' => $this->getDeliveryAgent(),
+            'note' => $this->getNote(),
+            'estimatedDeliveryTime' => $this->getEstimatedDeliveryTime(),
+            'deliveryCost' => $this->getDeliveryCost(),
+            'orderSourceChannel' => $this->getOrderSourceChannel(),
+            'scheduledDate' => $this->getScheduledDate(),
+        ];
     }
 }

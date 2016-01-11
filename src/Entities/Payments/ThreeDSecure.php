@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Payments;
 
-class ThreeDSecure
+use JsonSerializable;
+
+class ThreeDSecure implements JsonSerializable
 {
     /**
      * @var string
@@ -21,5 +23,15 @@ class ThreeDSecure
     public function getForm()
     {
         return $this->form;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'from' => $this->getForm(),
+        ];
     }
 }

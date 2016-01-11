@@ -1,8 +1,9 @@
 <?php namespace Ordercloud\Entities\Orders;
 
+use JsonSerializable;
 use Ordercloud\Entities\Products\ProductExtraDisplay;
 
-class OrderItemExtra
+class OrderItemExtra implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -40,5 +41,17 @@ class OrderItemExtra
     public function getExtra()
     {
         return $this->extra;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'price' => $this->getPrice(),
+            'extra' => $this->getExtra(),
+        ];
     }
 }

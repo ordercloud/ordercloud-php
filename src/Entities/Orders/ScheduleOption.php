@@ -1,8 +1,9 @@
 <?php namespace Ordercloud\Entities\Orders;
 
 use Carbon\Carbon;
+use JsonSerializable;
 
-class ScheduleOption
+class ScheduleOption implements JsonSerializable
 {
     /**
      * @var string
@@ -76,5 +77,17 @@ class ScheduleOption
         }
 
         return $options;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'min' => $this->getMin(),
+            'max' => $this->getMax(),
+            'date' => $this->getDate(),
+        ];
     }
 }

@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-class ProductAddonDisplay extends AbstractProductAddon
+use JsonSerializable;
+
+class ProductAddonDisplay extends AbstractProductAddon implements JsonSerializable
 {
     /**
      * @var ProductTag
@@ -19,5 +21,17 @@ class ProductAddonDisplay extends AbstractProductAddon
     public function getTag()
     {
         return $this->tag;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['tag'] = $this->getTag();
+
+        return $json;
     }
 }

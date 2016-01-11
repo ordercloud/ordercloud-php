@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Organisations;
 
-class OrganisationAccessToken
+use JsonSerializable;
+
+class OrganisationAccessToken implements JsonSerializable
 {
     /** @var string */
     private $token;
@@ -49,5 +51,18 @@ class OrganisationAccessToken
     public function isValid()
     {
         return $this->valid;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'token' => $this->getToken(),
+            'expires' => $this->getExpires(),
+            'expiryDate' => $this->getExpiryDate(),
+            'valid' => $this->isValid(),
+        ];
     }
 }

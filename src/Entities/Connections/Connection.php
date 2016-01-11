@@ -1,8 +1,9 @@
 <?php namespace Ordercloud\Entities\Connections;
 
+use JsonSerializable;
 use Ordercloud\Entities\Organisations\Organisation;
 
-class Connection
+class Connection implements JsonSerializable
 {
     const STATUS_CONNECTED = 'CONNECTED';
     const STATUS_DECLINED = 'DECLINED';
@@ -99,5 +100,22 @@ class Connection
     public function getSettlementInterval()
     {
         return $this->settlementInterval;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'fromOrganisation' => $this->getFromOrganisation(),
+            'toOrganisation' => $this->getToOrganisation(),
+            'type' => $this->getType(),
+            'ended' => $this->getEnded(),
+            'enabled' => $this->isEnabled(),
+            'status' => $this->getStatus(),
+            'settlementInterval' => $this->getSettlementInterval(),
+        ];
     }
 }

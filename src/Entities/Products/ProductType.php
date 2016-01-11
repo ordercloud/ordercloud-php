@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-class ProductType
+use JsonSerializable;
+
+class ProductType implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -38,5 +40,17 @@ class ProductType
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+        ];
     }
 }

@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Organisations;
 
-class OrganisationType
+use JsonSerializable;
+
+class OrganisationType implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -33,14 +35,6 @@ class OrganisationType
     }
 
     /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
      * @return string
      */
     public function getPlural()
@@ -49,10 +43,14 @@ class OrganisationType
     }
 
     /**
-     * @param string $plural
+     * Specify data which should be serialized to JSON
      */
-    public function setPlural($plural)
+    function jsonSerialize()
     {
-        $this->plural = $plural;
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'plural' => $this->getPlural(),
+        ];
     }
 }

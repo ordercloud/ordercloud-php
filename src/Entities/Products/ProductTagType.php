@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-class ProductTagType
+use JsonSerializable;
+
+class ProductTagType implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -12,8 +14,8 @@ class ProductTagType
     public function __construct($id, $description, $name)
     {
         $this->id = $id;
-        $this->description = $description;
         $this->name = $name;
+        $this->description = $description;
     }
 
     /**
@@ -27,16 +29,28 @@ class ProductTagType
     /**
      * @return string
      */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
     /**
-     * @return string
+     * Specify data which should be serialized to JSON
      */
-    public function getName()
+    function jsonSerialize()
     {
-        return $this->name;
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+        ];
     }
 }

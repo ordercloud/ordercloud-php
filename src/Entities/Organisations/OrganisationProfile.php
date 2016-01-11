@@ -1,8 +1,9 @@
 <?php namespace Ordercloud\Entities\Organisations;
 
+use JsonSerializable;
 use Ordercloud\Entities\Users\UserShort;
 
-class OrganisationProfile
+class OrganisationProfile implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -62,5 +63,19 @@ class OrganisationProfile
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'contactPerson' => $this->getContactPerson(),
+            'contactNumber' => $this->getContactNumber(),
+            'enabled' => $this->isEnabled(),
+            'address' => $this->getAddress(),
+        ];
     }
 }

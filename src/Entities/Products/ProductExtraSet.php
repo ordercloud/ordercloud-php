@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-class ProductExtraSet
+use JsonSerializable;
+
+class ProductExtraSet implements JsonSerializable
 {
     /** @var int */
     protected $id;
@@ -74,12 +76,24 @@ class ProductExtraSet
         return null;
     }
 
-
     /**
      * @return array|ProductAttribute[]
      */
     public function getAttributes()
     {
         return $this->attributes;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'extras' => $this->getExtras(),
+            'attributes' => $this->getAttributes(),
+        ];
     }
 }

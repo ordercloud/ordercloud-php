@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Settings;
 
-class SettingKeyShort
+use JsonSerializable;
+
+class SettingKeyShort implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -27,5 +29,16 @@ class SettingKeyShort
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+        ];
     }
 }

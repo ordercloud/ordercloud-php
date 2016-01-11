@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Orders;
 
-class OrderSourceChannel
+use JsonSerializable;
+
+class OrderSourceChannel implements JsonSerializable
 {
     /**
      * @var int
@@ -49,5 +51,17 @@ class OrderSourceChannel
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+        ];
     }
 }

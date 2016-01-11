@@ -1,17 +1,14 @@
 <?php namespace Ordercloud\Entities\Users;
 
+use JsonSerializable;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 
-class User extends UserShort
+class User extends UserShort implements JsonSerializable
 {
     /**
      * @var boolean
      */
     private $enabled;
-    /**
-     * @var string
-     */
-    private $facebook_id;
     /**
      * @var array|UserGroup[]
      * @reflectType Ordercloud\Entities\Users\UserGroup
@@ -23,11 +20,10 @@ class User extends UserShort
      */
     private $organisations;
 
-    public function __construct($id, $enabled, $username, $facebook_id, UserProfile $profile, array $groups, array $organisations)
+    public function __construct($id, $enabled, $username, UserProfile $profile, array $groups, array $organisations)
     {
         parent::__construct($id, $username, $profile);
         $this->enabled = $enabled;
-        $this->facebook_id = $facebook_id;
         $this->groups = $groups;
         $this->organisations = $organisations;
     }
@@ -38,14 +34,6 @@ class User extends UserShort
     public function isEnabled()
     {
         return $this->enabled;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFacebookId()
-    {
-        return $this->facebook_id;
     }
 
     /**
@@ -62,5 +50,19 @@ class User extends UserShort
     public function getOrganisations()
     {
         return $this->organisations;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['enabled'] = $this->isEnabled();
+        $json['groups'] = $this->getGroups();
+        $json['organisations'] = $this->getOrganisations();
+
+        return $json;
     }
 }

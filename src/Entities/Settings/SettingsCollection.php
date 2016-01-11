@@ -1,8 +1,9 @@
 <?php namespace Ordercloud\Entities\Settings;
 
+use JsonSerializable;
 use Ordercloud\Support\Collection;
 
-class SettingsCollection extends Collection
+class SettingsCollection extends Collection implements JsonSerializable
 {
     /**
      * @param SettingKeyShort $key The setting key
@@ -77,5 +78,13 @@ class SettingsCollection extends Collection
     public function getValueByKeyID($keyID, $default = null)
     {
         return $this->getValueByKey(new SettingKeyShort($keyID, null), $default);
+    }
+
+    /**
+     * @return Setting[]
+     */
+    public function all()
+    {
+        return parent::all();
     }
 }

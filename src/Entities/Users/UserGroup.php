@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Users;
 
-class UserGroup
+use JsonSerializable;
+
+class UserGroup implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -20,5 +22,50 @@ class UserGroup
         $this->name = $name;
         $this->description = $description;
         $this->roles = $roles;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return array|UserRole[]
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'roles' => $this->getRoles(),
+        ];
     }
 }

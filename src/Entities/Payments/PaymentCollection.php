@@ -1,8 +1,9 @@
 <?php namespace Ordercloud\Entities\Payments;
 
+use JsonSerializable;
 use Ordercloud\Support\PaginatedCollection;
 
-class PaymentCollection extends PaginatedCollection
+class PaymentCollection extends PaginatedCollection implements JsonSerializable
 {
     /**
      * @param Payment[] $items

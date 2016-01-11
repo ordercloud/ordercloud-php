@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Auth;
 
-class AccessToken
+use JsonSerializable;
+
+class AccessToken implements JsonSerializable
 {
     /**
      * @var string
@@ -74,5 +76,17 @@ class AccessToken
     public function __toString()
     {
         return $this->token;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'access_token' => $this->getToken(),
+            'refresh_token' => $this->getRefreshToken(),
+            'expires_in' => $this->getExpiresIn()
+        ];
     }
 }

@@ -1,8 +1,9 @@
 <?php namespace Ordercloud\Entities\Settings;
 
+use JsonSerializable;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 
-class Setting
+class Setting implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -73,5 +74,20 @@ class Setting
     public function getOrganisation()
     {
         return $this->organisation;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'value' => $this->getValue(),
+            'key' => $this->getKey(),
+            'startDate' => $this->getStartDate(),
+            'endDate' => $this->getEndDate(),
+            'organisation' => $this->getOrganisation(),
+        ];
     }
 }

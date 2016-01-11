@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Orders;
 
-class OrderStatus
+use JsonSerializable;
+
+class OrderStatus implements JsonSerializable
 {
     const STATUS_NEW = 1;
     const STATUS_PENDING = 2;
@@ -52,5 +54,17 @@ class OrderStatus
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+        ];
     }
 }

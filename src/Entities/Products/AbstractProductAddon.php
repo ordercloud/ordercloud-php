@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-abstract class AbstractProductAddon
+use JsonSerializable;
+
+abstract class AbstractProductAddon implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -51,5 +53,16 @@ abstract class AbstractProductAddon
         return $this->price;
     }
 
-
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'price' => $this->getPrice(),
+        ];
+    }
 }

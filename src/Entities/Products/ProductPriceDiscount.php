@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-class ProductPriceDiscount
+use JsonSerializable;
+
+class ProductPriceDiscount implements JsonSerializable
 {
     /**
      * The amount of discount
@@ -33,5 +35,16 @@ class ProductPriceDiscount
     public function getDiscountPrice()
     {
         return $this->discountPrice;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'discountAmount' => $this->getDiscountAmount(),
+            'discountPrice' => $this->getDiscountPrice(),
+        ];
     }
 }

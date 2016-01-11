@@ -1,9 +1,10 @@
 <?php namespace Ordercloud\Entities\Payments;
 
+use JsonSerializable;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 use Ordercloud\Entities\Users\DisplayUser;
 
-class Payment
+class Payment implements JsonSerializable
 {
     const PAYMENT_GATEWAY_MYGATE_ZA = "MYGATE_ZA";
     const PAYMENT_GATEWAY_PAYU_ZA = "PAYU_ZA";
@@ -145,5 +146,26 @@ class Payment
     public function getCreationDate()
     {
         return $this->creationDate;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'lastPaymentStatus' => $this->getLastPaymentStatus(),
+            'gatewayTransactionId' => $this->getGatewayTransactionId(),
+            'requestId' => $this->getRequestId(),
+            'requestedByUser' => $this->getRequestedByUser(),
+            'requestedByOrganisation' => $this->getRequestedByOrganisation(),
+            'assetTypeCode' => $this->getAssetTypeCode(),
+            'amount' => $this->getAmount(),
+            'paymentMethod' => $this->getPaymentMethod(),
+            'gateway' => $this->getGateway(),
+            'grouping' => $this->getGrouping(),
+            'creationDate' => $this->getCreationDate(),
+        ];
     }
 }

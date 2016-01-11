@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Payments;
 
-abstract class AbstractPaymentStatus
+use JsonSerializable;
+
+abstract class AbstractPaymentStatus implements JsonSerializable
 {
     /** @var string */
     private $status;
@@ -38,5 +40,17 @@ abstract class AbstractPaymentStatus
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'status' => $this->getStatus(),
+            'when' => $this->getWhen(),
+            'message' => $this->getMessage(),
+        ];
     }
 }

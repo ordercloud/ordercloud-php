@@ -1,8 +1,9 @@
 <?php namespace Ordercloud\Entities\Users;
 
+use JsonSerializable;
 use Ordercloud\Entities\Addresses\NamedCoordinatedAddress;
 
-class NewUserAddress extends NamedCoordinatedAddress
+class NewUserAddress extends NamedCoordinatedAddress implements JsonSerializable
 {
     /**
      * @var string
@@ -43,5 +44,17 @@ class NewUserAddress extends NamedCoordinatedAddress
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['note'] = $this->getNote();
+
+        return $json;
     }
 }

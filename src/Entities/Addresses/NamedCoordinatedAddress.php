@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Addresses;
 
-class NamedCoordinatedAddress extends Address
+use JsonSerializable;
+
+class NamedCoordinatedAddress extends Address implements JsonSerializable
 {
     /**
      * @var GeoCoordinates
@@ -59,5 +61,19 @@ class NamedCoordinatedAddress extends Address
     public function getLongitude()
     {
         return $this->coordinates->getLongitude();
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['name'] = $this->getName();
+        $json['latitude'] = $this->getCoordinates()->getLatitude();
+        $json['longitude'] = $this->getCoordinates()->getLongitude();
+
+        return $json;
     }
 }

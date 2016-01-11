@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Organisations;
 
-class OrganisationOperatingHours
+use JsonSerializable;
+
+class OrganisationOperatingHours implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -92,5 +94,19 @@ class OrganisationOperatingHours
     public function setDayName($dayName)
     {
         $this->dayName = $dayName;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'day' => $this->getDay(),
+            'openTime' => $this->getOpenTime(),
+            'closeTime' => $this->getCloseTime(),
+            'dayName' => $this->getDayName(),
+        ];
     }
 }

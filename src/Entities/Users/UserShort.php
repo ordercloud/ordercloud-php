@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Users;
 
-class UserShort extends DisplayUser
+use JsonSerializable;
+
+class UserShort extends DisplayUser implements JsonSerializable
 {
     /** @var UserProfile */
     private $profile;
@@ -22,5 +24,17 @@ class UserShort extends DisplayUser
     public function getProfile()
     {
         return $this->profile;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['profile'] = $this->getProfile();
+
+        return $json;
     }
 }

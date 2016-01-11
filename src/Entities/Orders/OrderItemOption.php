@@ -1,8 +1,9 @@
 <?php namespace Ordercloud\Entities\Orders;
 
+use JsonSerializable;
 use Ordercloud\Entities\Products\ProductOptionDisplay;
 
-class OrderItemOption
+class OrderItemOption implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -40,5 +41,17 @@ class OrderItemOption
     public function getOption()
     {
         return $this->option;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'price' => $this->getPrice(),
+            'option' => $this->getOption(),
+        ];
     }
 }

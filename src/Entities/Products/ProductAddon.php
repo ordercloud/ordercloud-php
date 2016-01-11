@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-abstract class ProductAddon extends AbstractProductAddon
+use JsonSerializable;
+
+abstract class ProductAddon extends AbstractProductAddon implements JsonSerializable
 {
     /** @var boolean */
     private $enabled;
@@ -17,5 +19,17 @@ abstract class ProductAddon extends AbstractProductAddon
     public function isEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['enabled'] = $this->isEnabled();
+
+        return $json;
     }
 }

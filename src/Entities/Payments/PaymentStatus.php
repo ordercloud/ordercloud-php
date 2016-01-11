@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Payments;
 
-class PaymentStatus extends AbstractPaymentStatus
+use JsonSerializable;
+
+class PaymentStatus extends AbstractPaymentStatus implements JsonSerializable
 {
     const PENDING = 'PENDING';
     const PROCESSING = 'PROCESSING';

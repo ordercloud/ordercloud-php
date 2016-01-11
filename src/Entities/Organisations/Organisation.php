@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Organisations;
 
-class Organisation extends OrganisationShort
+use JsonSerializable;
+
+class Organisation extends OrganisationShort implements JsonSerializable
 {
     /**
      * @var array|OrganisationType[]
@@ -127,5 +129,26 @@ class Organisation extends OrganisationShort
     public function isRegisteredDirectly()
     {
         return $this->registeredDirectly;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['types'] = $this->getTypes();
+        $json['industries'] = $this->getIndustries();
+        $json['profile'] = $this->getProfile();
+        $json['operatingHours'] = $this->getOperatingHours();
+        $json['ordersHash'] = $this->getOrdersHash();
+        $json['status'] = $this->getStatus();
+        $json['lastOnline'] = $this->getLastOnline();
+        $json['delivering'] = $this->isDelivering();
+        $json['open'] = $this->isOpen();
+        $json['registeredDirectly'] = $this->isRegisteredDirectly();
+
+        return $json;
     }
 }

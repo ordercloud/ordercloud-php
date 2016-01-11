@@ -1,10 +1,11 @@
 <?php namespace Ordercloud\Entities\Orders;
 
+use JsonSerializable;
 use Ordercloud\Entities\Products\ProductExtraDisplay;
 use Ordercloud\Entities\Products\ProductOptionDisplay;
 use Ordercloud\Entities\Products\ProductPriceDiscount;
 
-class OrderItem
+class OrderItem implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -206,5 +207,27 @@ class OrderItem
     public function isInstorePaymentRequired()
     {
         return $this->instorePaymentRequired;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'price' => $this->getPrice(),
+            'quantity' => $this->getQuantity(),
+            'linePrice' => $this->getLinePrice(),
+            'enabled' => $this->isEnabled(),
+            'detail' => $this->getDetail(),
+            'status' => $this->getStatus(),
+            'note' => $this->getNote(),
+            'itemDiscount' => $this->getItemDiscount(),
+            'readyEstimate' => $this->getReadyEstimate(),
+            'extras' => $this->getExtras(),
+            'options' => $this->getOptions(),
+            'instorePaymentRequired' => $this->isInstorePaymentRequired(),
+        ];
     }
 }

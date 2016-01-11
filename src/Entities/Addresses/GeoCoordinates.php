@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Addresses;
 
-class GeoCoordinates
+use JsonSerializable;
+
+class GeoCoordinates implements JsonSerializable
 {
     /** @var string */
     private $latitude;
@@ -31,5 +33,16 @@ class GeoCoordinates
     public function getLongitude()
     {
         return $this->longitude;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'latitude' => $this->getLatitude(),
+            'longitude' => $this->getLongitude(),
+        ];
     }
 }
