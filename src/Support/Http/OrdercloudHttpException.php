@@ -16,7 +16,7 @@ class OrdercloudHttpException extends OrdercloudException
 
     public function __construct(Response $response, Request $request, Exception $previousException = null)
     {
-        $message = $response->getData('value', false);
+        $message = $response->getData('message', false);
         if ( ! $message) {
             $message = $previousException ? $previousException->getMessage() : 'Unkown error.';
         }
