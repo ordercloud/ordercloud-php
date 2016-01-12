@@ -1,9 +1,10 @@
 <?php namespace Ordercloud\Entities\Products;
 
+use JsonSerializable;
 use Ordercloud\Entities\Connections\Connection;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 
-class ProductDiscount
+class ProductDiscount implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -35,5 +36,95 @@ class ProductDiscount
         $this->amount = $amount;
         $this->startDate = $startDate;
         $this->enabled = $enabled;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return OrganisationShort
+     */
+    public function getOrganisation()
+    {
+        return $this->organisation;
+    }
+
+    /**
+     * @return OrganisationShort
+     */
+    public function getDiscountProvider()
+    {
+        return $this->discountProvider;
+    }
+
+    /**
+     * @return OrganisationShort
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+
+    /**
+     * @return Connection
+     */
+    public function getConnection()
+    {
+        return $this->connection;
+    }
+
+    /**
+     * @return Product
+     */
+    public function getProductItem()
+    {
+        return $this->productItem;
+    }
+
+    /**
+     * @return float
+     */
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'organisation' => $this->getOrganisation(),
+            'discountProvider' => $this->getDiscountProvider(),
+            'brand' => $this->getBrand(),
+            'connection' => $this->getConnection(),
+            'productItem' => $this->getProductItem(),
+            'amount' => $this->getAmount(),
+            'startDate' => $this->getStartDate(),
+            'enabled' => $this->isEnabled(),
+        ];
     }
 }

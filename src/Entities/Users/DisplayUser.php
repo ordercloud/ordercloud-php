@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Users;
 
-class DisplayUser
+use JsonSerializable;
+
+class DisplayUser implements JsonSerializable
 {
     /** @var int */
     private $id;
@@ -27,5 +29,16 @@ class DisplayUser
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'username' => $this->getUsername(),
+        ];
     }
 }

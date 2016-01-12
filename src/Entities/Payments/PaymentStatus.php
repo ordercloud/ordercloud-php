@@ -1,48 +1,13 @@
 <?php namespace Ordercloud\Entities\Payments;
 
-class PaymentStatus
+use JsonSerializable;
+
+class PaymentStatus extends AbstractPaymentStatus implements JsonSerializable
 {
-    const UNPAID = 'UNPAID';
-    const PARTLY_PAID = 'PARTLY_PAID';
-    const DEPOSIT_PAID = 'DEPOSIT_PAID';
-    const PAID = 'PAID';
-    const ACCOUNT = 'ACCOUNT';
-
-    /** @var string */
-    private $status;
-    /** @var string */
-    private $when;
-    /** @var string */
-    private $message;
-
-    public function __construct($status, $when, $message)
-    {
-        $this->status = $status;
-        $this->when = $when;
-        $this->message = $message;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @return string
-     */
-    public function getWhen()
-    {
-        return $this->when;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
+    const PENDING = 'PENDING';
+    const PROCESSING = 'PROCESSING';
+    const FAILED = 'FAILED';
+    const SUCCESSFUL = 'SUCCESSFUL';
+    const RESERVED = 'RESERVED';
+    const REFUND = 'REFUND';
 }

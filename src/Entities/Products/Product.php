@@ -1,8 +1,9 @@
 <?php namespace Ordercloud\Entities\Products;
 
+use JsonSerializable;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 
-class Product
+class Product implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -338,5 +339,33 @@ class Product
     public function isGlobalProduct()
     {
         return $this->globalProduct;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'shortDescription' => $this->getShortDescription(),
+            'sku' => $this->getSku(),
+            'price' => $this->getPrice(),
+            'attributes' => $this->getAttributes(),
+            'options' => $this->getOptionSets(),
+            'extras' => $this->getExtraSets(),
+            'tags' => $this->getTags(),
+            'organisation' => $this->getOrganisation(),
+            'enabled' => $this->isEnabled(),
+            'available' => $this->isAvailable(),
+            'availableOnline' => $this->isAvailableOnline(),
+            'images' => $this->getImages(),
+            'groupItems' => $this->getGroupItems(),
+            'productType' => $this->getProductType(),
+            'discount' => $this->getDiscount(),
+            'globalProduct' => $this->isGlobalProduct(),
+        ];
     }
 }

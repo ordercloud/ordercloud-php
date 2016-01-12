@@ -1,10 +1,9 @@
 <?php namespace Ordercloud\Entities\Orders;
 
-use Ordercloud\Support\Http\Request;
-use Ordercloud\Support\Http\Response;
+use JsonSerializable;
 use Ordercloud\Support\PaginatedCollection;
 
-class OrderCollection extends PaginatedCollection
+class OrderCollection extends PaginatedCollection implements JsonSerializable
 {
     /**
      * @param array|Order[] $items
@@ -15,5 +14,13 @@ class OrderCollection extends PaginatedCollection
     public function __construct(array $items, $totalCount, $currentPage, $pageSize)
     {
         parent::__construct($items, $totalCount, $currentPage, $pageSize);
+    }
+
+    /**
+     * @return Order[]
+     */
+    public function all()
+    {
+        return parent::all();
     }
 }

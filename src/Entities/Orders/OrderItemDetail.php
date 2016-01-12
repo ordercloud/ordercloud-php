@@ -1,10 +1,10 @@
 <?php namespace Ordercloud\Entities\Orders;
 
-use Ordercloud\Entities\Organisations\OrganisationShort;
+use JsonSerializable;
 use Ordercloud\Entities\Products\ProductShort;
 use Ordercloud\Entities\Products\ProductType;
 
-class OrderItemDetail extends ProductShort
+class OrderItemDetail extends ProductShort implements JsonSerializable
 {
     public function __construct($id, $name, $price, $description, $shortDescription, OrderItemMerchant $organisation, $available, $enabled, $sku, $availableOnline, ProductType $productType, array $groupItems)
     {
@@ -30,5 +30,17 @@ class OrderItemDetail extends ProductShort
     public function getMerchant()
     {
         return $this->getOrganisation();
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['merchant'] = $this->getMerchant();
+
+        return $json;
     }
 }

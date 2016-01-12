@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Users;
 
-class UserProfile
+use JsonSerializable;
+
+class UserProfile implements JsonSerializable
 {
     const GENDER_MALE = 'M';
     const GENDER_FEMALE = 'F';
@@ -92,5 +94,20 @@ class UserProfile
     public function isFemale()
     {
         return $this->getSex() == static::GENDER_FEMALE;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'firstName' => $this->getFirstName(),
+            'surname' => $this->getSurname(),
+            'email' => $this->getEmail(),
+            'nickName' => $this->getNickName(),
+            'cellphoneNumber' => $this->getCellphoneNumber(),
+            'sex' => $this->getSex(),
+        ];
     }
 }

@@ -6,6 +6,7 @@ use Ordercloud\Entities\Products\ProductTag;
 use Ordercloud\Requests\Products\Criteria\ProductCriteria;
 use Ordercloud\Requests\Products\FindProductsRequest;
 use Ordercloud\Requests\Products\GetProductRequest;
+use Ordercloud\Requests\Products\GetProductTagRequest;
 use Ordercloud\Requests\Products\GetProductTagsForOrganisationByTypeNameRequest;
 
 class ProductService extends OrdercloudService
@@ -27,8 +28,10 @@ class ProductService extends OrdercloudService
      *
      * @return ProductCollection|Product[]
      */
-    public function getProducts(ProductCriteria $criteria)
+    public function getProducts(ProductCriteria $criteria = null)
     {
+        $criteria = $criteria ?: ProductCriteria::create();
+
         return $this->request(
             new FindProductsRequest($criteria)
         );
@@ -44,6 +47,13 @@ class ProductService extends OrdercloudService
     {
         return $this->request(
             new GetProductTagsForOrganisationByTypeNameRequest($organisationId, $tagName)
+        );
+    }
+
+    public function getProductTag($tagId)
+    {
+        return $this->request(
+            new GetProductTagRequest($tagId)
         );
     }
 }

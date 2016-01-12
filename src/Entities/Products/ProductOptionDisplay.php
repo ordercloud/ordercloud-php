@@ -1,5 +1,7 @@
 <?php namespace Ordercloud\Entities\Products;
 
-class ProductOptionDisplay extends ProductAddonDisplay
+use JsonSerializable;
+
+class ProductOptionDisplay extends ProductAddonDisplay implements JsonSerializable
 {
 }

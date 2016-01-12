@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Addresses;
 
-class Address
+use JsonSerializable;
+
+class Address implements JsonSerializable
 {
     /** @var string */
     private $streetNumber;
@@ -95,5 +97,20 @@ class Address
             $this->getCity(),
             $this->getPostalCode()
         ]);
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'streetNumber' => $this->streetNumber,
+            'streetName' => $this->streetName,
+            'complex' => $this->complex,
+            'suburb' => $this->suburb,
+            'city' => $this->city,
+            'postalCode' => $this->postalCode,
+        ];
     }
 }

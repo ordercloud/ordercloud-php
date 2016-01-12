@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-class ProductImage
+use JsonSerializable;
+
+class ProductImage implements JsonSerializable
 {
     /** @var string */
     private $name;
@@ -38,5 +40,17 @@ class ProductImage
     public function isDefault()
     {
         return $this->default;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'name' => $this->getName(),
+            'thumbnail' => $this->getThumbnail(),
+            'default' => $this->isDefault(),
+        ];
     }
 }

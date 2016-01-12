@@ -1,9 +1,10 @@
 <?php namespace Ordercloud\Entities\Delivery;
 
+use JsonSerializable;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 use Ordercloud\Entities\Users\UserShort;
 
-class DeliveryAgent
+class DeliveryAgent implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -113,5 +114,23 @@ class DeliveryAgent
     public function getCardNo()
     {
         return $this->cardNo;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'user' => $this->getUser(),
+            'organisation' => $this->getOrganisation(),
+            'minBalance' => $this->getMinBalance(),
+            'maxBalance' => $this->getMaxBalance(),
+            'enabled' => $this->isEnabled(),
+            'status' => $this->getStatus(),
+            'accountNo' => $this->getAccountNo(),
+            'cardNo' => $this->getCardNo(),
+        ];
     }
 }

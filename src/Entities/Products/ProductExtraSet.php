@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-class ProductExtraSet extends AbstractProductAddonSet
+use JsonSerializable;
+
+class ProductExtraSet extends AbstractProductAddonSet implements JsonSerializable
 {
     /**
      * @var array|ProductExtra[]
@@ -53,5 +55,17 @@ class ProductExtraSet extends AbstractProductAddonSet
         }
 
         return null;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['extras'] = $this->getExtras();
+
+        return $json;
     }
 }

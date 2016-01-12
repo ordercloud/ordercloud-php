@@ -1,13 +1,13 @@
 <?php namespace Ordercloud\Entities\Orders;
 
+use JsonSerializable;
 use Ordercloud\Entities\Delivery\DeliveryAgent;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 use Ordercloud\Entities\Payments\Payment;
-use Ordercloud\Entities\Payments\PaymentStatus;
 use Ordercloud\Entities\Users\UserAddress;
 use Ordercloud\Entities\Users\UserShort;
 
-class Order
+class Order implements JsonSerializable
 {
     const DELIVERY_TYPE_SELFPICKUP = 'SELFPICKUP';
     const DELIVERY_TYPE_DELIVERY = 'DELIVERY';
@@ -40,7 +40,7 @@ class Order
     private $userAddress;
     /** @var OrganisationShort */
     private $organisation;
-    /** @var PaymentStatus */
+    /** @var OrderPaymentStatus */
     private $paymentStatus;
     /**
      * @var array|Payment[]
@@ -69,9 +69,13 @@ class Order
     /**
      * @var string
      */
-    private $scheduledDeliveryDate;
+    private $scheduledDate;
+    /**
+     * @var float
+     */
+    private $tip;
 
-    //TODO add: tip + delivery + statusHistory
+    //TODO add: delivery + statusHistory
     public function __construct(
         $id,
         $reference,
@@ -84,7 +88,7 @@ class Order
         UserShort $user,
         UserAddress $userAddress = null,
         OrganisationShort $organisation,
-        PaymentStatus $paymentStatus,
+        OrderPaymentStatus $paymentStatus,
         array $payments,
         array $paymentMethods,
         $deliveryType,
@@ -93,7 +97,8 @@ class Order
         $estimatedDeliveryTime,
         $deliveryCost,
         OrderSourceChannel $orderSourceChannel = null,
-        $scheduledDeliveryDate = null
+        $scheduledDate = null,
+        $tip
     )
     {
         $this->id = $id;
@@ -116,7 +121,8 @@ class Order
         $this->estimatedDeliveryTime = $estimatedDeliveryTime;
         $this->deliveryCost = $deliveryCost;
         $this->orderSourceChannel = $orderSourceChannel;
-        $this->scheduledDeliveryDate = $scheduledDeliveryDate;
+        $this->scheduledDate = $scheduledDate;
+        $this->tip = $tip;
     }
 
     /**
@@ -228,7 +234,7 @@ class Order
     }
 
     /**
-     * @return PaymentStatus
+     * @return OrderPaymentStatus
      */
     public function getPaymentStatus()
     {
@@ -320,8 +326,44 @@ class Order
     /**
      * @return string
      */
-    public function getScheduledDeliveryDate()
+    public function getScheduledDate()
     {
-        return $this->scheduledDeliveryDate;
+        return $this->scheduledDate;
+    }
+
+    public function getTip()
+    {
+        return $this->tip;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'reference' => $this->getReference(),
+            'shortReference' => $this->getShortReference(),
+            'dateCreated' => $this->getDateCreated(),
+            'lastUpdated' => $this->getLastUpdated(),
+            'amount' => $this->getAmount(),
+            'status' => $this->getStatus(),
+            'items' => $this->getItems(),
+            'user' => $this->getUser(),
+            'userGeo' => $this->getUserAddress(),
+            'organisation' => $this->getOrganisation(),
+            'paymentStatus' => $this->getPaymentStatus(),
+            'payments' => $this->getPayments(),
+            'paymentMethod' => $this->getPaymentMethods(),
+            'deliveryType' => $this->getDeliveryType(),
+            'deliveryAgent' => $this->getDeliveryAgent(),
+            'note' => $this->getNote(),
+            'estimatedDeliveryTime' => $this->getEstimatedDeliveryTime(),
+            'deliveryCost' => $this->getDeliveryCost(),
+            'orderSourceChannel' => $this->getOrderSourceChannel(),
+            'scheduledDate' => $this->getScheduledDate(),
+            'tip' => $this->tip,
+        ];
     }
 }

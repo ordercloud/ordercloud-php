@@ -27,7 +27,7 @@ class CreateOrderRequestBuilder
     /** @var int */
     private $orderSourceChannelId;
     /** @var string */
-    private $deliveryTime;
+    private $scheduledTime;
 
     /**
      * @return static
@@ -54,7 +54,7 @@ class CreateOrderRequestBuilder
             $this->tip,
             $this->deliveryServiceId,
             $this->orderSourceChannelId,
-            $this->deliveryTime
+            $this->scheduledTime
         );
     }
 
@@ -191,13 +191,13 @@ class CreateOrderRequestBuilder
     }
 
     /**
-     * @param string $deliveryTime
+     * @param string $scheduledTime
      *
      * @return static
      */
-    public function setDeliveryTime($deliveryTime)
+    public function setScheduledTime($scheduledTime)
     {
-        $this->deliveryTime = $deliveryTime;
+        $this->scheduledTime = $scheduledTime;
 
         return $this;
     }

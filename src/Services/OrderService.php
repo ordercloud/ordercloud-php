@@ -2,10 +2,14 @@
 
 use Ordercloud\Entities\Orders\Order;
 use Ordercloud\Entities\Orders\OrderCollection;
+use Ordercloud\Entities\Orders\ScheduleOption;
+use Ordercloud\Requests\Exceptions\NotFoundRequestException;
+use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\Orders\CreateOrderRequest;
 use Ordercloud\Requests\Orders\Criteria\UserOrderCriteria;
 use Ordercloud\Requests\Orders\EstimateDeliveryCostRequest;
 use Ordercloud\Requests\Orders\GetOrderRequest;
+use Ordercloud\Requests\Orders\GetOrderScheduleOptionsRequest;
 use Ordercloud\Requests\Orders\GetUserOrdersRequest;
 
 class OrderService extends OrdercloudService
@@ -14,6 +18,9 @@ class OrderService extends OrdercloudService
      * @param int $orderId
      *
      * @return Order
+     *
+     * @throws OrdercloudRequestException
+     * @throws NotFoundRequestException
      */
     public function getOrder($orderId)
     {
@@ -27,9 +34,13 @@ class OrderService extends OrdercloudService
      * @param UserOrderCriteria $criteria
      *
      * @return OrderCollection
+     *
+     * @throws OrdercloudRequestException
      */
-    public function getUserOrders($userId, UserOrderCriteria $criteria)
+    public function getUserOrders($userId, UserOrderCriteria $criteria = null)
     {
+        $criteria = $criteria ?: UserOrderCriteria::create();
+
         return $this->request(
             new GetUserOrdersRequest($userId, $criteria)
         );
@@ -41,6 +52,8 @@ class OrderService extends OrdercloudService
      * @param array|int $merchantIds
      *
      * @return float
+     *
+     * @throws OrdercloudRequestException
      */
     public function estimateDeliveryCost($deliveryServiceOrganisationId, $geoId, array $merchantIds)
     {
@@ -52,12 +65,28 @@ class OrderService extends OrdercloudService
     /**
      * @param CreateOrderRequest $request
      *
+     * @see Ordercloud\Requests\Orders\Builders\CreateOrderRequestBuilder
+     *
      * @return int The order ID
      *
-     * @see Ordercloud\Requests\Orders\Builders\CreateOrderRequestBuilder
+     * @throws OrdercloudRequestException
      */
     public function createOrder(CreateOrderRequest $request)
     {
         return $this->request($request);
+    }
+
+    /**
+     * @param int[]  $organisationIds
+     * @param string $fromDate
+     * @param string $toDate
+     *
+     * @return ScheduleOption[]
+     *
+     * @throws OrdercloudRequestException
+     */
+    public function getScheduleOptions(array $organisationIds, $fromDate = null, $toDate = null)
+    {
+        return $this->request(new GetOrderScheduleOptionsRequest($organisationIds, $fromDate, $toDate));
     }
 }

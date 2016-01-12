@@ -15,18 +15,34 @@ use Ordercloud\Requests\Organisations\GetOrganisationConnectionsByTypeRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationConnectionsRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationRequest;
 use Ordercloud\Requests\Organisations\GetSettingsByOrganisationRequest;
+use Ordercloud\Requests\Settings\Criteria\SettingsCriteria;
 
 class OrganisationService extends OrdercloudService
 {
+    /**
+     * @param                  $organisationId
+     * @param SettingsCriteria $criteria
+     *
+     * @return SettingsCollection
+     */
+    public function getSettings($organisationId, SettingsCriteria $criteria = null)
+    {
+        $criteria = $criteria ?: SettingsCriteria::create();
+        return $this->request(
+            new GetSettingsByOrganisationRequest($organisationId, $criteria)
+        );
+    }
+
     /**
      * @param $organisationId
      *
      * @return SettingsCollection
      */
-    public function getSettings($organisationId)
+    public function getAllSettings($organisationId)
     {
+        $criteria = SettingsCriteria::create()->setPageSize(-1);
         return $this->request(
-            new GetSettingsByOrganisationRequest($organisationId)
+            new GetSettingsByOrganisationRequest($organisationId, $criteria)
         );
     }
 
@@ -36,7 +52,7 @@ class OrganisationService extends OrdercloudService
      *
      * @return OrganisationAccessToken
      */
-    public function getAccessToken($organisationId, Authorisation $authorisation)
+    public function getAccessToken($organisationId, Authorisation $authorisation = null)
     {
         return $this->request(
             new GetOrganisationAccessTokenRequest($organisationId, $authorisation)
@@ -113,6 +129,8 @@ class OrganisationService extends OrdercloudService
      */
     public function getConnections($organisationId = null, AdvancedConnectionCriteria $criteria = null)
     {
+        $criteria = $criteria ?: AdvancedConnectionCriteria::create();
+
         return $this->request(
             new GetOrganisationConnectionsRequest($organisationId, $criteria)
         );

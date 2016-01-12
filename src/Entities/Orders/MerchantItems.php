@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Orders;
 
-class MerchantItems
+use JsonSerializable;
+
+class MerchantItems implements JsonSerializable
 {
     /**
      * @var OrderItemMerchant
@@ -93,5 +95,17 @@ class MerchantItems
         }
 
         return $total;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'merchant' => $this->getMerchant(),
+            'totalAmount' => $this->getTotalAmount(),
+            'items' => $this->getItems(),
+        ];
     }
 }

@@ -1,9 +1,10 @@
 <?php namespace Ordercloud\Entities\Payments;
 
+use JsonSerializable;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 use Ordercloud\Entities\Users\DisplayUser;
 
-class Payment
+class Payment implements JsonSerializable
 {
     const PAYMENT_GATEWAY_MYGATE_ZA = "MYGATE_ZA";
     const PAYMENT_GATEWAY_PAYU_ZA = "PAYU_ZA";
@@ -30,9 +31,12 @@ class Payment
     private $gateway;
     /** @var integer */
     private $grouping;
+    /**
+     * @var string
+     */
+    private $creationDate;
 
-    // TODO $lastPaymentStatus is not supposed to be null - or even on this entity...
-    public function __construct($id, PaymentStatus $lastPaymentStatus = null, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, OrganisationShort $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $grouping)
+    public function __construct($id, PaymentStatus $lastPaymentStatus, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, OrganisationShort $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $grouping, $creationDate)
     {
         $this->id = $id;
         $this->lastPaymentStatus = $lastPaymentStatus;
@@ -45,6 +49,7 @@ class Payment
         $this->paymentMethod = $paymentMethod;
         $this->gateway = $gateway;
         $this->grouping = $grouping;
+        $this->creationDate = $creationDate;
     }
 
     /**
@@ -133,5 +138,34 @@ class Payment
     public function getGrouping()
     {
         return $this->grouping;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'lastPaymentStatus' => $this->getLastPaymentStatus(),
+            'gatewayTransactionId' => $this->getGatewayTransactionId(),
+            'requestId' => $this->getRequestId(),
+            'requestedByUser' => $this->getRequestedByUser(),
+            'requestedByOrganisation' => $this->getRequestedByOrganisation(),
+            'assetTypeCode' => $this->getAssetTypeCode(),
+            'amount' => $this->getAmount(),
+            'paymentMethod' => $this->getPaymentMethod(),
+            'gateway' => $this->getGateway(),
+            'grouping' => $this->getGrouping(),
+            'creationDate' => $this->getCreationDate(),
+        ];
     }
 }

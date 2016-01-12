@@ -1,8 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-use Ordercloud\Entities\Organisations\OrganisationShort;
+use JsonSerializable;
 
-class ProductOption extends ProductAddon
+class ProductOption extends ProductAddon implements JsonSerializable
 {
     /**
      * @var array|ProductOptionSet[]

@@ -1,8 +1,9 @@
 <?php namespace Ordercloud\Entities\Organisations;
 
+use JsonSerializable;
 use Ordercloud\Entities\Addresses\NamedCoordinatedAddress;
 
-class OrganisationAddress extends NamedCoordinatedAddress
+class OrganisationAddress extends NamedCoordinatedAddress implements JsonSerializable
 {
     /** @var int */
     private $id;
@@ -41,5 +42,17 @@ class OrganisationAddress extends NamedCoordinatedAddress
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['id'] = $this->getId();
+
+        return $json;
     }
 }

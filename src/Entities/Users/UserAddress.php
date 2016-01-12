@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Users;
 
-class UserAddress extends NewUserAddress
+use JsonSerializable;
+
+class UserAddress extends NewUserAddress implements JsonSerializable
 {
     /**
      * @var int
@@ -19,5 +21,17 @@ class UserAddress extends NewUserAddress
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['id'] = $this->getId();
+
+        return $json;
     }
 }

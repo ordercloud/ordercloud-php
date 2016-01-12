@@ -1,10 +1,16 @@
 <?php namespace Ordercloud\Entities\Products;
 
-class ProductAttribute
+use JsonSerializable;
+
+class ProductAttribute implements JsonSerializable
 {
-    /** @var integer */
+    /**
+     * @var integer
+     */
     private $id;
-    /** @var boolean */
+    /**
+     * @var boolean
+     */
     private $enabled;
     /**
      * @var string
@@ -73,5 +79,19 @@ class ProductAttribute
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'enabled' => $this->isEnabled(),
+            'value' => $this->getValue()
+        ];
     }
 }

@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Organisations;
 
-class Organisation extends OrganisationShort
+use JsonSerializable;
+
+class Organisation extends OrganisationShort implements JsonSerializable
 {
     /**
      * @var array|OrganisationType[]
@@ -13,11 +15,9 @@ class Organisation extends OrganisationShort
      */
     private $industries;
     /**
-     * @var array|OrganisationProfile[]
-     * @reflectName profile
-     * @reflectType Ordercloud\Entities\Organisations\OrganisationProfile
+     * @var OrganisationProfile
      */
-    private $profiles;
+    private $profile;
     /**
      * @var array|OrganisationOperatingHours[]
      * @reflectType Ordercloud\Entities\Organisations\OrganisationOperatingHours
@@ -36,12 +36,12 @@ class Organisation extends OrganisationShort
     /** @var boolean */
     private $registeredDirectly;
 
-    public function __construct($id, $name, $code, array $types, array $industries, array $profiles, array $operatingHours, $ordersHash, OrganisationStatus $status = null, $lastOnline, $delivering, $open, $registeredDirectly)
+    public function __construct($id, $name, $code, array $types, array $industries, OrganisationProfile $profile, array $operatingHours, $ordersHash, OrganisationStatus $status = null, $lastOnline, $delivering, $open, $registeredDirectly)
     {
         parent::__construct($id, $name, $code);
         $this->types = $types;
         $this->industries = $industries;
-        $this->profiles = $profiles;
+        $this->profile = $profile;
         $this->operatingHours = $operatingHours;
         $this->ordersHash = $ordersHash;
         $this->status = $status;
@@ -68,11 +68,11 @@ class Organisation extends OrganisationShort
     }
 
     /**
-     * @return array|OrganisationProfile[]
+     * @return OrganisationProfile
      */
-    public function getProfiles()
+    public function getProfile()
     {
-        return $this->profiles;
+        return $this->profile;
     }
 
     /**
@@ -129,5 +129,26 @@ class Organisation extends OrganisationShort
     public function isRegisteredDirectly()
     {
         return $this->registeredDirectly;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['types'] = $this->getTypes();
+        $json['industries'] = $this->getIndustries();
+        $json['profile'] = $this->getProfile();
+        $json['operatingHours'] = $this->getOperatingHours();
+        $json['ordersHash'] = $this->getOrdersHash();
+        $json['status'] = $this->getStatus();
+        $json['lastOnline'] = $this->getLastOnline();
+        $json['delivering'] = $this->isDelivering();
+        $json['open'] = $this->isOpen();
+        $json['registeredDirectly'] = $this->isRegisteredDirectly();
+
+        return $json;
     }
 }

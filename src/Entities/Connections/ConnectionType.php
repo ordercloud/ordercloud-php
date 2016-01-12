@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Connections;
 
-class ConnectionType
+use JsonSerializable;
+
+class ConnectionType implements JsonSerializable
 {
     const CHAIN_STORE = 'C';
     const CHILD = 'CH';
@@ -68,5 +70,17 @@ class ConnectionType
     public function setCode($code)
     {
         $this->code = $code;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'code' => $this->getCode(),
+        ];
     }
 }

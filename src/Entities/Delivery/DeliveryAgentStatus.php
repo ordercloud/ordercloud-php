@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Delivery;
 
-class DeliveryAgentStatus
+use JsonSerializable;
+
+class DeliveryAgentStatus implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -27,5 +29,16 @@ class DeliveryAgentStatus
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'status' => $this->getStatus(),
+        ];
     }
 }

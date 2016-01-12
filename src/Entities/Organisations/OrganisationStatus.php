@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Entities\Organisations;
 
-class OrganisationStatus
+use JsonSerializable;
+
+class OrganisationStatus implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -33,14 +35,6 @@ class OrganisationStatus
     }
 
     /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
      * @return string
      */
     public function getDescription()
@@ -49,10 +43,14 @@ class OrganisationStatus
     }
 
     /**
-     * @param string $description
+     * Specify data which should be serialized to JSON
      */
-    public function setDescription($description)
+    function jsonSerialize()
     {
-        $this->description = $description;
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+        ];
     }
 }

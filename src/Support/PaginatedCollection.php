@@ -1,6 +1,8 @@
 <?php namespace Ordercloud\Support;
 
-class PaginatedCollection extends Collection
+use JsonSerializable;
+
+class PaginatedCollection extends Collection implements JsonSerializable
 {
     /** @var int */
     protected $totalCount;
@@ -88,5 +90,22 @@ class PaginatedCollection extends Collection
     public function hasPreviousPage()
     {
         return ! is_null($this->getPreviousPage());
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    public function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['totalCount'] = $this->getTotalCount();
+        $json['currentPage'] = $this->getCurrentPage();
+        $json['pageSize'] = $this->getPageSize();
+        $json['totalNrPages'] = $this->getTotalNrPages();
+        $json['nextPage'] = $this->getNextPage();
+        $json['previousPage'] = $this->getPreviousPage();
+
+        return $json;
     }
 }

@@ -1,15 +1,24 @@
 <?php namespace Ordercloud\Entities\Orders;
 
+use JsonSerializable;
 use Ordercloud\Entities\Products\ProductExtraDisplay;
 use Ordercloud\Entities\Products\ProductOptionDisplay;
 use Ordercloud\Entities\Products\ProductPriceDiscount;
 
-class OrderItem
+class OrderItem implements JsonSerializable
 {
     /** @var integer */
     private $id;
     /** @var float */
     private $price;
+    /**
+     * @var float
+     */
+    private $markup;
+    /**
+     * @var float
+     */
+    private $unitPrice;
     /** @var integer */
     private $quantity;
     /** @var float */
@@ -42,6 +51,8 @@ class OrderItem
     public function __construct(
         $id,
         $price,
+        $markup,
+        $unitPrice,
         $quantity,
         $linePrice,
         $enabled,
@@ -57,6 +68,7 @@ class OrderItem
     {
         $this->id = $id;
         $this->price = $price;
+        $this->markup = $markup;
         $this->quantity = $quantity;
         $this->linePrice = $linePrice;
         $this->enabled = $enabled;
@@ -68,6 +80,7 @@ class OrderItem
         $this->extras = $extras;
         $this->options = $options;
         $this->instorePaymentRequired = $instorePaymentRequired;
+        $this->unitPrice = $unitPrice;
     }
 
     /**
@@ -88,6 +101,22 @@ class OrderItem
     public function getPrice()
     {
         return floatval($this->price);
+    }
+
+    /**
+     * @return float
+     */
+    public function getMarkup()
+    {
+        return floatval($this->markup);
+    }
+
+    /**
+     * @return float
+     */
+    public function getUnitPrice()
+    {
+        return floatval($this->unitPrice);
     }
 
     /**
@@ -206,5 +235,29 @@ class OrderItem
     public function isInstorePaymentRequired()
     {
         return $this->instorePaymentRequired;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'price' => $this->getPrice(),
+            'markup' => $this->getMarkup(),
+            'unitPrice' => $this->getUnitPrice(),
+            'quantity' => $this->getQuantity(),
+            'linePrice' => $this->getLinePrice(),
+            'enabled' => $this->isEnabled(),
+            'detail' => $this->getDetail(),
+            'status' => $this->getStatus(),
+            'note' => $this->getNote(),
+            'itemDiscount' => $this->getItemDiscount(),
+            'readyEstimate' => $this->getReadyEstimate(),
+            'extras' => $this->getExtras(),
+            'options' => $this->getOptions(),
+            'instorePaymentRequired' => $this->isInstorePaymentRequired(),
+        ];
     }
 }

@@ -1,8 +1,8 @@
 <?php namespace Ordercloud\Entities\Products;
 
-use Ordercloud\Entities\Organisations\OrganisationShort;
+use JsonSerializable;
 
-class ProductTag
+class ProductTag implements JsonSerializable
 {
     /** @var integer */
     private $id;
@@ -16,8 +16,6 @@ class ProductTag
     private $enabled;
     /** @var ProductTagType */
     private $type;
-    /** @var OrganisationShort */
-    private $organisation;
     /** @var ProductTagLink */
     private $parentTag;
     /**
@@ -26,7 +24,7 @@ class ProductTag
      */
     private $childTags;
 
-    public function __construct($id, $name, $description, $shortDescription, $enabled, ProductTagType $tagType = null, OrganisationShort $organisation, ProductTagLink $parentTag = null, array $childTags)
+    public function __construct($id, $name, $description, $shortDescription, $enabled, ProductTagType $tagType = null, ProductTagLink $parentTag = null, array $childTags)
     {
         $this->id = $id;
         $this->name = $name;
@@ -34,7 +32,6 @@ class ProductTag
         $this->shortDescription = $shortDescription;
         $this->enabled = $enabled;
         $this->type = $tagType;
-        $this->organisation = $organisation;
         $this->parentTag = $parentTag;
         $this->childTags = $childTags;
     }
@@ -102,14 +99,6 @@ class ProductTag
     }
 
     /**
-     * @return OrganisationShort
-     */
-    public function getOrganisation()
-    {
-        return $this->organisation;
-    }
-
-    /**
      * @return ProductTagLink
      */
     public function getParentTag()
@@ -123,5 +112,22 @@ class ProductTag
     public function getChildTags()
     {
         return $this->childTags;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'shortDescription' => $this->getShortDescription(),
+            'enabled' => $this->isEnabled(),
+            'tagType' => $this->getType(),
+            'parentTag' => $this->getParentTag(),
+            'childTags' => $this->getChildTags(),
+        ];
     }
 }
