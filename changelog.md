@@ -10,6 +10,7 @@ For now, please use all minor versions as major versions and each build version 
 - `markup` to `OrderItem`
 - `unitPrice` to `OrderItem`
 - `tip` to `Order`
+- `GetOrderInvoiceRequest` & `OrderInvoice`
 
 ## [0.5.1]
 ### Fixed
