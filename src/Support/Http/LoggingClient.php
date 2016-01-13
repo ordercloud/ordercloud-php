@@ -42,8 +42,8 @@ class LoggingClient implements Client
         $this->logger->info('ordercloud request', compact('url', 'method', 'params', 'headers'));
 
         $this->logger->info('ordercloud response', [
-            'rawResponse' => $response->getRawResponse(),
-            'rawRequest'  => $response->getRequest()->getRawRequest(),
+            'rawResponse' => utf8_encode($response->getRawResponse()),
+            'rawRequest'  => utf8_encode($response->getRequest()->getRawRequest()),
         ]);
 
         return $response;
