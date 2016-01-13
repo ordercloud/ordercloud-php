@@ -2,12 +2,14 @@
 
 use Ordercloud\Entities\Orders\Order;
 use Ordercloud\Entities\Orders\OrderCollection;
+use Ordercloud\Entities\Orders\OrderInvoice;
 use Ordercloud\Entities\Orders\ScheduleOption;
 use Ordercloud\Requests\Exceptions\NotFoundRequestException;
 use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\Orders\CreateOrderRequest;
 use Ordercloud\Requests\Orders\Criteria\UserOrderCriteria;
 use Ordercloud\Requests\Orders\EstimateDeliveryCostRequest;
+use Ordercloud\Requests\Orders\GetOrderInvoiceRequest;
 use Ordercloud\Requests\Orders\GetOrderRequest;
 use Ordercloud\Requests\Orders\GetOrderScheduleOptionsRequest;
 use Ordercloud\Requests\Orders\GetUserOrdersRequest;
@@ -88,5 +90,17 @@ class OrderService extends OrdercloudService
     public function getScheduleOptions(array $organisationIds, $fromDate = null, $toDate = null)
     {
         return $this->request(new GetOrderScheduleOptionsRequest($organisationIds, $fromDate, $toDate));
+    }
+
+    /**
+     * @param int $orderId
+     *
+     * @return OrderInvoice
+     */
+    public function getOrderInvoice($orderId)
+    {
+        return $this->request(
+            new GetOrderInvoiceRequest($orderId)
+        );
     }
 }
