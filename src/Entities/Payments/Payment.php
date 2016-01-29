@@ -130,14 +130,6 @@ class Payment implements JsonSerializable
     }
 
     /**
-     * @return int
-     */
-    public function getGrouping()
-    {
-        return $this->grouping;
-    }
-
-    /**
      * @return string
      */
     public function getCreationDate()
