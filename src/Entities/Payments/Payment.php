@@ -161,7 +161,6 @@ class Payment implements JsonSerializable
             'amount' => $this->getAmount(),
             'paymentMethod' => $this->getPaymentMethod(),
             'gateway' => $this->getGateway(),
-            'grouping' => $this->getGrouping(),
             'creationDate' => $this->getCreationDate(),
         ];
     }
