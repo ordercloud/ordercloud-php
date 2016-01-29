@@ -29,14 +29,12 @@ class Payment implements JsonSerializable
     private $paymentMethod;
     /** @var string */
     private $gateway;
-    /** @var integer */
-    private $grouping;
     /**
      * @var string
      */
     private $creationDate;
 
-    public function __construct($id, PaymentStatus $lastPaymentStatus, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, OrganisationShort $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $grouping, $creationDate)
+    public function __construct($id, PaymentStatus $lastPaymentStatus, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, OrganisationShort $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $creationDate)
     {
         $this->id = $id;
         $this->lastPaymentStatus = $lastPaymentStatus;
@@ -48,7 +46,6 @@ class Payment implements JsonSerializable
         $this->amount = $amount;
         $this->paymentMethod = $paymentMethod;
         $this->gateway = $gateway;
-        $this->grouping = $grouping;
         $this->creationDate = $creationDate;
     }
 
