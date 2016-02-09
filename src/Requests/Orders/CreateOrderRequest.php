@@ -37,13 +37,17 @@ class CreateOrderRequest implements Command
     /**
      * @var int
      */
-    private $orderSourceChannelId; //TODO rather use Name - Or allow for both
+    private $orderSourceChannelId;
     /**
      * @var string
      */
     private $scheduledTime;
+    /**
+     * @var float
+     */
+    private $deliveryCost;
 
-    public function __construct($userId, $organisationId, array $items, $amount, $paymentStatus, $deliveryType, $deliveryAddressId, $note, $tip, $deliveryServiceId, $orderSourceChannelId, $scheduledTime)
+    public function __construct($userId, $organisationId, array $items, $amount, $paymentStatus, $deliveryType, $deliveryAddressId, $note, $tip, $deliveryServiceId, $orderSourceChannelId, $scheduledTime, $deliveryCost)
     {
         $this->userId = $userId;
         $this->organisationId = $organisationId;
@@ -57,6 +61,7 @@ class CreateOrderRequest implements Command
         $this->deliveryServiceId = $deliveryServiceId;
         $this->orderSourceChannelId = $orderSourceChannelId;
         $this->scheduledTime = $scheduledTime;
+        $this->deliveryCost = $deliveryCost;
     }
 
     /**
@@ -153,5 +158,13 @@ class CreateOrderRequest implements Command
     public function getScheduledTime()
     {
         return $this->scheduledTime;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDeliveryCost()
+    {
+        return $this->deliveryCost;
     }
 }
