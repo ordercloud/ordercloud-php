@@ -8,6 +8,9 @@ For now, please use all minor versions as major versions and each build version 
 ## Added
 - `deliveryCost` to create order call
 
+### Changed
+- `assetTypeCode` to `currencyCode` on `Payment`
+
 ## [0.5.2]
 ## Added
 - `JsonSerializable` to all entities - all entities can now be serialized to JSON

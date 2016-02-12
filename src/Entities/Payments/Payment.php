@@ -22,7 +22,7 @@ class Payment implements JsonSerializable
     /** @var OrganisationShort */
     private $requestedByOrganisation;
     /** @var string */
-    private $assetTypeCode;
+    private $currencyCode;
     /** @var float */
     private $amount;
     /** @var string */
@@ -34,7 +34,7 @@ class Payment implements JsonSerializable
      */
     private $creationDate;
 
-    public function __construct($id, PaymentStatus $lastPaymentStatus, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, OrganisationShort $requestedByOrganisation, $assetTypeCode, $amount, $paymentMethod, $gateway, $creationDate)
+    public function __construct($id, PaymentStatus $lastPaymentStatus, $gatewayTransactionId, $requestId, DisplayUser $requestedByUser, OrganisationShort $requestedByOrganisation, $currencyCode, $amount, $paymentMethod, $gateway, $creationDate)
     {
         $this->id = $id;
         $this->lastPaymentStatus = $lastPaymentStatus;
@@ -42,7 +42,7 @@ class Payment implements JsonSerializable
         $this->requestId = $requestId;
         $this->requestedByUser = $requestedByUser;
         $this->requestedByOrganisation = $requestedByOrganisation;
-        $this->assetTypeCode = $assetTypeCode;
+        $this->currencyCode = $currencyCode;
         $this->amount = $amount;
         $this->paymentMethod = $paymentMethod;
         $this->gateway = $gateway;
@@ -100,9 +100,9 @@ class Payment implements JsonSerializable
     /**
      * @return string
      */
-    public function getAssetTypeCode()
+    public function getCurrencyCode()
     {
-        return $this->assetTypeCode;
+        return $this->currencyCode;
     }
 
     /**
@@ -149,7 +149,7 @@ class Payment implements JsonSerializable
             'requestId' => $this->getRequestId(),
             'requestedByUser' => $this->getRequestedByUser(),
             'requestedByOrganisation' => $this->getRequestedByOrganisation(),
-            'assetTypeCode' => $this->getAssetTypeCode(),
+            'currencyCode' => $this->getCurrencyCode(),
             'amount' => $this->getAmount(),
             'paymentMethod' => $this->getPaymentMethod(),
             'gateway' => $this->getGateway(),
