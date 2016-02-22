@@ -11,6 +11,9 @@ For now, please use all minor versions as major versions and each build version 
 ### Changed
 - `assetTypeCode` to `currencyCode` on `Payment`
 
+### Removed
+- `groups` & `organisations` from `User`
+
 ## [0.5.2]
 ## Added
 - `JsonSerializable` to all entities - all entities can now be serialized to JSON
