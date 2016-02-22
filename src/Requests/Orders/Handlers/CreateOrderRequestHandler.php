@@ -30,6 +30,7 @@ class CreateOrderRequestHandler extends AbstractPostRequestHandler
                 'deliveryService'    => $this->identifyById($request->getDeliveryServiceId()),
                 'orderSourceChannel' => $this->identifyById($request->getOrderSourceChannelId()),
                 'scheduledTime'      => $request->getScheduledTime(),
+                'deliveryCost'       => $request->getDeliveryCost(),
             ]);
     }
 
