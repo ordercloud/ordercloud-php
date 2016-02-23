@@ -10,6 +10,7 @@ For now, please use all minor versions as major versions and each build version 
 
 ### Removed
 - `UserGroup` & `UserRole` entities
+- `loggingUrlPatterns` & `loggingMethods` from `LoggingClient`
 
 ## [0.6.0]
 ## Added
