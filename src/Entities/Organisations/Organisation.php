@@ -1,6 +1,7 @@
 <?php namespace Ordercloud\Entities\Organisations;
 
 use JsonSerializable;
+use Ordercloud\Entities\Transactions\Currency;
 
 class Organisation extends OrganisationShort implements JsonSerializable
 {
@@ -23,20 +24,52 @@ class Organisation extends OrganisationShort implements JsonSerializable
      * @reflectType Ordercloud\Entities\Organisations\OrganisationOperatingHours
      */
     private $operatingHours;
-    /** @var integer */
+    /**
+     * @var int
+     */
     private $ordersHash;
-    /** @var OrganisationStatus */
+    /**
+     * @var OrganisationStatus
+     */
     private $status;
-    /** @var string */
+    /**
+     * @var string
+     */
     private $lastOnline;
-    /** @var boolean */
+    /**
+     * @var boolean
+     */
     private $delivering;
-    /** @var boolean */
+    /**
+     * @var boolean
+     */
     private $open;
-    /** @var boolean */
+    /**
+     * @var boolean
+     */
     private $registeredDirectly;
+    /**
+     * @var Currency
+     */
+    private $currency;
 
-    public function __construct($id, $name, $code, array $types, array $industries, OrganisationProfile $profile, array $operatingHours, $ordersHash, OrganisationStatus $status = null, $lastOnline, $delivering, $open, $registeredDirectly)
+    /**
+     * @param int                          $id
+     * @param string                       $name
+     * @param string                       $code
+     * @param OrganisationType[]           $types
+     * @param OrganisationIndustry[]       $industries
+     * @param OrganisationProfile          $profile
+     * @param OrganisationOperatingHours[] $operatingHours
+     * @param int                          $ordersHash
+     * @param OrganisationStatus|null      $status
+     * @param int                          $lastOnline
+     * @param boolean                      $delivering
+     * @param boolean                      $open
+     * @param boolean                      $registeredDirectly
+     * @param Currency                     $currency
+     */
+    public function __construct($id, $name, $code, array $types, array $industries, OrganisationProfile $profile, array $operatingHours, $ordersHash, OrganisationStatus $status = null, $lastOnline, $delivering, $open, $registeredDirectly, Currency $currency)
     {
         parent::__construct($id, $name, $code);
         $this->types = $types;
@@ -49,6 +82,7 @@ class Organisation extends OrganisationShort implements JsonSerializable
         $this->delivering = $delivering;
         $this->open = $open;
         $this->registeredDirectly = $registeredDirectly;
+        $this->currency = $currency;
     }
 
     /**
@@ -132,6 +166,14 @@ class Organisation extends OrganisationShort implements JsonSerializable
     }
 
     /**
+     * @return Currency
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
      * Specify data which should be serialized to JSON
      */
     function jsonSerialize()
@@ -148,6 +190,7 @@ class Organisation extends OrganisationShort implements JsonSerializable
         $json['delivering'] = $this->isDelivering();
         $json['open'] = $this->isOpen();
         $json['registeredDirectly'] = $this->isRegisteredDirectly();
+        $json['currency'] = $this->getCurrency();
 
         return $json;
     }
