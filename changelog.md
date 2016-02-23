@@ -7,6 +7,7 @@ For now, please use all minor versions as major versions and each build version 
 ## [Unreleased]
 ## Added
 - `Currency` entity & `currency` to `Organisation`
+- `additionalInfo` to `Product` entity
 
 ### Removed
 - `UserGroup` & `UserRole` entities
