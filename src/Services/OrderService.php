@@ -9,6 +9,8 @@ use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\Orders\CreateOrderRequest;
 use Ordercloud\Requests\Orders\Criteria\UserOrderCriteria;
 use Ordercloud\Requests\Orders\EstimateDeliveryCostRequest;
+use Ordercloud\Requests\Orders\Exceptions\DeliveryNotAvailableException;
+use Ordercloud\Requests\Orders\Exceptions\OrderTotalConflictException;
 use Ordercloud\Requests\Orders\GetOrderInvoiceRequest;
 use Ordercloud\Requests\Orders\GetOrderRequest;
 use Ordercloud\Requests\Orders\GetOrderScheduleOptionsRequest;
@@ -56,6 +58,7 @@ class OrderService extends OrdercloudService
      * @return float
      *
      * @throws OrdercloudRequestException
+     * @throws DeliveryNotAvailableException
      */
     public function estimateDeliveryCost($deliveryServiceOrganisationId, $geoId, array $merchantIds)
     {
@@ -72,6 +75,8 @@ class OrderService extends OrdercloudService
      * @return int The order ID
      *
      * @throws OrdercloudRequestException
+     * @throws OrderTotalConflictException
+     * @throws DeliveryNotAvailableException
      */
     public function createOrder(CreateOrderRequest $request)
     {
