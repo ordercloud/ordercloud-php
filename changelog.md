@@ -12,6 +12,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `UserGroup` & `UserRole` entities
 - `loggingUrlPatterns` & `loggingMethods` from `LoggingClient`
 
+## [0.6.1]
+- `additionalInfo` to `Product` entity
+
 ## [0.6.0]
 ## Added
 - `deliveryCost` to create order call
@@ -85,7 +88,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.6.0...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.6.1...HEAD
+[0.6.1]: https://github.com/ordercloud/ordercloud-php/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/ordercloud/ordercloud-php/compare/0.5.2...0.6.0
 [0.5.2]: https://github.com/ordercloud/ordercloud-php/compare/0.5.1...0.5.2
 [0.5.1]: https://github.com/ordercloud/ordercloud-php/compare/0.5.0...0.5.1
