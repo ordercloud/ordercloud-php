@@ -1,13 +1,12 @@
 # Change Log
-All notable changes to this project will be documented in this file.
-This project does NOT (yet) adhere to [Semantic Versioning](http://semver.org/).
-It is running as an Alfa/Beta, once v1 is reached we will start supporting semver.
-For now, please use all minor versions as major versions and each build version will be a minor version.
+All notable changes to this project will be documented here.
+This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ## Added
 - `Currency` entity & `currency` to `Organisation`
 - `additionalInfo` to `Product` entity
+- Service methods (`organisations`, `users`, etc) to `Ordercloud`
 
 ### Removed
 - `UserGroup` & `UserRole` entities

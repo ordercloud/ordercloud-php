@@ -1,13 +1,18 @@
 <?php namespace Ordercloud;
 
 use Illuminate\Container\Container;
+use Ordercloud\Services\AuthService;
+use Ordercloud\Services\OrderService;
+use Ordercloud\Services\OrganisationService;
+use Ordercloud\Services\PaymentService;
+use Ordercloud\Services\UserService;
 use Ordercloud\Support\CommandBus\Command;
 use Ordercloud\Support\CommandBus\CommandBus;
 use Ordercloud\Support\Http\Client;
 
 class Ordercloud
 {
-    const VERSION = '0.6';
+    const VERSION = '1.0';
 
     /**
      * @var Container
@@ -46,6 +51,54 @@ class Ordercloud
     public function setOrganisationToken($token)
     {
         $this->getHttpClient()->setOrganisationToken($token);
+    }
+
+    /**
+     * @return OrganisationService
+     */
+    public function organisations()
+    {
+        return $this->container->make('Ordercloud\Services\OrganisationService');
+    }
+
+    /**
+     * @return AuthService
+     */
+    public function auth()
+    {
+        return $this->container->make('Ordercloud\Services\AuthService');
+    }
+
+    /**
+     * @return OrderService
+     */
+    public function orders()
+    {
+        return $this->container->make('Ordercloud\Services\OrderService');
+    }
+
+    /**
+     * @return PaymentService
+     */
+    public function payments()
+    {
+        return $this->container->make('Ordercloud\Services\PaymentService');
+    }
+
+    /**
+     * @return ProductService
+     */
+    public function products()
+    {
+        return $this->container->make('Ordercloud\Services\ProductService');
+    }
+
+    /**
+     * @return UserService
+     */
+    public function users()
+    {
+        return $this->container->make('Ordercloud\Services\UserService');
     }
 
     /**
