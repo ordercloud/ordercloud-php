@@ -61,8 +61,12 @@ class Product implements JsonSerializable
     private $discount;
     /** @var Boolean */
     private $globalProduct;
+    /**
+     * @var string
+     */
+    private $additionalInfo;
 
-    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributeSets, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null, $globalProduct)
+    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributeSets, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null, $globalProduct, $additionalInfo)
     {
         $this->id = $id;
         $this->name = $name;
@@ -83,6 +87,7 @@ class Product implements JsonSerializable
         $this->productType = $productType;
         $this->discount = $discount;
         $this->globalProduct = $globalProduct;
+        $this->additionalInfo = $additionalInfo;
     }
 
     /**
@@ -342,6 +347,14 @@ class Product implements JsonSerializable
     }
 
     /**
+     * @return string
+     */
+    public function getAdditionalInfo()
+    {
+        return $this->additionalInfo;
+    }
+
+    /**
      * Specify data which should be serialized to JSON
      */
     function jsonSerialize()
@@ -353,7 +366,7 @@ class Product implements JsonSerializable
             'shortDescription' => $this->getShortDescription(),
             'sku' => $this->getSku(),
             'price' => $this->getPrice(),
-            'attributes' => $this->getAttributes(),
+            'attributes' => $this->getAttributeSets(),
             'options' => $this->getOptionSets(),
             'extras' => $this->getExtraSets(),
             'tags' => $this->getTags(),
@@ -366,6 +379,7 @@ class Product implements JsonSerializable
             'productType' => $this->getProductType(),
             'discount' => $this->getDiscount(),
             'globalProduct' => $this->isGlobalProduct(),
+            'additionalInfo' => $this->getAdditionalInfo(),
         ];
     }
 }
