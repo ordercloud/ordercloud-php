@@ -9,14 +9,34 @@
 
             <oc-markdown markdown="All notable changes to this project will be documented here."></oc-markdown>
 
-            <oc-info-card markdown="
-This project does NOT (yet) adhere to [Semantic Versioning](http://semver.org/).
-It is running as an Alfa/Beta, once v1 is reached we will start supporting semver.
-For now, please use all minor versions as major versions and each build version will be a minor version.
-            "></oc-info-card>
-
             <oc-markdown markdown="
-## [Unreleased]
+## [0.6.1]
+- `additionalInfo` to `Product` entity
+
+## [0.6.0]
+## Added
+- `deliveryCost` to create order call
+
+### Changed
+- `assetTypeCode` to `currencyCode` on `Payment`
+
+### Removed
+- `groups` & `organisations` from `User`
+
+## [0.5.2]
+## Added
+- `JsonSerializable` to all entities - all entities can now be serialized to JSON
+- `markup` to `OrderItem`
+- `unitPrice` to `OrderItem`
+- `tip` to `Order`
+- `GetOrderInvoiceRequest` & `OrderInvoice`
+- `OrderDelivery` to `Order`
+
+## [0.5.1]
+### Fixed
+- `GetSettingsByOrganisationRequest` handler to send pagination parameters as query parameters
+
+## [0.5.0]
 ### Added
 - `InvalidArgumentException` to `EntityReflector`
 - `ProductTagCriteria` for enhanced product search by tag
@@ -61,12 +81,17 @@ For now, please use all minor versions as major versions and each build version 
 - `GetProductTagRequest` & `ProductService::getProductTag()`
 
 ### Fixed
-- Fixed 'scheduledTime' body parameter name on create order request
+- Fixed `scheduledTime` body parameter name on create order request
 
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.4.2...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.6.1...HEAD
+[0.6.1]: https://github.com/ordercloud/ordercloud-php/compare/0.6.0...0.6.1
+[0.6.0]: https://github.com/ordercloud/ordercloud-php/compare/0.5.2...0.6.0
+[0.5.2]: https://github.com/ordercloud/ordercloud-php/compare/0.5.1...0.5.2
+[0.5.1]: https://github.com/ordercloud/ordercloud-php/compare/0.5.0...0.5.1
+[0.5.0]: https://github.com/ordercloud/ordercloud-php/compare/0.4.2...0.5.0
 [0.4.2]: https://github.com/ordercloud/ordercloud-php/compare/0.4.1...0.4.2
 [0.4.1]: https://github.com/ordercloud/ordercloud-php/compare/0.4.0...0.4.1
 [0.4.0]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...0.4.0
