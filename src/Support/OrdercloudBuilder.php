@@ -3,9 +3,7 @@
 use Illuminate\Container\Container;
 use Ordercloud\Entities\Auth\AccessToken;
 use Ordercloud\Ordercloud;
-use Ordercloud\Support\CommandBus\ArrayCommandHandlerTranslator;
 use Ordercloud\Support\CommandBus\IlluminateCommandHandlerResolver;
-use Ordercloud\Support\CommandBus\ReflectionCommandHandlerTranslator;
 use Ordercloud\Support\ExceptionGenerators\ChainedExceptionGeneratorService;
 use Ordercloud\Support\Http\GuzzleClient;
 use Ordercloud\Support\Http\LoggingClient;
@@ -41,14 +39,6 @@ class OrdercloudBuilder
      * @var LoggerInterface
      */
     private $clientLogger;
-    /**
-     * @var array
-     */
-    private $filterUrls;
-    /**
-     * @var array
-     */
-    private $filterMethods;
     /**
      * @var Container
      */
@@ -142,16 +132,12 @@ class OrdercloudBuilder
 
     /**
      * @param LoggerInterface $logger
-     * @param array           $filterUrls
-     * @param array           $filterMethods
      *
      * @return static
      */
-    public function registerClientLogger(LoggerInterface $logger, array $filterUrls = [], array $filterMethods = [])
+    public function registerClientLogger(LoggerInterface $logger)
     {
         $this->clientLogger = $logger;
-        $this->filterUrls = $filterUrls;
-        $this->filterMethods = $filterMethods;
 
         return $this;
     }
@@ -291,12 +277,10 @@ class OrdercloudBuilder
     protected function bindLoggingClient(Container $container, $clientFactory)
     {
         $logger = $this->clientLogger;
-        $filterUrls = $this->filterUrls;
-        $filterMethods = $this->filterMethods;
 
-        $container->singleton('Ordercloud\Support\Http\Client', function () use ($clientFactory, $logger, $filterUrls, $filterMethods)
+        $container->singleton('Ordercloud\Support\Http\Client', function () use ($clientFactory, $logger)
         {
-            return new LoggingClient($clientFactory(), $logger, $filterUrls, $filterMethods);
+            return new LoggingClient($clientFactory(), $logger);
         });
     }
 }
