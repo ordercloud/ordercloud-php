@@ -5,7 +5,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ## Added
 - `Currency` entity & `currency` to `Organisation`
-- `additionalInfo` to `Product` entity
 - Service methods (`organisations`, `users`, etc) to `Ordercloud`
 
 ### Removed
