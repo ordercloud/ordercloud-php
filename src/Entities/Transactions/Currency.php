@@ -1,6 +1,6 @@
 <?php namespace Ordercloud\Entities\Transactions;
 
-class Currency
+class Currency implements \JsonSerializable
 {
     /**
      * @var string
@@ -63,5 +63,15 @@ class Currency
     public function getFormat()
     {
         return $this->format;
+    }
+
+    function jsonSerialize()
+    {
+        return [
+            'isoCode' => $this->getIsoCode(),
+            'name'    => $this->getName(),
+            'symbol'  => $this->getSymbol(),
+            'format'  => $this->getFormat(),
+        ];
     }
 }
