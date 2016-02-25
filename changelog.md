@@ -3,7 +3,7 @@ All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.0.0]
-## Added
+### Added
 - `Currency` entity & `currency` to `Organisation`
 - Service methods (`organisations`, `users`, etc) to `Ordercloud`
 - `getUnlockableOptionSets` & `getUnlockableExtraSets` to `Product`
@@ -23,10 +23,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `attributes` from `ProductOptionSet`
 
 ## [0.6.1]
+### Added
 - `additionalInfo` to `Product` entity
 
 ## [0.6.0]
-## Added
+### Added
 - `deliveryCost` to create order call
 
 ### Changed
