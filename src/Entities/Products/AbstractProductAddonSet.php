@@ -2,43 +2,40 @@
 
 use JsonSerializable;
 
-class ProductAttribute implements JsonSerializable
+abstract class AbstractProductAddonSet implements JsonSerializable
 {
-    /**
-     * @var integer
-     */
+    /** @var int */
     private $id;
-    /**
-     * @var boolean
-     */
-    private $enabled;
-    /**
-     * @var string
-     */
+    /** @var string */
     private $name;
     /**
      * @var string
      */
-    private $value;
+    private $displayName;
     /**
      * @var string
      */
     private $description;
+    /**
+     * @var boolean
+     */
+    private $enabled;
 
     /**
-     * @param int    $id
-     * @param bool   $enabled
-     * @param string $name
-     * @param string $value
-     * @param string $description
+     * @param int                  $id
+     * @param string               $name
+     * @param string               $displayName
+     * @param string               $description
+     * @param boolean              $enabled
+     * @param array|ProductExtra[] $extras
      */
-    public function __construct($id, $enabled, $name, $value, $description)
+    public function __construct($id, $name, $displayName, $description, $enabled)
     {
         $this->id = $id;
-        $this->enabled = $enabled;
         $this->name = $name;
-        $this->value = $value;
+        $this->displayName = $displayName;
         $this->description = $description;
+        $this->enabled = $enabled;
     }
 
     /**
@@ -47,14 +44,6 @@ class ProductAttribute implements JsonSerializable
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isEnabled()
-    {
-        return $this->enabled;
     }
 
     /**
@@ -68,9 +57,9 @@ class ProductAttribute implements JsonSerializable
     /**
      * @return string
      */
-    public function getValue()
+    public function getDisplayName()
     {
-        return $this->value;
+        return $this->displayName;
     }
 
     /**
@@ -82,6 +71,14 @@ class ProductAttribute implements JsonSerializable
     }
 
     /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
      * Specify data which should be serialized to JSON
      */
     function jsonSerialize()
@@ -89,9 +86,9 @@ class ProductAttribute implements JsonSerializable
         return [
             'id' => $this->getId(),
             'name' => $this->getName(),
+            'displayName' => $this->getDisplayName(),
             'description' => $this->getDescription(),
             'enabled' => $this->isEnabled(),
-            'value' => $this->getValue()
         ];
     }
 }

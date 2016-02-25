@@ -18,19 +18,17 @@ class Product implements JsonSerializable
     /** @var float */
     private $price;
     /**
-     * @var array|ProductItemsProductAttribute[]
-     * @reflectType Ordercloud\Entities\Products\ProductItemsProductAttribute
+     * @var array|ProductAttributeSet[]
+     * @reflectType Ordercloud\Entities\Products\ProductAttributeSet
      */
-    private $attributes;
+    private $attributeSets;
     /**
      * @var array|ProductOptionSet[]
-     * @reflectName options
      * @reflectType Ordercloud\Entities\Products\ProductOptionSet
      */
     private $optionSets;
     /**
      * @var array|ProductExtraSet[]
-     * @reflectName extras
      * @reflectType Ordercloud\Entities\Products\ProductExtraSet
      */
     private $extraSets;
@@ -68,7 +66,7 @@ class Product implements JsonSerializable
      */
     private $additionalInfo;
 
-    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null, $globalProduct, $additionalInfo)
+    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributeSets, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null, $globalProduct, $additionalInfo)
     {
         $this->id = $id;
         $this->name = $name;
@@ -76,7 +74,7 @@ class Product implements JsonSerializable
         $this->shortDescription = $shortDescription;
         $this->sku = $sku;
         $this->price = $price;
-        $this->attributes = $attributes;
+        $this->attributeSets = $attributeSets;
         $this->optionSets = $optionSets;
         $this->extraSets = $extraSets;
         $this->tags = $tags;
@@ -141,11 +139,11 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @return array|ProductItemsProductAttribute[]
+     * @return array|ProductAttributeSet[]
      */
-    public function getAttributes()
+    public function getAttributeSets()
     {
-        return $this->attributes;
+        return $this->attributeSets;
     }
 
     /**
@@ -169,7 +167,21 @@ class Product implements JsonSerializable
             }
         }
 
+        foreach ($this->getUnlockableOptionSets() as $optionSet) {
+            if ($optionSet->getId() == $optionSetID) {
+                return $optionSet;
+            }
+        }
+
         return null;
+    }
+
+    /**
+     * @return array|UnlockableProductOptionSet[]
+     */
+    public function getUnlockableOptionSets()
+    {
+        return UnlockableProductOptionSet::createFromProduct($this);
     }
 
     /**
@@ -193,7 +205,21 @@ class Product implements JsonSerializable
             }
         }
 
+        foreach ($this->getUnlockableExtraSets() as $extraSet) {
+            if ($extraSet->getId() == $extraSetID) {
+                return $extraSet;
+            }
+        }
+
         return null;
+    }
+
+    /**
+     * @return array|UnlockableProductExtraSet[]
+     */
+    public function getUnlockableExtraSets()
+    {
+        return UnlockableProductExtraSet::createFromProduct($this);
     }
 
     /**
@@ -340,7 +366,7 @@ class Product implements JsonSerializable
             'shortDescription' => $this->getShortDescription(),
             'sku' => $this->getSku(),
             'price' => $this->getPrice(),
-            'attributes' => $this->getAttributes(),
+            'attributes' => $this->getAttributeSets(),
             'options' => $this->getOptionSets(),
             'extras' => $this->getExtraSets(),
             'tags' => $this->getTags(),

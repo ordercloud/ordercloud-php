@@ -2,45 +2,26 @@
 
 use JsonSerializable;
 
-class ProductExtraSet implements JsonSerializable
+class ProductExtraSet extends AbstractProductAddonSet implements JsonSerializable
 {
-    /** @var int */
-    protected $id;
-    /** @var string */
-    protected $name;
     /**
      * @var array|ProductExtra[]
      * @reflectType Ordercloud\Entities\Products\ProductExtra
      */
     protected $extras;
-    /**
-     * @var array|ProductAttribute[]
-     * @reflectType Ordercloud\Entities\Products\ProductAttribute
-     */
-    protected $attributes;
 
-    public function __construct($id, $name, array $extras, array $attributes)
+    /**
+     * @param int                  $id
+     * @param string               $name
+     * @param string               $displayName
+     * @param string               $description
+     * @param boolean              $enabled
+     * @param array|ProductExtra[] $extras
+     */
+    public function __construct($id, $name, $displayName, $description, $enabled, array $extras)
     {
-        $this->id = $id;
-        $this->name = $name;
+        parent::__construct($id, $name, $displayName, $description, $enabled);
         $this->extras = $extras;
-        $this->attributes = $attributes;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -77,23 +58,14 @@ class ProductExtraSet implements JsonSerializable
     }
 
     /**
-     * @return array|ProductAttribute[]
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    /**
      * Specify data which should be serialized to JSON
      */
     function jsonSerialize()
     {
-        return [
-            'id' => $this->getId(),
-            'name' => $this->getName(),
-            'extras' => $this->getExtras(),
-            'attributes' => $this->getAttributes(),
-        ];
+        $json = parent::jsonSerialize();
+
+        $json['extras'] = $this->getExtras();
+
+        return $json;
     }
 }

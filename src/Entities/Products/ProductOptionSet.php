@@ -2,45 +2,26 @@
 
 use JsonSerializable;
 
-class ProductOptionSet implements JsonSerializable
+class ProductOptionSet extends AbstractProductAddonSet implements JsonSerializable
 {
-    /** @var int */
-    protected $id;
-    /** @var string */
-    protected $name;
     /**
      * @var array|ProductOption[]
      * @reflectType Ordercloud\Entities\Products\ProductOption
      */
     protected $options;
-    /**
-     * @var array|ProductAttribute[]
-     * @reflectType Ordercloud\Entities\Products\ProductAttribute
-     */
-    protected $attributes;
 
-    public function __construct($id, $name, array $options, array $attributes)
+    /**
+     * @param int                   $id
+     * @param string                $name
+     * @param string                $displayName
+     * @param string                $description
+     * @param boolean               $enabled
+     * @param array|ProductOption[] $options
+     */
+    public function __construct($id, $name, $displayName, $description, $enabled, array $options)
     {
-        $this->id = $id;
-        $this->name = $name;
+        parent::__construct($id, $name, $displayName, $description, $enabled);
         $this->options = $options;
-        $this->attributes = $attributes;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -82,23 +63,14 @@ class ProductOptionSet implements JsonSerializable
     }
 
     /**
-     * @return array|ProductAttribute[]
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    /**
      * Specify data which should be serialized to JSON
      */
     function jsonSerialize()
     {
-        return [
-            'id' => $this->getId(),
-            'name' => $this->getName(),
-            'options' => $this->getOptions(),
-            'attributes' => $this->getAttributes(),
-        ];
+        $json = parent::jsonSerialize();
+
+        $json['options'] = $this->getOptions();
+
+        return $json;
     }
 }
