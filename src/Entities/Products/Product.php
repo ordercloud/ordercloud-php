@@ -366,7 +366,7 @@ class Product implements JsonSerializable
             'shortDescription' => $this->getShortDescription(),
             'sku' => $this->getSku(),
             'price' => $this->getPrice(),
-            'attributes' => $this->getAttributeSets(),
+            'attributeSets' => $this->getAttributeSets(),
             'options' => $this->getOptionSets(),
             'extras' => $this->getExtraSets(),
             'tags' => $this->getTags(),

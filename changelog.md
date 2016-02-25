@@ -6,10 +6,21 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Added
 - `Currency` entity & `currency` to `Organisation`
 - Service methods (`organisations`, `users`, etc) to `Ordercloud`
+- `getUnlockableOptionSets` & `getUnlockableExtraSets` to `Product`
+- `name`, `value` & `description` to `ProductAttribute`
+- `unlockOptionSets` & `unlockExtraSets` to `ProductOption`
+- `UnlockableProductExtraSet`
+- `UnlockableProductOptionSet`
+
+### Changed
+- `attributes` to `attributeSets` on `Product`
+- `ProductItemAttribute` to `ProductAttributeSet`
 
 ### Removed
 - `UserGroup` & `UserRole` entities
 - `loggingUrlPatterns` & `loggingMethods` from `LoggingClient`
+- `attributes` from `ProductExtraSet`
+- `attributes` from `ProductOptionSet`
 
 ## [0.6.1]
 - `additionalInfo` to `Product` entity
