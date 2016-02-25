@@ -10,6 +10,30 @@
             <oc-markdown markdown="All notable changes to this project will be documented here."></oc-markdown>
 
             <oc-markdown markdown="
+# Change Log
+All notable changes to this project will be documented here.
+This project adheres to [Semantic Versioning](http://semver.org/).
+
+## [1.0.0]
+### Added
+- `Currency` entity & `currency` to `Organisation`
+- Service methods (`organisations`, `users`, etc) to `Ordercloud`
+- `getUnlockableOptionSets` & `getUnlockableExtraSets` to `Product`
+- `name`, `value` & `description` to `ProductAttribute`
+- `unlockOptionSets` & `unlockExtraSets` to `ProductOption`
+- `UnlockableProductExtraSet`
+- `UnlockableProductOptionSet`
+
+### Changed
+- `attributes` to `attributeSets` on `Product`
+- `ProductItemAttribute` to `ProductAttributeSet`
+
+### Removed
+- `UserGroup` & `UserRole` entities
+- `loggingUrlPatterns` & `loggingMethods` from `LoggingClient`
+- `attributes` from `ProductExtraSet`
+- `attributes` from `ProductOptionSet`
+
 ## [0.6.1]
 ### Added
 - `additionalInfo` to `Product` entity
@@ -87,7 +111,8 @@
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.6.1...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/ordercloud/ordercloud-php/compare/0.6.1...1.0.0
 [0.6.1]: https://github.com/ordercloud/ordercloud-php/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/ordercloud/ordercloud-php/compare/0.5.2...0.6.0
 [0.5.2]: https://github.com/ordercloud/ordercloud-php/compare/0.5.1...0.5.2
