@@ -2,7 +2,7 @@
 All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.0.0]
 ## Added
 - `Currency` entity & `currency` to `Organisation`
 - Service methods (`organisations`, `users`, etc) to `Ordercloud`
@@ -98,7 +98,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/0.6.1...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/ordercloud/ordercloud-php/compare/0.6.1...1.0.0
 [0.6.1]: https://github.com/ordercloud/ordercloud-php/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/ordercloud/ordercloud-php/compare/0.5.2...0.6.0
 [0.5.2]: https://github.com/ordercloud/ordercloud-php/compare/0.5.1...0.5.2
