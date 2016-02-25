@@ -24,8 +24,8 @@ class LoggingClient implements Client
         $response = $this->client->send($url, $method, $params, $headers);
 
         $this->logger->debug('OrdercloudRequest', [
-            'rawResponse' => utf8_encode($response->getRawResponse()),
             'rawRequest'  => utf8_encode($response->getRequest()->getRawRequest()),
+            'rawResponse' => utf8_encode($response->getRawResponse()),
         ]);
 
         return $response;

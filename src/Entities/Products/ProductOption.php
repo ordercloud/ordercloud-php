@@ -21,7 +21,6 @@ class ProductOption extends ProductAddon implements JsonSerializable
      * @param string                   $description
      * @param float                    $price
      * @param boolean                  $enabled
-     * @param OrganisationShort        $organisation
      * @param array|ProductOptionSet[] $unlockOptionSets
      * @param array|ProductExtraSet[]  $unlockExtraSets
      */

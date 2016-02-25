@@ -2,6 +2,6 @@
 
 use JsonSerializable;
 
-class ProductExtraDisplay extends ProductAddonDisplay implements JsonSerializable
+class ProductExtraDisplay extends AbstractProductAddon implements JsonSerializable
 {
 }
