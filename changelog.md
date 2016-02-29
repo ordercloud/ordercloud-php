@@ -4,10 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [1.0.2]
+## [1.1.0]
 ### Added
 - `showDisabled` to `ProductCriteria`
-- 
+- `getProductsByConnection` to `ProductService` 
 
 ## [1.0.1]
 ### Fixed
@@ -110,8 +110,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.0.2...HEAD
-[1.0.2]: https://github.com/ordercloud/ordercloud-php/compare/1.0.1...1.0.2
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/ordercloud/ordercloud-php/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/ordercloud/ordercloud-php/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/ordercloud/ordercloud-php/compare/0.6.1...1.0.0
 [0.6.1]: https://github.com/ordercloud/ordercloud-php/compare/0.6.0...0.6.1

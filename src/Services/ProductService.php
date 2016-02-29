@@ -4,8 +4,10 @@ use Ordercloud\Entities\Products\Product;
 use Ordercloud\Entities\Products\ProductCollection;
 use Ordercloud\Entities\Products\ProductTag;
 use Ordercloud\Requests\Products\Criteria\ProductCriteria;
+use Ordercloud\Requests\Products\Criteria\ProductsByConnectionCriteria;
 use Ordercloud\Requests\Products\FindProductsRequest;
 use Ordercloud\Requests\Products\GetProductRequest;
+use Ordercloud\Requests\Products\GetProductsByConnectionRequest;
 use Ordercloud\Requests\Products\GetProductTagRequest;
 use Ordercloud\Requests\Products\GetProductTagsForOrganisationByTypeNameRequest;
 
@@ -54,6 +56,21 @@ class ProductService extends OrdercloudService
     {
         return $this->request(
             new GetProductTagRequest($tagId)
+        );
+    }
+
+    /**
+     * @param int                          $connectionId
+     * @param ProductsByConnectionCriteria $criteria
+     *
+     * @return ProductCollection|Product[]
+     */
+    public function getProductsByConnection($connectionId, ProductsByConnectionCriteria $criteria = null)
+    {
+        $criteria = $criteria ?: ProductsByConnectionCriteria::create();
+        
+        return $this->request(
+            new GetProductsByConnectionRequest($connectionId, $criteria)
         );
     }
 }
