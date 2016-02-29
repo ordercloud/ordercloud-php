@@ -5,8 +5,18 @@ use Ordercloud\Entities\Addresses\NamedCoordinatedAddress;
 
 class OrganisationAddress extends NamedCoordinatedAddress implements JsonSerializable
 {
-    /** @var int */
+    /**
+     * @var int
+     */
     private $id;
+    /**
+     * @var string
+     */
+    private $province;
+    /**
+     * @var string
+     */
+    private $country;
 
     /**
      * @param int    $id
@@ -19,8 +29,10 @@ class OrganisationAddress extends NamedCoordinatedAddress implements JsonSeriali
      * @param string $suburb
      * @param string $city
      * @param string $postalCode
+     * @param string $province
+     * @param string $country
      */
-    public function __construct($id, $longitude, $latitude, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode)
+    public function __construct($id, $longitude, $latitude, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $province, $country)
     {
         parent::__construct(
             $streetNumber,
@@ -34,6 +46,8 @@ class OrganisationAddress extends NamedCoordinatedAddress implements JsonSeriali
             $longitude
         );
         $this->id = $id;
+        $this->province = $province;
+        $this->country = $country;
     }
 
     /**
@@ -45,6 +59,22 @@ class OrganisationAddress extends NamedCoordinatedAddress implements JsonSeriali
     }
 
     /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProvince()
+    {
+        return $this->province;
+    }
+
+    /**
      * Specify data which should be serialized to JSON
      */
     function jsonSerialize()
@@ -52,6 +82,8 @@ class OrganisationAddress extends NamedCoordinatedAddress implements JsonSeriali
         $json = parent::jsonSerialize();
 
         $json['id'] = $this->getId();
+        $json['province'] = $this->getProvince();
+        $json['country'] = $this->getCountry();
 
         return $json;
     }

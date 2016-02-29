@@ -3,8 +3,11 @@ All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [1.2.0]
 ### Added
 - `STATUS_PARTIALLY_REJECTED` constant to `OrderStatus`
+- `province` & `country` fields to `OrganisationAddress`
 
 ## [1.1.0]
 ### Added
@@ -112,7 +115,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/ordercloud/ordercloud-php/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/ordercloud/ordercloud-php/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/ordercloud/ordercloud-php/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/ordercloud/ordercloud-php/compare/0.6.1...1.0.0
