@@ -3,6 +3,8 @@ All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- `STATUS_PARTIALLY_REJECTED` constant to `OrderStatus`
 
 ## [1.1.0]
 ### Added

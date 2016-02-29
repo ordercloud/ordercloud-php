@@ -17,6 +17,7 @@ class OrderStatus implements JsonSerializable
     const STATUS_REPLACED = 11;
     const STATUS_PICKED_UP = 12;
     const STATUS_SCHEDULED = 13;
+    const STATUS_PARTIALLY_REJECTED = 14;
 
     /** @var integer */
     private $id;
