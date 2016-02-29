@@ -23,6 +23,10 @@ class ProductCriteria extends Criteria
      * @var array|int[]
      */
     private $organisations;
+    /**
+     * @var bool
+     */
+    private $showDisabled = false;
 
     /**
      * @return array|ProductTagCriteria[]
@@ -100,6 +104,26 @@ class ProductCriteria extends Criteria
     public function setOrganisations($organisations)
     {
         $this->organisations = $organisations;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isShowDisabled()
+    {
+        return $this->showDisabled;
+    }
+
+    /**
+     * @param boolean $showDisabled
+     *
+     * @return static
+     */
+    public function setShowDisabled($showDisabled)
+    {
+        $this->showDisabled = $showDisabled;
 
         return $this;
     }

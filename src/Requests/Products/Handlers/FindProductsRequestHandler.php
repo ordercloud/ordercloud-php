@@ -3,8 +3,6 @@
 use Ordercloud\Entities\Products\ProductCollection;
 use Ordercloud\Requests\Handlers\AbstractPutRequestHandler;
 use Ordercloud\Requests\Handlers\FormatBooleanTrait;
-use Ordercloud\Requests\Products\Criteria\ProductCriteria;
-use Ordercloud\Requests\Products\Criteria\ProductTagCriteria;
 use Ordercloud\Requests\Products\FindProductsRequest;
 use Ordercloud\Support\Reflection\EntityReflector;
 
@@ -36,10 +34,10 @@ class FindProductsRequestHandler extends AbstractPutRequestHandler
                  'organisations' => $criteria->getOrganisations(),
              ])
             ->setQueryParameters([
-                'page'     => $criteria->getPage(),
-                'pagesize' => $criteria->getPageSize()
-            ])
-             ->setEntityArrayClass('Ordercloud\Entities\Products\Product');
+                'page'         => $criteria->getPage(),
+                'pagesize'     => $criteria->getPageSize(),
+                'showDisabled' => $this->formatBoolean($criteria->isShowDisabled()),
+            ]);
 
         $this->page = $criteria->getPage();
         $this->pageSize = $criteria->getPageSize();

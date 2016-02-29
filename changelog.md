@@ -2,6 +2,17 @@
 All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+## [1.0.2]
+### Added
+- `showDisabled` to `ProductCriteria`
+- 
+
+## [1.0.1]
+### Fixed
+- Removed `tag` from `ProductOptionDislplay` & `ProductExtraDisplay`
+
 ## [1.0.0]
 ### Added
 - `Currency` entity & `currency` to `Organisation`
@@ -94,12 +105,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `GetProductTagRequest` & `ProductService::getProductTag()`
 
 ### Fixed
-- Fixed "scheduledTime" body parameter name on create order request
+- Fixed `scheduledTime` body parameter name on create order request
 
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.0.2...HEAD
+[1.0.2]: https://github.com/ordercloud/ordercloud-php/compare/1.0.1...1.0.2
+[1.0.1]: https://github.com/ordercloud/ordercloud-php/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/ordercloud/ordercloud-php/compare/0.6.1...1.0.0
 [0.6.1]: https://github.com/ordercloud/ordercloud-php/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/ordercloud/ordercloud-php/compare/0.5.2...0.6.0

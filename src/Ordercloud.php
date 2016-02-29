@@ -5,6 +5,7 @@ use Ordercloud\Services\AuthService;
 use Ordercloud\Services\OrderService;
 use Ordercloud\Services\OrganisationService;
 use Ordercloud\Services\PaymentService;
+use Ordercloud\Services\ProductService;
 use Ordercloud\Services\UserService;
 use Ordercloud\Support\CommandBus\Command;
 use Ordercloud\Support\CommandBus\CommandBus;
