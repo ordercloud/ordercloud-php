@@ -9,6 +9,7 @@ use Ordercloud\Entities\Users\UserProfile;
 use Ordercloud\Requests\Auth\Entities\Authorisation;
 use Ordercloud\Requests\Exceptions\UnauthorizedRequestException;
 use Ordercloud\Requests\Users\CreateUserAddressRequest;
+use Ordercloud\Requests\Users\CreateUserRequest;
 use Ordercloud\Requests\Users\Criteria\UserAddressCriteria;
 use Ordercloud\Requests\Users\DisableUserAddressRequest;
 use Ordercloud\Requests\Users\FindUserRequest;
@@ -72,6 +73,29 @@ class UserService extends OrdercloudService
     public function findUser($email = null, $mobile = null)
     {
         return $this->request(new FindUserRequest($email, $mobile));
+    }
+
+    /**
+     * @param UserProfile $profile
+     * @param string      $mobileNumberCountry
+     * @param string|null $password
+     * @param boolean     $sendWelcomeMessage
+     * @param int[]       $groupIds
+     *
+     * @return int The new user's ID
+     *
+     * @throws OrdercloudRequestException
+     */
+    public function createUser(
+        UserProfile $profile,
+        array $groupIds = [],
+        $mobileNumberCountry = 'ZA',
+        $password = null,
+        $sendWelcomeMessage = false
+    ) {
+        $this->request(
+            new CreateUserRequest($profile, $groupIds, $mobileNumberCountry, $password, $sendWelcomeMessage)
+        );
     }
 
     /**
