@@ -141,7 +141,7 @@ abstract class AbstractRequestHandler extends OrdercloudRequestHandler
      * Set a parameter that should be passed via body.
      *
      * @param string $key
-     * @param string $value
+     * @param mixed  $value
      *
      * @return static
      */

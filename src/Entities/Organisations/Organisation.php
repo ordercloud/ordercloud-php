@@ -33,7 +33,7 @@ class Organisation extends OrganisationShort implements JsonSerializable
      */
     private $status;
     /**
-     * @var string
+     * @var int
      */
     private $lastOnline;
     /**
@@ -134,7 +134,7 @@ class Organisation extends OrganisationShort implements JsonSerializable
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getLastOnline()
     {
