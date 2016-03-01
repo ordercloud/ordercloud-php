@@ -7,6 +7,7 @@ use Ordercloud\Entities\Orders\ScheduleOption;
 use Ordercloud\Requests\Exceptions\NotFoundRequestException;
 use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\Orders\CreateOrderRequest;
+use Ordercloud\Requests\Orders\Criteria\OrganisationOrderCriteria;
 use Ordercloud\Requests\Orders\Criteria\UserOrderCriteria;
 use Ordercloud\Requests\Orders\EstimateDeliveryCostRequest;
 use Ordercloud\Requests\Orders\Exceptions\DeliveryNotAvailableException;
@@ -14,6 +15,7 @@ use Ordercloud\Requests\Orders\Exceptions\OrderTotalConflictException;
 use Ordercloud\Requests\Orders\GetOrderInvoiceRequest;
 use Ordercloud\Requests\Orders\GetOrderRequest;
 use Ordercloud\Requests\Orders\GetOrderScheduleOptionsRequest;
+use Ordercloud\Requests\Orders\GetOrganisationOrdersRequest;
 use Ordercloud\Requests\Orders\GetUserOrdersRequest;
 
 class OrderService extends OrdercloudService
@@ -28,9 +30,7 @@ class OrderService extends OrdercloudService
      */
     public function getOrder($orderId)
     {
-        return $this->request(
-            new GetOrderRequest($orderId)
-        );
+        return $this->request(new GetOrderRequest($orderId));
     }
 
     /**
@@ -45,9 +45,22 @@ class OrderService extends OrdercloudService
     {
         $criteria = $criteria ?: UserOrderCriteria::create();
 
-        return $this->request(
-            new GetUserOrdersRequest($userId, $criteria)
-        );
+        return $this->request(new GetUserOrdersRequest($userId, $criteria));
+    }
+
+    /**
+     * @param int                            $organisationId
+     * @param OrganisationOrderCriteria|null $criteria
+     *
+     * @return OrderCollection|Order[]
+     *
+     * @throws OrdercloudRequestException
+     */
+    public function getOrganisationOrders($organisationId, OrganisationOrderCriteria $criteria = null)
+    {
+        $criteria = $criteria ?: OrganisationOrderCriteria::create();
+        
+        return $this->request(new GetOrganisationOrdersRequest($organisationId, $criteria));
     }
 
     /**
@@ -62,9 +75,7 @@ class OrderService extends OrdercloudService
      */
     public function estimateDeliveryCost($deliveryServiceOrganisationId, $geoId, array $merchantIds)
     {
-        return $this->request(
-            new EstimateDeliveryCostRequest($deliveryServiceOrganisationId, $geoId, $merchantIds)
-        );
+        return $this->request(new EstimateDeliveryCostRequest($deliveryServiceOrganisationId, $geoId, $merchantIds));
     }
 
     /**
@@ -101,11 +112,12 @@ class OrderService extends OrdercloudService
      * @param int $orderId
      *
      * @return OrderInvoice
+     *
+     * @throws OrdercloudRequestException
+     * @throws NotFoundRequestException
      */
     public function getOrderInvoice($orderId)
     {
-        return $this->request(
-            new GetOrderInvoiceRequest($orderId)
-        );
+        return $this->request(new GetOrderInvoiceRequest($orderId));
     }
 }

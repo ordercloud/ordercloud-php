@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - `createUser()` to `UserService`
+- `getOrganisationOrders()` to `OrderService`
 
 ## [1.2.0]
 ### Added
