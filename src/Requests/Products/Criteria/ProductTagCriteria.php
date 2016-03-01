@@ -14,7 +14,7 @@ class ProductTagCriteria extends Criteria implements JsonSerializable
      */
     private $name;
     /**
-     * @var ProductTagCriteria
+     * @var ProductTagTypeCriteria
      */
     private $type;
 
@@ -47,7 +47,7 @@ class ProductTagCriteria extends Criteria implements JsonSerializable
     }
 
     /**
-     * @return ProductTagCriteria
+     * @return ProductTagTypeCriteria
      */
     public function getType()
     {

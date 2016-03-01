@@ -60,7 +60,7 @@ class ProductTagTypeCriteria extends Criteria implements JsonSerializable
         return $this;
     }
 
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return array_filter([
             'id'   => $this->getId(),
