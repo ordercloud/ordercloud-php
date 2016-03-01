@@ -27,7 +27,6 @@ abstract class AbstractProductAddonSet implements JsonSerializable
      * @param string               $displayName
      * @param string               $description
      * @param boolean              $enabled
-     * @param array|ProductExtra[] $extras
      */
     public function __construct($id, $name, $displayName, $description, $enabled)
     {
@@ -81,7 +80,7 @@ abstract class AbstractProductAddonSet implements JsonSerializable
     /**
      * Specify data which should be serialized to JSON
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return [
             'id' => $this->getId(),

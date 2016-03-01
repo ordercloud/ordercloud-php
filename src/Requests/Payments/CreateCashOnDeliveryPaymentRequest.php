@@ -16,7 +16,6 @@ class CreateCashOnDeliveryPaymentRequest implements Command
 
     /**
      * @param int   $orderId
-     * @param float $amount
      */
     public function __construct($orderId)
     {

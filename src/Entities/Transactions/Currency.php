@@ -65,7 +65,7 @@ class Currency implements \JsonSerializable
         return $this->format;
     }
 
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return [
             'isoCode' => $this->getIsoCode(),

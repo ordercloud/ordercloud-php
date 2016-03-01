@@ -60,7 +60,7 @@ class ProductExtraSet extends AbstractProductAddonSet implements JsonSerializabl
     /**
      * Specify data which should be serialized to JSON
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         $json = parent::jsonSerialize();
 

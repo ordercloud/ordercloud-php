@@ -56,7 +56,7 @@ class OrderSourceChannel implements JsonSerializable
     /**
      * Specify data which should be serialized to JSON
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return [
             'id' => $this->getId(),

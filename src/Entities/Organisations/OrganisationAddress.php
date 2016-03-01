@@ -77,7 +77,7 @@ class OrganisationAddress extends NamedCoordinatedAddress implements JsonSeriali
     /**
      * Specify data which should be serialized to JSON
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         $json = parent::jsonSerialize();
 

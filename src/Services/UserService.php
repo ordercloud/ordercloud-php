@@ -7,6 +7,7 @@ use Ordercloud\Entities\Users\User;
 use Ordercloud\Entities\Users\UserAddress;
 use Ordercloud\Entities\Users\UserProfile;
 use Ordercloud\Requests\Auth\Entities\Authorisation;
+use Ordercloud\Requests\Exceptions\UnauthorizedRequestException;
 use Ordercloud\Requests\Users\CreateUserAddressRequest;
 use Ordercloud\Requests\Users\Criteria\UserAddressCriteria;
 use Ordercloud\Requests\Users\DisableUserAddressRequest;
@@ -27,34 +28,37 @@ class UserService extends OrdercloudService
      * @param Authorisation|null $authorisation
      *
      * @return User
+     *
+     * @throws OrdercloudRequestException
+     * @throws UnauthorizedRequestException
      */
     public function getLoggedInUser(Authorisation $authorisation = null)
     {
-        return $this->request(
-            new GetLoggedInUserRequest($authorisation)
-        );
+        return $this->request(new GetLoggedInUserRequest($authorisation));
     }
 
     /**
      * @param int $userId
      *
      * @return User
+     *
+     * @throws OrdercloudRequestException
+     * @throws NotFoundRequestException
      */
     public function getUser($userId)
     {
-        return $this->request(
-            new GetUserByIdRequest($userId)
-        );
+        return $this->request(new GetUserByIdRequest($userId));
     }
 
     /**
      * @param int $userId
+     *
+     * @throws OrdercloudRequestException
+     * @throws NotFoundRequestException
      */
     public function resetPassword($userId)
     {
-        $this->request(
-            new ResetUserPasswordRequest($userId)
-        );
+        $this->request(new ResetUserPasswordRequest($userId));
     }
 
     /**
@@ -62,24 +66,25 @@ class UserService extends OrdercloudService
      * @param string|null $mobile
      *
      * @return User
+     *
+     * @throws OrdercloudRequestException
      */
     public function findUser($email = null, $mobile = null)
     {
-        return $this->request(
-            new FindUserRequest($email, $mobile)
-        );
+        return $this->request(new FindUserRequest($email, $mobile));
     }
 
     /**
      * @param int $userId
      *
      * @return UserProfile
+     *
+     * @throws OrdercloudRequestException
+     * @throws NotFoundRequestException
      */
     public function getProfile($userId)
     {
-        return $this->request(
-            new GetUserProfileRequest($userId)
-        );
+        return $this->request(new GetUserProfileRequest($userId));
     }
 
     /**
@@ -87,20 +92,22 @@ class UserService extends OrdercloudService
      * @param UserProfile $profile
      *
      * @return UserProfile The updated user profile
+     *
+     * @throws OrdercloudRequestException
+     * @throws NotFoundRequestException
      */
     public function updateProfile($userId, UserProfile $profile)
     {
-        return $this->request(
-            new UpdateUserProfileRequest($userId, $profile)
-        );
+        return $this->request(new UpdateUserProfileRequest($userId, $profile));
     }
 
     /**
      * @param int                 $userId
-     *
      * @param UserAddressCriteria $criteria
      *
-     * @return \Ordercloud\Entities\Users\UserAddress[]
+     * @return UserAddress[]
+     *
+     * @throws OrdercloudRequestException
      */
     public function getAddresses($userId, UserAddressCriteria $criteria = null)
     {
@@ -115,6 +122,9 @@ class UserService extends OrdercloudService
      * @param int $addressId
      *
      * @return UserAddress
+     *
+     * @throws OrdercloudRequestException
+     * @throws NotFoundRequestException
      */
     public function getAddress($addressId)
     {
@@ -128,6 +138,8 @@ class UserService extends OrdercloudService
      * @param NewUserAddress $address
      *
      * @return int The new address ID
+     *
+     * @throws OrdercloudRequestException
      */
     public function createAddress($userId, NewUserAddress $address)
     {
@@ -138,6 +150,8 @@ class UserService extends OrdercloudService
 
     /**
      * @param UserAddress $address
+     *
+     * @throws OrdercloudRequestException
      */
     public function updateAddress(UserAddress $address)
     {
@@ -148,6 +162,9 @@ class UserService extends OrdercloudService
 
     /**
      * @param int $addressId
+     *
+     * @throws OrdercloudRequestException
+     * @throws NotFoundRequestException
      */
     public function disableAddress($addressId)
     {
@@ -160,6 +177,8 @@ class UserService extends OrdercloudService
      * @param Address $address
      *
      * @return GeoCoordinates
+     *
+     * @throws OrdercloudRequestException
      */
     public function geocodeAddress(Address $address)
     {

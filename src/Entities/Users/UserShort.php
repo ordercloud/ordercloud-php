@@ -29,7 +29,7 @@ class UserShort extends DisplayUser implements JsonSerializable
     /**
      * Specify data which should be serialized to JSON
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         $json = parent::jsonSerialize();
 

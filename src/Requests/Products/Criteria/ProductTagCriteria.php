@@ -19,9 +19,9 @@ class ProductTagCriteria extends Criteria implements JsonSerializable
     private $type;
 
     /**
-     * @param int    $id
-     * @param string $name
-     * @param string $type
+     * @param int                    $id
+     * @param string                 $name
+     * @param ProductTagTypeCriteria $type
      */
     public function __construct($id = null, $name = null, ProductTagTypeCriteria $type = null)
     {
@@ -54,7 +54,7 @@ class ProductTagCriteria extends Criteria implements JsonSerializable
         return $this->type;
     }
 
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return array_filter([
             'id'   => $this->getId(),

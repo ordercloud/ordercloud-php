@@ -46,32 +46,4 @@ class OrdercloudRequestHandler implements CommandHandler
             throw $this->exceptionGenerator->generateException($request, $e);
         }
     }
-
-    /**
-     * @param OrdercloudRequest $request
-     *
-     * @return string
-     */
-    protected function prepareUrl($request)
-    {
-        if ($request->isMethod(OrdercloudRequest::METHOD_GET)) {
-            return $this->parameteriser->appendParametersToUrl($request->getParameters(), $request->getUrl());
-        }
-
-        return $request->getUrl();
-    }
-
-    /**
-     * @param OrdercloudRequest $request
-     *
-     * @return array
-     */
-    protected function prepareParameters($request)
-    {
-        if ($request->isMethod(OrdercloudRequest::METHOD_GET)) {
-            return [];
-        }
-
-        return $request->getParameters();
-    }
 }

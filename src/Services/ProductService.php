@@ -52,6 +52,11 @@ class ProductService extends OrdercloudService
         );
     }
 
+    /**
+     * @param $tagId
+     *
+     * @return ProductTag
+     */
     public function getProductTag($tagId)
     {
         return $this->request(
