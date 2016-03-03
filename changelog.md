@@ -2,6 +2,10 @@
 All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.1]
+### Fixed
+- `createUser()` on `UserService` not returning user ID
+
 ## [1.3.0]
 ### Added
 - `createUser()` to `UserService`
@@ -118,7 +122,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.3.0...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.3.1...HEAD
+[1.3.1]: https://github.com/ordercloud/ordercloud-php/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/ordercloud/ordercloud-php/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/ordercloud/ordercloud-php/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/ordercloud/ordercloud-php/compare/1.0.1...1.1.0

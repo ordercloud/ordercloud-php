@@ -66,7 +66,7 @@ class UserService extends OrdercloudService
      * @param string|null $email
      * @param string|null $mobile
      *
-     * @return User
+     * @return User[]|array
      *
      * @throws OrdercloudRequestException
      */
@@ -93,7 +93,7 @@ class UserService extends OrdercloudService
         $password = null,
         $sendWelcomeMessage = false
     ) {
-        $this->request(
+        return $this->request(
             new CreateUserRequest($profile, $groupIds, $mobileNumberCountry, $password, $sendWelcomeMessage)
         );
     }
@@ -137,9 +137,7 @@ class UserService extends OrdercloudService
     {
         $criteria = $criteria ?: UserAddressCriteria::create();
 
-        return $this->request(
-            new GetUserAddressesRequest($userId, $criteria)
-        );
+        return $this->request(new GetUserAddressesRequest($userId, $criteria));
     }
 
     /**
@@ -152,9 +150,7 @@ class UserService extends OrdercloudService
      */
     public function getAddress($addressId)
     {
-        return $this->request(
-            new GetUserAddressByIdRequest($addressId)
-        );
+        return $this->request(new GetUserAddressByIdRequest($addressId));
     }
 
     /**
@@ -167,9 +163,7 @@ class UserService extends OrdercloudService
      */
     public function createAddress($userId, NewUserAddress $address)
     {
-        return $this->request(
-            new CreateUserAddressRequest($userId, $address)
-        );
+        return $this->request(new CreateUserAddressRequest($userId, $address));
     }
 
     /**
@@ -179,9 +173,7 @@ class UserService extends OrdercloudService
      */
     public function updateAddress(UserAddress $address)
     {
-        $this->request(
-            new UpdateUserAddressRequest($address)
-        );
+        $this->request(new UpdateUserAddressRequest($address));
     }
 
     /**
@@ -192,9 +184,7 @@ class UserService extends OrdercloudService
      */
     public function disableAddress($addressId)
     {
-        $this->request(
-            new DisableUserAddressRequest($addressId)
-        );
+        $this->request(new DisableUserAddressRequest($addressId));
     }
 
     /**
@@ -206,8 +196,6 @@ class UserService extends OrdercloudService
      */
     public function geocodeAddress(Address $address)
     {
-        return $this->request(
-            new GeocodeAddressRequest($address)
-        );
+        return $this->request(new GeocodeAddressRequest($address));
     }
 }
