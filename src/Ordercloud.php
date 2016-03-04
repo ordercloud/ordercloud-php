@@ -6,6 +6,7 @@ use Ordercloud\Services\OrderService;
 use Ordercloud\Services\OrganisationService;
 use Ordercloud\Services\PaymentService;
 use Ordercloud\Services\ProductService;
+use Ordercloud\Services\ProductTagService;
 use Ordercloud\Services\UserService;
 use Ordercloud\Support\CommandBus\Command;
 use Ordercloud\Support\CommandBus\CommandBus;
@@ -13,7 +14,7 @@ use Ordercloud\Support\Http\Client;
 
 class Ordercloud
 {
-    const VERSION = '1.3';
+    const VERSION = '1.4';
 
     /**
      * @var Container
@@ -92,6 +93,14 @@ class Ordercloud
     public function products()
     {
         return $this->container->make('Ordercloud\Services\ProductService');
+    }
+
+    /**
+     * @return ProductTagService
+     */
+    public function productTags()
+    {
+        return $this->container->make('Ordercloud\Services\ProductTagService');
     }
 
     /**

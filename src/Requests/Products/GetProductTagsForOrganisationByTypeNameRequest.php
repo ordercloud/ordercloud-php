@@ -3,6 +3,8 @@
 use Ordercloud\Support\CommandBus\Command;
 
 /**
+ * @deprecated Use `ProductTagService::getTags()`
+ *
  * Class GetProductTagsForOrganisationByTypeNameRequest
  *
  * @see Ordercloud\Requests\Products\Handlers\GetProductTagsForOrganisationByTypeNameRequestHandler

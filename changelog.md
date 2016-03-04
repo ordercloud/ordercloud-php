@@ -2,6 +2,24 @@
 All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.4.0]
+### Added
+- `ProductTagService`, `ProductTagCollection` & `TagCriteria`
+- `ProductTagService::getTags()`
+- `ProductTagService::getTagTypes()`
+- `ProductTagService::createTag()`
+- `ProductTagService::updateTag()`
+- `ProductTagService::enableTag()`
+- `ProductTagService::disableTag()`
+
+### Fixed
+- `totalNrPages` calculation on `PaginatedCollection` when page size is -1
+
+### Depricated
+- `ProductService::getProductTags()`
+- `ProductService::getProductTags()`
+- `GetProductTagsForOrganisationByTypeNameRequest`
+
 ## [1.3.1]
 ### Fixed
 - `createUser()` on `UserService` not returning user ID
@@ -122,7 +140,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.3.1...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.4.0...HEAD
+[1.4.0]: https://github.com/ordercloud/ordercloud-php/compare/1.3.1...1.4.0
 [1.3.1]: https://github.com/ordercloud/ordercloud-php/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/ordercloud/ordercloud-php/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/ordercloud/ordercloud-php/compare/1.1.0...1.2.0

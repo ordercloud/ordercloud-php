@@ -29,7 +29,7 @@ class PaginatedCollection extends Collection implements JsonSerializable
         $this->totalCount = $totalCount;
         $this->currentPage = $currentPage;
         $this->pageSize = $pageSize;
-        $this->totalNrPages = intval(ceil($totalCount / $pageSize));
+        $this->totalNrPages = $pageSize > 0 ? intval(ceil($totalCount / $pageSize)) : 1;
         $this->nextPage = $this->totalNrPages > $currentPage ? $currentPage + 1 : null;
         $this->previousPage = $currentPage > 1 ? $currentPage - 1 : null;
     }
