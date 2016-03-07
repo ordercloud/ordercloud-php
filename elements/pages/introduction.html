@@ -2,28 +2,30 @@
 
 <dom-module id="introduction-page">
 
-    <link rel="import" type="css" href="pages.css">
+  <link rel="import" type="css" href="pages.css">
 
-    <template>
-        <paper-material>
+  <template>
+    <paper-material>
 
-            <oc-markdown markdown="
-[![Source](https://img.shields.io/badge/source-ordercloud%2Fordercloud-blue.svg?style=flat-square)](https://github.com/ordercloud/ordercloud-php) [![License](https://img.shields.io/badge/license-MIT%20License-green.svg?style=flat-square)](https://github.com/ordercloud/ordercloud-php) [![packagist](https://img.shields.io/packagist/v/ordercloud/ordercloud.svg?style=flat-square)](https://packagist.org/packages/ordercloud/ordercloud/) [![Scrutinizer](https://img.shields.io/scrutinizer/g/ordercloud/ordercloud-php.svg?style=flat-square)](scrutinizer-ci.com/g/ordercloud/ordercloud-php/) [![travis-ci](https://img.shields.io/travis/ordercloud/ordercloud-php.svg?style=flat-square)](https://travis-ci.org/ordercloud/ordercloud-php)
+      <!--[![Scrutinizer](https://img.shields.io/scrutinizer/g/ordercloud/ordercloud-php.svg?style=flat-square)](scrutinizer-ci.com/g/ordercloud/ordercloud-php/)-->
+
+      <oc-markdown markdown="
+[![Source](https://img.shields.io/badge/source-ordercloud%2Fordercloud-blue.svg?style=flat-square)](https://github.com/ordercloud/ordercloud-php) [![License](https://img.shields.io/badge/license-MIT%20License-green.svg?style=flat-square)](https://github.com/ordercloud/ordercloud-php) [![packagist](https://img.shields.io/packagist/v/ordercloud/ordercloud.svg?style=flat-square)](https://packagist.org/packages/ordercloud/ordercloud/) [![travis-ci](https://img.shields.io/travis/ordercloud/ordercloud-php.svg?style=flat-square)](https://travis-ci.org/ordercloud/ordercloud-php)
 
 [Ordercloud](https://www.ordercloud.com/) is a central integration platform for order-fulfillment, this is a PHP client providing services and requests to communicate with Ordercloud.
             "></oc-markdown>
 
-        </paper-material>
-    </template>
+    </paper-material>
+  </template>
 
-    <script>
-    (function () {
-        'use strict';
+  <script>
+  (function () {
+    'use strict';
 
-        Polymer({
-            is: 'introduction-page'
-        });
-    })();
-    </script>
+    Polymer({
+      is: 'introduction-page'
+    });
+  })();
+  </script>
 
 </dom-module>
