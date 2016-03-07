@@ -37,6 +37,9 @@
 }
 
 /* Side nav */
+#drawer {
+    overflow: auto;
+}
 .nav {
     color: var(--paper-menu-color);
     background-color: var(--paper-menu-background-color);
@@ -68,6 +71,12 @@ paper-menu paper-item:hover {
 }
 paper-menu paper-item[disabled] {
 
+}
+paper-menu.menu-content paper-item {
+    padding-left: 2.6em;
+}
+paper-menu.menu-content paper-item:hover {
+    padding-left: 3em;
 }
 
 /* Tablet */

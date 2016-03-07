@@ -10,15 +10,22 @@
             <oc-markdown markdown="
 Entities are just POPO's (Plain Old PHP Objects).
 
-They represent resource entities of ordercloud, such as a User, Payment, Order, Product, etc. Standard `get` methods are available to retrieve the entity's attributes, eg `$user->getName()`. Some entities have helper methods, `$address->getAddressLines()` or even helpful constants `PaymentStatus::SUCCESSFUL`.
+They represent resource entities of ordercloud, such as a User, Payment, Order, Product, etc. Standard `get` methods
+are available to retrieve the entity's attributes, eg `$user->getName()`.
+Some entities have helper methods, `$address->getAddressLines()` or even helpful constants `PaymentStatus::SUCCESSFUL`.
 
-Entities can be found under the `Ordercloud\Entities` namespace.
+Entities can be found under the <a href='https://github.com/ordercloud/ordercloud-php/tree/HEAD/src/Entities'>Ordercloud\Entities</a> namespace.
 
 ## Collections
 
-Some requests return a `Collection` object. Collections can be treated as normal arrays, which allow it to be used in a `foreach($orders as $order)` or even `$orders[0]`.
+Some requests return a <a href='https://github.com/ordercloud/ordercloud-php/blob/HEAD/src/Support/Collection.php'>Collection</a> object.
+Collections can be treated as normal arrays, which allow it to be used in a `foreach($orders as $order)` or even `$orders[0]`.
 
-Paginated results return a `PaginatedCollection` which extend the `Collection` object. They provide pagination meta data: `getCurrentPage()`, `getPageSize()`, `getTotalNrPages()`, `getNextPage()` & more.
+Paginated results return a <a href='https://github.com/ordercloud/ordercloud-php/blob/HEAD/src/Support/PaginatedCollection.php'>PaginatedCollection</a> which extend the `Collection` object.
+They provide pagination meta data: `getCurrentPage()`, `getPageSize()`, `getTotalNrPages()`, `getNextPage()` & more.
+
+## JSON
+All entities implement `JsonSerializable`. This means that you can pass any entity to `json_encode()`.
             "></oc-markdown>
 
         </paper-material>

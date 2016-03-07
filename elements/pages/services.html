@@ -2,45 +2,280 @@
 
 <dom-module id="services-page">
 
-    <link rel="import" type="css" href="pages.css">
+  <link rel="import" type="css" href="pages.css">
+  <style>
+    oc-markdown.code {
+      font-size: 0.9em;
+    }
+  </style>
 
-    <template>
-        <paper-material>
+  <template>
+    <paper-material>
 
-            <oc-markdown markdown="
-Services encapsulate a set of requests related to a service, eg `PaymentService`, `UserService`, etc. All services reside under `Ordercloud\Services`
-
+      <oc-markdown markdown="
+Services encapsulate a set of requests related to a service, eg `PaymentService`, `UserService`, etc.
 They provide documented parameters, return types & @throws annotations.
-            "></oc-markdown>
+All services reside under <a href='https://github.com/ordercloud/ordercloud-php/tree/HEAD/src/Services'>Ordercloud\Services</a>
 
-            <oc-info-card markdown="It is recommended to use these services instead of executing the requests directly"></oc-info-card>
+Services can be accessed via getters on your configured client (`Ordercloud\Ordercloud`) instance:
+      "></oc-markdown>
 
-            <oc-markdown markdown="
-Example
+      <oc-markdown class="code" markdown="
 ```php
-use Ordercloud\Services\UserService;
-
-// Instantiate the service
-$userService = new UserService($ordercloud);
-
-// Make some calls
-$user = $userService->getLoggedInUser();
-$addresses = $userService->getAddresses($user->getId());
-$userService->resetPassword($user->getId());
+$ordercloud->orders() // OrderService
+$ordercloud->organisations() // OrganisationService
+$ordercloud->payment() // PaymentService
+$ordercloud->products() // ProductService
+$ordercloud->productTags() // ProductTagService
+$ordercloud->users()  // UserService
 ```
-            "></oc-markdown>
+      "></oc-markdown>
 
-        </paper-material>
-    </template>
+      <h2>Orders</h2>
+      <oc-markdown class="code" markdown="
+```php
+// Create an order
+$orderItems = [
+    new NewOrderItem($productId, $price, $quantity, $note, $options, $extras),
+    new NewOrderItem($productId, $price, $quantity, $note, $options, $extras),
+];
+$createOrderRequest = CreateOrderRequestBuilder::create()
+    ->setOrganisationId($orderOwnerId)
+    ->setOrderSourceChannelId($orderSourceChannelId) // Default: Web
+    ->setUserId($userId)
+    ->setDeliveryType(Order::DELIVERY_TYPE_DELIVERY)
+    ->setDeliveryAddressId($userAddressId) // Only required if order is a delivery order
+    ->setDeliveryServiceId($deliveryServiceId) // Only required if order is a delivery order
+    ->setDeliveryCost($deliveryCost) // Only required if order is a delivery order
+    ->setItems($orderItems)
+    ->setPaymentStatus(OrderPaymentStatus::UNPAID)
+    ->setAmount($total) // Including delivery cost
+    ->getRequest();
+$orderId = $oc->orders()->createOrder($createOrderRequest);
 
-    <script>
-    (function () {
-        'use strict';
+// Get an order
+$order = $oc->orders()->getOrder($orderId);
 
-        Polymer({
-            is: 'services-page'
-        });
-    })();
-    </script>
+// Get invoice for an order
+$invoice = $oc->orders()->getOrderInvoice($orderId);
+
+// Estimate delivery cost
+$estimatedDeliveryCost = $oc->orders()->estimateDeliveryCost($deliveryServiceId, $userAddressId, $merchantIds);
+
+// Get organisation orders by criteria
+$criteria = OrganisationOrderCriteria::create()
+    ->setOrderStatuses([
+        OrderStatus::STATUS_NEW,
+        OrderStatus::STATUS_ACCEPTED,
+    ])
+    ->setFromDate('2016-01-28')
+    ->setPaymentStatuses([ OrderPaymentStatus::PAID ]);
+$orders = $oc->orders()->getOrganisationOrders($organisationId, $criteria);
+
+// Get user orders by criteria
+$criteria = UserOrderCriteria::create()
+    ->setOrderStatuses([ OrderStatus::STATUS_CANCELLED ])
+    ->setPaymentStatuses([ OrderPaymentStatus::PAID ])
+    ->setPageSize(30)
+    ->setPage(1);
+$orders = $oc->orders()->getUserOrders($userId, $criteria);
+
+// Get order scheduling options
+$scheduleOptions = $oc->orders()->getScheduleOptions($merchantIds, $fromDate, $toDate);
+```
+      "></oc-markdown>
+
+      <h2>Organisations</h2>
+      <oc-markdown class="code" markdown="
+```php
+// Get an organisation
+$organisation = $oc->organisations()->getOrganisation($organisationId);
+
+// Get an organisation address
+$address = $oc->organisations()->getAddress($addressId);
+
+// Retreive organisation's settings
+$criteria = SettingsCriteria::create()->setPageSize(-1);
+$settings = $oc->organisations()->getSettings($organisationId, $criteria);
+```
+      "></oc-markdown>
+
+      <h2>Payments</h2>
+      <oc-markdown class="code" markdown="
+```php
+// Create a cash on delivery payment
+$oc->payments()->createCashOnDeliveryPayment($orderId);
+
+// Get a Payment
+$payment = $oc->payments()->getPayment($paymentId);
+
+// Get payments made by a user to an organisation
+$criteria = UserPaymentsToOrganisationCriteria::create()
+  ->setPageSize(-1)
+  ->setFrom($fromDate)
+  ->setTo($toDate);
+$payments = $oc->payments()->getUserPaymentsToOrganisation($userId, $organisationId, $criteria);
+```
+      "></oc-markdown>
+
+      <h2>Products</h2>
+      <oc-markdown class="code" markdown="
+```php
+// Get a product
+$product = $oc->products()->getProduct($productId);
+
+// Get products by criteria
+$criteria = ProductCriteria::create()
+    ->setOrganisations([ $organisationId, $organisationId])
+    ->setAvailable(true)
+    ->setShowDisabled(true)
+    ->setTags([
+        new ProductTagCriteria($productTagId),
+        new ProductTagCriteria($productTagId),
+    ])
+    ->setPageSize(-1);
+$products = $oc->products()->getProducts($criteria);
+```
+      "></oc-markdown>
+
+      <h2>ProductTags</h2>
+      <oc-markdown class="code" markdown="
+```php
+// Get product tag types
+$tagTypes = $oc->productTags()->getTagTypes();
+
+// Create product tag
+$tagId = $oc->productTags()->createTag($organisationId, $tagTypeId, $name);
+
+// Get a product tag
+$tag = $oc->productTags()->getTag($tagId);
+
+// Update product tag
+$oc->productTags()->updateTag($tagId, $name, $shortDescription);
+
+// Enable/Disable product tag
+$oc->productTags()->disableTag($tagId);
+$oc->productTags()->enableTag($tagId);
+
+// Get product tags by criteria
+$criteria = TagCriteria::create()
+  ->setOrganisationId(131)
+  ->setTypeId(5)
+  ->setPageSize(-1);
+$tags = $oc->productTags()->getTags($criteria);
+```
+      "></oc-markdown>
+
+      <h2>Users</h2>
+      <oc-markdown class="code" markdown="
+```php
+// Create a user
+$userProfile = new UserProfile(
+    $firstName,
+    $surname,
+    $email,
+    $nickName,
+    $cellphoneNumber,
+    $gender
+);
+$userId = $oc->users()->createUser($userProfile, $groups, $mobileNumberCountry, $password, $sendWelcomeMessage);
+
+// Get a user
+$user = $oc->users()->getUser($userId);
+
+// Update user's profile
+$userProfile = new UserProfile(
+    $firstName,
+    $surname,
+    $email,
+    $nickName,
+    $cellphoneNumber,
+    $gender
+);
+$oc->users()->updateProfile($userId, $userProfile);
+
+// Reset a user's password
+$oc->users()->resetPassword($userId);
+
+// Get a user's profile
+$userProfile = $oc->users()->getProfile($userId);
+
+// Get the 'logged in' user
+$user = $oc->users()->getLoggedInUser();
+
+// Get the logged in user for a given authorisation
+$auth = Authorisation::createWithUsernamePassword($username, $password);
+$user = $oc->users()->getLoggedInUser($auth);
+
+// Find a user by email or mobile number
+$users = $oc->users()->findUser($email, $mobile);
+
+// Create a user address
+$newAddress = new NewUserAddress(
+    $name,
+    $streetNumber,
+    $streetName,
+    $complex,
+    $suburb,
+    $city,
+    $postalCode,
+    $note,
+    $latitude,
+    $longitude
+);
+$addressId = $oc->users()->createAddress($userId, $newAddress);
+
+// Get a user's address
+$address = $oc->users()->getAddress($addressId);
+
+// Disable user's address
+$oc->users()->disableAddress($addressId);
+
+// Update a user's address
+$address = new UserAddress(
+    $id,
+    $note,
+    $longitude,
+    $latitude,
+    $name,
+    $streetNumber,
+    $streetName,
+    $complex,
+    $suburb,
+    $city,
+    $postalCode
+);
+$oc->users()->updateAddress($address);
+
+// Geocode an address
+$address = new Address(
+    $streetNumber,
+    $streetName,
+    $complex,
+    $suburb,
+    $city,
+    $postalCode
+);
+$geoCoordinates = $oc->users()->geocodeAddress($address);
+
+// Get user's addresses
+$criteria = UserAddressCriteria::create()
+    ->setPageSize(-1);
+$addresses = $oc->users()->getAddresses($userId, $criteria);
+```
+      "></oc-markdown>
+
+    </paper-material>
+  </template>
+
+  <script>
+  (function () {
+    'use strict';
+
+    Polymer({
+      is: 'services-page'
+    });
+  })();
+  </script>
 
 </dom-module>

@@ -7,6 +7,7 @@
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../bower_components/paper-menu/paper-submenu.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 
@@ -30,16 +31,22 @@
                     <h3>Getting started</h3>
                     <paper-item data-route="introduction">Introduction</paper-item>
                     <paper-item data-route="installation">Installation</paper-item>
-                    <paper-item data-route="configuration" disabled>Configuration</paper-item>
+                    <!--<paper-item data-route="configuration" disabled>Configuration</paper-item>-->
                     <paper-item data-route="changelog">Changelog</paper-item>
                     <h3>Concepts</h3>
-                    <paper-item data-route="client" disabled>Client</paper-item>
+                    <!--<paper-item data-route="client" disabled>Client</paper-item>-->
                     <paper-item data-route="entities">Entities</paper-item>
                     <paper-item data-route="services">Services</paper-item>
+                    <!--<paper-submenu>-->
+                      <!--<paper-item class="menu-trigger">Services</paper-item>-->
+                      <!--<paper-menu class="menu-content" selectable="paper-item" attr-for-selected="data-route" selected="[[route]]">-->
+                        <!--<paper-item data-route="services-overview">Overview</paper-item>-->
+                      <!--</paper-menu>-->
+                    <!--</paper-submenu>-->
                     <paper-item data-route="requests">Requests</paper-item>
                     <h3>Extensions</h3>
-                    <paper-item data-route="monolog" disabled>Monolog</paper-item>
                     <paper-item data-route="laravel" disabled>Laravel</paper-item>
+                    <paper-item data-route="monolog" disabled>Monolog</paper-item>
                 </paper-menu>
             </div>
 
@@ -107,7 +114,7 @@
         },
 
         routeTo: function (route) {
-            page('/' + route);
+            page(this.routes[route].uri);
             var drawerPanel = document.getElementById('drawerPanel');
             if (drawerPanel.narrow) {
                 drawerPanel.closeDrawer();

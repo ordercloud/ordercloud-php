@@ -1,139 +1,153 @@
 <link rel="import" href="pages-import.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="changelog-page">
 
-    <link rel="import" type="css" href="pages.css">
+  <link rel="import" type="css" href="pages.css">
 
-    <template>
-        <paper-material>
+  <template>
+    <paper-material>
 
-            <oc-markdown markdown="All notable changes to this project will be documented here."></oc-markdown>
+      <oc-markdown id="changelog" markdown="[[ changelog ]]"></oc-markdown>
 
-            <oc-markdown markdown="
-# Change Log
-All notable changes to this project will be documented here.
-This project adheres to [Semantic Versioning](http://semver.org/).
+      <iron-ajax
+          id="changelogRequest"
+          url="https://raw.githubusercontent.com/ordercloud/ordercloud-php/HEAD/changelog.md"
+          handle-as="text"
+          last-response="{{ changelog }}"
+          auto
+      ></iron-ajax>
 
-## [1.0.0]
-### Added
-- `Currency` entity & `currency` to `Organisation`
-- Service methods (`organisations`, `users`, etc) to `Ordercloud`
-- `getUnlockableOptionSets` & `getUnlockableExtraSets` to `Product`
-- `name`, `value` & `description` to `ProductAttribute`
-- `unlockOptionSets` & `unlockExtraSets` to `ProductOption`
-- `UnlockableProductExtraSet`
-- `UnlockableProductOptionSet`
+      <!--<oc-markdown markdown="-->
+      <!--# Change Log-->
+      <!--All notable changes to this project will be documented here.-->
+      <!--This project adheres to [Semantic Versioning](http://semver.org/).-->
 
-### Changed
-- `attributes` to `attributeSets` on `Product`
-- `ProductItemAttribute` to `ProductAttributeSet`
+      <!--## [1.0.0]-->
+      <!--### Added-->
+      <!-- - `Currency` entity & `currency` to `Organisation`-->
+      <!-- - Service methods (`organisations`, `users`, etc) to `Ordercloud`-->
+      <!-- - `getUnlockableOptionSets` & `getUnlockableExtraSets` to `Product`-->
+      <!-- - `name`, `value` & `description` to `ProductAttribute`-->
+      <!-- - `unlockOptionSets` & `unlockExtraSets` to `ProductOption`-->
+      <!-- - `UnlockableProductExtraSet`-->
+      <!-- - `UnlockableProductOptionSet`-->
 
-### Removed
-- `UserGroup` & `UserRole` entities
-- `loggingUrlPatterns` & `loggingMethods` from `LoggingClient`
-- `attributes` from `ProductExtraSet`
-- `attributes` from `ProductOptionSet`
+      <!--### Changed-->
+      <!-- - `attributes` to `attributeSets` on `Product`-->
+      <!-- - `ProductItemAttribute` to `ProductAttributeSet`-->
 
-## [0.6.1]
-### Added
-- `additionalInfo` to `Product` entity
+      <!--### Removed-->
+      <!-- - `UserGroup` & `UserRole` entities-->
+      <!-- - `loggingUrlPatterns` & `loggingMethods` from `LoggingClient`-->
+      <!-- - `attributes` from `ProductExtraSet`-->
+      <!-- - `attributes` from `ProductOptionSet`-->
 
-## [0.6.0]
-### Added
-- `deliveryCost` to create order call
+      <!--## [0.6.1]-->
+      <!--### Added-->
+      <!-- - `additionalInfo` to `Product` entity-->
 
-### Changed
-- `assetTypeCode` to `currencyCode` on `Payment`
+      <!--## [0.6.0]-->
+      <!--### Added-->
+      <!-- - `deliveryCost` to create order call-->
 
-### Removed
-- `groups` & `organisations` from `User`
+      <!--### Changed-->
+      <!-- - `assetTypeCode` to `currencyCode` on `Payment`-->
 
-## [0.5.2]
-### Added
-- `JsonSerializable` to all entities - all entities can now be serialized to JSON
-- `markup` to `OrderItem`
-- `unitPrice` to `OrderItem`
-- `tip` to `Order`
-- `GetOrderInvoiceRequest` & `OrderInvoice`
-- `OrderDelivery` to `Order`
+      <!--### Removed-->
+      <!-- - `groups` & `organisations` from `User`-->
 
-## [0.5.1]
-### Fixed
-- `GetSettingsByOrganisationRequest` handler to send pagination parameters as query parameters
+      <!--## [0.5.2]-->
+      <!--### Added-->
+      <!-- - `JsonSerializable` to all entities - all entities can now be serialized to JSON-->
+      <!-- - `markup` to `OrderItem`-->
+      <!-- - `unitPrice` to `OrderItem`-->
+      <!-- - `tip` to `Order`-->
+      <!-- - `GetOrderInvoiceRequest` & `OrderInvoice`-->
+      <!-- - `OrderDelivery` to `Order`-->
 
-## [0.5.0]
-### Added
-- `InvalidArgumentException` to `EntityReflector`
-- `ProductTagCriteria` for enhanced product search by tag
-- `ProductTagTypeCriteria` for enhanced product search by tag type
+      <!--## [0.5.1]-->
+      <!--### Fixed-->
+      <!-- - `GetSettingsByOrganisationRequest` handler to send pagination parameters as query parameters-->
 
-### Changed
-- `Organisation`'s profile changed from an array of profiles to a single `Profile`
-- `ProductCriteria`'s tags from integers to `ProductTagCriteria`
+      <!--## [0.5.0]-->
+      <!--### Added-->
+      <!-- - `InvalidArgumentException` to `EntityReflector`-->
+      <!-- - `ProductTagCriteria` for enhanced product search by tag-->
+      <!-- - `ProductTagTypeCriteria` for enhanced product search by tag type-->
 
-### Removed
-- `organisation` from `ProductTag`
-- `search` from `ProductCriteria` which is used by `FindProductsRequest`
+      <!--### Changed-->
+      <!-- - `Organisation`'s profile changed from an array of profiles to a single `Profile`-->
+      <!-- - `ProductCriteria`'s tags from integers to `ProductTagCriteria`-->
 
-## [0.4.2]
-### Fixed
-- Do not send empty array when body empty on http request
+      <!--### Removed-->
+      <!-- - `organisation` from `ProductTag`-->
+      <!-- - `search` from `ProductCriteria` which is used by `FindProductsRequest`-->
 
-## [0.4.1]
-### Added
-- `GetOrderScheduleOptionsRequest`, `OrderService::getScheduleOptions()` & `ScheduleOption` entity
-- `GetUserPaymentsToOrganisationRequest`, `PaymentService::getUserPaymentsToOrganisation()` & `PaymentCollection` entity
-- `creationDate` on `Payment` entity
+      <!--## [0.4.2]-->
+      <!--### Fixed-->
+      <!-- - Do not send empty array when body empty on http request-->
 
-## [0.4.0]
-### Removed
-- `amount` from `CreateCreditCardPaymentRequest` & `CreateCashOnDeliveryPaymentRequest`
+      <!--## [0.4.1]-->
+      <!--### Added-->
+      <!-- - `GetOrderScheduleOptionsRequest`, `OrderService::getScheduleOptions()` & `ScheduleOption` entity-->
+      <!-- - `GetUserPaymentsToOrganisationRequest`, `PaymentService::getUserPaymentsToOrganisation()` & `PaymentCollection` entity-->
+      <!-- - `creationDate` on `Payment` entity-->
 
-### Changed
-- Renamed `deliveryTime` -> `scheduledTime` on `CreateOrderRequestBuilder` & `CreateOrderRequest`
-- Renamed `scheduledDeliveryDate` -> `scheduledDate` on `Order` entity
-- Changed order's payment status from `PaymentStatus` to `OrderPaymentStatus`
-- Searching by tag uses a tag ID and not a tag name anymore
+      <!--## [0.4.0]-->
+      <!--### Removed-->
+      <!-- - `amount` from `CreateCreditCardPaymentRequest` & `CreateCashOnDeliveryPaymentRequest`-->
 
-### Added
-- Added `SettingCriteria`
-- `threeDSecure` & `threeDSecureReturnUrl` on `CreateCreditCardPaymentRequest`
-- `CreditCardPaymentFailedException`
-- `GetPaymentThreeDSecureRequest` & `PaymentService::getPaymentThreeDSecure()`
-- `GetPaymentRequest` & `PaymentService::getPayment()`
-- `OrderPaymentStatus`
-- `contactNumber` to `OrderItemMerchant`
-- `GetProductTagRequest` & `ProductService::getProductTag()`
+      <!--### Changed-->
+      <!-- - Renamed `deliveryTime` -> `scheduledTime` on `CreateOrderRequestBuilder` & `CreateOrderRequest`-->
+      <!-- - Renamed `scheduledDeliveryDate` -> `scheduledDate` on `Order` entity-->
+      <!-- - Changed order's payment status from `PaymentStatus` to `OrderPaymentStatus`-->
+      <!-- - Searching by tag uses a tag ID and not a tag name anymore-->
 
-### Fixed
-- Fixed `scheduledTime` body parameter name on create order request
+      <!--### Added-->
+      <!-- - Added `SettingCriteria`-->
+      <!-- - `threeDSecure` & `threeDSecureReturnUrl` on `CreateCreditCardPaymentRequest`-->
+      <!-- - `CreditCardPaymentFailedException`-->
+      <!-- - `GetPaymentThreeDSecureRequest` & `PaymentService::getPaymentThreeDSecure()`-->
+      <!-- - `GetPaymentRequest` & `PaymentService::getPayment()`-->
+      <!-- - `OrderPaymentStatus`-->
+      <!-- - `contactNumber` to `OrderItemMerchant`-->
+      <!-- - `GetProductTagRequest` & `ProductService::getProductTag()`-->
 
-## [< 0.3.1]
-### History unavailable
+      <!--### Fixed-->
+      <!-- - Fixed `scheduledTime` body parameter name on create order request-->
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.0.0...HEAD
-[1.0.0]: https://github.com/ordercloud/ordercloud-php/compare/0.6.1...1.0.0
-[0.6.1]: https://github.com/ordercloud/ordercloud-php/compare/0.6.0...0.6.1
-[0.6.0]: https://github.com/ordercloud/ordercloud-php/compare/0.5.2...0.6.0
-[0.5.2]: https://github.com/ordercloud/ordercloud-php/compare/0.5.1...0.5.2
-[0.5.1]: https://github.com/ordercloud/ordercloud-php/compare/0.5.0...0.5.1
-[0.5.0]: https://github.com/ordercloud/ordercloud-php/compare/0.4.2...0.5.0
-[0.4.2]: https://github.com/ordercloud/ordercloud-php/compare/0.4.1...0.4.2
-[0.4.1]: https://github.com/ordercloud/ordercloud-php/compare/0.4.0...0.4.1
-[0.4.0]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...0.4.0
-                      "></oc-markdown>
+      <!--## [< 0.3.1]-->
+      <!--### History unavailable-->
 
-        </paper-material>
-    </template>
+      <!--[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.0.0...HEAD-->
+      <!--[1.0.0]: https://github.com/ordercloud/ordercloud-php/compare/0.6.1...1.0.0-->
+      <!--[0.6.1]: https://github.com/ordercloud/ordercloud-php/compare/0.6.0...0.6.1-->
+      <!--[0.6.0]: https://github.com/ordercloud/ordercloud-php/compare/0.5.2...0.6.0-->
+      <!--[0.5.2]: https://github.com/ordercloud/ordercloud-php/compare/0.5.1...0.5.2-->
+      <!--[0.5.1]: https://github.com/ordercloud/ordercloud-php/compare/0.5.0...0.5.1-->
+      <!--[0.5.0]: https://github.com/ordercloud/ordercloud-php/compare/0.4.2...0.5.0-->
+      <!--[0.4.2]: https://github.com/ordercloud/ordercloud-php/compare/0.4.1...0.4.2-->
+      <!--[0.4.1]: https://github.com/ordercloud/ordercloud-php/compare/0.4.0...0.4.1-->
+      <!--[0.4.0]: https://github.com/ordercloud/ordercloud-php/compare/0.3.1...0.4.0-->
+      <!--"></oc-markdown>-->
 
-    <script>
-    (function () {
-        'use strict';
+    </paper-material>
+  </template>
 
-        Polymer({
-            is: 'changelog-page'
-        });
-    })();
-    </script>
+  <script>
+  (function () {
+    'use strict';
+
+    Polymer({
+      is: 'changelog-page',
+
+//      ready: function() {
+//        this.$.changelogRequest.generateRequest();
+//      }
+
+    });
+  })();
+  </script>
 
 </dom-module>

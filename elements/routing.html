@@ -20,58 +20,48 @@ window.addEventListener('WebComponentsReady', function () {
 
     var app = document.querySelector('#app');
 
-    app.routes = [
-        {
-            route: 'introduction',
-            uri: '/introduction',
-            title: 'Introduction'
-        },
-        {
-            route: 'installation',
-            uri: '/installation',
-            title: 'Installation'
-        },
-        {
-            route: 'configuration',
-            uri: '/configuration',
-            title: 'Configuration'
-        },
-        {
-            route: 'changelog',
-            uri: '/changelog',
-            title: 'Changelog'
-        },
-        {
-            route: 'client',
-            uri: '/client',
-            title: 'Client'
-        },
-        {
-            route: 'entities',
-            uri: '/entities',
-            title: 'Entities'
-        },
-        {
-            route: 'services',
-            uri: '/services',
-            title: 'Services'
-        },
-        {
-            route: 'requests',
-            uri: '/requests',
-            title: 'Requests'
-        },
-        {
-            route: 'monolog',
-            uri: '/monolog',
-            title: 'Monolog'
-        },
-        {
-            route: 'laravel',
-            uri: '/laravel',
-            title: 'Laravel'
-        }
-    ];
+    app.routes = {
+      'introduction': {
+        uri: '/introduction',
+        title: 'Introduction'
+      },
+      'installation': {
+        uri: '/installation',
+        title: 'Installation'
+      },
+      'configuration': {
+        uri: '/configuration',
+        title: 'Configuration'
+      },
+      'changelog': {
+        uri: '/changelog',
+        title: 'Changelog'
+      },
+      'client': {
+        uri: '/client',
+        title: 'Client'
+      },
+      'entities': {
+        uri: '/entities',
+        title: 'Entities'
+      },
+      'services': {
+        uri: '/services',
+        title: 'Services'
+      },
+      'requests': {
+        uri: '/requests',
+        title: 'Requests'
+      },
+      'monolog': {
+        uri: '/monolog',
+        title: 'Monolog'
+      },
+      'laravel': {
+        uri: '/laravel',
+        title: 'Laravel'
+      }
+    };
 
     // Scroll to top on each new page
     page(function (ctx, next) {
@@ -80,8 +70,8 @@ window.addEventListener('WebComponentsReady', function () {
     });
 
     // Register routes
-    for (var i in app.routes) {
-        registerPage(app.routes[i]);
+    for (var route in app.routes) {
+        registerPage(route, app.routes[route]);
     }
 
     // Defualt
@@ -90,7 +80,6 @@ window.addEventListener('WebComponentsReady', function () {
     // 404 handler
     page('*', function (ctx, next) {
         console.error('route not found', {'ctx': ctx});
-        alert('page not found');
         page('/introduction');
     });
 
@@ -99,10 +88,10 @@ window.addEventListener('WebComponentsReady', function () {
         hashbang: true
     });
 
-    function registerPage(route) {
-        page(route.uri, function () {
-            app.route = route.route;
-            app.title = route.title;
+    function registerPage(route, routeDetails) {
+        page(routeDetails.uri, function () {
+            app.route = route;
+            app.title = routeDetails.title;
         });
     }
 
