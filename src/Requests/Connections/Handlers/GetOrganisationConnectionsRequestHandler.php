@@ -1,8 +1,8 @@
-<?php namespace Ordercloud\Requests\Organisations\Handlers;
+<?php namespace Ordercloud\Requests\Connections\Handlers;
 
+use Ordercloud\Requests\Connections\GetOrganisationConnectionsRequest;
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Handlers\IdentifyByIdTrait;
-use Ordercloud\Requests\Organisations\GetOrganisationConnectionsRequest;
 
 class GetOrganisationConnectionsRequestHandler extends AbstractGetRequestHandler
 {

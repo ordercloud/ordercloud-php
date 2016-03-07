@@ -1,6 +1,6 @@
-<?php namespace Ordercloud\Requests\Organisations;
+<?php namespace Ordercloud\Requests\Connections;
 
-use Ordercloud\Requests\Organisations\Criteria\AdvancedConnectionCriteria;
+use Ordercloud\Requests\Connections\Criteria\AdvancedConnectionCriteria;
 use Ordercloud\Support\CommandBus\Command;
 
 /**
@@ -15,13 +15,13 @@ class GetOrganisationConnectionsRequest implements Command
      */
     private $organisationId;
     /**
-     * @var AdvancedConnectionCriteria
+     * @var \Ordercloud\Requests\Connections\Criteria\AdvancedConnectionCriteria
      */
     private $criteria;
 
     /**
-     * @param int|null                   $organisationId
-     * @param AdvancedConnectionCriteria $criteria
+     * @param int|null                                                             $organisationId
+     * @param \Ordercloud\Requests\Connections\Criteria\AdvancedConnectionCriteria $criteria
      */
     public function __construct($organisationId = null, AdvancedConnectionCriteria $criteria)
     {

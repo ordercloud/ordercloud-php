@@ -1,4 +1,4 @@
-<?php namespace Ordercloud\Requests\Organisations\Criteria;
+<?php namespace Ordercloud\Requests\Connections\Criteria;
 
 class ExtendedConnectionCriteria extends BasicConnectionCriteria
 {

@@ -3,10 +3,12 @@
 use Ordercloud\Entities\Products\ProductTag;
 use Ordercloud\Entities\Products\ProductTagCollection;
 use Ordercloud\Entities\Products\ProductTagType;
+use Ordercloud\Requests\Exceptions\ConflictRequestException;
 use Ordercloud\Requests\Exceptions\NotFoundRequestException;
 use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\Products\CreateProductTagRequest;
 use Ordercloud\Requests\Products\Criteria\TagCriteria;
+use Ordercloud\Requests\Products\DeleteProductTagRequest;
 use Ordercloud\Requests\Products\DisableProductTagRequest;
 use Ordercloud\Requests\Products\EnableProductTagRequest;
 use Ordercloud\Requests\Products\GetProductTagRequest;
@@ -64,6 +66,8 @@ class ProductTagService extends OrdercloudService
      * @return int The new product tag ID
      *
      * @throws OrdercloudRequestException
+     * @throws ConflictRequestException
+     * @throws NotFoundRequestException
      */
     public function createTag($organisationId, $tagTypeId, $name, $shortDescription = null, $description = null)
     {
@@ -71,7 +75,7 @@ class ProductTagService extends OrdercloudService
             new CreateProductTagRequest($organisationId, $tagTypeId, $name, $shortDescription, $description)
         );
     }
-    
+
     /**
      * @param int         $tagId
      * @param string      $name
@@ -79,6 +83,8 @@ class ProductTagService extends OrdercloudService
      * @param string|null $description
      *
      * @throws OrdercloudRequestException
+     * @throws ConflictRequestException
+     * @throws NotFoundRequestException
      */
     public function updateTag($tagId, $name, $shortDescription = null, $description = null)
     {
@@ -87,8 +93,9 @@ class ProductTagService extends OrdercloudService
 
     /**
      * @param int $tagId
-     * 
+     *
      * @throws OrdercloudRequestException
+     * @throws NotFoundRequestException
      */
     public function enableTag($tagId)
     {
@@ -99,11 +106,21 @@ class ProductTagService extends OrdercloudService
      * @param int $tagId
      *
      * @throws OrdercloudRequestException
+     * @throws NotFoundRequestException
      */
     public function disableTag($tagId)
     {
         $this->request(new DisableProductTagRequest($tagId));
     }
-}
 
-// TODO add 409 conflict exception
+    /**
+     * @param int $tagId
+     *
+     * @throws OrdercloudRequestException
+     * @throws NotFoundRequestException
+     */
+    public function deleteTag($tagId)
+    {
+        $this->request(new DeleteProductTagRequest($tagId));
+    }
+}

@@ -17,6 +17,8 @@ class RequestExceptionGenerator extends ExceptionGenerator
                 return new ForbiddenRequestException($request, $exception);
             case 404:
                 return new NotFoundRequestException($request, $exception);
+            case 409:
+                return new ConflictRequestException($request, $exception);
             default:
                 if ($exception->getCode() >= 500) {
                     return new ServerErrorRequestException($request, $exception);

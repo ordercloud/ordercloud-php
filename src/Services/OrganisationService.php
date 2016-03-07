@@ -7,12 +7,12 @@ use Ordercloud\Entities\Organisations\OrganisationAccessToken;
 use Ordercloud\Entities\Organisations\OrganisationAddress;
 use Ordercloud\Entities\Settings\SettingsCollection;
 use Ordercloud\Requests\Auth\Entities\Authorisation;
-use Ordercloud\Requests\Organisations\Criteria\AdvancedConnectionCriteria;
-use Ordercloud\Requests\Organisations\Criteria\BasicConnectionCriteria;
+use Ordercloud\Requests\Connections\Criteria\AdvancedConnectionCriteria;
+use Ordercloud\Requests\Connections\Criteria\BasicConnectionCriteria;
+use Ordercloud\Requests\Connections\GetOrganisationConnectionsByTypeRequest;
+use Ordercloud\Requests\Connections\GetOrganisationConnectionsRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationAccessTokenRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationAddressRequest;
-use Ordercloud\Requests\Organisations\GetOrganisationConnectionsByTypeRequest;
-use Ordercloud\Requests\Organisations\GetOrganisationConnectionsRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationRequest;
 use Ordercloud\Requests\Organisations\GetSettingsByOrganisationRequest;
 use Ordercloud\Requests\Settings\Criteria\SettingsCriteria;
@@ -84,6 +84,8 @@ class OrganisationService extends OrdercloudService
     }
 
     /**
+     * @deprecated See ConnectionService for replacement
+     *
      * @param int                          $typeCode
      * @param int|null                     $organisationId
      * @param BasicConnectionCriteria|null $criteria
@@ -100,6 +102,8 @@ class OrganisationService extends OrdercloudService
     }
 
     /**
+     * @deprecated See ConnectionService for replacement
+     *
      * @param int|null                     $organisationId
      * @param BasicConnectionCriteria|null $criteria
      *
@@ -111,6 +115,8 @@ class OrganisationService extends OrdercloudService
     }
 
     /**
+     * @deprecated See ConnectionService for replacement
+     *
      * @param int|null                     $organisationId
      * @param BasicConnectionCriteria|null $criteria
      *
@@ -122,8 +128,10 @@ class OrganisationService extends OrdercloudService
     }
 
     /**
-     * @param int|null                        $organisationId
-     * @param AdvancedConnectionCriteria|null $criteria
+     * @deprecated See ConnectionService for replacement
+     *
+     * @param int|null                                                                  $organisationId
+     * @param \Ordercloud\Requests\Connections\Criteria\AdvancedConnectionCriteria|null $criteria
      *
      * @return array|Connection[]
      */

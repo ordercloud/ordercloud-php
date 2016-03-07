@@ -2,6 +2,7 @@
 
 use Illuminate\Container\Container;
 use Ordercloud\Services\AuthService;
+use Ordercloud\Services\ConnectionService;
 use Ordercloud\Services\OrderService;
 use Ordercloud\Services\OrganisationService;
 use Ordercloud\Services\PaymentService;
@@ -14,7 +15,7 @@ use Ordercloud\Support\Http\Client;
 
 class Ordercloud
 {
-    const VERSION = '1.4';
+    const VERSION = '1.5';
 
     /**
      * @var Container
@@ -56,19 +57,27 @@ class Ordercloud
     }
 
     /**
-     * @return OrganisationService
-     */
-    public function organisations()
-    {
-        return $this->container->make('Ordercloud\Services\OrganisationService');
-    }
-
-    /**
      * @return AuthService
      */
     public function auth()
     {
         return $this->container->make('Ordercloud\Services\AuthService');
+    }
+
+    /**
+     * @return ConnectionService
+     */
+    public function connections()
+    {
+        return $this->container->make('Ordercloud\Services\ConnectionService');
+    }
+
+    /**
+     * @return OrganisationService
+     */
+    public function organisations()
+    {
+        return $this->container->make('Ordercloud\Services\OrganisationService');
     }
 
     /**

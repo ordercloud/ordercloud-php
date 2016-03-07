@@ -1,4 +1,4 @@
-<?php namespace Ordercloud\Requests\Organisations\Criteria;
+<?php namespace Ordercloud\Requests\Connections\Criteria;
 
 use Ordercloud\Requests\Criteria\Criteria;
 use Ordercloud\Requests\Criteria\PaginationCriterion;

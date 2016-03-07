@@ -1,7 +1,7 @@
-<?php namespace Ordercloud\Requests\Organisations\Handlers;
+<?php namespace Ordercloud\Requests\Connections\Handlers;
 
+use Ordercloud\Requests\Connections\GetOrganisationConnectionsByTypeRequest;
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
-use Ordercloud\Requests\Organisations\GetOrganisationConnectionsByTypeRequest;
 
 class GetOrganisationConnectionsByTypeRequestHandler extends AbstractGetRequestHandler
 {
