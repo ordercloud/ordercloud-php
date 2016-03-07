@@ -1,12 +1,12 @@
 <?php namespace Ordercloud\Requests\Products\Handlers;
 
 use Ordercloud\Requests\Handlers\AbstractPutRequestHandler;
-use Ordercloud\Requests\Products\EnableProductTagRequest;
+use Ordercloud\Requests\Products\DisableProductTagRequest;
 
 class DisableProductTagRequestHandler extends AbstractPutRequestHandler
 {
     /**
-     * @param EnableProductTagRequest $request
+     * @param DisableProductTagRequest $request
      */
     protected function configure($request)
     {
