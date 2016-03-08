@@ -2,11 +2,14 @@
 
 use Ordercloud\Entities\Products\ProductTagCollection;
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
+use Ordercloud\Requests\Handlers\FormatBooleanTrait;
 use Ordercloud\Requests\Products\GetProductTagsRequest;
 use Ordercloud\Support\Reflection\EntityReflector;
 
 class GetProductTagsRequestHandler extends AbstractGetRequestHandler
 {
+    use FormatBooleanTrait;
+
     /**
      * @var int
      */
@@ -38,8 +41,9 @@ class GetProductTagsRequestHandler extends AbstractGetRequestHandler
 
         $this->setUrl('resource/product/tag%s%s', $organisation, $type)
             ->setQueryParameters([
-                'page'     => $criteria->getPage(),
-                'pagesize' => $criteria->getPageSize(),
+                'page'         => $criteria->getPage(),
+                'pagesize'     => $criteria->getPageSize(),
+                'showDisabled' => $this->formatBoolean($criteria->isShowDisabled()),
             ]);
 
         $this->page = $criteria->getPage();

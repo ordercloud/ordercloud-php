@@ -2,6 +2,10 @@
 All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.6.0]
+### Added
+- `showDisabled` to `TagCriteria`
+
 ## [1.5.0]
 ### Added
 - `ConflictRequestException`
@@ -153,7 +157,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.5.0...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/1.6.0...HEAD
+[1.6.0]: https://github.com/ordercloud/ordercloud-php/compare/1.5.0...1.6.0
 [1.5.0]: https://github.com/ordercloud/ordercloud-php/compare/1.4.0...1.5.0
 [1.4.0]: https://github.com/ordercloud/ordercloud-php/compare/1.3.1...1.4.0
 [1.3.1]: https://github.com/ordercloud/ordercloud-php/compare/1.3.0...1.3.1

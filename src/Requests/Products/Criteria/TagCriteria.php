@@ -19,6 +19,10 @@ class TagCriteria extends Criteria
      * @var int
      */
     private $organisationId;
+    /**
+     * @var boolean
+     */
+    private $showDisabled;
 
     /**
      * @return string
@@ -76,6 +80,26 @@ class TagCriteria extends Criteria
     public function setOrganisationId($organisationId)
     {
         $this->organisationId = $organisationId;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isShowDisabled()
+    {
+        return $this->showDisabled;
+    }
+
+    /**
+     * @param boolean $showDisabled
+     *
+     * @return static
+     */
+    public function setShowDisabled($showDisabled)
+    {
+        $this->showDisabled = $showDisabled;
 
         return $this;
     }
