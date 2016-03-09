@@ -4,8 +4,8 @@ use Ordercloud\Entities\Connections\Connection;
 use Ordercloud\Entities\Connections\ConnectionType;
 use Ordercloud\Requests\Connections\Criteria\AdvancedConnectionCriteria;
 use Ordercloud\Requests\Connections\Criteria\BasicConnectionCriteria;
-use Ordercloud\Requests\Connections\GetOrganisationConnectionsByTypeRequest;
-use Ordercloud\Requests\Connections\GetOrganisationConnectionsRequest;
+use Ordercloud\Requests\Connections\GetConnectionsByTypeRequest;
+use Ordercloud\Requests\Connections\GetConnectionsRequest;
 
 class ConnectionService extends OrdercloudService
 {
@@ -21,7 +21,7 @@ class ConnectionService extends OrdercloudService
         $criteria = $criteria ?: BasicConnectionCriteria::create();
 
         return $this->request(
-            new GetOrganisationConnectionsByTypeRequest($typeCode, $organisationId, $criteria)
+            new GetConnectionsByTypeRequest($typeCode, $organisationId, $criteria)
         );
     }
 
@@ -58,7 +58,7 @@ class ConnectionService extends OrdercloudService
         $criteria = $criteria ?: AdvancedConnectionCriteria::create();
 
         return $this->request(
-            new GetOrganisationConnectionsRequest($organisationId, $criteria)
+            new GetConnectionsRequest($organisationId, $criteria)
         );
     }
 }

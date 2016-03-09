@@ -10,7 +10,6 @@ use Ordercloud\Requests\Products\FindProductsRequest;
 use Ordercloud\Requests\Products\GetProductRequest;
 use Ordercloud\Requests\Products\GetProductsByConnectionRequest;
 use Ordercloud\Requests\Products\GetProductTagRequest;
-use Ordercloud\Requests\Products\GetProductTagsForOrganisationByTypeNameRequest;
 use Ordercloud\Requests\Products\GetProductTagsRequest;
 
 class ProductService extends OrdercloudService

@@ -4,11 +4,11 @@ use Ordercloud\Requests\Connections\Criteria\BasicConnectionCriteria;
 use Ordercloud\Support\CommandBus\Command;
 
 /**
- * Class GetOrganisationConnectionsByTypeRequest
+ * Class GetConnectionsByTypeRequest
  *
  * @see Ordercloud\Requests\Organisations\Handlers\GetOrganisationConnectionsByTypeRequestHandler
  */
-class GetOrganisationConnectionsByTypeRequest implements Command
+class GetConnectionsByTypeRequest implements Command
 {
     /**
      * @var int
@@ -19,14 +19,14 @@ class GetOrganisationConnectionsByTypeRequest implements Command
      */
     private $organisationId;
     /**
-     * @var \Ordercloud\Requests\Connections\Criteria\BasicConnectionCriteria
+     * @var BasicConnectionCriteria
      */
     private $criteria;
 
     /**
-     * @param int                                                               $typeCode
-     * @param int|null                                                          $organisationId
-     * @param \Ordercloud\Requests\Connections\Criteria\BasicConnectionCriteria $criteria
+     * @param int                     $typeCode
+     * @param int|null                $organisationId
+     * @param BasicConnectionCriteria $criteria
      */
     public function __construct($typeCode, $organisationId = null, BasicConnectionCriteria $criteria)
     {
@@ -60,7 +60,7 @@ class GetOrganisationConnectionsByTypeRequest implements Command
     }
 
     /**
-     * @return \Ordercloud\Requests\Connections\Criteria\BasicConnectionCriteria
+     * @return BasicConnectionCriteria
      */
     public function getCriteria()
     {

@@ -1,12 +1,12 @@
-<?php namespace Ordercloud\Requests\Connections\Handlers;
+<?php namespace Ordercloud\Requests\Organisations\Handlers;
 
-use Ordercloud\Requests\Connections\GetConnectionsByTypeRequest;
+use Ordercloud\Requests\Organisations\GetOrganisationConnectionsByTypeRequest;
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 
 class GetOrganisationConnectionsByTypeRequestHandler extends AbstractGetRequestHandler
 {
     /**
-     * @param GetConnectionsByTypeRequest $request
+     * @param GetOrganisationConnectionsByTypeRequest $request
      */
     protected function configure($request)
     {

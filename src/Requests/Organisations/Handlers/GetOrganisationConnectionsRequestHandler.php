@@ -1,6 +1,6 @@
-<?php namespace Ordercloud\Requests\Connections\Handlers;
+<?php namespace Ordercloud\Requests\Organisations\Handlers;
 
-use Ordercloud\Requests\Connections\GetConnectionsRequest;
+use Ordercloud\Requests\Organisations\GetOrganisationConnectionsRequest;
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Handlers\IdentifyByIdTrait;
 
@@ -9,7 +9,7 @@ class GetOrganisationConnectionsRequestHandler extends AbstractGetRequestHandler
     use IdentifyByIdTrait;
 
     /**
-     * @param GetConnectionsRequest $request
+     * @param GetOrganisationConnectionsRequest $request
      */
     protected function configure($request)
     {

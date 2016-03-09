@@ -4,11 +4,11 @@ use Ordercloud\Requests\Connections\Criteria\AdvancedConnectionCriteria;
 use Ordercloud\Support\CommandBus\Command;
 
 /**
- * Class GetOrganisationConnectionsRequest
+ * Class GetConnectionsRequest
  *
  * @see Ordercloud\Requests\Organisations\Handlers\GetOrganisationConnectionsRequestHandler
  */
-class GetOrganisationConnectionsRequest implements Command
+class GetConnectionsRequest implements Command
 {
     /**
      * @var int|null
