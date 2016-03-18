@@ -18,10 +18,10 @@ class Product implements JsonSerializable
     /** @var float */
     private $price;
     /**
-     * @var array|ProductAttributeSet[]
-     * @reflectType Ordercloud\Entities\Products\ProductAttributeSet
+     * @var array|ProductAttributeDisplay[]
+     * @reflectType Ordercloud\Entities\Products\ProductAttributeDisplay
      */
-    private $attributeSets;
+    private $attributes;
     /**
      * @var array|ProductOptionSet[]
      * @reflectType Ordercloud\Entities\Products\ProductOptionSet
@@ -66,7 +66,7 @@ class Product implements JsonSerializable
      */
     private $additionalInfo;
 
-    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributeSets, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null, $globalProduct, $additionalInfo)
+    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null, $globalProduct, $additionalInfo)
     {
         $this->id = $id;
         $this->name = $name;
@@ -74,7 +74,7 @@ class Product implements JsonSerializable
         $this->shortDescription = $shortDescription;
         $this->sku = $sku;
         $this->price = $price;
-        $this->attributeSets = $attributeSets;
+        $this->attributes = $attributes;
         $this->optionSets = $optionSets;
         $this->extraSets = $extraSets;
         $this->tags = $tags;
@@ -139,11 +139,11 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @return array|ProductAttributeSet[]
+     * @return array|ProductAttributeDisplay[]
      */
-    public function getAttributeSets()
+    public function getAttributes()
     {
-        return $this->attributeSets;
+        return $this->attributes;
     }
 
     /**
@@ -366,7 +366,7 @@ class Product implements JsonSerializable
             'shortDescription' => $this->getShortDescription(),
             'sku' => $this->getSku(),
             'price' => $this->getPrice(),
-            'attributeSets' => $this->getAttributeSets(),
+            'attributes' => $this->getAttributes(),
             'options' => $this->getOptionSets(),
             'extras' => $this->getExtraSets(),
             'tags' => $this->getTags(),

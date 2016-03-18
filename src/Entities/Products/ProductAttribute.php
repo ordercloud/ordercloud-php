@@ -19,26 +19,32 @@ class ProductAttribute implements JsonSerializable
     /**
      * @var string
      */
-    private $value;
-    /**
-     * @var string
-     */
     private $description;
+    /**
+     * @var bool
+     */
+    private $required;
+    /**
+     * @var array|string[]
+     */
+    private $options;
 
     /**
-     * @param int    $id
-     * @param bool   $enabled
-     * @param string $name
-     * @param string $value
-     * @param string $description
+     * @param int            $id
+     * @param bool           $enabled
+     * @param string         $name
+     * @param string         $description
+     * @param boolean        $required
+     * @param array|string[] $options
      */
-    public function __construct($id, $enabled, $name, $value, $description)
+    public function __construct($id, $enabled, $name, $description, $required, array $options = [])
     {
         $this->id = $id;
         $this->enabled = $enabled;
         $this->name = $name;
-        $this->value = $value;
         $this->description = $description;
+        $this->required = $required;
+        $this->options = $options;
     }
 
     /**
@@ -68,17 +74,25 @@ class ProductAttribute implements JsonSerializable
     /**
      * @return string
      */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @return string
-     */
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isRequired()
+    {
+        return $this->required;
+    }
+
+    /**
+     * @return array|string[]
+     */
+    public function getOptions()
+    {
+        return $this->options;
     }
 
     /**
@@ -87,11 +101,12 @@ class ProductAttribute implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'id' => $this->getId(),
-            'name' => $this->getName(),
+            'id'          => $this->getId(),
+            'name'        => $this->getName(),
             'description' => $this->getDescription(),
-            'enabled' => $this->isEnabled(),
-            'value' => $this->getValue()
+            'required'    => $this->isRequired(),
+            'options'     => $this->getDescription(),
+            'enabled'     => $this->isEnabled(),
         ];
     }
 }
