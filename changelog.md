@@ -2,6 +2,10 @@
 All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.1]
+### Fixed
+- handler names of `GetConnectionsRequest` & `GetConnectionsByTypeRequest` 
+
 ## [2.0.0]
 ### Changed
 - `attributeSet` to `attributes` on `Product` 
@@ -169,7 +173,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/2.0.0...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/2.0.1...HEAD
+[2.0.1]: https://github.com/ordercloud/ordercloud-php/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/ordercloud/ordercloud-php/compare/1.6.0...2.0.0
 [1.6.0]: https://github.com/ordercloud/ordercloud-php/compare/1.5.0...1.6.0
 [1.5.0]: https://github.com/ordercloud/ordercloud-php/compare/1.4.0...1.5.0

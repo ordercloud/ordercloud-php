@@ -4,7 +4,7 @@ use Ordercloud\Requests\Connections\GetConnectionsRequest;
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 use Ordercloud\Requests\Handlers\IdentifyByIdTrait;
 
-class GetOrganisationConnectionsRequestHandler extends AbstractGetRequestHandler
+class GetConnectionsRequestHandler extends AbstractGetRequestHandler
 {
     use IdentifyByIdTrait;
 

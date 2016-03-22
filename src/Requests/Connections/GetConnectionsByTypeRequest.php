@@ -6,7 +6,7 @@ use Ordercloud\Support\CommandBus\Command;
 /**
  * Class GetConnectionsByTypeRequest
  *
- * @see Ordercloud\Requests\Organisations\Handlers\GetOrganisationConnectionsByTypeRequestHandler
+ * @see Ordercloud\Requests\Connections\Handlers\GetConnectionsByTypeRequestHandler
  */
 class GetConnectionsByTypeRequest implements Command
 {

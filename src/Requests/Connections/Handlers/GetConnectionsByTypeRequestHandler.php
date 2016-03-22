@@ -3,7 +3,7 @@
 use Ordercloud\Requests\Connections\GetConnectionsByTypeRequest;
 use Ordercloud\Requests\Handlers\AbstractGetRequestHandler;
 
-class GetOrganisationConnectionsByTypeRequestHandler extends AbstractGetRequestHandler
+class GetConnectionsByTypeRequestHandler extends AbstractGetRequestHandler
 {
     /**
      * @param GetConnectionsByTypeRequest $request
