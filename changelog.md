@@ -7,7 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `endDate` to `ProductDiscount`
 
 ### Changed
-- `connection` from `Connection` to `ConnectionShort` on `ProductDiscount`
+- `connection` on `ProductDiscount` from `Connection` to `ConnectionShort`
+- `product` on `ProductDiscount` from `Product` to `ProductShort`
 
 ## [2.0.2]
 ### Fixed

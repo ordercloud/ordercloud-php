@@ -16,7 +16,7 @@ class ProductDiscount implements JsonSerializable
     private $brand;
     /** @var ConnectionShort */
     private $connection;
-    /** @var Product */
+    /** @var ProductShort */
     private $productItem;
     /** @var float */
     private $amount;
@@ -29,7 +29,7 @@ class ProductDiscount implements JsonSerializable
      */
     private $endDate;
 
-    public function __construct($id, OrganisationShort $organisation = null, OrganisationShort $discountProvider, OrganisationShort $brand = null, ConnectionShort $connection = null, Product $productItem = null, $amount, $startDate = null, $endDate = null, $enabled)
+    public function __construct($id, OrganisationShort $organisation = null, OrganisationShort $discountProvider, OrganisationShort $brand = null, ConnectionShort $connection = null, ProductShort $productItem = null, $amount, $startDate = null, $endDate = null, $enabled)
     {
         $this->id = $id;
         $this->organisation = $organisation;
@@ -84,7 +84,7 @@ class ProductDiscount implements JsonSerializable
     }
 
     /**
-     * @return Product
+     * @return ProductShort
      */
     public function getProductItem()
     {
