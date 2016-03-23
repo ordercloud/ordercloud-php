@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - `endDate` to `ProductDiscount`
 
+### Changed
+- `connection` from `Connection` to `ConnectionShort` on `ProductDiscount`
+
 ## [2.0.2]
 ### Fixed
 - `ProductDiscount` constructor requirements

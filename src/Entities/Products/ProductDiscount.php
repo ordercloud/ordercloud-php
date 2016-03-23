@@ -1,7 +1,7 @@
 <?php namespace Ordercloud\Entities\Products;
 
 use JsonSerializable;
-use Ordercloud\Entities\Connections\Connection;
+use Ordercloud\Entities\Connections\ConnectionShort;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 
 class ProductDiscount implements JsonSerializable
@@ -14,7 +14,7 @@ class ProductDiscount implements JsonSerializable
     private $discountProvider;
     /** @var OrganisationShort */
     private $brand;
-    /** @var Connection */
+    /** @var ConnectionShort */
     private $connection;
     /** @var Product */
     private $productItem;
@@ -29,7 +29,7 @@ class ProductDiscount implements JsonSerializable
      */
     private $endDate;
 
-    public function __construct($id, OrganisationShort $organisation = null, OrganisationShort $discountProvider, OrganisationShort $brand = null, Connection $connection = null, Product $productItem = null, $amount, $startDate = null, $endDate = null, $enabled)
+    public function __construct($id, OrganisationShort $organisation = null, OrganisationShort $discountProvider, OrganisationShort $brand = null, ConnectionShort $connection = null, Product $productItem = null, $amount, $startDate = null, $endDate = null, $enabled)
     {
         $this->id = $id;
         $this->organisation = $organisation;
@@ -76,7 +76,7 @@ class ProductDiscount implements JsonSerializable
     }
 
     /**
-     * @return Connection
+     * @return ConnectionShort
      */
     public function getConnection()
     {
@@ -129,16 +129,16 @@ class ProductDiscount implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'id' => $this->getId(),
-            'organisation' => $this->getOrganisation(),
+            'id'               => $this->getId(),
+            'organisation'     => $this->getOrganisation(),
             'discountProvider' => $this->getDiscountProvider(),
-            'brand' => $this->getBrand(),
-            'connection' => $this->getConnection(),
-            'productItem' => $this->getProductItem(),
-            'amount' => $this->getAmount(),
-            'startDate' => $this->getStartDate(),
-            'endDate' => $this->getEndDate(),
-            'enabled' => $this->isEnabled(),
+            'brand'            => $this->getBrand(),
+            'connection'       => $this->getConnection(),
+            'productItem'      => $this->getProductItem(),
+            'amount'           => $this->getAmount(),
+            'startDate'        => $this->getStartDate(),
+            'endDate'          => $this->getEndDate(),
+            'enabled'          => $this->isEnabled(),
         ];
     }
 }
