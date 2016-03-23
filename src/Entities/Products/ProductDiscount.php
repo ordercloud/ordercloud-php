@@ -24,8 +24,12 @@ class ProductDiscount implements JsonSerializable
     private $startDate;
     /** @var boolean */
     private $enabled;
+    /**
+     * @var string
+     */
+    private $endDate;
 
-    public function __construct($id, OrganisationShort $organisation = null, OrganisationShort $discountProvider, OrganisationShort $brand = null, Connection $connection = null, Product $productItem = null, $amount, $startDate = null, $enabled)
+    public function __construct($id, OrganisationShort $organisation = null, OrganisationShort $discountProvider, OrganisationShort $brand = null, Connection $connection = null, Product $productItem = null, $amount, $startDate = null, $endDate = null, $enabled)
     {
         $this->id = $id;
         $this->organisation = $organisation;
@@ -35,6 +39,7 @@ class ProductDiscount implements JsonSerializable
         $this->productItem = $productItem;
         $this->amount = $amount;
         $this->startDate = $startDate;
+        $this->endDate = $endDate;
         $this->enabled = $enabled;
     }
 
@@ -103,6 +108,14 @@ class ProductDiscount implements JsonSerializable
     }
 
     /**
+     * @return string
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+
+    /**
      * @return boolean
      */
     public function isEnabled()
@@ -124,6 +137,7 @@ class ProductDiscount implements JsonSerializable
             'productItem' => $this->getProductItem(),
             'amount' => $this->getAmount(),
             'startDate' => $this->getStartDate(),
+            'endDate' => $this->getEndDate(),
             'enabled' => $this->isEnabled(),
         ];
     }

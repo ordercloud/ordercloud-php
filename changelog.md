@@ -2,6 +2,10 @@
 All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added
+- `endDate` to `ProductDiscount`
+
 ## [2.0.2]
 ### Fixed
 - `ProductDiscount` constructor requirements
