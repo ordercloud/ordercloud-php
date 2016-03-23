@@ -25,7 +25,7 @@ class ProductDiscount implements JsonSerializable
     /** @var boolean */
     private $enabled;
 
-    public function __construct($id, OrganisationShort $organisation, OrganisationShort $discountProvider, OrganisationShort $brand, Connection $connection, Product $productItem, $amount, $startDate, $enabled)
+    public function __construct($id, OrganisationShort $organisation = null, OrganisationShort $discountProvider, OrganisationShort $brand = null, Connection $connection = null, Product $productItem = null, $amount, $startDate = null, $enabled)
     {
         $this->id = $id;
         $this->organisation = $organisation;
