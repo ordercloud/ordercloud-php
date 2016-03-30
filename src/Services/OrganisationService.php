@@ -11,6 +11,7 @@ use Ordercloud\Requests\Organisations\Criteria\AdvancedConnectionCriteria;
 use Ordercloud\Requests\Organisations\Criteria\BasicConnectionCriteria;
 use Ordercloud\Requests\Organisations\GetOrganisationAccessTokenRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationAddressRequest;
+use Ordercloud\Requests\Organisations\GetOrganisationBalanceRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationConnectionsByTypeRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationConnectionsRequest;
 use Ordercloud\Requests\Organisations\GetOrganisationRequest;
@@ -145,5 +146,18 @@ class OrganisationService extends OrdercloudService
         return $this->request(
             new GetOrganisationConnectionsRequest($organisationId, $criteria)
         );
+    }
+
+    /**
+     * @param int            $organisationId
+     * @param string|null    $from
+     * @param string|null    $upTo
+     * @param string[]|array $transactionTypes
+     *
+     * @return float
+     */
+    public function getBalance($organisationId, $from = null, $upTo = null, array $transactionTypes = null)
+    {
+        return $this->request(new GetOrganisationBalanceRequest($organisationId, $from, $upTo, $transactionTypes));
     }
 }
