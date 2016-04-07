@@ -49,7 +49,6 @@ class Order implements JsonSerializable
     private $payments;
     /**
      * @var array|string[]
-     * @reflectName paymentMethod
      */
     private $paymentMethods;
     /** @var string */
