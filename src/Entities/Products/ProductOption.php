@@ -14,6 +14,10 @@ class ProductOption extends ProductAddon implements JsonSerializable
      * @reflectType Ordercloud\Entities\Products\ProductExtraSet
      */
     private $unlockExtraSets;
+    /**
+     * @var bool
+     */
+    private $default;
 
     /**
      * @param int                      $id
@@ -23,12 +27,14 @@ class ProductOption extends ProductAddon implements JsonSerializable
      * @param boolean                  $enabled
      * @param array|ProductOptionSet[] $unlockOptionSets
      * @param array|ProductExtraSet[]  $unlockExtraSets
+     * @param bool                     $default
      */
-    public function __construct($id, $name, $description, $price, $enabled, array $unlockOptionSets = [], array $unlockExtraSets = [])
+    public function __construct($id, $name, $description, $price, $enabled, array $unlockOptionSets = [], array $unlockExtraSets = [], $default)
     {
         parent::__construct($id, $name, $description, $price, $enabled);
         $this->unlockOptionSets = $unlockOptionSets ?: [];
         $this->unlockExtraSets = $unlockExtraSets ?: [];
+        $this->default = $default;
     }
 
     /**
@@ -61,5 +67,13 @@ class ProductOption extends ProductAddon implements JsonSerializable
     public function getUnlockExtraSets()
     {
         return $this->unlockExtraSets;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isDefault()
+    {
+        return $this->default;
     }
 }

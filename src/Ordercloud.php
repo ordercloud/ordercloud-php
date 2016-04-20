@@ -15,7 +15,7 @@ use Ordercloud\Support\Http\Client;
 
 class Ordercloud
 {
-    const VERSION = '2.1';
+    const VERSION = '2.2';
 
     /**
      * @var Container
