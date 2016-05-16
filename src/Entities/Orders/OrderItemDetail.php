@@ -6,7 +6,7 @@ use Ordercloud\Entities\Products\ProductType;
 
 class OrderItemDetail extends ProductShort implements JsonSerializable
 {
-    public function __construct($id, $name, $price, $description, $shortDescription, OrderItemMerchant $organisation, $available, $enabled, $sku, $availableOnline, ProductType $productType, array $groupItems, OrderStatus $status)
+    public function __construct($id, $name, $price, $description, $shortDescription, OrderItemMerchant $organisation, $available, $enabled, $sku, $availableOnline, ProductType $productType, array $groupItems)
     {
         parent::__construct(
             $id,
@@ -20,8 +20,7 @@ class OrderItemDetail extends ProductShort implements JsonSerializable
             $sku,
             $availableOnline,
             $productType,
-            $groupItems,
-            $status
+            $groupItems
         );
     }
 

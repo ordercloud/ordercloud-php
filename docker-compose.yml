@@ -1,0 +1,37 @@
+data:
+  image: mnel/data
+  volumes:
+    - ./:/data/:rw
+
+php:
+  image: mnel/php:5.6-l5
+  entrypoint: ["php"]
+  volumes_from:
+    - data
+
+bash:
+  image: mnel/php:5.6-l5
+  entrypoint: ["/bin/bash", "-c", "true"]
+  volumes_from:
+    - data
+
+spec:
+  image: mnel/php:5.6-l5
+  entrypoint: ["vendor/bin/phpspec"]
+  command: ["run"]
+  volumes_from:
+    - data
+
+composer:
+  image: mnel/php:5.6-l5
+  entrypoint: ["/usr/bin/composer"]
+  volumes_from:
+    - data
+
+web:
+  image: nginx:1.9.0
+  command: nginx -c /data/nginx/nginx.conf
+  volumes_from:
+    - data
+  environment:
+    - VIRTUAL_HOST=gh-pages.lh
