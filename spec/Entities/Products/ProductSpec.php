@@ -24,7 +24,7 @@ class ProductSpec extends ObjectBehavior
         $bazTag = $this->createTagWithType('BAZ');
         $tags = [$fooTag, $barTag, $bazTag];
 
-        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], $tags, $this->organisationShort, 1, 1, 1, $images = [], [], new ProductType(1,1,1), null, true, '');
+        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], $tags, $this->organisationShort, 1, 1, 1, $images = [], [], new ProductType(1,1,1), null, true, '', false);
 
         $this->getTagByType('foo')->shouldReturn($fooTag);
         $this->getTagByType('bar')->shouldReturn($barTag);
@@ -39,7 +39,7 @@ class ProductSpec extends ObjectBehavior
         $imgDefault = $this->createImage(true);
 
         $images = [$img1, $img2, $imgDefault];
-        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true, '');
+        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true, '', false);
 
         $this->getDefaultImage()->shouldReturn($imgDefault);
     }
@@ -50,7 +50,7 @@ class ProductSpec extends ObjectBehavior
         $img2 = $this->createImage(false);
 
         $images = [$img1, $img2];
-        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true, '');
+        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true, '', false);
 
         $this->getDefaultImage()->shouldReturn(null);
     }
@@ -58,7 +58,7 @@ class ProductSpec extends ObjectBehavior
     function it_returns_null_when_retrieving_a_default_image_with_no_images()
     {
         $images = [];
-        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true, '');
+        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true, '', false);
 
         $this->getDefaultImage()->shouldReturn(null);
     }
@@ -69,7 +69,7 @@ class ProductSpec extends ObjectBehavior
         $img2 = $this->createImage(true);
 
         $images = [$img1, $img2];
-        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true, '');
+        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true, '', false);
 
         $this->hasDefaultImage()->shouldReturn(true);
     }
@@ -77,7 +77,7 @@ class ProductSpec extends ObjectBehavior
     function it_can_check_if_it_has_a_default_image_with_no_images()
     {
         $images = [];
-        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true, '');
+        $this->beConstructedWith(1, '', '', '', '', '', [], [], [], [], $this->organisationShort, 1, 1, 1, $images, [], new ProductType(1,1,1), null, true, '', false);
 
         $this->hasDefaultImage()->shouldReturn(false);
     }
