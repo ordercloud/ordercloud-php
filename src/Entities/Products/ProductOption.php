@@ -15,9 +15,14 @@ class ProductOption extends ProductAddon implements JsonSerializable
      */
     private $unlockExtraSets;
     /**
+     * @reflectName setDefault
      * @var bool
      */
     private $default;
+    /**
+     * @var bool
+     */
+    private $itemsPluFlatMappingEnabled;
 
     /**
      * @param int                      $id
@@ -28,13 +33,15 @@ class ProductOption extends ProductAddon implements JsonSerializable
      * @param array|ProductOptionSet[] $unlockOptionSets
      * @param array|ProductExtraSet[]  $unlockExtraSets
      * @param bool                     $default
+     * @param bool                     $itemsPluFlatMappingEnabled
      */
-    public function __construct($id, $name, $description, $price, $enabled, array $unlockOptionSets = [], array $unlockExtraSets = [], $default)
+    public function __construct($id, $name, $description, $price, $enabled, array $unlockOptionSets = [], array $unlockExtraSets = [], $default, $itemsPluFlatMappingEnabled)
     {
         parent::__construct($id, $name, $description, $price, $enabled);
         $this->unlockOptionSets = $unlockOptionSets ?: [];
         $this->unlockExtraSets = $unlockExtraSets ?: [];
         $this->default = $default;
+        $this->itemsPluFlatMappingEnabled = $itemsPluFlatMappingEnabled;
     }
 
     /**
@@ -75,5 +82,28 @@ class ProductOption extends ProductAddon implements JsonSerializable
     public function isDefault()
     {
         return $this->default;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isItemsPluFlatMappingEnabled()
+    {
+        return $this->itemsPluFlatMappingEnabled;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    public function jsonSerialize()
+    {
+        $json = parent::jsonSerialize();
+
+        $json['unlockOptionSets'] = $this->getUnlockOptionSets();
+        $json['unlockExtraSets'] = $this->getUnlockExtraSets();
+        $json['default'] = $this->isDefault();
+        $json['itemsPluFlatMappingEnabled'] = $this->isItemsPluFlatMappingEnabled();
+
+        return $json;
     }
 }

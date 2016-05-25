@@ -9,9 +9,9 @@ class UserAddress extends NewUserAddress implements JsonSerializable
      */
     private $id;
 
-    public function __construct($id, $note, $longitude, $latitude, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode)
+    public function __construct($id, $note, $longitude, $latitude, $name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $favourite = false)
     {
-        parent::__construct($name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $note, $latitude, $longitude);
+        parent::__construct($name, $streetNumber, $streetName, $complex, $suburb, $city, $postalCode, $note, $latitude, $longitude, $favourite);
         $this->id = $id;
     }
 

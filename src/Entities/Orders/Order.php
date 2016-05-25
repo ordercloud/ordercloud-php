@@ -77,6 +77,10 @@ class Order implements JsonSerializable
      * @var null|OrderDelivery
      */
     private $delivery;
+    /**
+     * @var float
+     */
+    private $adminFee;
 
     //TODO add: delivery + statusHistory
     public function __construct(
@@ -102,7 +106,8 @@ class Order implements JsonSerializable
         OrderSourceChannel $orderSourceChannel = null,
         $scheduledDate = null,
         $tip,
-        OrderDelivery $delivery = null
+        OrderDelivery $delivery = null,
+        $adminFee = 0
     )
     {
         $this->id = $id;
@@ -128,6 +133,7 @@ class Order implements JsonSerializable
         $this->scheduledDate = $scheduledDate;
         $this->tip = $tip;
         $this->delivery = $delivery;
+        $this->adminFee = $adminFee;
     }
 
     /**
@@ -350,6 +356,14 @@ class Order implements JsonSerializable
     }
 
     /**
+     * @return float
+     */
+    public function getAdminFee()
+    {
+        return $this->adminFee;
+    }
+
+    /**
      * Specify data which should be serialized to JSON
      */
     public function jsonSerialize()
@@ -377,7 +391,8 @@ class Order implements JsonSerializable
             'deliveryCost' => $this->getDeliveryCost(),
             'orderSourceChannel' => $this->getOrderSourceChannel(),
             'scheduledDate' => $this->getScheduledDate(),
-            'tip' => $this->tip,
+            'tip' => $this->getTip(),
+            'adminFee' => $this->getAdminFee(),
         ];
     }
 }

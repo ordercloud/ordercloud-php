@@ -2,6 +2,13 @@
 All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.0]
+### Added
+- `itemsPluFlatMappingEnabled` to `ProductOption`
+- `optionsPluFlatMappingEnabled` to `Product`
+- `favourite` to `NewUserAddress` & `UserAddress`
+- `adminFee` to `Order`
+
 ## [2.2.0]
 ### Added
 - `default` to `ProductOption`
@@ -190,7 +197,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [< 0.3.1]
 ### History unavailable
 
-[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/2.2.0...HEAD
+[Unreleased]: https://github.com/ordercloud/ordercloud-php/compare/2.3.0...HEAD
+[2.3.0]: https://github.com/ordercloud/ordercloud-php/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/ordercloud/ordercloud-php/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/ordercloud/ordercloud-php/compare/2.0.2...2.1.0
 [2.0.2]: https://github.com/ordercloud/ordercloud-php/compare/2.0.1...2.0.2

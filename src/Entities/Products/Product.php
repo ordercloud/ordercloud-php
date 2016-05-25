@@ -65,8 +65,12 @@ class Product implements JsonSerializable
      * @var string
      */
     private $additionalInfo;
+    /**
+     * @var boolean
+     */
+    private $optionsPluFlatMappingEnabled;
 
-    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null, $globalProduct, $additionalInfo)
+    public function __construct($id, $name, $description, $shortDescription, $sku, $price, array $attributes, array $optionSets, array $extraSets, array $tags, OrganisationShort $organisation, $enabled, $available, $availableOnline, array $images, array $groupItems, ProductType $productType, ProductPriceDiscount $discount = null, $globalProduct, $additionalInfo, $optionsPluFlatMappingEnabled)
     {
         $this->id = $id;
         $this->name = $name;
@@ -88,6 +92,7 @@ class Product implements JsonSerializable
         $this->discount = $discount;
         $this->globalProduct = $globalProduct;
         $this->additionalInfo = $additionalInfo;
+        $this->optionsPluFlatMappingEnabled = $optionsPluFlatMappingEnabled;
     }
 
     /**
@@ -355,6 +360,14 @@ class Product implements JsonSerializable
     }
 
     /**
+     * @return boolean
+     */
+    public function isOptionsPluFlatMappingEnabled()
+    {
+        return $this->optionsPluFlatMappingEnabled;
+    }
+
+    /**
      * Specify data which should be serialized to JSON
      */
     public function jsonSerialize()
@@ -380,6 +393,7 @@ class Product implements JsonSerializable
             'discount' => $this->getDiscount(),
             'globalProduct' => $this->isGlobalProduct(),
             'additionalInfo' => $this->getAdditionalInfo(),
+            'optionsPluFlatMappingEnabled' => $this->isOptionsPluFlatMappingEnabled(),
         ];
     }
 }
