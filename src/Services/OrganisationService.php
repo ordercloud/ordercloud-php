@@ -7,6 +7,8 @@ use Ordercloud\Entities\Organisations\OrganisationAccessToken;
 use Ordercloud\Entities\Organisations\OrganisationAddress;
 use Ordercloud\Entities\Settings\SettingsCollection;
 use Ordercloud\Requests\Auth\Entities\Authorisation;
+use Ordercloud\Requests\Exceptions\NotFoundRequestException;
+use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
 use Ordercloud\Requests\Organisations\Criteria\AdvancedConnectionCriteria;
 use Ordercloud\Requests\Organisations\Criteria\BasicConnectionCriteria;
 use Ordercloud\Requests\Organisations\GetOrganisationAccessTokenRequest;
@@ -76,15 +78,17 @@ class OrganisationService extends OrdercloudService
     }
 
     /**
-     * @param $organisationId
+     * @param int|null $organisationId If no organisation ID is supplied, returns the organisation
+     *                                 specified by the X-Ordercloud-Organisation header.
      *
      * @return Organisation
+     *
+     * @throws NotFoundRequestException
+     * @throws OrdercloudRequestException
      */
-    public function getOrganisation($organisationId)
+    public function getOrganisation($organisationId = null)
     {
-        return $this->request(
-            new GetOrganisationRequest($organisationId)
-        );
+        return $this->request(new GetOrganisationRequest($organisationId));
     }
 
     /**

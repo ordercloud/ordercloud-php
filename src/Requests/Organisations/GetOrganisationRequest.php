@@ -2,26 +2,21 @@
 
 use Ordercloud\Support\CommandBus\Command;
 
-/**
- * Class GetOrganisationRequest
- *
- * @see Ordercloud\Requests\Organisations\Handlers\GetOrganisationRequestHandler
- */
 class GetOrganisationRequest implements Command
 {
     /** @var integer */
-    private $organisationID;
-
-    public function __construct($organisationID)
+    private $organisationId;
+    
+    public function __construct($organisationId = null)
     {
-        $this->organisationID = $organisationID;
+        $this->organisationId = $organisationId;
     }
 
     /**
      * @return int
      */
-    public function getOrganisationID()
+    public function getOrganisationId()
     {
-        return $this->organisationID;
+        return $this->organisationId;
     }
 }

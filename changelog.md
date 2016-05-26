@@ -2,6 +2,10 @@
 All notable changes to this project will be documented here.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Changed
+- `OrganisationService::getOrganisation()` to allow NULL for organisation ID
+
 ## [2.3.1]
 ### Fixed
 - `Product` tests

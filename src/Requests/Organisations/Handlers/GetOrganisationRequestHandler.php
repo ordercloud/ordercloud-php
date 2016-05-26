@@ -10,7 +10,9 @@ class GetOrganisationRequestHandler extends AbstractGetRequestHandler
      */
     protected function configure($request)
     {
-        $this->setUrl('resource/organisations/%d', $request->getOrganisationID())
+        $organisation = $request->getOrganisationId() ? '/' . $request->getOrganisationId() : '';
+        
+        $this->setUrl('resource/organisations%s', $organisation)
             ->setEntityClass('Ordercloud\Entities\Organisations\Organisation');
     }
 }
