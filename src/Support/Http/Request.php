@@ -18,6 +18,8 @@ class Request
         $this->url = $url;
         $this->method = $method;
         $this->parameters = $parameters;
+        //mask the authorization from the logs
+        unset($headers['Authorization']);
         $this->headers = $headers;
         $this->rawRequest = $rawRequest;
     }
