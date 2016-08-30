@@ -4,7 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 ### Changed
+- none
+
+## [2.3.2]
+### Fixed
 - `OrganisationService::getOrganisation()` to allow NULL for organisation ID
+- Added support to get organisation specified in header
+- Masked the data that is being saved to logs. Remoing username and passwords in authorization header.
 
 ## [2.3.1]
 ### Fixed
