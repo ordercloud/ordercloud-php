@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - none
 
+## [2.3.3]
+### Fixed
+- HOTFIX for the authentication tat was removed from all calls
+
 ## [2.3.2]
 ### Fixed
 - `OrganisationService::getOrganisation()` to allow NULL for organisation ID

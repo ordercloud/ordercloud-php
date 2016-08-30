@@ -61,7 +61,7 @@ class GuzzleClient implements Client
         $guzzleRequest = $this->createGuzzleRequest($url, $method, $params, $headers);
 
         //remove the user credentials from the request
-        $maskedRequest = $guzzleRequest;
+        $maskedRequest =  clone $guzzleRequest;
         $maskedRequest->setHeader("Authorization", "");
         $ordercloudRequest = new Request($url, $method, $params, $guzzleRequest->getHeaders(), (string) $maskedRequest);
 
