@@ -50,6 +50,12 @@ class GuzzleClient implements Client
                 ],
                 'auth'            => [$username, $password],
                 'allow_redirects' => false,
+                'config' =>[
+                    'curl' => [
+                        'CURLOPT_DNS_USE_GLOBAL_CACHE' => false
+                        ]
+                ]
+
             ],
         ]);
 
@@ -67,6 +73,7 @@ class GuzzleClient implements Client
 
         try {
             $guzzleResponse = $this->client->send($guzzleRequest);
+
 
             return $this->createResponse($guzzleResponse, $ordercloudRequest);
         }
