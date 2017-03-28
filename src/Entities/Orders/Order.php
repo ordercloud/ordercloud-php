@@ -2,6 +2,7 @@
 
 use JsonSerializable;
 use Ordercloud\Entities\Delivery\DeliveryAgent;
+use Ordercloud\Entities\OrderDiscount\OrderDiscount;
 use Ordercloud\Entities\Organisations\OrganisationShort;
 use Ordercloud\Entities\Payments\Payment;
 use Ordercloud\Entities\Users\UserAddress;
@@ -81,6 +82,12 @@ class Order implements JsonSerializable
      * @var float
      */
     private $adminFee;
+    
+    /**
+     * @var array|orderDiscount
+     * @reflectType Ordercloud\Entities\Orders\OrderDiscount
+     */
+    private $orderDiscount;
 
     //TODO add: delivery + statusHistory
     public function __construct(
@@ -107,6 +114,7 @@ class Order implements JsonSerializable
         $scheduledDate = null,
         $tip,
         OrderDelivery $delivery = null,
+        OrderDiscount $orderDiscount = null,
         $adminFee = 0
     )
     {
@@ -134,6 +142,7 @@ class Order implements JsonSerializable
         $this->tip = $tip;
         $this->delivery = $delivery;
         $this->adminFee = $adminFee;
+        $this->orderDiscount = $orderDiscount;
     }
 
     /**
@@ -356,6 +365,14 @@ class Order implements JsonSerializable
     }
 
     /**
+     * @return null|OrderDiscount
+     */
+    public function getOrderDiscount()
+    {
+        return $this->orderDiscount;
+    }
+
+    /**
      * @return float
      */
     public function getAdminFee()
@@ -393,6 +410,7 @@ class Order implements JsonSerializable
             'scheduledDate' => $this->getScheduledDate(),
             'tip' => $this->getTip(),
             'adminFee' => $this->getAdminFee(),
+            $this->orderDiscount => $this->getOrderDiscount(),
         ];
     }
 }
