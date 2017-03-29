@@ -6,6 +6,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - none
 
+## [2.3.5]
+### Fixed
+- Added the order discount field
+
+## [2.3.4]
+### Fixed
+- HOTFIX set use global chace to false
+
 ## [2.3.3]
 ### Fixed
 - HOTFIX for the authentication tat was removed from all calls

@@ -10,6 +10,10 @@
         {
             "name": "Michael Nel",
             "email": "michael@ordercloud.co.za"
+        },
+        {
+            "name": "Wessel Pieterse",
+            "email": "wessel@ordercloud.co.za"
         }
     ],
     "require": {
