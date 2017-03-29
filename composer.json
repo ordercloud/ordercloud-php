@@ -20,7 +20,7 @@
         "php": ">=5.4",
         "guzzlehttp/guzzle": ">=4.2.0 <6.0",
         "nesbot/carbon": ">=1.0",
-        "illuminate/container": ">=4.2",
+        "illuminate/container": "v4.2.17",
         "psr/log": "~1.0",
         "league/url": "~3"
     },
