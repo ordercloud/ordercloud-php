@@ -410,7 +410,7 @@ class Order implements JsonSerializable
             'scheduledDate' => $this->getScheduledDate(),
             'tip' => $this->getTip(),
             'adminFee' => $this->getAdminFee(),
-            $this->orderDiscount => $this->getOrderDiscount(),
+            'orderDiscount' => $this->getOrderDiscount(),
         ];
     }
 }
