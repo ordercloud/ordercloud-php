@@ -1,0 +1,15 @@
+composer:
+  image: mnel/php:5.6-l5
+  volumes:
+    - ./.docker/phpfpm/php.ini:/usr/local/etc/php/php.ini
+  entrypoint: ["/usr/bin/composer"]
+#  change this to run composer commands
+  command: ["update"]
+  working_dir: "/data/www"
+  volumes_from:
+    - data
+
+data:
+  image: mnel/data
+  volumes:
+    - ./:/data/www:rw
