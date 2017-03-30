@@ -114,7 +114,7 @@ class Order implements JsonSerializable
         $scheduledDate = null,
         $tip,
         OrderDelivery $delivery = null,
-        OrderDiscount $orderDiscount = null,
+        array $orderDiscount = null,
         $adminFee = 0
     )
     {
