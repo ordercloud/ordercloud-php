@@ -31,7 +31,7 @@ class OrderItem implements JsonSerializable
     private $status;
     /** @var string */
     private $note;
-    /** @var ProductPriceDiscount */
+    /** @var array |ProductPriceDiscount */
     private $itemDiscount;
     /** @var integer */
     private $readyEstimate;
@@ -59,7 +59,7 @@ class OrderItem implements JsonSerializable
         OrderItemDetail $detail,
         OrderStatus $status,
         $note,
-        ProductPriceDiscount $itemDiscount = null,
+        array  $itemDiscount,
         $readyEstimate,
         array $extras,
         array $options,
