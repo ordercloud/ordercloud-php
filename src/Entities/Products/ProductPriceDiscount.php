@@ -8,33 +8,79 @@ class ProductPriceDiscount implements JsonSerializable
      * The amount of discount
      * @var float
      */
-    private $discountAmount;
+    private $amount;
     /**
-     * Item price after discount
+     * Item price befor discount
      * @var float
      */
-    private $discountPrice; //TODO whats the difference ?
+    private $originalPrice;
 
-    public function __construct($discountAmount, $discountPrice)
+    /**
+     * Percentage discount of the price
+     * @var float
+     */
+    private $percentage;
+
+    /**
+     * Percentage discount descritpion
+     * @var String
+     */
+    private $description;
+
+    /**
+     * Is the discount by the product owner
+     * @var Boolean
+     */
+    private $productOwner;
+
+
+    public function __construct($amount, $originalPrice, $percentage , $description, $productOwner)
     {
-        $this->discountAmount = $discountAmount;
-        $this->discountPrice = $discountPrice;
+        $this->amount = $amount;
+        $this->originalPrice =  $originalPrice;
+        $this->percentage=  $percentage;
+        $this->description =  $description;
+        $this->productOwner = $productOwner;
     }
 
     /**
      * @return float
      */
-    public function getDiscountAmount()
+    public function getAmount()
     {
-        return $this->discountAmount;
+        return $this->amount;
     }
 
     /**
      * @return float
      */
-    public function getDiscountPrice()
+    public function getOriginalPrice()
     {
-        return $this->discountPrice;
+        return $this->originalPrice;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPercentage()
+    {
+        return $this->percentage;
+    }
+
+    /**
+     * @return String
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return Boolean
+     */
+    public function getProductOwner()
+    {
+        return $this->productOwner;
     }
 
     /**
@@ -43,8 +89,11 @@ class ProductPriceDiscount implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'discountAmount' => $this->getDiscountAmount(),
-            'discountPrice' => $this->getDiscountPrice(),
+            'amount' => $this->getAmount(),
+            'description' => $this->getDescription(),
+            'originalPrice' => $this->getOriginalPrice(),
+            'percentage' => $this->getPercentage(),
+            'productOwner' => $this->productOwner()
         ];
     }
 }
