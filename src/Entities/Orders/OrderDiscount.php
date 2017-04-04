@@ -41,7 +41,7 @@ class OrderDiscount implements JsonSerializable
      */
     public function getDescription()
     {
-        return $this->descriptione;
+        return $this->description;
     }
 
     /**
