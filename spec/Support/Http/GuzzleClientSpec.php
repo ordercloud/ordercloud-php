@@ -13,13 +13,13 @@ class GuzzleClientSpec extends ObjectBehavior
 
     function it_can_send_simple_request()
     {
-        $url = "https://test-api.ordercloud.com/resource/about/version";
+        $url = "https://qa-api.ordercloud.com/resource/about/version";
         $method = "GET";
 //        $url = "http://requestb.in/sutjdksu";
 //        $method = "POST";
         $username = "demo@ordercloud.com";
         $password = "password";
-        $orgToken = "aa41d9e05a6ac75dc67fdf839e43b5f4";
+        $orgToken = "181e6449197f4660445d18bcef0654c8";
         $accessToken = null;
 
 
