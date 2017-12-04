@@ -5,10 +5,12 @@ use Ordercloud\Entities\Connections\ConnectionType;
 use Ordercloud\Entities\Organisations\Organisation;
 use Ordercloud\Entities\Organisations\OrganisationAccessToken;
 use Ordercloud\Entities\Organisations\OrganisationAddress;
+use Ordercloud\Entities\Organisations\OrganisationProfile;
 use Ordercloud\Entities\Settings\SettingsCollection;
 use Ordercloud\Requests\Auth\Entities\Authorisation;
 use Ordercloud\Requests\Exceptions\NotFoundRequestException;
 use Ordercloud\Requests\Exceptions\OrdercloudRequestException;
+use Ordercloud\Requests\Organisations\CreatenOrganisationRequest;
 use Ordercloud\Requests\Organisations\Criteria\AdvancedConnectionCriteria;
 use Ordercloud\Requests\Organisations\Criteria\BasicConnectionCriteria;
 use Ordercloud\Requests\Organisations\GetOrganisationAccessTokenRequest;
@@ -163,5 +165,16 @@ class OrganisationService extends OrdercloudService
     public function getBalance($organisationId, $from = null, $upTo = null, array $transactionTypes = null)
     {
         return $this->request(new GetOrganisationBalanceRequest($organisationId, $from, $upTo, $transactionTypes));
+    }
+
+    /**
+     * @param $name
+     * @param $code
+     * @param OrganisationProfile $profile
+     * @return mixed
+     */
+    public function create($name, $code, OrganisationProfile $profile)
+    {
+        return $this->request(new CreatenOrganisationRequest($name, $code,  $profile));
     }
 }
