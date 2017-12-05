@@ -6,6 +6,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - none
 
+## [3.0.0]
+### Fixed
+- Dropped support for php 5.4 and 5.5
+- Upgraded "illuminate/container": "v5.2.28"
+
+## [2.4.1]
+### Fixed
+- Added the create organistion call
+
 ## [2.3.5]
 ### Fixed
 - Added the order discount field
