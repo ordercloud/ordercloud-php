@@ -81,7 +81,7 @@ class CreatenOrganisationRequest implements Command
      * @param string $currencyCode
      * @param string $timezoneOffset
      */
-    public function __construct($name, $code, OrganisationProfile $profile, array $types = [],  array $industry = [],  $registeredDirectly = true, $currencyCode = 'ZA', $timezoneOffset='+2')
+    public function __construct($name, $code, OrganisationProfile $profile = null, array $types = [],  array $industry = [],  $registeredDirectly = true, $currencyCode = 'ZA', $timezoneOffset='+2')
     {
         $this->name = $name;
         $this->code = $code;

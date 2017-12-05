@@ -173,7 +173,7 @@ class OrganisationService extends OrdercloudService
      * @param OrganisationProfile $profile
      * @return mixed
      */
-    public function createOrganisation($name, $code, OrganisationProfile $profile)
+    public function createOrganisation($name, $code, OrganisationProfile $profile = null)
     {
         return $this->request(new CreatenOrganisationRequest($name, $code,  $profile));
     }
